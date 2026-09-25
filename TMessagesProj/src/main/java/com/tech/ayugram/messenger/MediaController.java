@@ -82,14 +82,14 @@ import androidx.media3.extractor.jpeg.MotionPhotoDescription;
 import androidx.media3.extractor.jpeg.XmpMotionPhotoDescriptionParser;
 
 import com.tech.ayugram.ui.AspectRatioFrameLayout;
-import com.google.android.gms.cast.MediaMetadata;
-import com.google.android.gms.common.images.WebImage;
+// import com.google.android.gms.cast.MediaMetadata; (Phase 2: remove Cast)
+// import com.google.android.gms.common.images.WebImage; (Phase 2: remove Cast)
 
 import com.tech.ayugram.messenger.audioinfo.AudioInfo;
-import com.tech.ayugram.messenger.chromecast.ChromecastController;
-import com.tech.ayugram.messenger.chromecast.ChromecastFileServer;
-import com.tech.ayugram.messenger.chromecast.ChromecastMedia;
-import com.tech.ayugram.messenger.chromecast.ChromecastMediaVariations;
+// import com.tech.ayugram.messenger.chromecast.ChromecastController; (Phase 2: remove Cast)
+// import com.tech.ayugram.messenger.chromecast.ChromecastFileServer; (Phase 2: remove Cast)
+// import com.tech.ayugram.messenger.chromecast.ChromecastMedia; (Phase 2: remove Cast)
+// import com.tech.ayugram.messenger.chromecast.ChromecastMediaVariations; (Phase 2: remove Cast)
 import com.tech.ayugram.messenger.video.MediaCodecVideoConvertor;
 import com.tech.ayugram.messenger.voip.VoIPService;
 import com.tech.ayugram.tgnet.ConnectionsManager;

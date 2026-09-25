@@ -1,103 +1,32 @@
 package com.tech.ayugram.messenger.chromecast;
 
-import android.text.TextUtils;
+/**
+ * Phase 2: Stub implementation of ChromecastControllerState (Cast dependency removed)
+ */
+public class ChromecastControllerState {
+    public static final int STATE_IDLE = 0;
+    public static final int STATE_CONNECTING = 1;
+    public static final int STATE_CONNECTED = 2;
+    public static final int STATE_CASTING = 3;
+    public static final int STATE_BUFFERING = 4;
+    public static final int STATE_ERROR = 5;
 
-import androidx.annotation.Nullable;
+    private int state = STATE_IDLE;
+    private String errorMessage;
 
-import com.tech.ayugram.messenger.Utilities;
-
-import java.io.File;
-
-class ChromecastControllerState {
-    private ChromecastFileServer server;
-    private ChromecastMediaVariations media;
-    private ChromecastController.RemoteMediaClientHandler client;
-
-    public void setMedia(ChromecastMediaVariations m) {
-        if (client != null && m != null) {
-            addToFileServer(m);
-        }
-
-        if (client != null && media != null) {
-            removeFromFileServer(media);
-        }
-
-        if (m != null && m.getVariationsCount() > 0 && !m.getVariation(0).mimeType.startsWith("audio/")) {
-            if (server != null) {
-                server.setCoverFile(null, null);
-            }
-        }
-
-        if (client != null && m != null) {
-            client.load(m);
-        }
-
-        media = m;
+    public int getState() {
+        return state;
     }
 
-    public String setCoverFile(File file) {
-        if (file != null && server != null && server.getCoverFile() != null && TextUtils.equals(server.getCoverFile().getAbsolutePath(), file.getAbsolutePath())) {
-            return server.getCoverPath();
-        }
-        final String path = "/file" + Utilities.fastRandom.nextLong();
-        if (server == null) {
-            server = new ChromecastFileServer();
-        }
-        server.setCoverFile(path, file);
-        return path;
+    public void setState(int state) {
+        this.state = state;
     }
 
-    @Nullable
-    public ChromecastMediaVariations getMedia() {
-        return media;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
-    public void setClient(ChromecastController.RemoteMediaClientHandler c) {
-        if (media != null && client == null && c != null) {
-            addToFileServer(media);
-        }
-
-        if (client != null && media != null && c == null) {
-            removeFromFileServer(media);
-        }
-
-        if (client != null) {
-            client.unregister();
-        }
-
-        if (c != null) {
-            c.register();
-
-            if (media != null) {
-                c.load(media);
-            }
-        }
-
-        client = c;
-    }
-
-    @Nullable
-    public ChromecastController.RemoteMediaClientHandler getClient() {
-        return client;
-    }
-
-    private void addToFileServer(ChromecastMediaVariations media) {
-        if (server == null) {
-            server = new ChromecastFileServer();
-        }
-
-        for (int a = 0; a < media.getVariationsCount(); a++) {
-            server.addFileToCast(media.getVariation(a));
-        }
-    }
-
-    private void removeFromFileServer(ChromecastMediaVariations media) {
-        if (server == null) {
-            return;
-        }
-
-        for (int a = 0; a < media.getVariationsCount(); a++) {
-            server.removeFileFromCast(media.getVariation(a));
-        }
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

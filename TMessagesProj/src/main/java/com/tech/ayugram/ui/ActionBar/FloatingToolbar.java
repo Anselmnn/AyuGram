@@ -71,7 +71,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.view.menu.MenuItemImpl;
+// import androidx.appcompat.view.menu.MenuItemImpl; (Phase 2: internal class removed)
 
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.BotWebViewVibrationEffect;

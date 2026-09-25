@@ -3,29 +3,27 @@ package com.tech.ayugram.messenger.chromecast;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.mediarouter.media.MediaRouteProvider;
+import androidx.mediarouter.media.MediaRouteProviderDescriptor;
 
-import com.google.android.gms.cast.CastMediaControlIntent;
-import com.google.android.gms.cast.LaunchOptions;
+import com.google.android.gms.cast.framework.CastContext;
 import com.google.android.gms.cast.framework.CastOptions;
 import com.google.android.gms.cast.framework.OptionsProvider;
-import com.google.android.gms.cast.framework.SessionProvider;
-import com.google.android.gms.cast.framework.media.CastMediaOptions;
 
-import java.util.List;
-
+/**
+ * Phase 2: Stub implementation of ChromecastOptionsProvider (Cast dependency removed)
+ */
 public class ChromecastOptionsProvider implements OptionsProvider {
-    private static final CastOptions castOptions = new CastOptions.Builder()
-        .setReceiverApplicationId(CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID)
-        .build();
-
-    @NonNull
     @Override
     public CastOptions getCastOptions(@NonNull Context context) {
-        return castOptions;
+        // Stub: return null options
+        return new CastOptions.Builder()
+                .setReceiverApplicationId("stub")
+                .build();
     }
 
     @Override
-    public List<SessionProvider> getAdditionalSessionProviders(@NonNull Context context) {
-        return null;
+    public MediaRouteProviderDescriptor getMediaRouteProviderDescriptor(@NonNull Context context) {
+        return new MediaRouteProviderDescriptor.Builder().build();
     }
 }

@@ -1,49 +1,50 @@
 package com.tech.ayugram.messenger.chromecast;
 
-import java.util.ArrayList;
+import com.tech.ayugram.messenger.MessageObject;
+import com.tech.ayugram.tgnet.TLRPC;
+import com.tech.ayugram.ui.Components.CubicBezierInterpolator;
 
+import java.io.File;
+
+/**
+ * Phase 2: Stub implementation of ChromecastMediaVariations (Cast dependency removed)
+ */
 public class ChromecastMediaVariations {
-    private final ArrayList<ChromecastMedia> variations;
+    public static final String CONTENT_TYPE_AUDIO = "audio";
+    public static final String CONTENT_TYPE_VIDEO = "video";
+    public static final String CONTENT_TYPE_IMAGE = "image";
 
-    private ChromecastMediaVariations(ArrayList<ChromecastMedia> list) {
-        variations = list;
-    }
+    private final ChromecastMedia media;
 
     private ChromecastMediaVariations(ChromecastMedia media) {
-        variations = new ArrayList<>(1);
-        variations.add(media);
+        this.media = media;
     }
 
-    public int getVariationsCount () {
-        return variations.size();
+    public static ChromecastMediaVariations of(ChromecastMedia media) {
+        return new ChromecastMediaVariations(media);
     }
 
-    public ChromecastMedia getVariation(int index) {
-        return variations.get(index);
+    public ChromecastMedia getMedia() {
+        return media;
     }
 
-    public static ChromecastMediaVariations of (ChromecastMedia list) {
-        return new ChromecastMediaVariations(list);
+    public ChromecastMediaVariations withContentType(String contentType) {
+        return this;
     }
 
-    public static ChromecastMediaVariations of (ArrayList<ChromecastMedia> list) {
-        return new ChromecastMediaVariations(list);
+    public ChromecastMediaVariations withTitle(String title) {
+        return this;
     }
 
-    public static class Builder {
-        private final ArrayList<ChromecastMedia> variations = new ArrayList<>();
+    public ChromecastMediaVariations withSubtitle(String subtitle) {
+        return this;
+    }
 
-        public Builder add (ChromecastMedia media) {
-            this.variations.add(media);
-            return this;
-        }
+    public ChromecastMediaVariations withImageUrl(String imageUrl) {
+        return this;
+    }
 
-        public ChromecastMediaVariations build () {
-            return new ChromecastMediaVariations(this.variations);
-        }
-
-        public boolean isEmpty () {
-            return this.variations.isEmpty();
-        }
+    public ChromecastMediaVariations withDuration(long duration) {
+        return this;
     }
 }

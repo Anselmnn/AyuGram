@@ -151,10 +151,10 @@ import androidx.media3.common.Format;
 import androidx.media3.exoplayer.analytics.AnalyticsListener;
 import androidx.media3.exoplayer.video.VideoFrameMetadataListener;
 import androidx.media3.common.VideoSize;
-import com.google.android.gms.cast.framework.CastContext;
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.face.Face;
-import com.google.android.gms.vision.face.FaceDetector;
+// import com.google.android.gms.cast.framework.CastContext; (Phase 2: remove Cast)
+// import com.google.android.gms.vision.Frame; (Phase 2: remove Vision)
+// import com.google.android.gms.vision.face.Face; (Phase 2: remove Vision)
+// import com.google.android.gms.vision.face.FaceDetector; (Phase 2: remove Vision)
 import com.tech.ayugram.messenger.AccountInstance;
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.AnimationNotificationsLocker;
@@ -5827,20 +5827,21 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                 }
             }
         };
-        boolean castAvailable = true;
-        try {
-            castItemButton.setRouteSelector(CastContext.getSharedInstance(activityContext).getMergedSelector());
-        } catch (Exception e) {
-            FileLog.e(e);
-            castAvailable = false;
-        }
-        castItemButton.setVisibility(View.INVISIBLE);
-        if (castAvailable) {
-            castItem = videoItem.addSubItem(gallery_menu_chromecast, R.drawable.menu_video_chromecast, getString(R.string.VideoPlayerChromecast));
-            castItem.setEnabledByColor(false, 0xFFFFFFFF, 0xFF73B4EC);
-            castItem.setSelectorColor(0x0fffffff);
-            castItem.addView(castItemButton, 0, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
-        }
+        // Phase 2: remove Cast
+//         boolean castAvailable = true;
+//         try {
+//             castItemButton.setRouteSelector(CastContext.getSharedInstance(activityContext).getMergedSelector());
+//         } catch (Exception e) {
+//             FileLog.e(e);
+//             castAvailable = false;
+//         }
+//         castItemButton.setVisibility(View.INVISIBLE);
+//         if (castAvailable) {
+//             castItem = videoItem.addSubItem(gallery_menu_chromecast, R.drawable.menu_video_chromecast, getString(R.string.VideoPlayerChromecast));
+//             castItem.setEnabledByColor(false, 0xFFFFFFFF, 0xFF73B4EC);
+//             castItem.setSelectorColor(0x0fffffff);
+//             castItem.addView(castItemButton, 0, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
+//         }
 
         videoItem.redrawPopup(0xf9222222);
         videoItem.setOnMenuDismiss(byClick -> checkProgress(0, false, false));
@@ -11863,48 +11864,49 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
     }
 
     private void detectFaces(String key, ImageReceiver.BitmapHolder bitmap, int orientation) {
-        if (key == null || bitmap == null || bitmap.bitmap == null) {
-            return;
-        }
-        Utilities.globalQueue.postRunnable(() -> {
-            FaceDetector faceDetector = null;
-            try {
-                faceDetector = new FaceDetector.Builder(ApplicationLoader.applicationContext)
-                        .setMode(FaceDetector.FAST_MODE)
-                        .setLandmarkType(FaceDetector.NO_LANDMARKS)
-                        .setTrackingEnabled(false).build();
-                if (faceDetector.isOperational()) {
-                    Frame frame = new Frame.Builder().setBitmap(bitmap.bitmap).setRotation(orientation).build();
-                    SparseArray<Face> faces = faceDetector.detect(frame);
-                    boolean hasFaces = faces != null && faces.size() != 0;
-                    AndroidUtilities.runOnUIThread(() -> {
-                        String imageKey = centerImage.getImageKey();
-                        if (key.equals(imageKey)) {
-                            currentImageHasFace = hasFaces ? 1 : 0;
-                            currentImageFaceKey = key;
-                        }
-                    });
-                } else {
-                    if (BuildVars.LOGS_ENABLED) {
-                        FileLog.e("face detection is not operational");
-                    }
-                    AndroidUtilities.runOnUIThread(() -> {
-                        bitmap.release();
-                        String imageKey = centerImage.getImageKey();
-                        if (key.equals(imageKey)) {
-                            currentImageHasFace = 2;
-                            currentImageFaceKey = key;
-                        }
-                    });
-                }
-            } catch (Exception e) {
-                FileLog.e(e);
-            } finally {
-                if (faceDetector != null) {
-                    faceDetector.release();
-                }
-            }
-        });
+        // Phase 2: remove Vision (FaceDetector)
+        // if (key == null || bitmap == null || bitmap.bitmap == null) {
+        //     return;
+        // }
+        // Utilities.globalQueue.postRunnable(() -> {
+        //     FaceDetector faceDetector = null;
+        //     try {
+        //         faceDetector = new FaceDetector.Builder(ApplicationLoader.applicationContext)
+        //                 .setMode(FaceDetector.FAST_MODE)
+        //                 .setLandmarkType(FaceDetector.NO_LANDMARKS)
+        //                 .setTrackingEnabled(false).build();
+        //         if (faceDetector.isOperational()) {
+        //             Frame frame = new Frame.Builder().setBitmap(bitmap.bitmap).setRotation(orientation).build();
+        //             SparseArray<Face> faces = faceDetector.detect(frame);
+        //             boolean hasFaces = faces != null && faces.size() != 0;
+        //             AndroidUtilities.runOnUIThread(() -> {
+        //                 String imageKey = centerImage.getImageKey();
+        //                 if (key.equals(imageKey)) {
+        //                     currentImageHasFace = hasFaces ? 1 : 0;
+        //                     currentImageFaceKey = key;
+        //                 }
+        //             });
+        //         } else {
+        //             if (BuildVars.LOGS_ENABLED) {
+        //                 FileLog.e("face detection is not operational");
+        //             }
+        //             AndroidUtilities.runOnUIThread(() -> {
+        //                 bitmap.release();
+        //                 String imageKey = centerImage.getImageKey();
+        //                 if (key.equals(imageKey)) {
+        //                     currentImageHasFace = 2;
+        //                     currentImageFaceKey = key;
+        //                 }
+        //             });
+        //         }
+        //     } catch (Exception e) {
+        //         FileLog.e(e);
+        //     } finally {
+        //         if (faceDetector != null) {
+        //             faceDetector.release();
+        //         }
+        //     }
+        // });
     }
 
     private boolean wasCountViewShown;
