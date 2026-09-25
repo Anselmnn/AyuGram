@@ -733,7 +733,7 @@ public class CameraView extends FrameLayout implements TextureView.SurfaceTextur
         float size4to3 = 4.0f / 3.0f;
         float size16to9 = 16.0f / 9.0f;
         float screenSize = (float) Math.max(AndroidUtilities.displaySize.x, AndroidUtilities.displaySize.y) / Math.min(AndroidUtilities.displaySize.x, AndroidUtilities.displaySize.y);
-        com.tech.ayugram.camera.Size aspectRatio;
+        com.tech.ayugram.messenger.camera.Size aspectRatio;
         int wantedWidth;
         int wantedHeight;
 
