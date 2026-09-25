@@ -1,0 +1,181 @@
+# AyuGram CI — базовая сборка (Фазы 0–7: debug; Фаза 8: + signed release)
+# Подход: darakcheeff/AyuGramDesktop (git-mtime + кеш сборки + ccache)
+#
+# Механика инкрементальной пересборки («только изменившиеся файлы»):
+#  1) fetch-depth: 0 — полная история (нужна для git-mtime ниже)
+#  2) Restore Git Timestamps — mtime каждого файла = время последнего коммита,
+#     коснувшегося файла. В кэше сборки артефакты НОВЕЕ неизменённых исходников
+#     → CMake/NDK и Gradle не пересобирают их. Изменившийся файл (новый коммит)
+#     получает mtime=now → пересобирается. Без этого шага каждый checkout ставит
+#     mtime=now на всё → полный ребилд нативки (~7300 C/C++ файлов в jni/).
+#  3) actions/cache: ~/.gradle (зависимости, NDK-кач, gradle build-cache),
+#     ANDROID_HOME (SDK+NDK ~2.5G, лицензии приняты), ~/.ccache (ccache NDK),
+#     TMessagesProj/.cxx + TMessagesProj/build (состояние CMake/NDK и Gradle —
+#     make-уровень: не тронутые .o не компилируются, линк только затронутых).
+#  4) ccache — страховочный слой для C/C++/ASM (env CMAKE_*_COMPILER_LAUNCHER,
+#     CMake читает их из процесса-вызывающего — правка CMakeLists не нужна).
+#
+# Кеш сохраняется с if: always() — даже упавшая сборка оставляет частичный кеш,
+# следующий прогон продолжает с места падения.
+
+name: Build AyuGram
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-debug:
+    name: Assemble Debug (incremental)
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      ANDROID_HOME: /home/runner/android-sdk
+    steps:
+      - name: Free Disk Space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+
+      - name: Checkout repository (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Restore Git Timestamps
+        run: |
+          python3 -c '
+          import subprocess, os
+          out = subprocess.check_output(["git", "log", "--name-only", "--pretty=format:%ct"]).decode("utf-8")
+          cur_time = None
+          seen = set()
+          for line in out.splitlines():
+              line = line.strip()
+              if not line:
+                  continue
+              if line.isdigit():
+                  cur_time = int(line)
+              elif cur_time and line not in seen:
+                  seen.add(line)
+                  if os.path.exists(line):
+                      try:
+                          os.utime(line, (cur_time, cur_time))
+                      except Exception:
+                          pass
+          ' || true
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install ccache
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ccache
+
+      - name: Cache Android SDK + NDK
+        uses: actions/cache@v4
+        id: sdk-cache
+        with:
+          path: |
+            ~/android-sdk
+          key: ayugram-sdk-36-ndk-27.2-bt-36-cmake-3.22.1
+
+      - name: Install Android SDK / NDK / CMake
+        if: steps.sdk-cache.outputs.cache-hit != 'true'
+        run: |
+          export ANDROID_HOME=/home/runner/android-sdk
+          export ANDROID_SDK_ROOT=$ANDROID_HOME
+          mkdir -p "$ANDROID_HOME/cmdline-tools"
+          curl -fsSL "https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip" -o /tmp/cmdtools.zip
+          unzip -q /tmp/cmdtools.zip -d /tmp/cmdtools
+          mv /tmp/cmdtools/cmdline-tools "$ANDROID_HOME/cmdline-tools/latest"
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" --licenses > /dev/null
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" \
+            "build-tools;36.0.0" \
+            "platforms;android-36" \
+            "platform-tools" \
+            "ndk;27.2.12479018" \
+            "cmake;3.22.1"
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/wrapper
+            ~/.gradle/caches
+          key: ayugram-gradle-8.13-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+
+      - name: Cache NDK/CMake build state + Gradle build
+        uses: actions/cache@v4
+        with:
+          path: |
+            TMessagesProj/.cxx
+            TMessagesProj/build
+            TMessagesProj_App/build
+          key: ayugram-native-build-${{ github.run_id }}
+          restore-keys: |
+            ayugram-native-build-
+
+      - name: Cache ccache
+        uses: actions/cache@v4
+        with:
+          path: ~/.ccache
+          key: ayugram-ccache-${{ github.run_id }}
+          restore-keys: |
+            ayugram-ccache-
+
+      - name: Build (assembleDebug)
+        env:
+          CCACHE_DIR: /home/runner/.ccache
+          CCACHE_BASEDIR: /home/runner/work/AyuGram/AyuGram
+          CCACHE_NOHASHDIR: '1'
+          CCACHE_DEPEND: '1'
+          CCACHE_MAXSIZE: 8G
+          CCACHE_SLOPPINESS: include_file_mtime,time_macros,include_file_ctime,file_macro,line_macro
+          CCACHE_COMPILERCHECK: content
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
+          CMAKE_ASM_COMPILER_LAUNCHER: ccache
+        run: |
+          ccache -z
+          ./gradlew :TMessagesProj_App:assembleDebug -PCI_ABIS=arm64-v8a --stacktrace
+          ccache -s
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ayugram-debug
+          path: TMessagesProj_App/build/outputs/apk/**/debug/*.apk
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Save native build cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            TMessagesProj/.cxx
+            TMessagesProj/build
+            TMessagesProj_App/build
+          key: ayugram-native-build-${{ github.run_id }}
+
+      - name: Save ccache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.ccache
+          key: ayugram-ccache-${{ github.run_id }}
