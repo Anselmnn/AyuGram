@@ -46,8 +46,8 @@ dependencies {
     implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.webkit:webkit:1.14.0'
 
-    implementation 'com.google.android.gms:play-services-cast-framework:21.4.0'
-    implementation "androidx.mediarouter:mediarouter:1.7.0"
+    // implementation 'com.google.android.gms:play-services-cast-framework:21.4.0' (Phase 2: remove Cast)
+    // implementation "androidx.mediarouter:mediarouter:1.7.0" (Phase 2: remove Cast)
     implementation 'com.google.zxing:core:3.5.4'
 
     implementation 'androidx.car.app:app:1.4.0'
@@ -56,29 +56,29 @@ dependencies {
 
     compileOnly 'org.checkerframework:checker-qual:2.5.2'
     compileOnly 'org.checkerframework:checker-compat-qual:2.5.0'
-    implementation 'com.google.firebase:firebase-messaging:22.0.0'
-    implementation 'com.google.firebase:firebase-datatransport:18.1.0'
-    implementation 'com.google.firebase:firebase-appindexing:20.0.0'
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.android.gms:play-services-auth:20.4.0'
-    implementation 'com.google.android.gms:play-services-vision:20.1.3'
-    implementation 'com.google.android.gms:play-services-wearable:18.0.0'
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
-    implementation 'com.google.android.gms:play-services-wallet:19.1.0'
-    implementation 'com.googlecode.mp4parser:isoparser:1.0.6'
-    implementation 'com.stripe:stripe-android:2.0.2'
-    implementation 'com.google.mlkit:language-id:17.0.6'
-    implementation 'com.android.billingclient:billing:8.0.0'
+    // implementation 'com.google.firebase:firebase-messaging:22.0.0' (Phase 2: remove Firebase)
+    // implementation 'com.google.firebase:firebase-datatransport:18.1.0' (Phase 2: remove Firebase)
+    // implementation 'com.google.firebase:firebase-appindexing:20.0.0' (Phase 2: remove Firebase App Indexing)
+    // implementation 'com.google.android.gms:play-services-maps:18.1.0' (Phase 2: remove Maps)
+    // implementation 'com.google.android.gms:play-services-auth:20.4.0' (Phase 2: remove Auth)
+    // implementation 'com.google.android.gms:play-services-vision:20.1.3' (Phase 2: remove ML Kit Vision)
+    // implementation 'com.google.android.gms:play-services-wearable:18.0.0' (Phase 2: remove Wearable)
+    // implementation 'com.google.android.gms:play-services-location:21.0.1' (Phase 2: remove Location)
+    // implementation 'com.google.android.gms:play-services-wallet:19.1.0' (Phase 2: remove Wallet)
+    // implementation 'com.googlecode.mp4parser:isoparser:1.0.6' (Phase 2: keep?)
+//     implementation 'com.stripe:stripe-android:2.0.2' (Phase 2: remove Stripe)
+    // implementation 'com.google.mlkit:language-id:17.0.6' (Phase 2: remove ML Kit)
+    // implementation 'com.android.billingclient:billing:8.0.0' (Phase 2: remove Billing)
     implementation 'com.google.code.gson:gson:2.11.0'
     implementation 'com.google.guava:guava:31.1-android'
-    implementation 'com.google.android.play:integrity:1.3.0'
-    implementation 'com.google.android.gms:play-services-safetynet:18.0.1'
+    // implementation 'com.google.android.play:integrity:1.3.0' (Phase 2: keep for compilation only)
+    // implementation 'com.google.android.gms:play-services-safetynet:18.0.1' (Phase 2: remove SafetyNet)
 
-    implementation 'com.google.android.gms:play-services-mlkit-subject-segmentation:16.0.0-beta1'
-    implementation 'com.google.android.gms:play-services-mlkit-image-labeling:16.0.8'
+    // implementation 'com.google.android.gms:play-services-mlkit-subject-segmentation:16.0.0-beta1' (Phase 2: remove ML Kit)
+    // implementation 'com.google.android.gms:play-services-mlkit-image-labeling:16.0.8' (Phase 2: remove ML Kit)
 
-    implementation "androidx.credentials:credentials:1.6.0-alpha04"
-    implementation "androidx.credentials:credentials-play-services-auth:1.6.0-alpha04"
+    // implementation "androidx.credentials:credentials:1.6.0-alpha04" (Phase 2: remove Credentials)
+//     implementation "androidx.credentials:credentials-play-services-auth:1.6.0-alpha04" (Phase 2: remove Credentials)
 
     implementation "io.noties.markwon:core:4.6.2"
     implementation "io.noties.markwon:ext-strikethrough:4.6.2"
@@ -106,7 +106,7 @@ dependencies {
             because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
         }
     }
-    implementation 'com.google.android.recaptcha:recaptcha:18.7.1'
+    //     implementation 'com.google.android.recaptcha:recaptcha:18.7.1' (Phase 2: remove reCAPTCHA)
 
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 }
