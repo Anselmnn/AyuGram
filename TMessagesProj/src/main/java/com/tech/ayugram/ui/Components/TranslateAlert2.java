@@ -2,7 +2,7 @@ package com.tech.ayugram.ui.Components;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
-import static com.tech.ayugram.TranslateController.normalizeLanguage;
+import static com.tech.ayugram.messenger.TranslateController.normalizeLanguage;
 
 import android.content.Context;
 import android.graphics.Canvas;

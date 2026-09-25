@@ -1,6 +1,6 @@
 package com.tech.ayugram.messenger;
 
-import static com.tech.ayugram.CacheByChatsController.KEEP_MEDIA_TYPE_STORIES;
+import static com.tech.ayugram.messenger.CacheByChatsController.KEEP_MEDIA_TYPE_STORIES;
 
 import android.util.SparseArray;
 

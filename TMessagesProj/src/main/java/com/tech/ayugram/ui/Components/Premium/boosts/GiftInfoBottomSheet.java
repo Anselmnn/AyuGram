@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.Components.Premium.boosts;
 
-import static org.telegram.tgnet.TLRPC.TL_payments_checkedGiftCode.NO_USER_ID;
+import static com.tech.ayugram.messenger.tgnet.TLRPC.TL_payments_checkedGiftCode.NO_USER_ID;
 
 import android.content.Intent;
 import android.net.Uri;

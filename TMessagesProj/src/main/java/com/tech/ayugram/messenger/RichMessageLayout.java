@@ -2,8 +2,8 @@ package com.tech.ayugram.messenger;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
-import static org.telegram.tgnet.TLObject.hasFlag;
-import static org.telegram.tgnet.TLObject.setFlag;
+import static com.tech.ayugram.messenger.tgnet.TLObject.hasFlag;
+import static com.tech.ayugram.messenger.tgnet.TLObject.setFlag;
 
 import android.content.Context;
 import android.content.ContextWrapper;

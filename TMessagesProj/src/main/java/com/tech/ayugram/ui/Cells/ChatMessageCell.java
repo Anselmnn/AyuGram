@@ -731,7 +731,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
         default void didPressInstantButton(ChatMessageCell cell, int type) {
         }
 
-        default boolean openArticlePhoto(ChatMessageCell cell, org.telegram.tgnet.tl.TL_iv.PageBlock block) {
+        default boolean openArticlePhoto(ChatMessageCell cell, com.tech.ayugram.messenger.tgnet.tl.TL_iv.PageBlock block) {
             return false;
         }
 

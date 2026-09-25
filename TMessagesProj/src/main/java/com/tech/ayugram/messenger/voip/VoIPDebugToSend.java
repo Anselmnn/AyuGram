@@ -1,6 +1,6 @@
 package com.tech.ayugram.messenger.voip;
 
-import static com.tech.ayugram.voip.VoIPService.getStringFromFile;
+import static com.tech.ayugram.messenger.voip.VoIPService.getStringFromFile;
 
 import android.text.TextUtils;
 

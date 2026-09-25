@@ -7,7 +7,7 @@ import static com.tech.ayugram.messenger.AndroidUtilities.replaceSingleTag;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static com.tech.ayugram.TranslateController.normalizeLanguage;
+import static com.tech.ayugram.messenger.TranslateController.normalizeLanguage;
 import static com.tech.ayugram.ui.Components.TranslateAlert2.capitalFirst;
 import static com.tech.ayugram.ui.Components.TranslateAlert2.languageName;
 
