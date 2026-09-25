@@ -10,9 +10,9 @@ package com.tech.ayugram.messenger;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static com.tech.ayugram.NotificationsController.TYPE_CHANNEL;
-import static com.tech.ayugram.NotificationsController.TYPE_PRIVATE;
-import static com.tech.ayugram.NotificationsController.TYPE_REACTIONS_MESSAGES;
+import static com.tech.ayugram.messenger.NotificationsController.TYPE_CHANNEL;
+import static com.tech.ayugram.messenger.NotificationsController.TYPE_PRIVATE;
+import static com.tech.ayugram.messenger.NotificationsController.TYPE_REACTIONS_MESSAGES;
 import static com.tech.ayugram.messenger.Utilities.tryParseLong;
 import static com.tech.ayugram.ui.Stars.StarsController.findAttribute;
 import static com.tech.ayugram.ui.Stories.HighlightMessageSheet.parseTiers;

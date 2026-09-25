@@ -8,7 +8,7 @@
 
 package com.tech.ayugram.messenger;
 
-import static com.tech.ayugram.ImageLoader.getHttpUrlExtension;
+import static com.tech.ayugram.messenger.ImageLoader.getHttpUrlExtension;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

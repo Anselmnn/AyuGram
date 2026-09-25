@@ -10,12 +10,12 @@ package com.tech.ayugram.ui;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static com.tech.ayugram.NotificationsController.TYPE_CHANNEL;
-import static com.tech.ayugram.NotificationsController.TYPE_GROUP;
-import static com.tech.ayugram.NotificationsController.TYPE_PRIVATE;
-import static com.tech.ayugram.NotificationsController.TYPE_REACTIONS_MESSAGES;
-import static com.tech.ayugram.NotificationsController.TYPE_REACTIONS_STORIES;
-import static com.tech.ayugram.NotificationsController.TYPE_STORIES;
+import static com.tech.ayugram.messenger.NotificationsController.TYPE_CHANNEL;
+import static com.tech.ayugram.messenger.NotificationsController.TYPE_GROUP;
+import static com.tech.ayugram.messenger.NotificationsController.TYPE_PRIVATE;
+import static com.tech.ayugram.messenger.NotificationsController.TYPE_REACTIONS_MESSAGES;
+import static com.tech.ayugram.messenger.NotificationsController.TYPE_REACTIONS_STORIES;
+import static com.tech.ayugram.messenger.NotificationsController.TYPE_STORIES;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

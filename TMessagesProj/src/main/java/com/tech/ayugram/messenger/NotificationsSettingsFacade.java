@@ -1,8 +1,8 @@
 package com.tech.ayugram.messenger;
 
-import static com.tech.ayugram.NotificationsController.TYPE_PRIVATE;
-import static com.tech.ayugram.NotificationsController.TYPE_REACTIONS_MESSAGES;
-import static com.tech.ayugram.NotificationsController.TYPE_REACTIONS_STORIES;
+import static com.tech.ayugram.messenger.NotificationsController.TYPE_PRIVATE;
+import static com.tech.ayugram.messenger.NotificationsController.TYPE_REACTIONS_MESSAGES;
+import static com.tech.ayugram.messenger.NotificationsController.TYPE_REACTIONS_STORIES;
 
 import android.content.SharedPreferences;
 
