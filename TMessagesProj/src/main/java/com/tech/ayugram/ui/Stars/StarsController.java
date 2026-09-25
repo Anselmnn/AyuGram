@@ -19,10 +19,10 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingFlowParams;
-import com.android.billingclient.api.ProductDetails;
-import com.android.billingclient.api.QueryProductDetailsParams;
+// import com.android.billingclient.api.BillingClient; (Phase 2: remove Billing)
+// import com.android.billingclient.api.BillingFlowParams; (Phase 2: remove Billing)
+// import com.android.billingclient.api.ProductDetails; (Phase 2: remove Billing)
+// import com.android.billingclient.api.QueryProductDetailsParams; (Phase 2: remove Billing)
 
 import org.json.JSONObject;
 import com.tech.ayugram.SQLite.SQLiteCursor;
@@ -70,7 +70,7 @@ import com.tech.ayugram.ui.Components.BulletinFactory;
 import com.tech.ayugram.ui.Components.LayoutHelper;
 import com.tech.ayugram.ui.Components.SharedMediaLayout;
 import com.tech.ayugram.ui.LaunchActivity;
-import com.tech.ayugram.ui.PaymentFormActivity;
+// import com.tech.ayugram.ui.PaymentFormActivity; (Phase 2: remove Billing)
 import com.tech.ayugram.ui.ProfileActivity;
 import com.tech.ayugram.ui.TON.TONIntroActivity;
 import com.tech.ayugram.ui.bots.BotWebViewSheet;

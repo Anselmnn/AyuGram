@@ -147,9 +147,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.android.internal.telephony.ITelephony;
 import androidx.media3.common.util.Consumer;
-import com.google.android.gms.auth.api.phone.SmsRetriever;
-import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
-import com.google.android.gms.tasks.Task;
+// import com.google.android.gms.auth.api.phone.SmsRetriever; (Phase 2: remove SMS Retriever)
+// import com.google.android.gms.auth.api.phone.SmsRetrieverClient; (Phase 2: remove SMS Retriever)
+// import com.google.android.gms.tasks.Task; (Phase 2: remove Play Services Tasks)
 
 import com.tech.ayugram.PhoneFormat.PhoneFormat;
 import com.tech.ayugram.messenger.browser.Browser;
@@ -2435,13 +2435,14 @@ public class AndroidUtilities {
             waitingForSms = value;
             try {
                 if (waitingForSms) {
-                    SmsRetrieverClient client = SmsRetriever.getClient(ApplicationLoader.applicationContext);
-                    Task<Void> task = client.startSmsRetriever();
-                    task.addOnSuccessListener(aVoid -> {
-                        if (BuildVars.DEBUG_VERSION) {
-                            FileLog.d("sms listener registered");
-                        }
-                    });
+                    // Phase 2: remove SMS Retriever
+                    // SmsRetrieverClient client = SmsRetriever.getClient(ApplicationLoader.applicationContext);
+                    // Task<Void> task = client.startSmsRetriever();
+                    // task.addOnSuccessListener(aVoid -> {
+                    //     if (BuildVars.DEBUG_VERSION) {
+                    //         FileLog.d("sms listener registered");
+                    //     }
+                    // });
                 }
             } catch (Throwable e) {
                 FileLog.e(e);
