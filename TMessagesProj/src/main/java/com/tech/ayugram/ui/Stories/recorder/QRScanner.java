@@ -94,4 +94,23 @@ public class QRScanner {
             this.cornerPoints = cornerPoints;
         }
     }
+
+    /**
+     * Phase 2: Stub for QR region drawer (Vision dependency removed)
+     */
+    public static class QrRegionDrawer {
+        private final Runnable onInvalidate;
+
+        public QrRegionDrawer(Runnable onInvalidate) {
+            this.onInvalidate = onInvalidate;
+        }
+
+        public void draw(android.graphics.Canvas canvas) {
+            // Phase 2: Vision removed - no QR region drawing
+        }
+
+        public void setRect(android.graphics.RectF rect) {
+            // Phase 2: Vision removed
+        }
+    }
 }

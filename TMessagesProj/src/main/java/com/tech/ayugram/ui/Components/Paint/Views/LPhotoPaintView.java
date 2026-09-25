@@ -50,9 +50,9 @@ import androidx.dynamicanimation.animation.FloatValueHolder;
 import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.dynamicanimation.animation.SpringForce;
 
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.face.Face;
-import com.google.android.gms.vision.face.FaceDetector;
+// import com.google.android.gms.vision.Frame; (Phase 2: remove Vision)
+// import com.google.android.gms.vision.face.Face; (Phase 2: remove Vision)
+// import com.google.android.gms.vision.face.FaceDetector; (Phase 2: remove Vision)
 
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.Bitmaps;
@@ -1632,10 +1632,10 @@ public class LPhotoPaintView extends SizeNotifierFrameLayoutPhoto implements IPh
 
     private int getFrameRotation() {
         switch (originalBitmapRotation) {
-            case 90: return Frame.ROTATION_90;
-            case 180: return Frame.ROTATION_180;
-            case 270: return Frame.ROTATION_270;
-            default: return Frame.ROTATION_0;
+            case 90: return 1; // Frame.ROTATION_90
+            case 180: return 2; // Frame.ROTATION_180
+            case 270: return 3; // Frame.ROTATION_270
+            default: return 0; // Frame.ROTATION_0
         }
     }
 
@@ -1643,48 +1643,9 @@ public class LPhotoPaintView extends SizeNotifierFrameLayoutPhoto implements IPh
         return originalBitmapRotation % 360 == 90 || originalBitmapRotation % 360 == 270;
     }
 
+    // Phase 2: Vision removed - face detection stub
     private void detectFaces() {
-        queue.postRunnable(() -> {
-            FaceDetector faceDetector = null;
-            try {
-                faceDetector = new FaceDetector.Builder(getContext())
-                        .setMode(FaceDetector.ACCURATE_MODE)
-                        .setLandmarkType(FaceDetector.ALL_LANDMARKS)
-                        .setTrackingEnabled(false).build();
-                if (!faceDetector.isOperational()) {
-                    if (BuildVars.LOGS_ENABLED) {
-                        FileLog.e("face detection is not operational");
-                    }
-                    return;
-                }
-
-                Frame frame = new Frame.Builder().setBitmap(facesBitmap).setRotation(getFrameRotation()).build();
-                SparseArray<Face> faces;
-                try {
-                    faces = faceDetector.detect(frame);
-                } catch (Throwable e) {
-                    FileLog.e(e);
-                    return;
-                }
-                ArrayList<PhotoFace> result = new ArrayList<>();
-                Size targetSize = getPaintingSize();
-                for (int i = 0; i < faces.size(); i++) {
-                    int key = faces.keyAt(i);
-                    Face f = faces.get(key);
-                    PhotoFace face = new PhotoFace(f, facesBitmap, targetSize, isSidewardOrientation());
-                    if (face.isSufficient()) {
-                        result.add(face);
-                    }
-                }
-                LPhotoPaintView.this.faces = result;
-            } catch (Exception e) {
-                FileLog.e(e);
-            } finally {
-                if (faceDetector != null) {
-                    faceDetector.release();
-                }
-            }
-        }, 200);
+        // Phase 2: Vision removed - no face detection
     }
 
     @Override

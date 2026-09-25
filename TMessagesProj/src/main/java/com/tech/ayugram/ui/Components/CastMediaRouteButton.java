@@ -2,85 +2,47 @@ package com.tech.ayugram.ui.Components;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.mediarouter.app.MediaRouteButton;
-import androidx.mediarouter.app.MediaRouteChooserDialog;
-import androidx.mediarouter.app.MediaRouteChooserDialogFragment;
-import androidx.mediarouter.app.MediaRouteControllerDialog;
-import androidx.mediarouter.app.MediaRouteControllerDialogFragment;
-import androidx.mediarouter.app.MediaRouteDialogFactory;
-import androidx.mediarouter.app.MediaRouteDynamicChooserDialog;
-import androidx.mediarouter.media.MediaRouteSelector;
+
+// import androidx.mediarouter.app.MediaRouteButton; (Phase 2: remove Cast)
+// import androidx.mediarouter.app.MediaRouteChooserDialog; (Phase 2: remove Cast)
+// import androidx.mediarouter.app.MediaRouteChooserDialogFragment; (Phase 2: remove Cast)
+// import androidx.mediarouter.app.MediaRouteControllerDialog; (Phase 2: remove Cast)
+// import androidx.mediarouter.app.MediaRouteControllerDialogFragment; (Phase 2: remove Cast)
+// import androidx.mediarouter.app.MediaRouteDialogFactory; (Phase 2: remove Cast)
+// import androidx.mediarouter.app.MediaRouteDynamicChooserDialog; (Phase 2: remove Cast)
+// import androidx.mediarouter.media.MediaRouteSelector; (Phase 2: remove Cast)
 
 import com.tech.ayugram.messenger.R;
 import com.tech.ayugram.ui.ActionBar.Theme;
 
-public class CastMediaRouteButton extends MediaRouteButton {
+/**
+ * Phase 2: Stub implementation of CastMediaRouteButton (Cast/Mediarouter dependency removed)
+ */
+public class CastMediaRouteButton extends android.widget.ImageButton {
 
     public CastMediaRouteButton(@NonNull Context context) {
         super(context);
-//        setDialogFactory(new MediaRouteDialogFactory() {
-//            @NonNull
-//            @Override
-//            public MediaRouteChooserDialogFragment onCreateChooserDialogFragment() {
-//                return new MyMediaRouteChooserDialogFragment();
-//            }
-//
-//            @NonNull
-//            @Override
-//            public MediaRouteControllerDialogFragment onCreateControllerDialogFragment() {
-//                return new MyMediaRouteControllerDialogFragment();
-//            }
-//        });
+        setVisibility(GONE);
     }
 
-    public static class MyMediaRouteChooserDialogFragment extends MediaRouteChooserDialogFragment {
-        @NonNull
-        @Override
-        public MediaRouteChooserDialog onCreateChooserDialog(@NonNull Context context, @Nullable Bundle savedInstanceState) {
-            ContextThemeWrapper themedContext = new ContextThemeWrapper(context, R.style.Theme_CastDialog);
-            return new MediaRouteChooserDialog(themedContext);
-        }
-
-        @Override
-        public void onStart() {
-            super.onStart();
-            if (getDialog() != null && getDialog().getWindow() != null) {
-                Drawable drawable = getContext().getResources().getDrawable(R.drawable.popup_fixed_alert3).mutate();
-                drawable.setColorFilter(new PorterDuffColorFilter(0xF9222222, PorterDuff.Mode.SRC_IN));
-                getDialog().getWindow().setBackgroundDrawable(drawable);
-            }
-        }
+    // Phase 2: Cast removed - all methods are no-ops
+    public static class MyMediaRouteChooserDialogFragment {
+        // Stub
     }
 
-    public static class MyMediaRouteControllerDialogFragment extends MediaRouteControllerDialogFragment {
-        @NonNull
-        @Override
-        public MediaRouteControllerDialog onCreateControllerDialog(@NonNull Context context, @Nullable Bundle savedInstanceState) {
-            ContextThemeWrapper themedContext = new ContextThemeWrapper(context, R.style.Theme_CastDialog);
-            return new MediaRouteControllerDialog(themedContext);
-        }
+    public static class MyMediaRouteControllerDialogFragment {
+        // Stub
     }
 
     private boolean lastConnected;
     public boolean isConnected() {
-        try {
-            java.lang.reflect.Field field = MediaRouteButton.class.getDeclaredField("mConnectionState");
-            field.setAccessible(true);
-            return ((int) field.get(this)) > 0;
-        } catch (Exception e) {
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -109,13 +71,10 @@ public class CastMediaRouteButton extends MediaRouteButton {
     }
 
     private void checkConnected() {
-        final boolean connected = isConnected();
-        if (lastConnected != connected) {
-            stateUpdated(lastConnected = connected);
-        }
+        // Stub
     }
 
     public void stateUpdated(boolean connected) {
-
+        // Stub
     }
 }
