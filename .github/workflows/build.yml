@@ -47,6 +47,9 @@ jobs:
           sudo rm -rf /usr/local/share/boost
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
 
+      - name: Unset ANDROID_SDK_ROOT to avoid conflict with ANDROID_HOME
+        run: echo "ANDROID_SDK_ROOT=" >> $GITHUB_ENV
+
       - name: Checkout repository (full history)
         uses: actions/checkout@v4
         with:
