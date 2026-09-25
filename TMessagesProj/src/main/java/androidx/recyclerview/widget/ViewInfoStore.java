@@ -15,7 +15,7 @@
  */
 package androidx.recyclerview.widget;
 
-import org.telegram.messenger.FileLog;
+import com.tech.ayugram.messenger.FileLog;
 
 import static androidx.recyclerview.widget.ViewInfoStore.InfoRecord.FLAG_APPEAR;
 import static androidx.recyclerview.widget.ViewInfoStore.InfoRecord.FLAG_APPEAR_AND_DISAPPEAR;

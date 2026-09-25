@@ -21,7 +21,7 @@ import android.media.projection.MediaProjectionManager;
 import androidx.annotation.Nullable;
 import android.view.Surface;
 
-import org.telegram.messenger.FileLog;
+import com.tech.ayugram.messenger.FileLog;
 
 /**
  * An implementation of VideoCapturer to capture the screen content as a video stream.
