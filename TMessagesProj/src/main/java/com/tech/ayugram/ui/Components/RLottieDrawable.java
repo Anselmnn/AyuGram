@@ -8,7 +8,7 @@
 
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.AndroidUtilities.readRes;
+import static com.tech.ayugram.messenger.AndroidUtilities.readRes;
 
 import android.app.Activity;
 import android.graphics.Bitmap;

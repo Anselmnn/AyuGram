@@ -8,8 +8,8 @@
 
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;

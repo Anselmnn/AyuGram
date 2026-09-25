@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.Components.Premium.boosts;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

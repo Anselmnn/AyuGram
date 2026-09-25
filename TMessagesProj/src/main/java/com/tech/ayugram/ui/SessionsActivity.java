@@ -8,9 +8,9 @@
 
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.formatSpannable;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.formatSpannable;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.Manifest;
 import android.content.Context;

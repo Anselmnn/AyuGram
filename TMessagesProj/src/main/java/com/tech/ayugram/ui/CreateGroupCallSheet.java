@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.getString;
-import static com.tech.ayugram.MessagesController.findUpdates;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
+import static com.tech.ayugram.messenger.MessagesController.findUpdates;
 
 import android.content.Context;
 import android.graphics.PorterDuff;

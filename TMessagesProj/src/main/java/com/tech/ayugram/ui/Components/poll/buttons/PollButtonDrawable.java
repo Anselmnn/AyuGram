@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui.Components.poll.buttons;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.dpf2;
-import static com.tech.ayugram.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

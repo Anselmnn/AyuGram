@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.replaceSingleTag;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.replaceSingleTag;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

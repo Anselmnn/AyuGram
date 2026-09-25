@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
 import static org.telegram.ui.Components.TextStyleSpan.FLAG_STYLE_SPOILER;
 
 import android.animation.Animator;

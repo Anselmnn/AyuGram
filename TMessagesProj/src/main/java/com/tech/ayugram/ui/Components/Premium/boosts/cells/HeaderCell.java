@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.Components.Premium.boosts.cells;
 
-import static com.tech.ayugram.AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD;
-import static com.tech.ayugram.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

@@ -1,10 +1,10 @@
 package com.tech.ayugram.ui.Gifts;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.formatDurationNoHours;
-import static com.tech.ayugram.LocaleController.formatNumber;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.formatDurationNoHours;
+import static com.tech.ayugram.messenger.LocaleController.formatNumber;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.content.Context;
 import android.graphics.Canvas;

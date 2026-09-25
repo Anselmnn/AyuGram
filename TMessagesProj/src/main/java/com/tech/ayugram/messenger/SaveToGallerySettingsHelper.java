@@ -1,8 +1,8 @@
 package com.tech.ayugram.messenger;
 
-import static com.tech.ayugram.SharedConfig.SAVE_TO_GALLERY_FLAG_CHANNELS;
-import static com.tech.ayugram.SharedConfig.SAVE_TO_GALLERY_FLAG_GROUP;
-import static com.tech.ayugram.SharedConfig.SAVE_TO_GALLERY_FLAG_PEER;
+import static com.tech.ayugram.messenger.SharedConfig.SAVE_TO_GALLERY_FLAG_CHANNELS;
+import static com.tech.ayugram.messenger.SharedConfig.SAVE_TO_GALLERY_FLAG_GROUP;
+import static com.tech.ayugram.messenger.SharedConfig.SAVE_TO_GALLERY_FLAG_PEER;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

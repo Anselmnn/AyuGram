@@ -1,10 +1,10 @@
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.ilerp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.Utilities.clamp;
-import static com.tech.ayugram.Utilities.clamp01;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.ilerp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.Utilities.clamp;
+import static com.tech.ayugram.messenger.Utilities.clamp01;
 
 import android.content.Context;
 import android.graphics.Canvas;

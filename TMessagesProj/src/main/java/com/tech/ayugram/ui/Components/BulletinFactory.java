@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.app.DownloadManager;
 import android.content.Context;

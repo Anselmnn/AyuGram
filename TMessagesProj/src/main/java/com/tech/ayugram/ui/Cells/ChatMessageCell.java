@@ -8,16 +8,16 @@
 
 package com.tech.ayugram.ui.Cells;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.dpf2;
-import static com.tech.ayugram.AndroidUtilities.find;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.LocaleController.formatPluralString;
-import static com.tech.ayugram.LocaleController.formatPluralStringComma;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
-import static com.tech.ayugram.MessageObject.getMedia;
-import static com.tech.ayugram.MessageObject.replaceWithLink;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
+import static com.tech.ayugram.messenger.AndroidUtilities.find;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
+import static com.tech.ayugram.messenger.MessageObject.getMedia;
+import static com.tech.ayugram.messenger.MessageObject.replaceWithLink;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

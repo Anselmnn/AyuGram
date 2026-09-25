@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.find;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.find;
 
 import android.text.TextUtils;
 import com.tech.ayugram.messenger.AndroidUtilities;

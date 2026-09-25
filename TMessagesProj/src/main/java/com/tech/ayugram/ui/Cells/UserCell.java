@@ -8,8 +8,8 @@
 
 package com.tech.ayugram.ui.Cells;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.content.Context;
 import android.graphics.Canvas;

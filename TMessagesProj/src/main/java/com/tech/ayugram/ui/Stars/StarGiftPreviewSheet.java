@@ -1,9 +1,9 @@
 package com.tech.ayugram.ui.Stars;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.AndroidUtilities.replaceTags;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.AndroidUtilities.replaceTags;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

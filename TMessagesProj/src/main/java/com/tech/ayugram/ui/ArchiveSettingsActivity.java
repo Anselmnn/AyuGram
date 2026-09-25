@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.content.Context;
 import android.text.TextUtils;

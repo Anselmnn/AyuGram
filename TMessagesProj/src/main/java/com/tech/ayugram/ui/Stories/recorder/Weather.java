@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.Stories.recorder;
 
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.Manifest;
 import android.annotation.SuppressLint;

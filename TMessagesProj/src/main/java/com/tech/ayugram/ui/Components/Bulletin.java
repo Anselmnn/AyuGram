@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.dpf2;
-import static com.tech.ayugram.Utilities.dist;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
+import static com.tech.ayugram.messenger.Utilities.dist;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 import android.animation.Animator;

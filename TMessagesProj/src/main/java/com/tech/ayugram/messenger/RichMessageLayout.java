@@ -1,7 +1,7 @@
 package com.tech.ayugram.messenger;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.dpf2;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
 import static org.telegram.tgnet.TLObject.hasFlag;
 import static org.telegram.tgnet.TLObject.setFlag;
 

@@ -1,10 +1,10 @@
 package com.tech.ayugram.ui.Stars;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.AndroidUtilities.rectTmp;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.AndroidUtilities.rectTmp;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 import static org.telegram.ui.Stories.HighlightMessageSheet.TIER_COLOR1;
 import static org.telegram.ui.Stories.HighlightMessageSheet.TIER_COLOR2;
 import static org.telegram.ui.Stories.HighlightMessageSheet.getTierOption;

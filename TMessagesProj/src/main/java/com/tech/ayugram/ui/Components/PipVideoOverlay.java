@@ -2,7 +2,7 @@ package com.tech.ayugram.ui.Components;
 
 import static android.view.WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

@@ -42,7 +42,7 @@ import static android.view.Gravity.RELATIVE_LAYOUT_DIRECTION;
 import static android.view.Gravity.VERTICAL_GRAVITY_MASK;
 import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 

@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.bots;
 
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.content.Context;
 import android.graphics.Canvas;

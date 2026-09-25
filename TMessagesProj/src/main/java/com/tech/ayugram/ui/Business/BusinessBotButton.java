@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.Business;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.content.Context;
 import android.graphics.Color;

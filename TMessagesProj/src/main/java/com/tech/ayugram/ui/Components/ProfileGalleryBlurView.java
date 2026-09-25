@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static org.telegram.ui.Components.ProfileMetaballView.profileBlurQueue;
 
 import android.content.Context;

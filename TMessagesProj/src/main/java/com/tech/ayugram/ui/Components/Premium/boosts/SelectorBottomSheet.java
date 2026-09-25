@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui.Components.Premium.boosts;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.translitSafe;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.translitSafe;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;

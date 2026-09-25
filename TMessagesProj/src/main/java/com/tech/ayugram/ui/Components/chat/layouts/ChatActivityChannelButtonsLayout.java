@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui.Components.chat.layouts;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

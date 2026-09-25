@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui.community.cells;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

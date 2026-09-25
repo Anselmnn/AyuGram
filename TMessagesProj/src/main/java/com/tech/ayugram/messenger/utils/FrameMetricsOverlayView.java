@@ -1,7 +1,7 @@
 // FrameMetricsOverlayView.java
 package com.tech.ayugram.messenger.utils;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

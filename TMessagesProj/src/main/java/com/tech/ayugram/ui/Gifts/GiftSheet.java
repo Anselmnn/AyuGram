@@ -1,12 +1,12 @@
 package com.tech.ayugram.ui.Gifts;
 
 import static android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO;
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.dpf2;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.LocaleController.formatPluralStringComma;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 import static org.telegram.ui.Stars.StarsController.findAttribute;
 import static org.telegram.ui.Stars.StarsIntroActivity.StarsTransactionView.getPlatformDrawable;
 import static org.telegram.ui.bots.AffiliateProgramFragment.percents;

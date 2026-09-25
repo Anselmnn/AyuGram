@@ -1,10 +1,10 @@
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.MessageObject.POSITION_FLAG_BOTTOM;
-import static com.tech.ayugram.MessageObject.POSITION_FLAG_LEFT;
-import static com.tech.ayugram.MessageObject.POSITION_FLAG_RIGHT;
-import static com.tech.ayugram.MessageObject.POSITION_FLAG_TOP;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.MessageObject.POSITION_FLAG_BOTTOM;
+import static com.tech.ayugram.messenger.MessageObject.POSITION_FLAG_LEFT;
+import static com.tech.ayugram.messenger.MessageObject.POSITION_FLAG_RIGHT;
+import static com.tech.ayugram.messenger.MessageObject.POSITION_FLAG_TOP;
 import static org.telegram.ui.Components.UndoView.ACTION_PREVIEW_MEDIA_DESELECTED;
 
 import android.animation.Animator;

@@ -8,8 +8,8 @@
 
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.formatString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;

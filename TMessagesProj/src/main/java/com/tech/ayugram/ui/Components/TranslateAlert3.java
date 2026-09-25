@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 import static org.telegram.ui.Components.TranslateAlert2.capitalFirst;
 import static org.telegram.ui.Components.TranslateAlert2.languageName;
 

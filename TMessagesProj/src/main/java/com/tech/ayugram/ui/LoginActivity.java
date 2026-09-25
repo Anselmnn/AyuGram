@@ -8,13 +8,13 @@
 
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.replaceArrows;
-import static com.tech.ayugram.AndroidUtilities.replaceSingleTag;
-import static com.tech.ayugram.LocaleController.formatPluralStringComma;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
-import static com.tech.ayugram.MessagesController.findUpdatesAndRemove;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.replaceArrows;
+import static com.tech.ayugram.messenger.AndroidUtilities.replaceSingleTag;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
+import static com.tech.ayugram.messenger.MessagesController.findUpdatesAndRemove;
 
 import android.Manifest;
 import android.animation.Animator;

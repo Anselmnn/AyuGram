@@ -8,8 +8,8 @@
 
 package com.tech.ayugram.ui.ActionBar;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.find;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.find;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

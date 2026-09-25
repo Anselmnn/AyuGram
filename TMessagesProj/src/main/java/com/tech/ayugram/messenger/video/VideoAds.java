@@ -1,9 +1,9 @@
 package com.tech.ayugram.messenger.video;
 
-import static com.tech.ayugram.AndroidUtilities.checkAndroidTheme;
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.checkAndroidTheme;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.app.Activity;
 import android.content.Context;

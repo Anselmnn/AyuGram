@@ -1,10 +1,10 @@
 package com.tech.ayugram.ui.Components.Premium.boosts.cells.msg;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.replaceTags;
-import static com.tech.ayugram.LocaleController.formatPluralString;
-import static com.tech.ayugram.LocaleController.getPluralString;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.replaceTags;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
+import static com.tech.ayugram.messenger.LocaleController.getPluralString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

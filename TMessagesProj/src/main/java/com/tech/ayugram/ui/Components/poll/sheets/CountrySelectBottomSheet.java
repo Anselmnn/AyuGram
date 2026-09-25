@@ -1,10 +1,10 @@
 package com.tech.ayugram.ui.Components.poll.sheets;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.replaceTags;
-import static com.tech.ayugram.AndroidUtilities.translitSafe;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.replaceTags;
+import static com.tech.ayugram.messenger.AndroidUtilities.translitSafe;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.content.Context;
 import android.graphics.Canvas;

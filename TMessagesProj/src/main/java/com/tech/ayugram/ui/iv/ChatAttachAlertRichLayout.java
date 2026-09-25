@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.iv;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.content.Context;
 import android.content.Intent;
@@ -1045,11 +1045,11 @@ public class ChatAttachAlertRichLayout extends ChatAttachAlert.AttachAlertLayout
                     listView.pendingMediaRow = null;
                     for (int a = 0; a < order.size(); a++) {
                         final Object object = photos.get(order.get(a));
-                        if (object instanceof com.tech.ayugram.MediaController.PhotoEntry) {
+                        if (object instanceof com.tech.ayugram.messenger.MediaController.PhotoEntry) {
                             if (target != null) {
-                                listView.addMediaToRow(target, (com.tech.ayugram.MediaController.PhotoEntry) object);
+                                listView.addMediaToRow(target, (com.tech.ayugram.messenger.MediaController.PhotoEntry) object);
                             } else {
-                                listView.attachMedia((com.tech.ayugram.MediaController.PhotoEntry) object);
+                                listView.attachMedia((com.tech.ayugram.messenger.MediaController.PhotoEntry) object);
                             }
                             break;
                         }

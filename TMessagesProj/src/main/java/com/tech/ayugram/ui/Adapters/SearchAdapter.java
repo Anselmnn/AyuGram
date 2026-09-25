@@ -8,8 +8,8 @@
 
 package com.tech.ayugram.ui.Adapters;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.removeSpans;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.removeSpans;
 
 import android.content.Context;
 import android.text.SpannableStringBuilder;

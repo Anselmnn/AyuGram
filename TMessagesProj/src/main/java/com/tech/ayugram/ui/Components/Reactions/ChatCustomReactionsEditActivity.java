@@ -1,9 +1,9 @@
 package com.tech.ayugram.ui.Components.Reactions;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.replaceTags;
-import static com.tech.ayugram.LocaleController.formatPluralString;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.replaceTags;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 import static org.telegram.ui.Components.Reactions.ReactionsUtils.addReactionToEditText;
 import static org.telegram.ui.Components.Reactions.ReactionsUtils.createAnimatedEmojiSpan;
 

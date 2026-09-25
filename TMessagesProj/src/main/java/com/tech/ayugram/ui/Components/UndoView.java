@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.LocaleController.formatSpannable;
+import static com.tech.ayugram.messenger.LocaleController.formatSpannable;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

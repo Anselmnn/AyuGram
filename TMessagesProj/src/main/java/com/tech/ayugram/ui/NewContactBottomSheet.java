@@ -10,8 +10,8 @@ package com.tech.ayugram.ui;
 
 import static android.widget.LinearLayout.HORIZONTAL;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.Manifest;
 import android.accounts.Account;

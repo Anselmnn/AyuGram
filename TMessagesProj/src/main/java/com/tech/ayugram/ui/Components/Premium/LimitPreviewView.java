@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui.Components.Premium;
 
 import static android.graphics.Canvas.ALL_SAVE_FLAG;
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

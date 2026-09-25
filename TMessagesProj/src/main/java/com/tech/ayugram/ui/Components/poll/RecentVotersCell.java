@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui.Components.poll;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.dpf2;
-import static com.tech.ayugram.AndroidUtilities.formatWholeNumber;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
+import static com.tech.ayugram.messenger.AndroidUtilities.formatWholeNumber;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

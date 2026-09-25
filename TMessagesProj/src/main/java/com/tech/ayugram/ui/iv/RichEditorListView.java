@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.iv;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -642,7 +642,7 @@ public class RichEditorListView extends UniversalRecyclerView {
             media.state = MediaUploadState.STATE_DONE;
             media.photo = photo;
             media.hasSpoiler = ((TL_iv.pageBlockPhoto) block).spoiler;
-            final TLRPC.PhotoSize big = com.tech.ayugram.FileLoader.getClosestPhotoSizeWithSize(photo.sizes, AndroidUtilities.getPhotoSize());
+            final TLRPC.PhotoSize big = com.tech.ayugram.messenger.FileLoader.getClosestPhotoSizeWithSize(photo.sizes, AndroidUtilities.getPhotoSize());
             if (big != null) {
                 media.width = big.w;
                 media.height = big.h;

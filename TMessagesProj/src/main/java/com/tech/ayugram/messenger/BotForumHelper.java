@@ -1,6 +1,6 @@
 package com.tech.ayugram.messenger;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

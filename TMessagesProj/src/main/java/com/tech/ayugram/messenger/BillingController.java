@@ -1,6 +1,6 @@
 package com.tech.ayugram.messenger;
 
-import static com.tech.ayugram.MessagesController.findUpdatesAndRemove;
+import static com.tech.ayugram.messenger.MessagesController.findUpdatesAndRemove;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;

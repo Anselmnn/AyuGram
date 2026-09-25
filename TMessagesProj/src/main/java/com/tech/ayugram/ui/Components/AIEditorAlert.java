@@ -1,12 +1,12 @@
 package com.tech.ayugram.ui.Components;
 
 import static androidx.core.view.ViewCompat.performHapticFeedback;
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.AndroidUtilities.replaceSingleTag;
-import static com.tech.ayugram.LocaleController.formatPluralString;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.AndroidUtilities.replaceSingleTag;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 import static com.tech.ayugram.TranslateController.normalizeLanguage;
 import static org.telegram.ui.Components.TranslateAlert2.capitalFirst;
 import static org.telegram.ui.Components.TranslateAlert2.languageName;

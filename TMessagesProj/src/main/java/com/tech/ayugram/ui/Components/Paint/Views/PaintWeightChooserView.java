@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui.Components.Paint.Views;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.AndroidUtilities.rectTmp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.AndroidUtilities.rectTmp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

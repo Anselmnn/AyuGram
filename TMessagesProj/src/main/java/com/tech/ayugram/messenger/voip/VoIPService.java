@@ -8,8 +8,8 @@
 
 package com.tech.ayugram.messenger.voip;
 
-import static com.tech.ayugram.MessagesController.findUpdates;
-import static com.tech.ayugram.MessagesController.findUpdatesAndRemove;
+import static com.tech.ayugram.messenger.MessagesController.findUpdates;
+import static com.tech.ayugram.messenger.MessagesController.findUpdatesAndRemove;
 
 import android.Manifest;
 import android.annotation.SuppressLint;

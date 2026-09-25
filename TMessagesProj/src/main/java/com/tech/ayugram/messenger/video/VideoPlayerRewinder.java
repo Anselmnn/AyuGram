@@ -1,6 +1,6 @@
 package com.tech.ayugram.messenger.video;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.util.Log;
 

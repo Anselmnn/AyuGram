@@ -8,11 +8,11 @@
 
 package com.tech.ayugram.messenger;
 
-import static com.tech.ayugram.MessagesController.LOAD_AROUND_DATE;
-import static com.tech.ayugram.MessagesController.LOAD_AROUND_MESSAGE;
-import static com.tech.ayugram.MessagesController.LOAD_BACKWARD;
-import static com.tech.ayugram.MessagesController.LOAD_FORWARD;
-import static com.tech.ayugram.MessagesController.LOAD_FROM_UNREAD;
+import static com.tech.ayugram.messenger.MessagesController.LOAD_AROUND_DATE;
+import static com.tech.ayugram.messenger.MessagesController.LOAD_AROUND_MESSAGE;
+import static com.tech.ayugram.messenger.MessagesController.LOAD_BACKWARD;
+import static com.tech.ayugram.messenger.MessagesController.LOAD_FORWARD;
+import static com.tech.ayugram.messenger.MessagesController.LOAD_FROM_UNREAD;
 
 import android.appwidget.AppWidgetManager;
 import android.content.SharedPreferences;

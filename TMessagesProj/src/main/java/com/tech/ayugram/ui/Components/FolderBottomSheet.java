@@ -1,11 +1,11 @@
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.formatPluralSpannable;
-import static com.tech.ayugram.LocaleController.formatPluralString;
-import static com.tech.ayugram.LocaleController.formatSpannable;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralSpannable;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
+import static com.tech.ayugram.messenger.LocaleController.formatSpannable;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

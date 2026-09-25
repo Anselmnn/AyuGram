@@ -1,14 +1,14 @@
 package com.tech.ayugram.ui.Stories.recorder;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.dpf2;
-import static com.tech.ayugram.AndroidUtilities.ilerp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.AndroidUtilities.touchSlop;
-import static com.tech.ayugram.LocaleController.formatPluralString;
-import static com.tech.ayugram.LocaleController.getString;
-import static com.tech.ayugram.MessagesController.findUpdates;
-import static com.tech.ayugram.Utilities.clamp01;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
+import static com.tech.ayugram.messenger.AndroidUtilities.ilerp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.AndroidUtilities.touchSlop;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
+import static com.tech.ayugram.messenger.MessagesController.findUpdates;
+import static com.tech.ayugram.messenger.Utilities.clamp01;
 
 import android.Manifest;
 import android.animation.Animator;

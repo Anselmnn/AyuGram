@@ -16,7 +16,7 @@
 
 package com.tech.ayugram.messenger;
 
-import static com.tech.ayugram.AndroidUtilities.readRes;
+import static com.tech.ayugram.messenger.AndroidUtilities.readRes;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

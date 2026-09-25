@@ -1,10 +1,10 @@
 package com.tech.ayugram.ui.Stories.recorder;
 
 import static android.graphics.Color.BLACK;
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.dpf2;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.Utilities.clamp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.Utilities.clamp;
 
 import android.content.Context;
 import android.graphics.Canvas;

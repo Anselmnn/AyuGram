@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.Gifts;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.getActivity;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.getActivity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

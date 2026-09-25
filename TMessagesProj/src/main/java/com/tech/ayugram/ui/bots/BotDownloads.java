@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.bots;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.app.Activity;
 import android.app.DownloadManager;

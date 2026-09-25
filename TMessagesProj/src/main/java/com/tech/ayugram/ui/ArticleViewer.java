@@ -8,14 +8,14 @@
 
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
-import static com.tech.ayugram.MessageObject.POSITION_FLAG_BOTTOM;
-import static com.tech.ayugram.MessageObject.POSITION_FLAG_LEFT;
-import static com.tech.ayugram.MessageObject.POSITION_FLAG_RIGHT;
-import static com.tech.ayugram.MessageObject.POSITION_FLAG_TOP;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
+import static com.tech.ayugram.messenger.MessageObject.POSITION_FLAG_BOTTOM;
+import static com.tech.ayugram.messenger.MessageObject.POSITION_FLAG_LEFT;
+import static com.tech.ayugram.messenger.MessageObject.POSITION_FLAG_RIGHT;
+import static com.tech.ayugram.messenger.MessageObject.POSITION_FLAG_TOP;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

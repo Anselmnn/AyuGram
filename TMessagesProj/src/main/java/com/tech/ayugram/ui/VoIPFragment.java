@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.isTablet;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.isTablet;
 import static org.telegram.ui.GroupCallActivity.TRANSITION_DURATION;
 
 import android.Manifest;

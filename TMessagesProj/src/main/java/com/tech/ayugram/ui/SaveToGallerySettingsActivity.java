@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.SharedConfig.SAVE_TO_GALLERY_FLAG_CHANNELS;
-import static com.tech.ayugram.SharedConfig.SAVE_TO_GALLERY_FLAG_GROUP;
-import static com.tech.ayugram.SharedConfig.SAVE_TO_GALLERY_FLAG_PEER;
+import static com.tech.ayugram.messenger.SharedConfig.SAVE_TO_GALLERY_FLAG_CHANNELS;
+import static com.tech.ayugram.messenger.SharedConfig.SAVE_TO_GALLERY_FLAG_GROUP;
+import static com.tech.ayugram.messenger.SharedConfig.SAVE_TO_GALLERY_FLAG_PEER;
 
 import android.content.Context;
 import android.graphics.Canvas;

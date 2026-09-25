@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.Components.Reactions;
 
 import static android.graphics.Canvas.ALL_SAVE_FLAG;
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

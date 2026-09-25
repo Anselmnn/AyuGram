@@ -8,12 +8,12 @@
 
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.formatNumber;
-import static com.tech.ayugram.LocaleController.getString;
-import static com.tech.ayugram.MediaDataController.TYPE_EMOJIPACKS;
-import static com.tech.ayugram.MediaDataController.TYPE_IMAGE;
-import static com.tech.ayugram.MediaDataController.TYPE_MASK;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.formatNumber;
+import static com.tech.ayugram.messenger.LocaleController.getString;
+import static com.tech.ayugram.messenger.MediaDataController.TYPE_EMOJIPACKS;
+import static com.tech.ayugram.messenger.MediaDataController.TYPE_IMAGE;
+import static com.tech.ayugram.messenger.MediaDataController.TYPE_MASK;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

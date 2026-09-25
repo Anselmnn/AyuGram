@@ -8,9 +8,9 @@
 
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.getString;
-import static com.tech.ayugram.MessageObject.replaceWithLink;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
+import static com.tech.ayugram.messenger.MessageObject.replaceWithLink;
 
 import android.Manifest;
 import android.animation.Animator;

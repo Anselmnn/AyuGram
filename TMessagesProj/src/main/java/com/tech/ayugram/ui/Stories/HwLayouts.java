@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.Stories;
 
-import static com.tech.ayugram.SharedConfig.PERFORMANCE_CLASS_HIGH;
-import static com.tech.ayugram.SharedConfig.getDevicePerformanceClass;
+import static com.tech.ayugram.messenger.SharedConfig.PERFORMANCE_CLASS_HIGH;
+import static com.tech.ayugram.messenger.SharedConfig.getDevicePerformanceClass;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

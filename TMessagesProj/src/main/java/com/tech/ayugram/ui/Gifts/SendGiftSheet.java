@@ -1,11 +1,11 @@
 package com.tech.ayugram.ui.Gifts;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.formatPluralString;
-import static com.tech.ayugram.LocaleController.formatPluralStringComma;
-import static com.tech.ayugram.LocaleController.formatSpannable;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
+import static com.tech.ayugram.messenger.LocaleController.formatSpannable;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.Stories;
 
-import static com.tech.ayugram.MessagesController.findUpdates;
-import static com.tech.ayugram.MessagesController.findUpdatesAndRemove;
+import static com.tech.ayugram.messenger.MessagesController.findUpdates;
+import static com.tech.ayugram.messenger.MessagesController.findUpdatesAndRemove;
 import static com.tech.ayugram.voip.VoIPService.QUALITY_FULL;
 
 import android.Manifest;

@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.iv;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -26,7 +26,7 @@ import com.tech.ayugram.ui.Components.UniversalRecyclerView;
 
 import java.util.ArrayList;
 
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 /**
  * Synthetic, presentation-only row shown at the end of a multi-block quote: an author (credit) edit text bound

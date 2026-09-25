@@ -1,10 +1,10 @@
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.replaceSingleLink;
-import static com.tech.ayugram.AndroidUtilities.replaceSingleLinkBold;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.replaceSingleLink;
+import static com.tech.ayugram.messenger.AndroidUtilities.replaceSingleLinkBold;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 import static org.telegram.ui.web.BotWebViewContainer.obj;
 
 import android.app.Activity;

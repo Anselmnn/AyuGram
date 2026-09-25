@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui.bots;
 
 import static android.graphics.PorterDuff.Mode.SRC_IN;
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.app.Activity;
 import android.content.Context;

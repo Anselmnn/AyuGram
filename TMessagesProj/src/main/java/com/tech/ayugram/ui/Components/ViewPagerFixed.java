@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.Utilities.swapItems;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.Utilities.swapItems;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

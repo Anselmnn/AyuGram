@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.Components.blur3.drawable;
 
-import static com.tech.ayugram.AndroidUtilities.dpf2;
+import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

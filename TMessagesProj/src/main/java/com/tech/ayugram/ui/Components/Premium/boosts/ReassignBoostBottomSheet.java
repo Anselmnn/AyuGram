@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui.Components.Premium.boosts;
 
-import static com.tech.ayugram.AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD;
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

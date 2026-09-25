@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
-import static com.tech.ayugram.MessagesController.findUpdatesAndRemove;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
+import static com.tech.ayugram.messenger.MessagesController.findUpdatesAndRemove;
 
 import android.content.SharedPreferences;
 import android.net.Uri;

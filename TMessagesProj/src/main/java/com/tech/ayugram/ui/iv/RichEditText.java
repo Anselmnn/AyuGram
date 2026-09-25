@@ -53,7 +53,7 @@ public class RichEditText extends EditTextCaption {
     private Listener listener;
     private InlineButtonClickListener inlineButtonClickListener;
     private Theme.ResourcesProvider resourcesProvider;
-    private int currentAccount = com.tech.ayugram.UserConfig.selectedAccount;
+    private int currentAccount = com.tech.ayugram.messenger.UserConfig.selectedAccount;
     private boolean ignoreTextChange;
     private boolean insertingNewline;
     private boolean softEnterNewline;

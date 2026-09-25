@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.Stories;
 
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

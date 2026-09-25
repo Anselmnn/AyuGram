@@ -1,8 +1,8 @@
 package com.tech.ayugram.ui.bots;
 
-import static com.tech.ayugram.AndroidUtilities.calcBitmapColor;
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.calcBitmapColor;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.Manifest;
 import android.app.Activity;

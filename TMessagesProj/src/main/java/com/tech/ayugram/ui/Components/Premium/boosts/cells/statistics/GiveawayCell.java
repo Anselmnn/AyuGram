@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.Components.Premium.boosts.cells.statistics;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -8,7 +8,7 @@
 
 package com.tech.ayugram.ui.Cells;
 
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

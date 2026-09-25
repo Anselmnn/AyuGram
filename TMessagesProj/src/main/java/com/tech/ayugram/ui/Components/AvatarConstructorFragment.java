@@ -1,9 +1,9 @@
 package com.tech.ayugram.ui.Components;
 
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.lerp;
-import static com.tech.ayugram.AndroidUtilities.premiumText;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
+import static com.tech.ayugram.messenger.AndroidUtilities.premiumText;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 import static org.telegram.ui.Components.ImageUpdater.FOR_TYPE_CHANNEL;
 import static org.telegram.ui.Components.ImageUpdater.FOR_TYPE_COMMUNITY;
 import static org.telegram.ui.Components.ImageUpdater.FOR_TYPE_GROUP;

@@ -1,11 +1,11 @@
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.AndroidUtilities.REPLACING_TAG_TYPE_LINK_NBSP;
-import static com.tech.ayugram.AndroidUtilities.dp;
-import static com.tech.ayugram.AndroidUtilities.makeBlurBitmap;
-import static com.tech.ayugram.LocaleController.formatPluralString;
-import static com.tech.ayugram.LocaleController.formatString;
-import static com.tech.ayugram.LocaleController.getString;
+import static com.tech.ayugram.messenger.AndroidUtilities.REPLACING_TAG_TYPE_LINK_NBSP;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.makeBlurBitmap;
+import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
+import static com.tech.ayugram.messenger.LocaleController.formatString;
+import static com.tech.ayugram.messenger.LocaleController.getString;
 import static org.telegram.tgnet.ConnectionsManager.DEFAULT_DATACENTER_ID;
 import static org.telegram.ui.ChatEditActivity.applyNewSpan;
 
