@@ -1,6 +1,6 @@
 package com.tech.ayugram.messenger;
 
-import com.tech.ayugram.messenger.BuildConfig;
+import com.tech.ayugram.messenger.regular.BuildConfig;
 
 public class ApplicationLoaderImpl extends ApplicationLoader {
     @Override
