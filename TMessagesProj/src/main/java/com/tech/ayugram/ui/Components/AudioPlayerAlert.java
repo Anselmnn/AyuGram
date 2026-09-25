@@ -68,7 +68,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.media3.common.C;
-import com.google.android.gms.cast.framework.CastContext;
+// import com.google.android.gms.cast.framework.CastContext; (Phase 2: remove Cast)
 
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.ApplicationLoader;
@@ -95,7 +95,7 @@ import com.tech.ayugram.messenger.UserConfig;
 import com.tech.ayugram.messenger.UserObject;
 import com.tech.ayugram.messenger.Utilities;
 import com.tech.ayugram.messenger.audioinfo.AudioInfo;
-import com.tech.ayugram.messenger.chromecast.ChromecastController;
+// import com.tech.ayugram.messenger.chromecast.ChromecastController; (Phase 2: remove Cast)
 import com.tech.ayugram.tgnet.ConnectionsManager;
 import com.tech.ayugram.tgnet.InputSerializedData;
 import com.tech.ayugram.tgnet.TLObject;
@@ -1098,12 +1098,13 @@ public class AudioPlayerAlert extends BottomSheet implements NotificationCenter.
             }
         };
         castAvailable = true;
-        try {
-            castItemButton.setRouteSelector(CastContext.getSharedInstance(context).getMergedSelector());
-        } catch (Exception e) {
-            FileLog.e(e);
-            castAvailable = false;
-        }
+        // Phase 2: Cast removed
+        // try {
+        //     castItemButton.setRouteSelector(CastContext.getSharedInstance(context).getMergedSelector());
+        // } catch (Exception e) {
+        //     FileLog.e(e);
+        //     castAvailable = false;
+        // }
         castItemButton.setVisibility(View.INVISIBLE);
         if (optionsIcon != null) {
             optionsIcon.setCasting(CastSync.isActive(), true);
@@ -1714,8 +1715,9 @@ public class AudioPlayerAlert extends BottomSheet implements NotificationCenter.
         } else if (id == 5) {
             saveToMusic(messageObject);
         } else if (id == 6) {
-            ChromecastController.getInstance().setCurrentMediaAndCastIfNeeded(MediaController.getInstance().getCurrentChromecastMedia());
-            castItemButton.performClick();
+            // Phase 2: Cast removed
+            // ChromecastController.getInstance().setCurrentMediaAndCastIfNeeded(MediaController.getInstance().getCurrentChromecastMedia());
+            // castItemButton.performClick();
         } else if (id == 7) {
             saveToProfile(messageObject, false, () -> {
                 if (savedMusicList != null) {

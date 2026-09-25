@@ -18,12 +18,6 @@ import android.os.Build;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.google.mlkit.common.MlKitException;
-import com.google.mlkit.vision.common.InputImage;
-import com.google.mlkit.vision.segmentation.subject.SubjectSegmentation;
-import com.google.mlkit.vision.segmentation.subject.SubjectSegmenter;
-import com.google.mlkit.vision.segmentation.subject.SubjectSegmenterOptions;
-
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.FileLoader;
 import com.tech.ayugram.messenger.FileLog;
@@ -36,6 +30,12 @@ import com.tech.ayugram.ui.Components.LayoutHelper;
 import com.tech.ayugram.ui.Components.RectOld;
 import com.tech.ayugram.ui.Components.Size;
 import com.tech.ayugram.ui.Stories.recorder.StoryEntry;
+
+// import com.google.mlkit.common.MlKitException; (Phase 2: remove ML Kit)
+// import com.google.mlkit.vision.common.InputImage; (Phase 2: remove ML Kit)
+// import com.google.mlkit.vision.segmentation.subject.SubjectSegmentation; (Phase 2: remove ML Kit)
+// import com.google.mlkit.vision.segmentation.subject.SubjectSegmenter; (Phase 2: remove ML Kit)
+// import com.google.mlkit.vision.segmentation.subject.SubjectSegmenterOptions; (Phase 2: remove ML Kit)
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -165,27 +165,7 @@ public class PhotoView extends EntityView {
     private boolean segmentingLoading, segmentingLoaded;
     public Bitmap segmentedImage;
     public void segmentImage(Bitmap source) {
-        if (segmentingLoaded || segmentingLoading || source == null) return;
-        if (Build.VERSION.SDK_INT < 24) return;
-        SubjectSegmenter segmenter = SubjectSegmentation.getClient(new SubjectSegmenterOptions.Builder().enableForegroundBitmap().build());
-        segmentingLoading = true;
-        InputImage inputImage = InputImage.fromBitmap(source, orientation);
-        segmenter.process(inputImage)
-            .addOnSuccessListener(result -> {
-                segmentingLoaded = true;
-                segmentingLoading = false;
-//                segmentedImage = result.getForegroundBitmap();
-//                highlightSegmented();
-            })
-            .addOnFailureListener(error -> {
-                segmentingLoading = false;
-                FileLog.e(error);
-                if (isWaitingMlKitError(error) && isAttachedToWindow()) {
-                    AndroidUtilities.runOnUIThread(() -> segmentImage(source), 2000);
-                } else {
-                    segmentingLoaded = true;
-                }
-            });
+        // Phase 2: ML Kit removed - no segmentation
     }
 
     public boolean hasSegmentedImage() {
@@ -193,8 +173,8 @@ public class PhotoView extends EntityView {
     }
 
     public static boolean isWaitingMlKitError(Exception e) {
-        if (Build.VERSION.SDK_INT < 24) return false;
-        return e instanceof MlKitException && e.getMessage() != null && e.getMessage().contains("segmentation optional module to be downloaded");
+        // Phase 2: ML Kit removed
+        return false;
     }
 
     public File saveSegmentedImage(int currentAccount) {

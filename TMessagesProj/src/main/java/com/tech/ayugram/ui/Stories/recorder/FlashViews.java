@@ -31,7 +31,7 @@ import android.widget.ViewAnimator;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.ColorUtils;
 
-import com.google.android.gms.vision.Frame;
+// import com.google.android.gms.vision.Frame; (Phase 2: remove Vision)
 
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.FileLog;
