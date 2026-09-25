@@ -35,8 +35,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
-import com.tech.ayugram.messenger.localization.Localization;
-import com.tech.ayugram.messenger.localization.LocalizationUtils;
+import com.tech.ayugram.localization.Localization;
+import com.tech.ayugram.localization.LocalizationUtils;
 import com.tech.ayugram.messenger.time.FastDateFormat;
 import com.tech.ayugram.tgnet.Vector;
 import com.tech.ayugram.ui.Components.TypefaceSpan;
