@@ -1483,7 +1483,7 @@ public class ReactionsLayoutInBubble {
         }
         float eventX = event.getX();
         float eventY = event.getY();
-        if (parentView instanceof org.telegram.ui.Cells.IMessageCell) {
+        if (parentView instanceof com.tech.ayugram.ui.Cells.IMessageCell) {
             eventY -= parentView.getPaddingTop();
             if (parentView instanceof ChatActionCell) {
                 eventX -= ((ChatActionCell) parentView).sideMenuWidth / 2f;

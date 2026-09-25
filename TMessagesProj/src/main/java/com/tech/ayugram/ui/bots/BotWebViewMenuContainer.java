@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.bots;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
-import static org.telegram.ui.ActionBar.Theme.key_windowBackgroundWhiteBlackText;
+import static com.tech.ayugram.ui.ActionBar.Theme.key_windowBackgroundWhiteBlackText;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

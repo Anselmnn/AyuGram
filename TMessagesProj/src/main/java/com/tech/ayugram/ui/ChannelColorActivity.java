@@ -3,7 +3,7 @@ package com.tech.ayugram.ui;
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Components.Premium.LimitReachedBottomSheet.TYPE_BOOSTS_FOR_CUSTOM_EMOJI_PACK;
+import static com.tech.ayugram.ui.Components.Premium.LimitReachedBottomSheet.TYPE_BOOSTS_FOR_CUSTOM_EMOJI_PACK;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

@@ -2,8 +2,8 @@ package com.tech.ayugram.ui.Cells;
 
 import static com.google.zxing.common.detector.MathUtils.distance;
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
-import static org.telegram.ui.ActionBar.FloatingToolbar.STYLE_THEME;
-import static org.telegram.ui.ActionBar.Theme.key_chat_inTextSelectionHighlight;
+import static com.tech.ayugram.ui.ActionBar.FloatingToolbar.STYLE_THEME;
+import static com.tech.ayugram.ui.ActionBar.Theme.key_chat_inTextSelectionHighlight;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

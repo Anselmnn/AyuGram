@@ -10,8 +10,8 @@ package com.tech.ayugram.ui;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarsIntroActivity.formatStarsAmount;
-import static org.telegram.ui.Stars.StarsIntroActivity.formatStarsAmountShort;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.formatStarsAmount;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.formatStarsAmountShort;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

@@ -11,7 +11,7 @@ package com.tech.ayugram.ui;
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.ActionBar.Theme.multAlpha;
+import static com.tech.ayugram.ui.ActionBar.Theme.multAlpha;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

@@ -8,9 +8,9 @@ import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
 import static com.tech.ayugram.messenger.LocaleController.formatSpannable;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stories.HighlightMessageSheet.TIER_COLOR1;
-import static org.telegram.ui.Stories.HighlightMessageSheet.TIER_COLOR2;
-import static org.telegram.ui.Stories.HighlightMessageSheet.getTierOption;
+import static com.tech.ayugram.ui.Stories.HighlightMessageSheet.TIER_COLOR1;
+import static com.tech.ayugram.ui.Stories.HighlightMessageSheet.TIER_COLOR2;
+import static com.tech.ayugram.ui.Stories.HighlightMessageSheet.getTierOption;
 
 import android.app.Activity;
 import android.content.Context;

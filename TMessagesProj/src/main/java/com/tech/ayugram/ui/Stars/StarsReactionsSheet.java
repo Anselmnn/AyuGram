@@ -5,9 +5,9 @@ import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
 import static com.tech.ayugram.messenger.AndroidUtilities.rectTmp;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stories.HighlightMessageSheet.TIER_COLOR1;
-import static org.telegram.ui.Stories.HighlightMessageSheet.TIER_COLOR2;
-import static org.telegram.ui.Stories.HighlightMessageSheet.getTierOption;
+import static com.tech.ayugram.ui.Stories.HighlightMessageSheet.TIER_COLOR1;
+import static com.tech.ayugram.ui.Stories.HighlightMessageSheet.TIER_COLOR2;
+import static com.tech.ayugram.ui.Stories.HighlightMessageSheet.getTierOption;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

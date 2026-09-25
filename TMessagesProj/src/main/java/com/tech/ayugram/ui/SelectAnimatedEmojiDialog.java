@@ -2,7 +2,7 @@ package com.tech.ayugram.ui;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.AndroidUtilities.translitSafe;
-import static org.telegram.ui.Stars.StarsController.findAttribute;
+import static com.tech.ayugram.ui.Stars.StarsController.findAttribute;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

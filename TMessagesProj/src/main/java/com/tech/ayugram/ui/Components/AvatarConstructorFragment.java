@@ -4,10 +4,10 @@ import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
 import static com.tech.ayugram.messenger.AndroidUtilities.premiumText;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Components.ImageUpdater.FOR_TYPE_CHANNEL;
-import static org.telegram.ui.Components.ImageUpdater.FOR_TYPE_COMMUNITY;
-import static org.telegram.ui.Components.ImageUpdater.FOR_TYPE_GROUP;
-import static org.telegram.ui.Components.ImageUpdater.TYPE_SUGGEST_PHOTO_FOR_USER;
+import static com.tech.ayugram.ui.Components.ImageUpdater.FOR_TYPE_CHANNEL;
+import static com.tech.ayugram.ui.Components.ImageUpdater.FOR_TYPE_COMMUNITY;
+import static com.tech.ayugram.ui.Components.ImageUpdater.FOR_TYPE_GROUP;
+import static com.tech.ayugram.ui.Components.ImageUpdater.TYPE_SUGGEST_PHOTO_FOR_USER;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

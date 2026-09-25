@@ -14,7 +14,7 @@ import static com.tech.ayugram.messenger.LocaleController.formatNumber;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarsController.findAttribute;
+import static com.tech.ayugram.ui.Stars.StarsController.findAttribute;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

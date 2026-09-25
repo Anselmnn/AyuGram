@@ -7,7 +7,7 @@ import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
 import static com.tech.ayugram.messenger.AndroidUtilities.pack;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarsController.findAttribute;
+import static com.tech.ayugram.ui.Stars.StarsController.findAttribute;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

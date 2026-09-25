@@ -4,7 +4,7 @@ import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.DialogsActivity.highlightFoundQuote;
+import static com.tech.ayugram.ui.DialogsActivity.highlightFoundQuote;
 
 import android.app.Activity;
 import android.content.Context;

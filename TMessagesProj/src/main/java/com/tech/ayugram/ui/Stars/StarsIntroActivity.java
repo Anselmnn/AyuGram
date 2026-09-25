@@ -6,10 +6,10 @@ import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComm
 import static com.tech.ayugram.messenger.LocaleController.formatPluralStringSpaced;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.ChatEditActivity.applyNewSpan;
-import static org.telegram.ui.Stars.StarsController.findAttribute;
-import static org.telegram.ui.Stars.StarsIntroActivity.StarsTransactionView.getPlatformDrawable;
-import static org.telegram.ui.bots.AffiliateProgramFragment.percents;
+import static com.tech.ayugram.ui.ChatEditActivity.applyNewSpan;
+import static com.tech.ayugram.ui.Stars.StarsController.findAttribute;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.StarsTransactionView.getPlatformDrawable;
+import static com.tech.ayugram.ui.bots.AffiliateProgramFragment.percents;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

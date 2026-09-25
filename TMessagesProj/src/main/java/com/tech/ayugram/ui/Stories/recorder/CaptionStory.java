@@ -3,7 +3,7 @@ package com.tech.ayugram.ui.Stories.recorder;
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
 import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
-import static org.telegram.ui.ActionBar.Theme.RIPPLE_MASK_CIRCLE_20DP;
+import static com.tech.ayugram.ui.ActionBar.Theme.RIPPLE_MASK_CIRCLE_20DP;
 
 import android.content.Context;
 import android.content.DialogInterface;

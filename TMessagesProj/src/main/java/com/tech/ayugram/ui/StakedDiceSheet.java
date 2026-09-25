@@ -2,8 +2,8 @@ package com.tech.ayugram.ui;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarsIntroActivity.formatTON;
-import static org.telegram.ui.Stars.StarsIntroActivity.replaceDiamond;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.formatTON;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.replaceDiamond;
 
 import android.content.Context;
 import android.graphics.Canvas;

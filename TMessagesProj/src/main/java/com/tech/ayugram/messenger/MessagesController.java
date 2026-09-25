@@ -14,11 +14,11 @@ import static com.tech.ayugram.NotificationsController.TYPE_CHANNEL;
 import static com.tech.ayugram.NotificationsController.TYPE_PRIVATE;
 import static com.tech.ayugram.NotificationsController.TYPE_REACTIONS_MESSAGES;
 import static com.tech.ayugram.messenger.Utilities.tryParseLong;
-import static org.telegram.ui.Stars.StarsController.findAttribute;
-import static org.telegram.ui.Stories.HighlightMessageSheet.parseTiers;
-import static org.telegram.ui.Stories.HighlightMessageSheet.parseTiersString;
-import static org.telegram.ui.Stories.HighlightMessageSheet.tiersEqual;
-import static org.telegram.ui.Stories.HighlightMessageSheet.tiersToString;
+import static com.tech.ayugram.ui.Stars.StarsController.findAttribute;
+import static com.tech.ayugram.ui.Stories.HighlightMessageSheet.parseTiers;
+import static com.tech.ayugram.ui.Stories.HighlightMessageSheet.parseTiersString;
+import static com.tech.ayugram.ui.Stories.HighlightMessageSheet.tiersEqual;
+import static com.tech.ayugram.ui.Stories.HighlightMessageSheet.tiersToString;
 
 import android.Manifest;
 import android.app.Activity;

@@ -5,7 +5,7 @@ import static com.tech.ayugram.messenger.AndroidUtilities.replaceSingleLink;
 import static com.tech.ayugram.messenger.AndroidUtilities.replaceSingleLinkBold;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.web.BotWebViewContainer.obj;
+import static com.tech.ayugram.ui.web.BotWebViewContainer.obj;
 
 import android.app.Activity;
 import android.content.Context;

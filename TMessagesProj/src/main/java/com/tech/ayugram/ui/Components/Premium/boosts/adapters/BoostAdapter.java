@@ -260,7 +260,7 @@ public class BoostAdapter extends AdapterWithDiffUtils {
                 view = new SliderCell(context, resourcesProvider);
                 break;
             case HOLDER_TYPE_SUBTITLE:
-                view = new org.telegram.ui.Cells.HeaderCell(context, Theme.key_windowBackgroundWhiteBlueHeader, 21, 15, 3, false, resourcesProvider);
+                view = new com.tech.ayugram.ui.Cells.HeaderCell(context, Theme.key_windowBackgroundWhiteBlueHeader, 21, 15, 3, false, resourcesProvider);
                 view.setBackgroundColor(Theme.getColor(Theme.key_dialogBackground, resourcesProvider));
                 break;
             case HOLDER_TYPE_SUBTITLE_WITH_COUNTER:
@@ -321,7 +321,7 @@ public class BoostAdapter extends AdapterWithDiffUtils {
                 break;
             }
             case HOLDER_TYPE_SUBTITLE: {
-                org.telegram.ui.Cells.HeaderCell cell = (org.telegram.ui.Cells.HeaderCell) holder.itemView;
+                com.tech.ayugram.ui.Cells.HeaderCell cell = (com.tech.ayugram.ui.Cells.HeaderCell) holder.itemView;
                 cell.setText(item.text);
                 break;
             }

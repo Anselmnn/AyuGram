@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.Components.voip;
 
-import static org.telegram.ui.GroupCallActivity.TRANSITION_DURATION;
-import static org.telegram.ui.GroupCallActivity.isLandscapeMode;
+import static com.tech.ayugram.ui.GroupCallActivity.TRANSITION_DURATION;
+import static com.tech.ayugram.ui.GroupCallActivity.isLandscapeMode;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

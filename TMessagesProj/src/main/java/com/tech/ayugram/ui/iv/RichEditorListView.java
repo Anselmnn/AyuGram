@@ -1221,13 +1221,13 @@ public class RichEditorListView extends UniversalRecyclerView {
         }
 
         public void showInputDialog(String title, String hint, String initial, boolean showPaste,
-                                    org.telegram.ui.Components.EditTextCaption.InputDialogCallback callback) {
+                                    com.tech.ayugram.ui.Components.EditTextCaption.InputDialogCallback callback) {
             editText.showInputDialog(title, hint, initial, showPaste, callback);
         }
 
         public void showInputDialog(String title, String hint, String initial, boolean showPaste,
                                     boolean adaptive,
-                                    org.telegram.ui.Components.EditTextCaption.InputDialogCallback callback) {
+                                    com.tech.ayugram.ui.Components.EditTextCaption.InputDialogCallback callback) {
             editText.showInputDialog(title, hint, initial, showPaste, adaptive, callback);
         }
 

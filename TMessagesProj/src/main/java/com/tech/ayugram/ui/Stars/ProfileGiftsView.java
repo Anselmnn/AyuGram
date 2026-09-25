@@ -3,7 +3,7 @@ package com.tech.ayugram.ui.Stars;
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
 import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
-import static org.telegram.ui.Stars.StarsController.findAttribute;
+import static com.tech.ayugram.ui.Stars.StarsController.findAttribute;
 
 import android.animation.TimeInterpolator;
 import android.content.Context;

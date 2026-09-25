@@ -2,7 +2,7 @@ package com.tech.ayugram.ui;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.AndroidUtilities.isTablet;
-import static org.telegram.ui.GroupCallActivity.TRANSITION_DURATION;
+import static com.tech.ayugram.ui.GroupCallActivity.TRANSITION_DURATION;
 
 import android.Manifest;
 import android.animation.Animator;

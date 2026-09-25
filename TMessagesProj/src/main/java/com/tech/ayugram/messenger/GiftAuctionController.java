@@ -1,6 +1,6 @@
 package com.tech.ayugram.messenger;
 
-import static org.telegram.ui.Stars.StarsController.findAttribute;
+import static com.tech.ayugram.ui.Stars.StarsController.findAttribute;
 
 import android.text.TextUtils;
 import android.util.LongSparseArray;

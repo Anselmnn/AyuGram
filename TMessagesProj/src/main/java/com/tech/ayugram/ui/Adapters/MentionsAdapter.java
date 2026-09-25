@@ -9,7 +9,7 @@
 package com.tech.ayugram.ui.Adapters;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
-import static org.telegram.ui.PremiumPreviewFragment.applyNewSpan;
+import static com.tech.ayugram.ui.PremiumPreviewFragment.applyNewSpan;
 
 import android.Manifest;
 import android.content.Context;

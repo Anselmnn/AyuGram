@@ -15,7 +15,7 @@ import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Components.AlertsCreator.createClearOrDeleteDialogsAlert;
+import static com.tech.ayugram.ui.Components.AlertsCreator.createClearOrDeleteDialogsAlert;
 
 import android.Manifest;
 import android.animation.Animator;

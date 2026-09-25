@@ -5,8 +5,8 @@ import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.ChannelMonetizationLayout.replaceTON;
-import static org.telegram.ui.ChatEditActivity.applyNewSpan;
+import static com.tech.ayugram.ui.ChannelMonetizationLayout.replaceTON;
+import static com.tech.ayugram.ui.ChatEditActivity.applyNewSpan;
 
 import android.app.Activity;
 import android.content.Context;

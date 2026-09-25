@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui;
 
-import static org.telegram.ui.ActionBar.ActionBarLayout.findScrollingChild;
+import static com.tech.ayugram.ui.ActionBar.ActionBarLayout.findScrollingChild;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

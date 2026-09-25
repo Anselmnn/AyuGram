@@ -6,7 +6,7 @@ import static com.tech.ayugram.messenger.LocaleController.formatNumber;
 import static com.tech.ayugram.messenger.LocaleController.formatSpannable;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarGiftSheet.replaceUnderstood;
+import static com.tech.ayugram.ui.Stars.StarGiftSheet.replaceUnderstood;
 
 import android.content.Context;
 import android.graphics.Canvas;

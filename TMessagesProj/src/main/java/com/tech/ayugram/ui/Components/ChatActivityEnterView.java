@@ -13,7 +13,7 @@ import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
 import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.LaunchActivity.getLastFragment;
+import static com.tech.ayugram.ui.LaunchActivity.getLastFragment;
 
 import android.Manifest;
 import android.animation.Animator;

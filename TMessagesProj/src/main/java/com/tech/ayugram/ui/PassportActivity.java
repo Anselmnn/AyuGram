@@ -4010,7 +4010,7 @@ public class PassportActivity extends BaseFragment implements NotificationCenter
                     getParentActivity().requestPermissions(new String[]{Manifest.permission.CAMERA}, 22);
                     return;
                 }
-                CameraScanActivity fragment = new CameraScanActivity(org.telegram.ui.CameraScanActivity.TYPE_MRZ);
+                CameraScanActivity fragment = new CameraScanActivity(com.tech.ayugram.ui.CameraScanActivity.TYPE_MRZ);
                 fragment.setDelegate(new CameraScanActivity.CameraScanActivityDelegate() {
                     @Override
                     public void didFindMrzInfo(MrzRecognizer.Result result) {

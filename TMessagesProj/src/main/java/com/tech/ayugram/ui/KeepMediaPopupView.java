@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui;
 
-import static org.telegram.ui.CacheControlActivity.KEEP_MEDIA_TYPE_STORIES;
+import static com.tech.ayugram.ui.CacheControlActivity.KEEP_MEDIA_TYPE_STORIES;
 
 import android.content.Context;
 import android.os.Bundle;

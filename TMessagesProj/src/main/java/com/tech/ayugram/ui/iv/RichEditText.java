@@ -688,7 +688,7 @@ public class RichEditText extends EditTextCaption {
         end = Math.min(end, editable.length());
         if (start >= end) return;
         RichTextStyle.setStyle(editable, start, end, flag, true, block);
-        if ((flag & org.telegram.ui.Components.TextStyleSpan.FLAG_STYLE_SPOILER) != 0) invalidateSpoilers();
+        if ((flag & com.tech.ayugram.ui.Components.TextStyleSpan.FLAG_STYLE_SPOILER) != 0) invalidateSpoilers();
         notifySpansChanged();
     }
 
@@ -700,7 +700,7 @@ public class RichEditText extends EditTextCaption {
         if (start >= end) return;
         if ((flag & RichTextStyle.BOLD) != 0) autoBold = false;
         RichTextStyle.setStyle(editable, start, end, flag, false, block);
-        if ((flag & org.telegram.ui.Components.TextStyleSpan.FLAG_STYLE_SPOILER) != 0) invalidateSpoilers();
+        if ((flag & com.tech.ayugram.ui.Components.TextStyleSpan.FLAG_STYLE_SPOILER) != 0) invalidateSpoilers();
         notifySpansChanged();
     }
 }

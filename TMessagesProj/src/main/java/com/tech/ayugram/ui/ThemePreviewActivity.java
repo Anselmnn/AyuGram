@@ -217,10 +217,10 @@ public class ThemePreviewActivity extends BaseFragment implements DownloadContro
     private long watchForKeyboardEndTime;
     private ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener;
 
-    org.telegram.ui.ActionBar.MessageDrawable msgOutDrawable = new MessageDrawable(org.telegram.ui.ActionBar.MessageDrawable.TYPE_TEXT, true, false);
-    org.telegram.ui.ActionBar.MessageDrawable msgOutDrawableSelected = new MessageDrawable(org.telegram.ui.ActionBar.MessageDrawable.TYPE_TEXT, true, true);
-    org.telegram.ui.ActionBar.MessageDrawable msgOutMediaDrawable = new MessageDrawable(org.telegram.ui.ActionBar.MessageDrawable.TYPE_MEDIA, true, false);
-    org.telegram.ui.ActionBar.MessageDrawable msgOutMediaDrawableSelected = new MessageDrawable(org.telegram.ui.ActionBar.MessageDrawable.TYPE_MEDIA, true, true);
+    com.tech.ayugram.ui.ActionBar.MessageDrawable msgOutDrawable = new MessageDrawable(com.tech.ayugram.ui.ActionBar.MessageDrawable.TYPE_TEXT, true, false);
+    com.tech.ayugram.ui.ActionBar.MessageDrawable msgOutDrawableSelected = new MessageDrawable(com.tech.ayugram.ui.ActionBar.MessageDrawable.TYPE_TEXT, true, true);
+    com.tech.ayugram.ui.ActionBar.MessageDrawable msgOutMediaDrawable = new MessageDrawable(com.tech.ayugram.ui.ActionBar.MessageDrawable.TYPE_MEDIA, true, false);
+    com.tech.ayugram.ui.ActionBar.MessageDrawable msgOutMediaDrawableSelected = new MessageDrawable(com.tech.ayugram.ui.ActionBar.MessageDrawable.TYPE_MEDIA, true, true);
 
     private ColorPicker colorPicker;
     private int lastPickedColor;
@@ -5911,7 +5911,7 @@ public class ThemePreviewActivity extends BaseFragment implements DownloadContro
         }
     }
 
-    private class MessageDrawable extends org.telegram.ui.ActionBar.MessageDrawable {
+    private class MessageDrawable extends com.tech.ayugram.ui.ActionBar.MessageDrawable {
         public MessageDrawable(int typeMedia, boolean b, boolean b1) {
             super(typeMedia, b, b1);
         }

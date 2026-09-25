@@ -7,8 +7,8 @@ import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComm
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
 import static com.tech.ayugram.messenger.Utilities.clamp01;
-import static org.telegram.ui.Stars.StarGiftSheet.getGiftName;
-import static org.telegram.ui.Stars.StarGiftSheet.isMineWithActions;
+import static com.tech.ayugram.ui.Stars.StarGiftSheet.getGiftName;
+import static com.tech.ayugram.ui.Stars.StarGiftSheet.isMineWithActions;
 
 import android.app.Activity;
 import android.content.Context;

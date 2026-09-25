@@ -7,9 +7,9 @@ import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarsController.findAttribute;
-import static org.telegram.ui.Stars.StarsIntroActivity.StarsTransactionView.getPlatformDrawable;
-import static org.telegram.ui.bots.AffiliateProgramFragment.percents;
+import static com.tech.ayugram.ui.Stars.StarsController.findAttribute;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.StarsTransactionView.getPlatformDrawable;
+import static com.tech.ayugram.ui.bots.AffiliateProgramFragment.percents;
 
 import android.content.Context;
 import android.graphics.Bitmap;

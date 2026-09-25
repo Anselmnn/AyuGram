@@ -191,7 +191,7 @@ public class RichMessageLayout {
 
     private ButtonBounce showMoreBounce;
     private Paint showMorePaint;
-    private org.telegram.ui.Components.Text showMoreText;
+    private com.tech.ayugram.ui.Components.Text showMoreText;
     private LoadingDrawable showMoreLoading;
     private final RectF showMoreRect = new RectF();
     private boolean showMorePressed;
@@ -1600,7 +1600,7 @@ public class RichMessageLayout {
         final int color = getThemedColor(isOut() ? Theme.key_chat_outPreviewInstantText : Theme.key_chat_inPreviewInstantText);
 
         if (showMoreText == null) {
-            showMoreText = new org.telegram.ui.Components.Text(LocaleController.getString(R.string.ShowMore), 16, AndroidUtilities.bold());
+            showMoreText = new com.tech.ayugram.ui.Components.Text(LocaleController.getString(R.string.ShowMore), 16, AndroidUtilities.bold());
         }
         if (showMoreBounce == null) {
             showMoreBounce = new ButtonBounce(view, 1.5f, 2.0f);

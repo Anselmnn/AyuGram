@@ -3,8 +3,8 @@ package com.tech.ayugram.ui.Stars;
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarsController.findAttribute;
-import static org.telegram.ui.Stars.StarsIntroActivity.setGiftImage;
+import static com.tech.ayugram.ui.Stars.StarsController.findAttribute;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.setGiftImage;
 
 import android.graphics.Canvas;
 import android.graphics.Matrix;

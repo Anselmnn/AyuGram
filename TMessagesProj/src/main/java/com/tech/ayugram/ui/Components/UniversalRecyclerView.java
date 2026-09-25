@@ -2,7 +2,7 @@ package com.tech.ayugram.ui.Components;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
-import static org.telegram.ui.ActionBar.Theme.multAlpha;
+import static com.tech.ayugram.ui.ActionBar.Theme.multAlpha;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -2,7 +2,7 @@ package com.tech.ayugram.ui.Cells;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Components.EditTextEmoji.STYLE_GIFT;
+import static com.tech.ayugram.ui.Components.EditTextEmoji.STYLE_GIFT;
 
 import android.content.Context;
 import android.graphics.Canvas;

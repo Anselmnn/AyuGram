@@ -8,8 +8,8 @@ import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
 import static com.tech.ayugram.TranslateController.normalizeLanguage;
-import static org.telegram.ui.Components.TranslateAlert2.capitalFirst;
-import static org.telegram.ui.Components.TranslateAlert2.languageName;
+import static com.tech.ayugram.ui.Components.TranslateAlert2.capitalFirst;
+import static com.tech.ayugram.ui.Components.TranslateAlert2.languageName;
 
 import android.content.Context;
 import android.graphics.Canvas;

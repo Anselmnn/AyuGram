@@ -6,8 +6,8 @@ import static com.tech.ayugram.messenger.AndroidUtilities.replaceSingleLink;
 import static com.tech.ayugram.messenger.AndroidUtilities.replaceSingleTag;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Cells.TextCell.applyNewSpan;
-import static org.telegram.ui.Components.Premium.LimitReachedBottomSheet.TYPE_ACCOUNTS;
+import static com.tech.ayugram.ui.Cells.TextCell.applyNewSpan;
+import static com.tech.ayugram.ui.Components.Premium.LimitReachedBottomSheet.TYPE_ACCOUNTS;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -4,8 +4,8 @@ import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.AndroidUtilities.replaceTags;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Components.Reactions.ReactionsUtils.addReactionToEditText;
-import static org.telegram.ui.Components.Reactions.ReactionsUtils.createAnimatedEmojiSpan;
+import static com.tech.ayugram.ui.Components.Reactions.ReactionsUtils.addReactionToEditText;
+import static com.tech.ayugram.ui.Components.Reactions.ReactionsUtils.createAnimatedEmojiSpan;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

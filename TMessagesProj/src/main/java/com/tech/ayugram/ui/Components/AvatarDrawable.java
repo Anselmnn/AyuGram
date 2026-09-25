@@ -103,7 +103,7 @@ public class AvatarDrawable extends Drawable {
     public static final int AVATAR_TYPE_SUGGESTION = 27;
 
     /**
-     * Matches {@link org.telegram.ui.Components.AvatarConstructorFragment#defaultColors}
+     * Matches {@link com.tech.ayugram.ui.Components.AvatarConstructorFragment#defaultColors}
      * but reordered to preserve color tints.
      */
     public static final int[][] advancedGradients = new int[][]{

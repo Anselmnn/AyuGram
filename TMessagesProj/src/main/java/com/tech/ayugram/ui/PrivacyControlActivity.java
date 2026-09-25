@@ -12,7 +12,7 @@ import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static com.tech.ayugram.messenger.ContactsController.findRule;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.bots.AffiliateProgramFragment.percents;
+import static com.tech.ayugram.ui.bots.AffiliateProgramFragment.percents;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -17,9 +17,9 @@ import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarGiftSheet.replaceUnderstood;
-import static org.telegram.ui.Stars.StarsIntroActivity.formatStarsAmountShort;
-import static org.telegram.ui.bots.AffiliateProgramFragment.percents;
+import static com.tech.ayugram.ui.Stars.StarGiftSheet.replaceUnderstood;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.formatStarsAmountShort;
+import static com.tech.ayugram.ui.bots.AffiliateProgramFragment.percents;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -16380,7 +16380,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             });
         } else if (position == bizLocationRow) {
             itemOptions.add(R.drawable.msg_edit, getString(R.string.ProfileLocationEdit), () -> {
-                presentFragment(new org.telegram.ui.Business.LocationActivity());
+                presentFragment(new com.tech.ayugram.ui.Business.LocationActivity());
             });
             itemOptions.add(R.drawable.msg_delete, getString(R.string.ProfileLocationRemove), true, () -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getParentActivity());

@@ -8,7 +8,7 @@
 
 package com.tech.ayugram.messenger;
 
-import static org.telegram.ui.PhotoViewer.getTempFileAbsolutePath;
+import static com.tech.ayugram.ui.PhotoViewer.getTempFileAbsolutePath;
 
 import android.Manifest;
 import android.animation.Animator;

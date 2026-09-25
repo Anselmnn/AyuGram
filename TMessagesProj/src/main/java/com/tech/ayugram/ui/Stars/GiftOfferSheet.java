@@ -7,10 +7,10 @@ import static com.tech.ayugram.messenger.LocaleController.formatNumber;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarGiftSheet.addAttributeRow;
-import static org.telegram.ui.Stars.StarsController.findAttribute;
-import static org.telegram.ui.Stars.StarsIntroActivity.replaceStars;
-import static org.telegram.ui.Stars.StarsIntroActivity.replaceStarsWithPlain;
+import static com.tech.ayugram.ui.Stars.StarGiftSheet.addAttributeRow;
+import static com.tech.ayugram.ui.Stars.StarsController.findAttribute;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.replaceStars;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.replaceStarsWithPlain;
 
 import android.content.Context;
 import android.graphics.PorterDuff;

@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.bots;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
-import static org.telegram.ui.Components.Bulletin.DURATION_PROLONG;
+import static com.tech.ayugram.ui.Components.Bulletin.DURATION_PROLONG;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

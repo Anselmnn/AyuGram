@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui.Components.Reactions;
 
-import static org.telegram.ui.ChatActivity.MODE_DEFAULT;
+import static com.tech.ayugram.ui.ChatActivity.MODE_DEFAULT;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

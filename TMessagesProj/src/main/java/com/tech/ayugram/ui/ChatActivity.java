@@ -13,7 +13,7 @@ import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.bots.AffiliateProgramFragment.percents;
+import static com.tech.ayugram.ui.bots.AffiliateProgramFragment.percents;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -33363,7 +33363,7 @@ public class ChatActivity extends BaseFragment implements
                         ArrayList<BlockRow> flat = RichEditorListView.flattenForCopy(copyRichMessage, quoteAuthors);
                         if (!flat.isEmpty()) {
                             html = RichHtml.serialize(flat, 0, flat.size() - 1, 0, Integer.MAX_VALUE, quoteAuthors);
-                            org.telegram.ui.iv.RichMediaClipboard.set(copyRichMessage.photos, copyRichMessage.documents);
+                            com.tech.ayugram.ui.iv.RichMediaClipboard.set(copyRichMessage.photos, copyRichMessage.documents);
                         }
                     } catch (Exception e) {
                         FileLog.e(e);

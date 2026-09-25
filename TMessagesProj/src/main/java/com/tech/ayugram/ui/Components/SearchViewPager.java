@@ -1,7 +1,7 @@
 package com.tech.ayugram.ui.Components;
 
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.PremiumPreviewFragment.applyNewSpan;
+import static com.tech.ayugram.ui.PremiumPreviewFragment.applyNewSpan;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

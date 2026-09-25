@@ -2,7 +2,7 @@ package com.tech.ayugram.ui;
 
 import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 import static org.telegram.tgnet.TLRPC.TL_payments_checkedGiftCode.NO_USER_ID;
-import static org.telegram.ui.Components.Premium.LimitReachedBottomSheet.TYPE_FEATURES;
+import static com.tech.ayugram.ui.Components.Premium.LimitReachedBottomSheet.TYPE_FEATURES;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

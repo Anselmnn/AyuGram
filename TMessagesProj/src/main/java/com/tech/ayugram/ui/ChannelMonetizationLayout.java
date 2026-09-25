@@ -7,7 +7,7 @@ import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
 import static org.telegram.tgnet.ConnectionsManager.DEFAULT_DATACENTER_ID;
-import static org.telegram.ui.ChatEditActivity.applyNewSpan;
+import static com.tech.ayugram.ui.ChatEditActivity.applyNewSpan;
 
 import android.app.Activity;
 import android.content.Context;

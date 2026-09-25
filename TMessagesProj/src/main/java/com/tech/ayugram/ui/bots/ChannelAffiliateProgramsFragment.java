@@ -5,10 +5,10 @@ import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
 import static com.tech.ayugram.messenger.LocaleController.formatSpannable;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarsIntroActivity.formatStarsAmount;
-import static org.telegram.ui.Stars.StarsIntroActivity.formatStarsAmountShort;
-import static org.telegram.ui.Stars.StarsIntroActivity.replaceStarsWithPlain;
-import static org.telegram.ui.bots.AffiliateProgramFragment.percents;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.formatStarsAmount;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.formatStarsAmountShort;
+import static com.tech.ayugram.ui.Stars.StarsIntroActivity.replaceStarsWithPlain;
+import static com.tech.ayugram.ui.bots.AffiliateProgramFragment.percents;
 
 import android.content.Context;
 import android.graphics.Canvas;
