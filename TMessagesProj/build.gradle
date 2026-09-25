@@ -235,7 +235,7 @@ android {
         }
     }
 
-    namespace 'com.tech.ayugram'
+    namespace 'com.tech.ayugram.messenger'
 }
 
 
