@@ -6,7 +6,7 @@ import static com.tech.ayugram.messenger.AndroidUtilities.makeBlurBitmap;
 import static com.tech.ayugram.messenger.LocaleController.formatPluralString;
 import static com.tech.ayugram.messenger.LocaleController.formatString;
 import static com.tech.ayugram.messenger.LocaleController.getString;
-import static com.tech.ayugram.messenger.tgnet.ConnectionsManager.DEFAULT_DATACENTER_ID;
+import static com.tech.ayugram.tgnet.ConnectionsManager.DEFAULT_DATACENTER_ID;
 import static com.tech.ayugram.ui.ChatEditActivity.applyNewSpan;
 
 import android.app.Activity;

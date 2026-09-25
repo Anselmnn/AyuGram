@@ -266,7 +266,7 @@ public class FileLog {
         public JsonElement serialize(TLObject src, Type typeOfSrc, JsonSerializationContext context) {
             JsonObject jsonObj = new JsonObject();
             String className = src.getClass().getName();
-            final String usualPrefix = "com.tech.ayugram.messenger.tgnet.";
+            final String usualPrefix = "com.tech.ayugram.tgnet.";
             if (className.startsWith(usualPrefix)) {
                 className = className.substring(usualPrefix.length());
             }
