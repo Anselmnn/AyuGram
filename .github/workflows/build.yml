@@ -97,7 +97,6 @@ jobs:
         if: steps.sdk-cache.outputs.cache-hit != 'true'
         run: |
           export ANDROID_HOME=/home/runner/android-sdk
-export ANDROID_SDK_ROOT=$ANDROID_HOME
           export ANDROID_SDK_ROOT=$ANDROID_HOME
           mkdir -p "$ANDROID_HOME/cmdline-tools"
           curl -fsSL "https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip" -o /tmp/cmdtools.zip
