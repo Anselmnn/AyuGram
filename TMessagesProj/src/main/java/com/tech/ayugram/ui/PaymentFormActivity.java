@@ -8,7 +8,7 @@
 
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.messenger.LocaleController.getString;
+import static org.telegram.messenger.LocaleController.getString;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -99,7 +99,7 @@ import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.ApplicationLoader;
 import com.tech.ayugram.messenger.BuildVars;
 import com.tech.ayugram.messenger.ContactsController;
-import com.tech.ayugram.messenger.DialogObject;
+import org.telegram.messenger.DialogObject;
 import com.tech.ayugram.messenger.FileLog;
 import com.tech.ayugram.messenger.LocaleController;
 import com.tech.ayugram.messenger.MessageObject;
@@ -109,45 +109,45 @@ import com.tech.ayugram.messenger.R;
 import com.tech.ayugram.messenger.SRPHelper;
 import com.tech.ayugram.messenger.SharedConfig;
 import com.tech.ayugram.messenger.UserConfig;
-import com.tech.ayugram.messenger.UserObject;
+import org.telegram.messenger.UserObject;
 import com.tech.ayugram.messenger.Utilities;
-import com.tech.ayugram.messenger.browser.Browser;
+import org.telegram.messenger.browser.Browser;
 import com.tech.ayugram.tgnet.ConnectionsManager;
 import com.tech.ayugram.tgnet.RequestDelegate;
 import com.tech.ayugram.tgnet.TLObject;
-import com.tech.ayugram.tgnet.TLRPC;
-import com.tech.ayugram.tgnet.tl.TL_account;
-import com.tech.ayugram.tgnet.tl.TL_update;
+import org.telegram.tgnet.TLRPC;
+import org.telegram.tgnet.tl.TL_account;
+import org.telegram.tgnet.tl.TL_update;
 import com.tech.ayugram.ui.ActionBar.ActionBar;
-import com.tech.ayugram.ui.ActionBar.ActionBarMenu;
-import com.tech.ayugram.ui.ActionBar.ActionBarMenuItem;
+import org.telegram.ui.ActionBar.ActionBarMenu;
+import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import com.tech.ayugram.ui.ActionBar.AlertDialog;
 import com.tech.ayugram.ui.ActionBar.BaseFragment;
 import com.tech.ayugram.ui.ActionBar.BottomSheet;
-import com.tech.ayugram.ui.ActionBar.INavigationLayout;
+import org.telegram.ui.ActionBar.INavigationLayout;
 import com.tech.ayugram.ui.ActionBar.Theme;
 import com.tech.ayugram.ui.ActionBar.ThemeDescription;
-import com.tech.ayugram.ui.Cells.EditTextSettingsCell;
-import com.tech.ayugram.ui.Cells.HeaderCell;
-import com.tech.ayugram.ui.Cells.PaymentInfoCell;
-import com.tech.ayugram.ui.Cells.RadioCell;
-import com.tech.ayugram.ui.Cells.RecurrentPaymentsAcceptCell;
-import com.tech.ayugram.ui.Cells.ShadowSectionCell;
-import com.tech.ayugram.ui.Cells.TextCheckCell;
-import com.tech.ayugram.ui.Cells.TextDetailSettingsCell;
+import org.telegram.ui.Cells.EditTextSettingsCell;
+import org.telegram.ui.Cells.HeaderCell;
+import org.telegram.ui.Cells.PaymentInfoCell;
+import org.telegram.ui.Cells.RadioCell;
+import org.telegram.ui.Cells.RecurrentPaymentsAcceptCell;
+import org.telegram.ui.Cells.ShadowSectionCell;
+import org.telegram.ui.Cells.TextCheckCell;
+import org.telegram.ui.Cells.TextDetailSettingsCell;
 import com.tech.ayugram.ui.Cells.TextInfoPrivacyCell;
-import com.tech.ayugram.ui.Cells.TextPriceCell;
-import com.tech.ayugram.ui.Cells.TextSettingsCell;
-import com.tech.ayugram.ui.Components.AlertsCreator;
-import com.tech.ayugram.ui.Components.Bulletin;
-import com.tech.ayugram.ui.Components.BulletinFactory;
-import com.tech.ayugram.ui.Components.ContextProgressView;
-import com.tech.ayugram.ui.Components.EditTextBoldCursor;
-import com.tech.ayugram.ui.Components.HintEditText;
-import com.tech.ayugram.ui.Components.LayoutHelper;
-import com.tech.ayugram.ui.Components.TypefaceSpan;
-import com.tech.ayugram.ui.Components.URLSpanNoUnderline;
-import com.tech.ayugram.ui.Stars.StarsIntroActivity;
+import org.telegram.ui.Cells.TextPriceCell;
+import org.telegram.ui.Cells.TextSettingsCell;
+import org.telegram.ui.Components.AlertsCreator;
+import org.telegram.ui.Components.Bulletin;
+import org.telegram.ui.Components.BulletinFactory;
+import org.telegram.ui.Components.ContextProgressView;
+import org.telegram.ui.Components.EditTextBoldCursor;
+import org.telegram.ui.Components.HintEditText;
+import org.telegram.ui.Components.LayoutHelper;
+import org.telegram.ui.Components.TypefaceSpan;
+import org.telegram.ui.Components.URLSpanNoUnderline;
+import org.telegram.ui.Stars.StarsIntroActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -218,7 +218,7 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
     private HashMap<String, String> codesMap = new HashMap<>();
     private HashMap<String, String> phoneFormatMap = new HashMap<>();
 
-// Phase 2:     private PaymentsClient paymentsClient;
+    private PaymentsClient paymentsClient;
 
     private EditTextBoldCursor[] inputFields;
     private RadioCell[] radioCells;
@@ -3015,9 +3015,9 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
                 shippingAddressParameters.put("allowedCountryCodes", allowedCountryCodes);
                 paymentDataRequest.put("shippingAddressParameters", shippingAddressParameters);*/
 
-// Phase 2:                 PaymentDataRequest request = PaymentDataRequest.fromJson(paymentDataRequest.toString());
+                PaymentDataRequest request = PaymentDataRequest.fromJson(paymentDataRequest.toString());
                 if (request != null) {
-// Phase 2:                     AutoResolveHelper.resolveTask(paymentsClient.loadPaymentData(request), getParentActivity(), LOAD_PAYMENT_DATA_REQUEST_CODE);
+                    AutoResolveHelper.resolveTask(paymentsClient.loadPaymentData(request), getParentActivity(), LOAD_PAYMENT_DATA_REQUEST_CODE);
                 }
             } catch (JSONException e) {
                 FileLog.e(e);
@@ -3191,7 +3191,7 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
         return cardPaymentMethod;
     }
 
-// Phase 2:     public Optional<JSONObject> getIsReadyToPayRequest() {
+    public Optional<JSONObject> getIsReadyToPayRequest() {
         try {
             JSONObject isReadyToPayRequest = getBaseRequest();
             isReadyToPayRequest.put(
@@ -3207,17 +3207,17 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
         if (Build.VERSION.SDK_INT < 19 || getParentActivity() == null) {
             return;
         }
-// Phase 2:         Wallet.WalletOptions walletOptions = new Wallet.WalletOptions.Builder()
-// Phase 2:                 .setEnvironment(paymentForm.invoice.test ? WalletConstants.ENVIRONMENT_TEST : WalletConstants.ENVIRONMENT_PRODUCTION)
-// Phase 2:                 .setTheme(WalletConstants.THEME_LIGHT)
+        Wallet.WalletOptions walletOptions = new Wallet.WalletOptions.Builder()
+                .setEnvironment(paymentForm.invoice.test ? WalletConstants.ENVIRONMENT_TEST : WalletConstants.ENVIRONMENT_PRODUCTION)
+                .setTheme(WalletConstants.THEME_LIGHT)
                 .build();
-// Phase 2:         paymentsClient = Wallet.getPaymentsClient(context, walletOptions);
+        paymentsClient = Wallet.getPaymentsClient(context, walletOptions);
 
-// Phase 2:         final Optional<JSONObject> isReadyToPayJson = getIsReadyToPayRequest();
+        final Optional<JSONObject> isReadyToPayJson = getIsReadyToPayRequest();
         if (!isReadyToPayJson.isPresent()) {
             return;
         }
-// Phase 2:         IsReadyToPayRequest request = IsReadyToPayRequest.fromJson(isReadyToPayJson.get().toString());
+        IsReadyToPayRequest request = IsReadyToPayRequest.fromJson(isReadyToPayJson.get().toString());
         if (request == null) {
             return;
         }
@@ -3392,7 +3392,7 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
         if (requestCode == LOAD_PAYMENT_DATA_REQUEST_CODE) {
             AndroidUtilities.runOnUIThread(() -> {
                 if (resultCode == Activity.RESULT_OK) {
-// Phase 2:                     PaymentData paymentData = PaymentData.getFromIntent(data);
+                    PaymentData paymentData = PaymentData.getFromIntent(data);
                     if (paymentData == null) {
                         return;
                     }
@@ -3427,8 +3427,8 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
                         FileLog.e(e);
                     }
                 } else {
-// Phase 2:                     if (resultCode == AutoResolveHelper.RESULT_ERROR) {
-// Phase 2:                         Status status = AutoResolveHelper.getStatusFromIntent(data);
+                    if (resultCode == AutoResolveHelper.RESULT_ERROR) {
+                        Status status = AutoResolveHelper.getStatusFromIntent(data);
                         FileLog.e("android pay error " + (status != null ? status.getStatusMessage() : ""));
                     }
                 }

@@ -8,13 +8,13 @@
 
 package com.tech.ayugram.ui;
 
-import static com.tech.ayugram.messenger.AndroidUtilities.dp;
-import static com.tech.ayugram.messenger.AndroidUtilities.replaceArrows;
-import static com.tech.ayugram.messenger.AndroidUtilities.replaceSingleTag;
-import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
-import static com.tech.ayugram.messenger.LocaleController.formatString;
-import static com.tech.ayugram.messenger.LocaleController.getString;
-import static com.tech.ayugram.messenger.MessagesController.findUpdatesAndRemove;
+import static org.telegram.messenger.AndroidUtilities.dp;
+import static org.telegram.messenger.AndroidUtilities.replaceArrows;
+import static org.telegram.messenger.AndroidUtilities.replaceSingleTag;
+import static org.telegram.messenger.LocaleController.formatPluralStringComma;
+import static org.telegram.messenger.LocaleController.formatString;
+import static org.telegram.messenger.LocaleController.getString;
+import static org.telegram.messenger.MessagesController.findUpdatesAndRemove;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -99,11 +99,11 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
-// import com.android.billingclient.api.BillingClient; (Phase 2: removed)
-// import com.android.billingclient.api.BillingFlowParams; (Phase 2: removed)
-// import com.android.billingclient.api.ProductDetails; (Phase 2: removed)
-// import com.android.billingclient.api.Purchase; (Phase 2: removed)
-// import com.android.billingclient.api.QueryProductDetailsParams; (Phase 2: removed)
+import com.tech.ayugram.play.stub.BillingClient;
+import com.tech.ayugram.play.stub.BillingFlowParams;
+import com.tech.ayugram.play.stub.ProductDetails;
+import com.tech.ayugram.play.stub.ProductDetails;
+import com.tech.ayugram.play.stub.BillingClient.QueryProductDetailsParams;
 import com.tech.ayugram.play.stub.GoogleSignIn;
 import com.tech.ayugram.play.stub.GoogleSignIn.GoogleSignInAccount;
 import com.tech.ayugram.play.stub.GoogleSignIn.GoogleSignInClient;
@@ -123,7 +123,7 @@ import com.tech.ayugram.messenger.AccountInstance;
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.ApplicationLoader;
 import com.tech.ayugram.messenger.AuthTokensHelper;
-// import com.tech.ayugram.messenger.BillingController; (Phase 2: removed)
+import com.tech.ayugram.messenger.BillingController;
 import com.tech.ayugram.messenger.BuildConfig;
 import com.tech.ayugram.messenger.BuildVars;
 import com.tech.ayugram.messenger.CallReceiver;
@@ -148,57 +148,57 @@ import com.tech.ayugram.tgnet.ConnectionsManager;
 import com.tech.ayugram.tgnet.RequestDelegate;
 import com.tech.ayugram.tgnet.SerializedData;
 import com.tech.ayugram.tgnet.TLObject;
-import com.tech.ayugram.tgnet.TLRPC;
-import com.tech.ayugram.tgnet.tl.TL_account;
-import com.tech.ayugram.tgnet.tl.TL_update;
+import org.telegram.tgnet.TLRPC;
+import org.telegram.tgnet.tl.TL_account;
+import org.telegram.tgnet.tl.TL_update;
 import com.tech.ayugram.ui.ActionBar.ActionBar;
 import com.tech.ayugram.ui.ActionBar.AlertDialog;
 import com.tech.ayugram.ui.ActionBar.BaseFragment;
-import com.tech.ayugram.ui.ActionBar.INavigationLayout;
+import org.telegram.ui.ActionBar.INavigationLayout;
 import com.tech.ayugram.ui.ActionBar.Theme;
 import com.tech.ayugram.ui.ActionBar.ThemeDescription;
-import com.tech.ayugram.ui.Cells.CheckBoxCell;
-import com.tech.ayugram.ui.Components.AlertsCreator;
-import com.tech.ayugram.ui.Components.AnimatedPhoneNumberEditText;
-import com.tech.ayugram.ui.Components.AvatarDrawable;
-import com.tech.ayugram.ui.Components.BackupImageView;
-import com.tech.ayugram.ui.Components.Bulletin;
-import com.tech.ayugram.ui.Components.BulletinFactory;
-import com.tech.ayugram.ui.Components.CubicBezierInterpolator;
-import com.tech.ayugram.ui.Components.CustomPhoneKeyboardView;
-import com.tech.ayugram.ui.Components.Easings;
-import com.tech.ayugram.ui.Components.EditTextBoldCursor;
-import com.tech.ayugram.ui.Components.FragmentFloatingButton;
-import com.tech.ayugram.ui.Components.ImageUpdater;
-import com.tech.ayugram.ui.Components.ItemOptions;
-import com.tech.ayugram.ui.Components.LayoutHelper;
-import com.tech.ayugram.ui.Components.LinkPath;
-import com.tech.ayugram.ui.Components.LinkSpanDrawable;
-import com.tech.ayugram.ui.Components.LoadingDrawable;
-import com.tech.ayugram.ui.Components.LoginOrView;
-import com.tech.ayugram.ui.Components.OutlineTextContainerView;
-import com.tech.ayugram.ui.Components.Premium.GLIcon.GLIconRenderer;
-import com.tech.ayugram.ui.Components.Premium.GLIcon.GLIconTextureView;
-import com.tech.ayugram.ui.Components.Premium.GLIcon.Icon3D;
-import com.tech.ayugram.ui.Components.Premium.StarParticlesView;
-import com.tech.ayugram.ui.Components.ProxyDrawable;
-import com.tech.ayugram.ui.Components.RLottieDrawable;
-import com.tech.ayugram.ui.Components.RLottieImageView;
-import com.tech.ayugram.ui.Components.RadialProgressView;
-import com.tech.ayugram.ui.Components.ScaleStateListAnimator;
-import com.tech.ayugram.ui.Components.SimpleThemeDescription;
-import com.tech.ayugram.ui.Components.SizeNotifierFrameLayout;
-import com.tech.ayugram.ui.Components.SlideView;
-import com.tech.ayugram.ui.Components.TextStyleSpan;
-import com.tech.ayugram.ui.Components.TextViewSwitcher;
-import com.tech.ayugram.ui.Components.TransformableLoginButtonView;
-import com.tech.ayugram.ui.Components.URLSpanNoUnderline;
-import com.tech.ayugram.ui.Components.VerticalPositionAutoAnimator;
-import com.tech.ayugram.ui.Components.chat.ViewPositionWatcher;
-import com.tech.ayugram.ui.Components.spoilers.SpoilersTextView;
-import com.tech.ayugram.ui.Stars.ExplainStarsSheet;
-import com.tech.ayugram.ui.Stories.recorder.ButtonWithCounterView;
-import com.tech.ayugram.ui.bots.BotWebViewSheet;
+import org.telegram.ui.Cells.CheckBoxCell;
+import org.telegram.ui.Components.AlertsCreator;
+import org.telegram.ui.Components.AnimatedPhoneNumberEditText;
+import org.telegram.ui.Components.AvatarDrawable;
+import org.telegram.ui.Components.BackupImageView;
+import org.telegram.ui.Components.Bulletin;
+import org.telegram.ui.Components.BulletinFactory;
+import org.telegram.ui.Components.CubicBezierInterpolator;
+import org.telegram.ui.Components.CustomPhoneKeyboardView;
+import org.telegram.ui.Components.Easings;
+import org.telegram.ui.Components.EditTextBoldCursor;
+import org.telegram.ui.Components.FragmentFloatingButton;
+import org.telegram.ui.Components.ImageUpdater;
+import org.telegram.ui.Components.ItemOptions;
+import org.telegram.ui.Components.LayoutHelper;
+import org.telegram.ui.Components.LinkPath;
+import org.telegram.ui.Components.LinkSpanDrawable;
+import org.telegram.ui.Components.LoadingDrawable;
+import org.telegram.ui.Components.LoginOrView;
+import org.telegram.ui.Components.OutlineTextContainerView;
+import org.telegram.ui.Components.Premium.GLIcon.GLIconRenderer;
+import org.telegram.ui.Components.Premium.GLIcon.GLIconTextureView;
+import org.telegram.ui.Components.Premium.GLIcon.Icon3D;
+import org.telegram.ui.Components.Premium.StarParticlesView;
+import org.telegram.ui.Components.ProxyDrawable;
+import org.telegram.ui.Components.RLottieDrawable;
+import org.telegram.ui.Components.RLottieImageView;
+import org.telegram.ui.Components.RadialProgressView;
+import org.telegram.ui.Components.ScaleStateListAnimator;
+import org.telegram.ui.Components.SimpleThemeDescription;
+import org.telegram.ui.Components.SizeNotifierFrameLayout;
+import org.telegram.ui.Components.SlideView;
+import org.telegram.ui.Components.TextStyleSpan;
+import org.telegram.ui.Components.TextViewSwitcher;
+import org.telegram.ui.Components.TransformableLoginButtonView;
+import org.telegram.ui.Components.URLSpanNoUnderline;
+import org.telegram.ui.Components.VerticalPositionAutoAnimator;
+import org.telegram.ui.Components.chat.ViewPositionWatcher;
+import org.telegram.ui.Components.spoilers.SpoilersTextView;
+import org.telegram.ui.Stars.ExplainStarsSheet;
+import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
+import org.telegram.ui.bots.BotWebViewSheet;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -216,7 +216,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.Timer;
-import java.util.Timer// Phase 2: Removed Task;
+import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
 
 @SuppressLint("HardwareIds")
@@ -1774,10 +1774,10 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 isRequestingFirebaseSms = true;
                 final String phone = params.getString("phoneFormated");
                 if (r.play_integrity_nonce != null) {
-                    IntegrityManager integrityManager = IntegrityManager.IntegrityManagerFactory.create(getContext());
+                    IntegrityManager integrityManager = IntegrityManagerFactory.create(getContext());
                     final String nonce = new String(Base64.encode(r.play_integrity_nonce, Base64.URL_SAFE));
                     FileLog.d("getting classic integrity with nonce = " + nonce);
-                    com.tech.ayugram.play.stub.Task<IntegrityManager.IntegrityTokenResponse> integrityTokenResponse = integrityManager.requestIntegrityToken(IntegrityManager.IntegrityTokenRequest.builder().setNonce(nonce).setCloudProjectNumber(r.play_integrity_project_id).build());
+                    Task<IntegrityTokenResponse> integrityTokenResponse = integrityManager.requestIntegrityToken(IntegrityTokenRequest.builder().setNonce(nonce).setCloudProjectNumber(r.play_integrity_project_id).build());
                     integrityTokenResponse
                         .addOnSuccessListener(result -> {
                             final String token = result.token();
@@ -4581,7 +4581,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
             }
             codeTimer = new Timer();
             lastCodeTime = System.currentTimeMillis();
-            codeTimer.schedule(new Timer// Phase 2: Removed Task() {
+            codeTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     AndroidUtilities.runOnUIThread(() -> {
@@ -4625,7 +4625,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 progressView.resetProgressAnimation();
             }
             timeTimer = new Timer();
-            timeTimer.schedule(new Timer// Phase 2: Removed Task() {
+            timeTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     if (timeTimer == null) {
@@ -5899,7 +5899,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
         private String phone, emailPhone;
         private String requestPhone, phoneHash;
 
-        private // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInAccount googleAccount;
+        private GoogleSignInAccount googleAccount;
 
         public LoginActivitySetupEmail(Context context) {
             super(context);
@@ -6002,16 +6002,16 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
                         if (request == BasePermissionsActivity.REQUEST_CODE_SIGN_IN_WITH_GOOGLE) {
                             try {
-                                googleAccount = // Phase 2: Removed // Phase 2: Removed GoogleSignIn.getSignedInAccountFromIntent(data).getResult(// Phase 2: Removed // Phase 2: Removed ApiException.class);
+                                googleAccount = GoogleSignIn.getSignedInAccountFromIntent(data).getResult(ApiException.class);
                                 onNextPressed(null);
-                            } catch (// Phase 2: Removed // Phase 2: Removed ApiException e) {
+                            } catch (ApiException e) {
                                 FileLog.e(e);
                             }
                         }
                     }
                 }, NotificationCenter.onActivityResultReceived);
 
-                // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInClient googleClient = // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignIn.getClient(getContext(), new // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInOptions.Builder()
+                GoogleSignInClient googleClient = GoogleSignIn.getClient(getContext(), new GoogleSignInOptions.Builder()
                         .requestIdToken(BuildVars.GOOGLE_AUTH_CLIENT_ID)
                         .requestEmail()
                         .build());
@@ -6235,7 +6235,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
         private boolean resetRequestPending;
         private Bundle currentParams;
         private boolean nextPressed;
-        private // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInAccount googleAccount;
+        private GoogleSignInAccount googleAccount;
 
         private int resetAvailablePeriod, resetPendingDate;
         private String phone, emailPhone, email;
@@ -6336,16 +6336,16 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
                         if (request == BasePermissionsActivity.REQUEST_CODE_SIGN_IN_WITH_GOOGLE) {
                             try {
-                                googleAccount = // Phase 2: Removed // Phase 2: Removed GoogleSignIn.getSignedInAccountFromIntent(data).getResult(// Phase 2: Removed // Phase 2: Removed ApiException.class);
+                                googleAccount = GoogleSignIn.getSignedInAccountFromIntent(data).getResult(ApiException.class);
                                 onNextPressed(null);
-                            } catch (// Phase 2: Removed // Phase 2: Removed ApiException e) {
+                            } catch (ApiException e) {
                                 FileLog.e(e);
                             }
                         }
                     }
                 }, NotificationCenter.onActivityResultReceived);
 
-                // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInClient googleClient = // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignIn.getClient(getContext(), new // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInOptions.Builder()
+                GoogleSignInClient googleClient = GoogleSignIn.getClient(getContext(), new GoogleSignInOptions.Builder()
                                 .requestIdToken(BuildVars.GOOGLE_AUTH_CLIENT_ID)
                                 .requestEmail()
                                 .build());
@@ -9604,7 +9604,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 //            }
 //            codeTimer = new Timer();
 //            lastCodeTime = System.currentTimeMillis();
-//            codeTimer.schedule(new Timer// Phase 2: Removed Task() {
+//            codeTimer.schedule(new TimerTask() {
 //                @Override
 //                public void run() {
 //                    AndroidUtilities.runOnUIThread(() -> {
@@ -9649,7 +9649,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 //                progressView.resetProgressAnimation();
 //            }
             timeTimer = new Timer();
-            timeTimer.schedule(new Timer// Phase 2: Removed Task() {
+            timeTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     if (timeTimer == null) {
@@ -10014,8 +10014,8 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 if (!TextUtils.isEmpty(currency) && amount > 0) {
                     button.setVisibility(View.VISIBLE);
                     button.setLoading(false);
-                    button.setText(formatString(R.string.SMSFee// Phase 2: Removed PurchaseTitle, // Phase 2: Removed BillingController.getInstance().formatCurrency(amount, currency)), false);
-                    button.setSubText(premium_days == 7 ? getString(R.string.SMSFee// Phase 2: Removed PurchaseText) : formatPluralStringComma("SMSFee// Phase 2: Removed PurchaseTextDays", premium_days), false);
+                    button.setText(formatString(R.string.SMSFeePurchaseTitle, BillingController.getInstance().formatCurrency(amount, currency)), false);
+                    button.setSubText(premium_days == 7 ? getString(R.string.SMSFeePurchaseText) : formatPluralStringComma("SMSFeePurchaseTextDays", premium_days), false);
                     button.setOnClickListener(v -> {
                         if (button.isLoading())
                             return;
@@ -10096,42 +10096,42 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 button.setLoading(true);
 
                 final Runnable fetch = () -> {
-                    final ArrayList<Query// Phase 2: Removed ProductDetailsParams.Product> productQueries = new ArrayList<>();
+                    final ArrayList<QueryProductDetailsParams.Product> productQueries = new ArrayList<>();
                     productQueries.add(
-                        Query// Phase 2: Removed ProductDetailsParams.Product.newBuilder()
-                            .setProductType(// Phase 2: Removed BillingClient.ProductType.INAPP)
+                        QueryProductDetailsParams.Product.newBuilder()
+                            .setProductType(BillingClient.ProductType.INAPP)
                             .setProductId(product)
                             .build()
                     );
                     FileLog.d("LoginBilling querying \"" + product + "\" product");
-                    // Phase 2: Removed BillingController.getInstance().query// Phase 2: Removed ProductDetails(productQueries, (result, list) -> AndroidUtilities.runOnUIThread(() -> {
+                    BillingController.getInstance().queryProductDetails(productQueries, (result, list) -> AndroidUtilities.runOnUIThread(() -> {
                         FileLog.d("LoginBilling queried \"" + product + "\" product: " + BillingController.getResponseCodeString(result.getResponseCode()));
-                        if (result.getResponseCode() != // Phase 2: Removed BillingClient.BillingResponseCode.OK) {
+                        if (result.getResponseCode() != BillingClient.BillingResponseCode.OK) {
                             lastError = "BILLING_" + BillingController.getResponseCodeString(result.getResponseCode());
                             BulletinFactory.of(slideViewsContainer, null).createSimpleBulletin(R.raw.error, formatString(R.string.UnknownErrorCode, BillingController.getResponseCodeString(result.getResponseCode())));
                             return;
                         }
                         if (list != null && !list.isEmpty()) {
-                            final // Phase 2: Removed ProductDetails productDetails = list.get(0);
+                            final ProductDetails productDetails = list.get(0);
 
-                            final // Phase 2: Removed ProductDetails.OneTime// Phase 2: Removed PurchaseOfferDetails offer = productDetails.getOneTime// Phase 2: Removed PurchaseOfferDetails();
+                            final ProductDetails.OneTimePurchaseOfferDetails offer = productDetails.getOneTimePurchaseOfferDetails();
 
                             final TLRPC.TL_inputStorePaymentAuthCode purpose = new TLRPC.TL_inputStorePaymentAuthCode();
                             purpose.currency = offer.getPriceCurrencyCode();
-                            purpose.amount = (long) ((offer.getPriceAmountMicros() / Math.pow(10, 6)) * Math.pow(10, // Phase 2: Removed BillingController.getInstance().getCurrencyExp(purpose.currency)));
+                            purpose.amount = (long) ((offer.getPriceAmountMicros() / Math.pow(10, 6)) * Math.pow(10, BillingController.getInstance().getCurrencyExp(purpose.currency)));
                             purpose.phone_code_hash = TextUtils.isEmpty(phoneHash) ? "" : phoneHash;
                             purpose.phone_number = phone;
                             purpose.premium_days = premium_days;
 
                             FileLog.d("LoginBilling found \"" + product + "\" product, with currency=" + purpose.currency + " amount=" + purpose.amount + "; phone=" + phone + ", phone_code_hash=" + phoneHash);
 
-                            final TLRPC.TL_payments_can// Phase 2: Removed PurchaseStore req = new TLRPC.TL_payments_can// Phase 2: Removed PurchaseStore();
+                            final TLRPC.TL_payments_canPurchaseStore req = new TLRPC.TL_payments_canPurchaseStore();
                             req.purpose = purpose;
                             ConnectionsManager.getInstance(currentAccount).sendRequest(req, (res, err) -> AndroidUtilities.runOnUIThread(() -> {
-                                FileLog.d("LoginBilling can// Phase 2: Removed PurchaseStore returned " + res + " " + err);
+                                FileLog.d("LoginBilling canPurchaseStore returned " + res + " " + err);
                                 if (res instanceof TLRPC.TL_boolTrue) {
-                                    button.setText(formatString(R.string.SMSFee// Phase 2: Removed PurchaseTitle, offer.getFormattedPrice()), false);
-                                    button.setSubText(premium_days == 7 ? getString(R.string.SMSFee// Phase 2: Removed PurchaseText) : formatPluralStringComma("SMSFee// Phase 2: Removed PurchaseTextDays", premium_days), false);
+                                    button.setText(formatString(R.string.SMSFeePurchaseTitle, offer.getFormattedPrice()), false);
+                                    button.setSubText(premium_days == 7 ? getString(R.string.SMSFeePurchaseText) : formatPluralStringComma("SMSFeePurchaseTextDays", premium_days), false);
                                     button.setLoading(false);
                                     button.setOnClickListener(v -> {
                                         if (button.isLoading()) return;
@@ -10148,28 +10148,28 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
                                         Runnable buy = () -> {
                                             paid = true;
-                                            // Phase 2: Removed BillingController.getInstance().addResultListener(productDetails.getProductId(), billingResult2 -> {
-                                                final boolean success = billingResult2.getResponseCode() == // Phase 2: Removed BillingClient.BillingResponseCode.OK;
+                                            BillingController.getInstance().addResultListener(productDetails.getProductId(), billingResult2 -> {
+                                                final boolean success = billingResult2.getResponseCode() == BillingClient.BillingResponseCode.OK;
                                                 final String error = success ? null : BillingController.getResponseCodeString(billingResult2.getResponseCode());
                                                 AndroidUtilities.runOnUIThread(() -> whenDone.run(error));
                                             });
-                                            // Phase 2: Removed BillingController.getInstance().setOnCanceled(() -> {
+                                            BillingController.getInstance().setOnCanceled(() -> {
                                                 AndroidUtilities.runOnUIThread(() -> whenDone.run("CANCELLED"));
                                             });
-                                            // Phase 2: Removed BillingController.getInstance().launchBillingFlow(
+                                            BillingController.getInstance().launchBillingFlow(
                                                 getParentActivity(),
                                                 AccountInstance.getInstance(currentAccount),
                                                 purpose,
-                                                Collections.singletonList(// Phase 2: Removed BillingFlowParams.// Phase 2: Removed ProductDetailsParams.newBuilder()
-                                                    .set// Phase 2: Removed ProductDetails(productDetails)
+                                                Collections.singletonList(BillingFlowParams.ProductDetailsParams.newBuilder()
+                                                    .setProductDetails(productDetails)
                                                     .build())
                                             );
                                         };
 
-                                        // Phase 2: Removed BillingController.getInstance().query// Phase 2: Removed Purchases(// Phase 2: Removed BillingClient.ProductType.INAPP, (billingResult1, paidList) -> AndroidUtilities.runOnUIThread(() -> {
-                                            if (billingResult1.getResponseCode() == // Phase 2: Removed BillingClient.BillingResponseCode.OK) {
+                                        BillingController.getInstance().queryPurchases(BillingClient.ProductType.INAPP, (billingResult1, paidList) -> AndroidUtilities.runOnUIThread(() -> {
+                                            if (billingResult1.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                                                 if (paidList != null && !paidList.isEmpty()) {
-                                                    for (// Phase 2: Removed Purchase purchase : paidList) {
+                                                    for (Purchase purchase : paidList) {
                                                         if (purchase.getProducts().contains(product)) {
                                                             final TLRPC.TL_payments_assignPlayMarketTransaction req2 = new TLRPC.TL_payments_assignPlayMarketTransaction();
                                                             req2.receipt = new TLRPC.TL_dataJSON();
@@ -10195,7 +10195,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
                                                                     getMessagesController().processUpdates((TLRPC.Updates) response, false);
 
-                                                                    // Phase 2: Removed BillingController.getInstance().consumeGift// Phase 2: Removed Purchase(purchase, req.purpose, null);
+                                                                    BillingController.getInstance().consumeGiftPurchase(purchase, req.purpose, null);
                                                                     AndroidUtilities.runOnUIThread(() -> {
                                                                         button.setLoading(false);
                                                                     });
@@ -10227,8 +10227,8 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                         }
                     }));
                 };
-                if (!// Phase 2: Removed BillingController.getInstance().isReady()) {
-                    // Phase 2: Removed BillingController.getInstance().whenSetuped(fetch);
+                if (!BillingController.getInstance().isReady()) {
+                    BillingController.getInstance().whenSetuped(fetch);
                 } else {
                     fetch.run();
                 }

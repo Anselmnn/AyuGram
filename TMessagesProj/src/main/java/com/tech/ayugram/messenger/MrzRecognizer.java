@@ -42,7 +42,7 @@ public class MrzRecognizer {
 	}
 
 	private static Result recognizeBarcode(Bitmap bitmap) {
-		BarcodeDetector detector = new BarcodeDetector(ApplicationLoader.applicationContext).build();
+		BarcodeDetector detector = new BarcodeDetector.Builder(ApplicationLoader.applicationContext)/*.setBarcodeFormats(Barcode.PDF417)*/.build();
 		if (bitmap.getWidth() > 1500 || bitmap.getHeight() > 1500) {
 			float scale = 1500f / Math.max(bitmap.getWidth(), bitmap.getHeight());
 			bitmap = Bitmap.createScaledBitmap(bitmap, Math.round(bitmap.getWidth() * scale), Math.round(bitmap.getHeight() * scale), true);
@@ -100,7 +100,7 @@ public class MrzRecognizer {
 				}
 
 				return res;
-			} else if (code.valueFormat == // Object // Phase 2: Barcode removed // Phase 2.TEXT && code.format == // Object // Phase 2: Barcode removed // Phase 2.PDF417) { // Russian driver licenses (new-ish ones) use a non-very-much-documented format
+			} else if (code.valueFormat == Barcode.TEXT && code.format == Barcode.PDF417) { // Russian driver licenses (new-ish ones) use a non-very-much-documented format
 				// base64(number|issue date|expiry date|last name|first name|middle/father name|birth date|categories|???|???)
 				// all dates are YYYYMMDD, names are capital cyrillic letters in Windows-1251, categories are comma separated
 				if (code.rawValue.matches("^[A-Za-z0-9=]+$")) {

@@ -31,14 +31,14 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
-// import com.tech.ayugram.play.stub.BillingClient; (Phase 2: removed)
-// import com.tech.ayugram.play.stub.BillingFlowParams; (Phase 2: removed)
-// import com.tech.ayugram.play.stub.ProductDetails; (Phase 2: removed)
+import com.tech.ayugram.play.stub.BillingClient;
+import com.tech.ayugram.play.stub.BillingFlowParams;
+import com.tech.ayugram.play.stub.ProductDetails;
 
 import com.tech.ayugram.messenger.AccountInstance;
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.AnimationNotificationsLocker;
-// import com.tech.ayugram.messenger.BillingController; (Phase 2: removed)
+import com.tech.ayugram.messenger.BillingController;
 import com.tech.ayugram.messenger.BuildVars;
 import com.tech.ayugram.messenger.GiftAuctionController;
 import com.tech.ayugram.messenger.LocaleController;
@@ -58,39 +58,39 @@ import com.tech.ayugram.tgnet.tl.TL_stars;
 import com.tech.ayugram.ui.ActionBar.BaseFragment;
 import com.tech.ayugram.ui.ActionBar.INavigationLayout;
 import com.tech.ayugram.ui.ActionBar.Theme;
-import com.tech.ayugram.ui.Cells.ChatActionCell;
-import com.tech.ayugram.ui.Cells.EditEmojiTextCell;
-import com.tech.ayugram.ui.ChatActivity;
-import com.tech.ayugram.ui.Components.AlertsCreator;
-import com.tech.ayugram.ui.Components.BottomSheetWithRecyclerListView;
-import com.tech.ayugram.ui.Components.BulletinFactory;
-import com.tech.ayugram.ui.Components.ColoredImageSpan;
-import com.tech.ayugram.ui.Components.CubicBezierInterpolator;
-import com.tech.ayugram.ui.Components.EditTextEmoji;
-import com.tech.ayugram.ui.Components.EditTextSuggestionsFix;
-import com.tech.ayugram.ui.Components.LayoutHelper;
-import com.tech.ayugram.ui.Components.LinkSpanDrawable;
-import com.tech.ayugram.ui.Components.MotionBackgroundDrawable;
-import com.tech.ayugram.ui.Components.Premium.GiftPremiumBottomSheet;
-import com.tech.ayugram.ui.Components.Premium.boosts.BoostDialogs;
-import com.tech.ayugram.ui.Components.Premium.boosts.BoostRepository;
-import com.tech.ayugram.ui.Components.Premium.boosts.PremiumPreviewGiftSentBottomSheet;
-import com.tech.ayugram.ui.Components.RecyclerListView;
-import com.tech.ayugram.ui.Components.SizeNotifierFrameLayout;
-import com.tech.ayugram.ui.Components.TypefaceSpan;
-import com.tech.ayugram.ui.Components.UItem;
-import com.tech.ayugram.ui.Components.UniversalAdapter;
-import com.tech.ayugram.ui.Components.blur3.drawable.BlurredBackgroundDrawable;
-import com.tech.ayugram.ui.Components.blur3.drawable.color.BlurredBackgroundColorProviderThemed;
-import com.tech.ayugram.ui.Components.blur3.source.BlurredBackgroundSourceColor;
-import com.tech.ayugram.ui.Components.chat.ViewPositionWatcher;
-import com.tech.ayugram.ui.LaunchActivity;
-import com.tech.ayugram.ui.ProfileActivity;
-import com.tech.ayugram.ui.Stars.StarGiftSheet;
-import com.tech.ayugram.ui.Stars.StarsController;
-import com.tech.ayugram.ui.Stars.StarsIntroActivity;
-import com.tech.ayugram.ui.Stories.recorder.ButtonWithCounterView;
-import com.tech.ayugram.ui.Stories.recorder.PreviewView;
+import org.telegram.ui.Cells.ChatActionCell;
+import org.telegram.ui.Cells.EditEmojiTextCell;
+import org.telegram.ui.ChatActivity;
+import org.telegram.ui.Components.AlertsCreator;
+import org.telegram.ui.Components.BottomSheetWithRecyclerListView;
+import org.telegram.ui.Components.BulletinFactory;
+import org.telegram.ui.Components.ColoredImageSpan;
+import org.telegram.ui.Components.CubicBezierInterpolator;
+import org.telegram.ui.Components.EditTextEmoji;
+import org.telegram.ui.Components.EditTextSuggestionsFix;
+import org.telegram.ui.Components.LayoutHelper;
+import org.telegram.ui.Components.LinkSpanDrawable;
+import org.telegram.ui.Components.MotionBackgroundDrawable;
+import org.telegram.ui.Components.Premium.GiftPremiumBottomSheet;
+import org.telegram.ui.Components.Premium.boosts.BoostDialogs;
+import org.telegram.ui.Components.Premium.boosts.BoostRepository;
+import org.telegram.ui.Components.Premium.boosts.PremiumPreviewGiftSentBottomSheet;
+import org.telegram.ui.Components.RecyclerListView;
+import org.telegram.ui.Components.SizeNotifierFrameLayout;
+import org.telegram.ui.Components.TypefaceSpan;
+import org.telegram.ui.Components.UItem;
+import org.telegram.ui.Components.UniversalAdapter;
+import org.telegram.ui.Components.blur3.drawable.BlurredBackgroundDrawable;
+import org.telegram.ui.Components.blur3.drawable.color.BlurredBackgroundColorProviderThemed;
+import org.telegram.ui.Components.blur3.source.BlurredBackgroundSourceColor;
+import org.telegram.ui.Components.chat.ViewPositionWatcher;
+import org.telegram.ui.LaunchActivity;
+import org.telegram.ui.ProfileActivity;
+import org.telegram.ui.Stars.StarGiftSheet;
+import org.telegram.ui.Stars.StarsController;
+import org.telegram.ui.Stars.StarsIntroActivity;
+import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
+import org.telegram.ui.Stories.recorder.PreviewView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -284,8 +284,8 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
             action.flags |= 4;
             action.currency = premiumTier.getCurrency();
             action.amount = premiumTier.getPrice();
-// Phase 2:             if (premiumTier.googlePlayProductDetails != null) {
-// Phase 2:                 action.amount = (long) (action.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(action.currency) - 6));
+            if (premiumTier.googlePlayProductDetails != null) {
+                action.amount = (long) (action.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(action.currency) - 6));
             }
             action.flags |= 16;
             action.message = new TLRPC.TL_textWithEntities();
@@ -295,8 +295,8 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
             action.months = premiumTier.getMonths();
             action.currency = premiumTier.getCurrency();
             action.amount = premiumTier.getPrice();
-// Phase 2:             if (premiumTier.googlePlayProductDetails != null) {
-// Phase 2:                 action.amount = (long) (action.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(action.currency) - 6));
+            if (premiumTier.googlePlayProductDetails != null) {
+                action.amount = (long) (action.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(action.currency) - 6));
             }
             action.flags |= 2;
             action.message = new TLRPC.TL_textWithEntities();
@@ -586,8 +586,8 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
                     } else {
                         thisAction.currency = premiumTier.getCurrency();
                         thisAction.amount = premiumTier.getPrice();
-// Phase 2:                         if (premiumTier.googlePlayProductDetails != null) {
-// Phase 2:                             thisAction.amount = (long) (thisAction.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(thisAction.currency) - 6));
+                        if (premiumTier.googlePlayProductDetails != null) {
+                            thisAction.amount = (long) (thisAction.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(thisAction.currency) - 6));
                         }
                     }
                 } else if (action instanceof TLRPC.TL_messageActionGiftCode) {
@@ -598,8 +598,8 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
                     } else {
                         thisAction.currency = premiumTier.getCurrency();
                         thisAction.amount = premiumTier.getPrice();
-// Phase 2:                         if (premiumTier.googlePlayProductDetails != null) {
-// Phase 2:                             thisAction.amount = (long) (thisAction.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(thisAction.currency) - 6));
+                        if (premiumTier.googlePlayProductDetails != null) {
+                            thisAction.amount = (long) (thisAction.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(thisAction.currency) - 6));
                         }
                     }
                 }
@@ -843,15 +843,15 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
                     dismiss();
                 }
             } else {
-// Phase 2:                 if (BillingController.getInstance().isReady() && premiumTier.googlePlayProductDetails != null) {
+                if (BillingController.getInstance().isReady() && premiumTier.googlePlayProductDetails != null) {
                     TLRPC.TL_inputStorePaymentGiftPremium giftPremium = new TLRPC.TL_inputStorePaymentGiftPremium();
                     giftPremium.user_id = MessagesController.getInstance(currentAccount).getInputUser(user);
-// Phase 2:                     ProductDetails.OneTimePurchaseOfferDetails offerDetails = premiumTier.googlePlayProductDetails.getOneTimePurchaseOfferDetails();
+                    ProductDetails.OneTimePurchaseOfferDetails offerDetails = premiumTier.googlePlayProductDetails.getOneTimePurchaseOfferDetails();
                     giftPremium.currency = offerDetails.getPriceCurrencyCode();
-// Phase 2:                     giftPremium.amount = (long) ((offerDetails.getPriceAmountMicros() / Math.pow(10, 6)) * Math.pow(10, BillingController.getInstance().getCurrencyExp(giftPremium.currency)));
+                    giftPremium.amount = (long) ((offerDetails.getPriceAmountMicros() / Math.pow(10, 6)) * Math.pow(10, BillingController.getInstance().getCurrencyExp(giftPremium.currency)));
 
-// Phase 2:                     BillingController.getInstance().addResultListener(premiumTier.giftOption.store_product, billingResult -> {
-// Phase 2:                         if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    BillingController.getInstance().addResultListener(premiumTier.giftOption.store_product, billingResult -> {
+                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                             AndroidUtilities.runOnUIThread(() -> onGiftSuccess(true));
                         }
                     });
@@ -860,8 +860,8 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
                     req.purpose = giftPremium;
                     ConnectionsManager.getInstance(currentAccount).sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
                         if (response instanceof TLRPC.TL_boolTrue) {
-// Phase 2:                             BillingController.getInstance().launchBillingFlow(getBaseFragment().getParentActivity(), AccountInstance.getInstance(currentAccount), giftPremium, Collections.singletonList(BillingFlowParams.ProductDetailsParams.newBuilder()
-// Phase 2:                                     .setProductDetails(premiumTier.googlePlayProductDetails)
+                            BillingController.getInstance().launchBillingFlow(getBaseFragment().getParentActivity(), AccountInstance.getInstance(currentAccount), giftPremium, Collections.singletonList(BillingFlowParams.ProductDetailsParams.newBuilder()
+                                    .setProductDetails(premiumTier.googlePlayProductDetails)
                                     .build()));
                         } else if (error != null) {
                             AlertsCreator.processError(currentAccount, error, getBaseFragment(), req);

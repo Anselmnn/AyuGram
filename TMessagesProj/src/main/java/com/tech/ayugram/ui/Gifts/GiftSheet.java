@@ -1,15 +1,15 @@
 package com.tech.ayugram.ui.Gifts;
 
 import static android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO;
-import static com.tech.ayugram.messenger.AndroidUtilities.dp;
-import static com.tech.ayugram.messenger.AndroidUtilities.dpf2;
-import static com.tech.ayugram.messenger.AndroidUtilities.lerp;
-import static com.tech.ayugram.messenger.LocaleController.formatPluralStringComma;
-import static com.tech.ayugram.messenger.LocaleController.formatString;
-import static com.tech.ayugram.messenger.LocaleController.getString;
-import static com.tech.ayugram.ui.Stars.StarsController.findAttribute;
-import static com.tech.ayugram.ui.Stars.StarsIntroActivity.StarsTransactionView.getPlatformDrawable;
-import static com.tech.ayugram.ui.bots.AffiliateProgramFragment.percents;
+import static org.telegram.messenger.AndroidUtilities.dp;
+import static org.telegram.messenger.AndroidUtilities.dpf2;
+import static org.telegram.messenger.AndroidUtilities.lerp;
+import static org.telegram.messenger.LocaleController.formatPluralStringComma;
+import static org.telegram.messenger.LocaleController.formatString;
+import static org.telegram.messenger.LocaleController.getString;
+import static org.telegram.ui.Stars.StarsController.findAttribute;
+import static org.telegram.ui.Stars.StarsIntroActivity.StarsTransactionView.getPlatformDrawable;
+import static org.telegram.ui.bots.AffiliateProgramFragment.percents;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -55,12 +55,12 @@ import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-// import com.android.billingclient.api.BillingClient; (Phase 2: removed)
-// import com.android.billingclient.api.ProductDetails; (Phase 2: removed)
-// import com.android.billingclient.api.QueryProductDetailsParams; (Phase 2: removed)
+import com.tech.ayugram.play.stub.BillingClient;
+import com.tech.ayugram.play.stub.ProductDetails;
+import com.tech.ayugram.play.stub.BillingClient.QueryProductDetailsParams;
 
 import com.tech.ayugram.messenger.AndroidUtilities;
-// import com.tech.ayugram.messenger.BillingController; (Phase 2: removed)
+import com.tech.ayugram.messenger.BillingController;
 import com.tech.ayugram.messenger.BirthdayController;
 import com.tech.ayugram.messenger.BuildVars;
 import com.tech.ayugram.messenger.DialogObject;
@@ -78,64 +78,64 @@ import com.tech.ayugram.messenger.NotificationCenter;
 import com.tech.ayugram.messenger.R;
 import com.tech.ayugram.messenger.SvgHelper;
 import com.tech.ayugram.messenger.UserConfig;
-import com.tech.ayugram.messenger.UserObject;
-import com.tech.ayugram.messenger.Utilities;
-import com.tech.ayugram.messenger.utils.Choreographer60FpsContent;
-import com.tech.ayugram.messenger.utils.DrawableUtils;
-import com.tech.ayugram.messenger.utils.tlutils.AmountUtils;
-import com.tech.ayugram.tgnet.ConnectionsManager;
-import com.tech.ayugram.tgnet.TLObject;
-import com.tech.ayugram.tgnet.TLRPC;
-import com.tech.ayugram.tgnet.tl.TL_stars;
-import com.tech.ayugram.ui.AccountFrozenAlert;
-import com.tech.ayugram.ui.ActionBar.AlertDialog;
-import com.tech.ayugram.ui.ActionBar.BaseFragment;
-import com.tech.ayugram.ui.ActionBar.INavigationLayout;
-import com.tech.ayugram.ui.ActionBar.Theme;
-import com.tech.ayugram.ui.ChatActivity;
-import com.tech.ayugram.ui.Components.AnimatedEmojiDrawable;
-import com.tech.ayugram.ui.Components.AnimatedEmojiSpan;
-import com.tech.ayugram.ui.Components.AnimatedFloat;
-import com.tech.ayugram.ui.Components.AvatarDrawable;
-import com.tech.ayugram.ui.Components.BackupImageView;
-import com.tech.ayugram.ui.Components.BatchParticlesDrawHelper;
-import com.tech.ayugram.ui.Components.BottomSheetWithRecyclerListView;
-import com.tech.ayugram.ui.Components.BulletinFactory;
-import com.tech.ayugram.ui.Components.CheckBox2;
-import com.tech.ayugram.ui.Components.ColoredImageSpan;
-import com.tech.ayugram.ui.Components.CombinedDrawable;
-import com.tech.ayugram.ui.Components.CompatDrawable;
-import com.tech.ayugram.ui.Components.CubicBezierInterpolator;
-import com.tech.ayugram.ui.Components.EffectsTextView;
-import com.tech.ayugram.ui.Components.ExtendedGridLayoutManager;
-import com.tech.ayugram.ui.Components.FlickerLoadingView;
-import com.tech.ayugram.ui.Components.LayoutHelper;
-import com.tech.ayugram.ui.Components.LinkSpanDrawable;
-import com.tech.ayugram.ui.Components.Premium.GiftPremiumBottomSheet;
-import com.tech.ayugram.ui.Components.Premium.PremiumLockIconView;
-import com.tech.ayugram.ui.Components.Premium.PremiumPreviewBottomSheet;
-import com.tech.ayugram.ui.Components.Premium.StarParticlesView;
-import com.tech.ayugram.ui.Components.Premium.boosts.BoostRepository;
-import com.tech.ayugram.ui.Components.RLottieDrawable;
-import com.tech.ayugram.ui.Components.RecyclerListView;
-import com.tech.ayugram.ui.Components.ScaleStateListAnimator;
-import com.tech.ayugram.ui.Components.Shaker;
-import com.tech.ayugram.ui.Components.Text;
-import com.tech.ayugram.ui.Components.TypefaceSpan;
-import com.tech.ayugram.ui.Components.UItem;
-import com.tech.ayugram.ui.Components.UniversalAdapter;
-import com.tech.ayugram.ui.Components.UniversalRecyclerView;
-import com.tech.ayugram.ui.Components.blur3.utils.NinePatchBuilder;
-import com.tech.ayugram.ui.LaunchActivity;
-import com.tech.ayugram.ui.PremiumPreviewFragment;
-import com.tech.ayugram.ui.ProfileActivity;
-import com.tech.ayugram.ui.Stars.ExplainStarsSheet;
-import com.tech.ayugram.ui.Stars.StarGiftPatterns;
-import com.tech.ayugram.ui.Stars.StarGiftSheet;
+import org.telegram.messenger.UserObject;
+import org.telegram.messenger.Utilities;
+import org.telegram.messenger.utils.Choreographer60FpsContent;
+import org.telegram.messenger.utils.DrawableUtils;
+import org.telegram.messenger.utils.tlutils.AmountUtils;
+import org.telegram.tgnet.ConnectionsManager;
+import org.telegram.tgnet.TLObject;
+import org.telegram.tgnet.TLRPC;
+import org.telegram.tgnet.tl.TL_stars;
+import org.telegram.ui.AccountFrozenAlert;
+import org.telegram.ui.ActionBar.AlertDialog;
+import org.telegram.ui.ActionBar.BaseFragment;
+import org.telegram.ui.ActionBar.INavigationLayout;
+import org.telegram.ui.ActionBar.Theme;
+import org.telegram.ui.ChatActivity;
+import org.telegram.ui.Components.AnimatedEmojiDrawable;
+import org.telegram.ui.Components.AnimatedEmojiSpan;
+import org.telegram.ui.Components.AnimatedFloat;
+import org.telegram.ui.Components.AvatarDrawable;
+import org.telegram.ui.Components.BackupImageView;
+import org.telegram.ui.Components.BatchParticlesDrawHelper;
+import org.telegram.ui.Components.BottomSheetWithRecyclerListView;
+import org.telegram.ui.Components.BulletinFactory;
+import org.telegram.ui.Components.CheckBox2;
+import org.telegram.ui.Components.ColoredImageSpan;
+import org.telegram.ui.Components.CombinedDrawable;
+import org.telegram.ui.Components.CompatDrawable;
+import org.telegram.ui.Components.CubicBezierInterpolator;
+import org.telegram.ui.Components.EffectsTextView;
+import org.telegram.ui.Components.ExtendedGridLayoutManager;
+import org.telegram.ui.Components.FlickerLoadingView;
+import org.telegram.ui.Components.LayoutHelper;
+import org.telegram.ui.Components.LinkSpanDrawable;
+import org.telegram.ui.Components.Premium.GiftPremiumBottomSheet;
+import org.telegram.ui.Components.Premium.PremiumLockIconView;
+import org.telegram.ui.Components.Premium.PremiumPreviewBottomSheet;
+import org.telegram.ui.Components.Premium.StarParticlesView;
+import org.telegram.ui.Components.Premium.boosts.BoostRepository;
+import org.telegram.ui.Components.RLottieDrawable;
+import org.telegram.ui.Components.RecyclerListView;
+import org.telegram.ui.Components.ScaleStateListAnimator;
+import org.telegram.ui.Components.Shaker;
+import org.telegram.ui.Components.Text;
+import org.telegram.ui.Components.TypefaceSpan;
+import org.telegram.ui.Components.UItem;
+import org.telegram.ui.Components.UniversalAdapter;
+import org.telegram.ui.Components.UniversalRecyclerView;
+import org.telegram.ui.Components.blur3.utils.NinePatchBuilder;
+import org.telegram.ui.LaunchActivity;
+import org.telegram.ui.PremiumPreviewFragment;
+import org.telegram.ui.ProfileActivity;
+import org.telegram.ui.Stars.ExplainStarsSheet;
+import org.telegram.ui.Stars.StarGiftPatterns;
+import org.telegram.ui.Stars.StarGiftSheet;
 import com.tech.ayugram.ui.Stars.StarsController;
 import com.tech.ayugram.ui.Stars.StarsIntroActivity;
-import com.tech.ayugram.ui.Stars.StarsReactionsSheet;
-import com.tech.ayugram.ui.Stories.recorder.HintView2;
+import org.telegram.ui.Stars.StarsReactionsSheet;
+import org.telegram.ui.Stories.recorder.HintView2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -662,8 +662,7 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
             setBirthday();
         }
 
-        // Phase 2: Billing removed
-//         // NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.billingProductDetailsUpdated);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.billingProductDetailsUpdated);
         NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.starGiftsLoaded);
         NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.userInfoDidLoad);
         NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.starGiftSoldOut);
@@ -769,8 +768,7 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
     @Override
     public void dismiss() {
         super.dismiss();
-        // Phase 2: Billing removed
-//         // NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.billingProductDetailsUpdated);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.billingProductDetailsUpdated);
         NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.starGiftsLoaded);
         NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.userInfoDidLoad);
         NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.starGiftSoldOut);
@@ -779,8 +777,7 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
 
     @Override
     public void didReceivedNotification(int id, int account, Object... args) {
-        // Phase 2: Billing removed
-//         // if (id == NotificationCenter.billingProductDetailsUpdated) {
+        if (id == NotificationCenter.billingProductDetailsUpdated) {
             updatePremiumTiers();
         } else if (id == NotificationCenter.starGiftsLoaded) {
             if (adapter != null) {
@@ -832,8 +829,7 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
     private void updatePremiumTiers() {
         premiumTiers.clear();
         if (premiumTiers.isEmpty() && options != null && !options.isEmpty()) {
-            // Phase 2: Billing removed
-//             // List<QueryProductDetailsParams.Product> products = new ArrayList<>();
+            List<QueryProductDetailsParams.Product> products = new ArrayList<>();
             long pricePerMonthMax = 0;
             for (int i = options.size() - 1; i >= 0; i--) {
                 final TLRPC.TL_premiumGiftCodeOption option = options.get(i);
@@ -851,14 +847,9 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
                     if (giftTier.getPricePerMonth() > pricePerMonthMax) {
                         pricePerMonthMax = giftTier.getPricePerMonth();
                     }
-                // Phase 2: Billing removed
-            // // Phase 2: Billing removed
-//             // } else if (giftTier.getStoreProduct() != null && BillingController.getInstance().isReady()) {
-                    // Phase 2: Billing removed
-            // // Phase 2: Billing removed
-//             // products.add(QueryProductDetailsParams.Product.newBuilder()
-            //         // Phase 2: Billing removed
-//                             // .setProductType(BillingClient.ProductType.INAPP)
+                } else if (giftTier.getStoreProduct() != null && BillingController.getInstance().isReady()) {
+                    products.add(QueryProductDetailsParams.Product.newBuilder()
+                            .setProductType(BillingClient.ProductType.INAPP)
                             .setProductId(giftTier.getStoreProduct())
                             .build());
                 }
@@ -869,19 +860,13 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
                 }
             } else if (!products.isEmpty()) {
                 long startMs = System.currentTimeMillis();
-                // Phase 2: Billing removed
-            // // Phase 2: Billing removed
-//             // BillingController.getInstance().queryProductDetails(products, (billingResult, list) -> {
+                BillingController.getInstance().queryProductDetails(products, (billingResult, list) -> {
                     long pricePerMonthMaxStore = 0;
 
-                    // Phase 2: Billing removed
-                    // // Phase 2: Billing removed
-//                     // for (ProductDetails details : list) {
+                    for (ProductDetails details : list) {
                         for (GiftPremiumBottomSheet.GiftTier giftTier : premiumTiers) {
                             if (giftTier.getStoreProduct() != null && giftTier.getStoreProduct().equals(details.getProductId())) {
-                                // Phase 2: Billing removed
-                        // // Phase 2: Billing removed
-//                         // giftTier.setGooglePlayProductDetails(details);
+                                giftTier.setGooglePlayProductDetails(details);
 
                                 if (giftTier.getPricePerMonth() > pricePerMonthMaxStore) {
                                     pricePerMonthMaxStore = giftTier.getPricePerMonth();
