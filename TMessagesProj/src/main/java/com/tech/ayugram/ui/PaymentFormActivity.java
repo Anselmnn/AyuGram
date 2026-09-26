@@ -82,14 +82,14 @@ import androidx.dynamicanimation.animation.SpringForce;
 // import com.google.android.gms.wallet.PaymentsClient; (Phase 2: removed)
 // import com.google.android.gms.wallet.Wallet; (Phase 2: removed)
 // import com.google.android.gms.wallet.WalletConstants; (Phase 2: removed)
-import com.stripe.android.Stripe;
-import com.stripe.android.TokenCallback;
-import com.stripe.android.exception.APIConnectionException;
-import com.stripe.android.exception.APIException;
-import com.stripe.android.model.Card;
-import com.stripe.android.model.Token;
-import com.stripe.android.net.StripeApiHandler;
-import com.stripe.android.net.TokenParser;
+import com.tech.ayugram.stripe.stub.Stripe;
+import com.tech.ayugram.stripe.stub.TokenCallback;
+import com.tech.ayugram.stripe.stub.APIConnectionException;
+import com.tech.ayugram.stripe.stub.APIException;
+import com.tech.ayugram.stripe.stub.Card;
+import com.tech.ayugram.stripe.stub.Token;
+import com.tech.ayugram.stripe.stub.StripeApiHandler;
+import com.tech.ayugram.stripe.stub.TokenParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;

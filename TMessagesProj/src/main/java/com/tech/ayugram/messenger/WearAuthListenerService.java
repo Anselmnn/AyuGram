@@ -4,8 +4,8 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.wearable.MessageEvent;
-import com.google.android.gms.wearable.WearableListenerService;
+import com.tech.ayugram.wearable.stub.MessageEvent;
+import com.tech.ayugram.wearable.stub.WearableListenerService;
 
 import com.tech.ayugram.ui.LaunchActivity;
 import com.tech.ayugram.ui.WearAuthSheet;

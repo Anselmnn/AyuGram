@@ -4,10 +4,10 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Pair;
 
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingFlowParams;
-import com.android.billingclient.api.ProductDetails;
-import com.android.billingclient.api.QueryProductDetailsParams;
+import com.tech.ayugram.play.stub.BillingClient;
+import com.tech.ayugram.play.stub.BillingFlowParams;
+import com.tech.ayugram.play.stub.ProductDetails;
+import com.tech.ayugram.play.stub.BillingClient.QueryProductDetailsParams;
 
 import org.json.JSONObject;
 import com.tech.ayugram.messenger.AccountInstance;

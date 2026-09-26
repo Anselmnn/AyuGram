@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.google.android.gms.wearable.Wearable;
+import com.tech.ayugram.wearable.stub.Wearable;
 
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.ApplicationLoader;

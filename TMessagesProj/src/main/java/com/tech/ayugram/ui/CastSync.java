@@ -8,15 +8,15 @@ import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.cast.Cast;
-import com.google.android.gms.cast.MediaError;
-import com.google.android.gms.cast.MediaSeekOptions;
-import com.google.android.gms.cast.MediaStatus;
-import com.google.android.gms.cast.framework.CastContext;
-import com.google.android.gms.cast.framework.CastSession;
-import com.google.android.gms.cast.framework.Session;
-import com.google.android.gms.cast.framework.SessionManagerListener;
-import com.google.android.gms.cast.framework.media.RemoteMediaClient;
+import com.tech.ayugram.cast.stub.Cast;
+import com.tech.ayugram.cast.stub.MediaError;
+import com.tech.ayugram.cast.stub.MediaSeekOptions;
+import com.tech.ayugram.cast.stub.MediaStatus;
+import com.tech.ayugram.cast.stub.CastContext;
+import com.tech.ayugram.cast.stub.CastSession;
+import com.tech.ayugram.cast.stub.CastSession;
+import com.tech.ayugram.cast.stub.SessionManagerListener;
+import com.tech.ayugram.cast.stub.RemoteMediaClient;
 
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.ApplicationLoader;

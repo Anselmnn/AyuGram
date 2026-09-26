@@ -13,22 +13,22 @@ import android.view.ViewGroup;
 
 import androidx.core.util.Consumer;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.Projection;
-import com.google.android.gms.maps.UiSettings;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.Dash;
-import com.google.android.gms.maps.model.Gap;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.tech.ayugram.maps.stub.CameraUpdate;
+import com.tech.ayugram.maps.stub.CameraUpdateFactory;
+import com.tech.ayugram.maps.stub.GoogleMap;
+import com.tech.ayugram.maps.stub.MapView;
+import com.tech.ayugram.maps.stub.MapsInitializer;
+import com.tech.ayugram.maps.stub.Projection;
+import com.tech.ayugram.maps.stub.UiSettings;
+import com.tech.ayugram.maps.stub.model.BitmapDescriptorFactory;
+import com.tech.ayugram.maps.stub.model.Circle;
+import com.tech.ayugram.maps.stub.model.CircleOptions;
+import com.tech.ayugram.maps.stub.model.Dash;
+import com.tech.ayugram.maps.stub.model.Gap;
+import com.tech.ayugram.maps.stub.model.LatLngBounds;
+import com.tech.ayugram.maps.stub.model.MapStyleOptions;
+import com.tech.ayugram.maps.stub.model.Marker;
+import com.tech.ayugram.maps.stub.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
