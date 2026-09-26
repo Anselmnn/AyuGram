@@ -1,7 +1,7 @@
 package com.tech.ayugram.maps.stub;
 
 /**
- * Phase 2: Stub for com.google.android.gms.maps.Projection
+ * Phase 2: Stub for com.tech.ayugram.maps.stub.Projection
  * Google Maps dependency removed in Phase 2
  */
 public class Projection {

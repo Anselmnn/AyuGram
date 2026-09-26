@@ -18,7 +18,7 @@ public class WearableListenerService extends Service {
         // No-op
     }
 
-    public void onDataChanged(com.google.android.gms.wearable.DataEventBuffer dataEvents) {
+    public void onDataChanged(com.tech.ayugram.wearable.stub.DataEventBuffer dataEvents) {
         // No-op
     }
 }

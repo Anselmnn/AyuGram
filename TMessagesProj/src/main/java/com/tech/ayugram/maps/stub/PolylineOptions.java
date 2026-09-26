@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Phase 2: Stub for com.google.android.gms.maps.model.PolylineOptions
+ * Phase 2: Stub for com.tech.ayugram.maps.stub.PolylineOptions
  * Google Maps dependency removed in Phase 2
  */
 public class PolylineOptions {

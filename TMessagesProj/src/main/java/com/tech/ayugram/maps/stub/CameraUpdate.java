@@ -4,15 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 
 /**
- * Phase 2: Stub for com.google.android.gms.maps.CameraUpdate
+ * Phase 2: Stub for com.tech.ayugram.maps.stub.CameraUpdate
  * Google Maps dependency removed in Phase 2
  */
 public class CameraUpdate {
-    public static CameraUpdate newLatLng(com.google.android.gms.maps.model.LatLng latLng) {
+    public static CameraUpdate newLatLng(com.tech.ayugram.maps.stub.LatLng latLng) {
         return new CameraUpdate();
     }
 
-    public static CameraUpdate newLatLngZoom(com.google.android.gms.maps.model.LatLng latLng, float zoom) {
+    public static CameraUpdate newLatLngZoom(com.tech.ayugram.maps.stub.LatLng latLng, float zoom) {
         return new CameraUpdate();
     }
 

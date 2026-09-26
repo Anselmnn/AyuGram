@@ -3,7 +3,7 @@ package com.tech.ayugram.maps.stub;
 import java.util.List;
 
 /**
- * Phase 2: Stub for com.google.android.gms.maps.model.Polyline
+ * Phase 2: Stub for com.tech.ayugram.maps.stub.Polyline
  * Google Maps dependency removed in Phase 2
  */
 public class Polyline {

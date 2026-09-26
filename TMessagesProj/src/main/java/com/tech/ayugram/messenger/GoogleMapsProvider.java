@@ -20,7 +20,7 @@ import com.tech.ayugram.maps.stub.MapView;
 import com.tech.ayugram.maps.stub.MapsInitializer;
 import com.tech.ayugram.maps.stub.Projection;
 import com.tech.ayugram.maps.stub.UiSettings;
-import com.tech.ayugram.maps.stub.model.BitmapDescriptorFactory;
+import com.tech.ayugram.maps.stub.BitmapDescriptorFactory;
 import com.tech.ayugram.maps.stub.model.Circle;
 import com.tech.ayugram.maps.stub.model.CircleOptions;
 import com.tech.ayugram.maps.stub.model.Dash;

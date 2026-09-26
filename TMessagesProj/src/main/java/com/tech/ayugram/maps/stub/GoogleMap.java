@@ -1,18 +1,18 @@
 package com.tech.ayugram.maps.stub;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.Polygon;
-import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.maps.CameraUpdate;
+import com.tech.ayugram.maps.stub.LatLng;
+import com.tech.ayugram.maps.stub.Marker;
+import com.tech.ayugram.maps.stub.MarkerOptions;
+import com.tech.ayugram.maps.stub.Circle;
+import com.tech.ayugram.maps.stub.CircleOptions;
+import com.tech.ayugram.maps.stub.Polygon;
+import com.tech.ayugram.maps.stub.PolygonOptions;
+import com.tech.ayugram.maps.stub.Polyline;
+import com.tech.ayugram.maps.stub.PolylineOptions;
+import com.tech.ayugram.maps.stub.CameraUpdate;
 
 /**
- * Phase 2: Stub for com.google.android.gms.maps.GoogleMap
+ * Phase 2: Stub for com.tech.ayugram.maps.stub.GoogleMap
  * Google Maps dependency removed in Phase 2
  */
 public class GoogleMap {

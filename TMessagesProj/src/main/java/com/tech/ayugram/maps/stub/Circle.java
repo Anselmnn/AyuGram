@@ -1,9 +1,9 @@
 package com.tech.ayugram.maps.stub;
 
-import com.google.android.gms.maps.model.LatLng;
+import com.tech.ayugram.maps.stub.LatLng;
 
 /**
- * Phase 2: Stub for com.google.android.gms.maps.model.Circle
+ * Phase 2: Stub for com.tech.ayugram.maps.stub.Circle
  * Google Maps dependency removed in Phase 2
  */
 public class Circle {

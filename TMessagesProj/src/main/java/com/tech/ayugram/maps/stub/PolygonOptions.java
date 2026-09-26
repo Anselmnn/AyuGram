@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Phase 2: Stub for com.google.android.gms.maps.model.PolygonOptions
+ * Phase 2: Stub for com.tech.ayugram.maps.stub.PolygonOptions
  * Google Maps dependency removed in Phase 2
  */
 public class PolygonOptions {

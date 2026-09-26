@@ -1,7 +1,7 @@
 package com.tech.ayugram.maps.stub;
 
 /**
- * Phase 2: Stub for com.google.android.gms.maps.MapView
+ * Phase 2: Stub for com.tech.ayugram.maps.stub.MapView
  * Google Maps dependency removed in Phase 2
  */
 public class MapView extends android.view.View {

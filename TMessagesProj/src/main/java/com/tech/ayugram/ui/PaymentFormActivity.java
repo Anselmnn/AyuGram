@@ -218,7 +218,7 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
     private HashMap<String, String> codesMap = new HashMap<>();
     private HashMap<String, String> phoneFormatMap = new HashMap<>();
 
-    private PaymentsClient paymentsClient;
+    // private PaymentsClient paymentsClient; (Phase 2: removed)
 
     private EditTextBoldCursor[] inputFields;
     private RadioCell[] radioCells;
@@ -3017,7 +3017,7 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
 
                 PaymentDataRequest request = PaymentDataRequest.fromJson(paymentDataRequest.toString());
                 if (request != null) {
-                    AutoResolveHelper.resolveTask(paymentsClient.loadPaymentData(request), getParentActivity(), LOAD_PAYMENT_DATA_REQUEST_CODE);
+                    AutoResolveHelper.resolveTask(// paymentsClient.loadPaymentData(request), getParentActivity(), LOAD_PAYMENT_DATA_REQUEST_CODE);
                 }
             } catch (JSONException e) {
                 FileLog.e(e);
@@ -3211,7 +3211,7 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
                 .setEnvironment(paymentForm.invoice.test ? WalletConstants.ENVIRONMENT_TEST : WalletConstants.ENVIRONMENT_PRODUCTION)
                 .setTheme(WalletConstants.THEME_LIGHT)
                 .build();
-        paymentsClient = Wallet.getPaymentsClient(context, walletOptions);
+        // paymentsClient = // Wallet.getPaymentsClient(context, walletOptions);
 
         final Optional<JSONObject> isReadyToPayJson = getIsReadyToPayRequest();
         if (!isReadyToPayJson.isPresent()) {

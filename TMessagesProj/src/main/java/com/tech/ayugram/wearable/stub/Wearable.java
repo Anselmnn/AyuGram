@@ -1,7 +1,7 @@
 package com.tech.ayugram.wearable.stub;
 
 import android.content.Context;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.tech.ayugram.wearable.stub.GoogleApiClient;
 
 /**
  * Phase 2: Stub for com.google.android.gms.wearable.Wearable

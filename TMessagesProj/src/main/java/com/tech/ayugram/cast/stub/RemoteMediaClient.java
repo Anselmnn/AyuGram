@@ -1,13 +1,13 @@
 package com.tech.ayugram.cast.stub;
 
-import com.google.android.gms.cast.MediaError;
+import com.tech.ayugram.cast.stub.MediaError;
 
 /**
  * Phase 2: Stub for com.google.android.gms.cast.framework.media.RemoteMediaClient
  * Cast dependency removed in Phase 2
  */
 public class RemoteMediaClient {
-    public void load(com.google.android.gms.cast.MediaInfo mediaInfo, boolean autoPlay, long position, long[] activeTrackIds, com.google.android.gms.cast.MediaLoadOptions options) {
+    public void load(com.tech.ayugram.cast.stub.MediaInfo mediaInfo, boolean autoPlay, long position, long[] activeTrackIds, com.tech.ayugram.cast.stub.MediaLoadOptions options) {
         // No-op
     }
 
