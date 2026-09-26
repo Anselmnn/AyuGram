@@ -128,8 +128,9 @@ jobs:
             TMessagesProj/.cxx
             TMessagesProj/build
             TMessagesProj_App/build
-          key: ayugram-native-build-${{ github.run_id }}
+          key: ayugram-native-build-v2-${{ github.run_id }}
           restore-keys: |
+            ayugram-native-build-v2-
             ayugram-native-build-
 
       - name: Cache ccache
@@ -138,6 +139,7 @@ jobs:
           path: ~/.ccache
           key: ayugram-ccache-${{ github.run_id }}
           restore-keys: |
+            ayugram-native-build-v2-
             ayugram-ccache-
 
       - name: Build (assembleDebug)
@@ -174,7 +176,7 @@ jobs:
             TMessagesProj/.cxx
             TMessagesProj/build
             TMessagesProj_App/build
-          key: ayugram-native-build-${{ github.run_id }}
+          key: ayugram-native-build-v2-${{ github.run_id }}
 
       - name: Save ccache
         if: always()
