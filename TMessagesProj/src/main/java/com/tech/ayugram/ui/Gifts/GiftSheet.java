@@ -55,12 +55,12 @@ import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.ProductDetails;
-import com.android.billingclient.api.QueryProductDetailsParams;
+// import com.android.billingclient.api.BillingClient; (Phase 2)
+// // import com.android.billingclient.api.ProductDetails; (Phase 2)
+// // import com.android.billingclient.api.QueryProductDetailsParams; (Phase 2)
 
 import com.tech.ayugram.messenger.AndroidUtilities;
-import com.tech.ayugram.messenger.BillingController;
+// import com.tech.ayugram.messenger.BillingController; (Phase 2)
 import com.tech.ayugram.messenger.BirthdayController;
 import com.tech.ayugram.messenger.BuildVars;
 import com.tech.ayugram.messenger.DialogObject;
@@ -662,7 +662,8 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
             setBirthday();
         }
 
-        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.billingProductDetailsUpdated);
+        // Phase 2: Billing removed
+//         // NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.billingProductDetailsUpdated);
         NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.starGiftsLoaded);
         NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.userInfoDidLoad);
         NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.starGiftSoldOut);
@@ -768,7 +769,8 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
     @Override
     public void dismiss() {
         super.dismiss();
-        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.billingProductDetailsUpdated);
+        // Phase 2: Billing removed
+//         // NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.billingProductDetailsUpdated);
         NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.starGiftsLoaded);
         NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.userInfoDidLoad);
         NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.starGiftSoldOut);
@@ -777,7 +779,8 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
 
     @Override
     public void didReceivedNotification(int id, int account, Object... args) {
-        if (id == NotificationCenter.billingProductDetailsUpdated) {
+        // Phase 2: Billing removed
+//         // if (id == NotificationCenter.billingProductDetailsUpdated) {
             updatePremiumTiers();
         } else if (id == NotificationCenter.starGiftsLoaded) {
             if (adapter != null) {
@@ -829,7 +832,8 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
     private void updatePremiumTiers() {
         premiumTiers.clear();
         if (premiumTiers.isEmpty() && options != null && !options.isEmpty()) {
-            List<QueryProductDetailsParams.Product> products = new ArrayList<>();
+            // Phase 2: Billing removed
+//             // List<QueryProductDetailsParams.Product> products = new ArrayList<>();
             long pricePerMonthMax = 0;
             for (int i = options.size() - 1; i >= 0; i--) {
                 final TLRPC.TL_premiumGiftCodeOption option = options.get(i);
@@ -847,9 +851,14 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
                     if (giftTier.getPricePerMonth() > pricePerMonthMax) {
                         pricePerMonthMax = giftTier.getPricePerMonth();
                     }
-                } else if (giftTier.getStoreProduct() != null && BillingController.getInstance().isReady()) {
-                    products.add(QueryProductDetailsParams.Product.newBuilder()
-                            .setProductType(BillingClient.ProductType.INAPP)
+                // Phase 2: Billing removed
+            // // Phase 2: Billing removed
+//             // } else if (giftTier.getStoreProduct() != null && BillingController.getInstance().isReady()) {
+                    // Phase 2: Billing removed
+            // // Phase 2: Billing removed
+//             // products.add(QueryProductDetailsParams.Product.newBuilder()
+            //         // Phase 2: Billing removed
+//                             // .setProductType(BillingClient.ProductType.INAPP)
                             .setProductId(giftTier.getStoreProduct())
                             .build());
                 }
@@ -860,13 +869,19 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
                 }
             } else if (!products.isEmpty()) {
                 long startMs = System.currentTimeMillis();
-                BillingController.getInstance().queryProductDetails(products, (billingResult, list) -> {
+                // Phase 2: Billing removed
+            // // Phase 2: Billing removed
+//             // BillingController.getInstance().queryProductDetails(products, (billingResult, list) -> {
                     long pricePerMonthMaxStore = 0;
 
-                    for (ProductDetails details : list) {
+                    // Phase 2: Billing removed
+                    // // Phase 2: Billing removed
+//                     // for (ProductDetails details : list) {
                         for (GiftPremiumBottomSheet.GiftTier giftTier : premiumTiers) {
                             if (giftTier.getStoreProduct() != null && giftTier.getStoreProduct().equals(details.getProductId())) {
-                                giftTier.setGooglePlayProductDetails(details);
+                                // Phase 2: Billing removed
+                        // // Phase 2: Billing removed
+//                         // giftTier.setGooglePlayProductDetails(details);
 
                                 if (giftTier.getPricePerMonth() > pricePerMonthMaxStore) {
                                     pricePerMonthMaxStore = giftTier.getPricePerMonth();

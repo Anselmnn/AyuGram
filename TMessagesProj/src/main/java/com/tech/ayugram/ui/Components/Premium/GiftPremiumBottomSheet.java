@@ -176,9 +176,9 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
 //                    if (giftTier.getPricePerMonth() > pricePerMonthMax) {
 //                        pricePerMonthMax = giftTier.getPricePerMonth();
 //                    }
-//                } else if (giftTier.giftOption.store_product != null && BillingController.getInstance().isReady()) {
-//                    products.add(QueryProductDetailsParams.Product.newBuilder()
-//                            .setProductType(BillingClient.ProductType.INAPP)
+// //                } else if (giftTier.giftOption.store_product != null && BillingController.getInstance().isReady()) {
+// //                    products.add(QueryProductDetailsParams.Product.newBuilder()
+// //                            .setProductType(BillingClient.ProductType.INAPP)
 //                            .setProductId(giftTier.giftOption.store_product)
 //                            .build());
 //                }

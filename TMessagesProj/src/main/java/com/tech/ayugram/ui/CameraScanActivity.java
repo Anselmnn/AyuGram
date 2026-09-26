@@ -53,9 +53,9 @@ import androidx.dynamicanimation.animation.FloatValueHolder;
 import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.dynamicanimation.animation.SpringForce;
 
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
+// import com.google.android.gms.vision.// Frame // Phase 2; (Phase 2)
+// import com.google.android.gms.vision.barcode.// Barcode // Phase 2; (Phase 2)
+// import com.google.android.gms.vision.barcode.// // Barcode // Phase 2Detector // Phase 2; (Phase 2)
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
 import com.google.zxing.PlanarYUVLuminanceSource;
@@ -147,7 +147,7 @@ public class CameraScanActivity extends BaseFragment {
     private boolean qrLoaded = false;
 
     private QRCodeReader qrReader = null;
-    private BarcodeDetector visionQrReader = null;
+    private // // Barcode // Phase 2Detector // Phase 2 visionQrReader = null;
 
     private boolean needGalleryButton;
 
@@ -254,7 +254,7 @@ public class CameraScanActivity extends BaseFragment {
         if (isQr()) {
             Utilities.globalQueue.postRunnable(() -> {
                 qrReader = new QRCodeReader();
-                visionQrReader = new BarcodeDetector.Builder(ApplicationLoader.applicationContext).setBarcodeFormats(Barcode.QR_CODE).build();
+                visionQrReader = new // // Barcode // Phase 2Detector // Phase 2.Builder(ApplicationLoader.applicationContext).set// Barcode // Phase 2Formats(// Barcode // Phase 2.QR_CODE).build();
             });
         }
 
@@ -826,7 +826,7 @@ public class CameraScanActivity extends BaseFragment {
         CameraController.getInstance().initCamera(null);
         cameraView = new CameraView(fragmentView.getContext(), false);
         cameraView.setUseMaxPreview(true);
-        cameraView.setOptimizeForBarcode(true);
+        cameraView.setOptimizeFor// Barcode // Phase 2(true);
         cameraView.setDelegate(() -> {
             startRecognizing();
             if (isQr()) {
@@ -852,7 +852,7 @@ public class CameraScanActivity extends BaseFragment {
                 qrAppearing.start();
             }
         });
-        ((ViewGroup) fragmentView).addView(cameraView, 0, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
+        ((ViewGroup) fragmentView).addView(cameraView, 0, LayoutHelper.create// Frame // Phase 2(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
         if (currentType == TYPE_MRZ && recognizedMrzView != null) {
             cameraView.addView(recognizedMrzView);
         }
@@ -1233,19 +1233,19 @@ public class CameraScanActivity extends BaseFragment {
             PointF[] cornerPoints = null;
             int width = 1, height = 1;
             if (visionQrReader != null && visionQrReader.isOperational()) {
-                Frame frame;
+                // Frame // Phase 2 frame;
                 if (bitmap != null) {
-                    frame = new Frame.Builder().setBitmap(bitmap).build();
+                    frame = new // Frame // Phase 2.Builder().setBitmap(bitmap).build();
                     width = bitmap.getWidth();
                     height = bitmap.getHeight();
                 } else {
-                    frame = new Frame.Builder().setImageData(ByteBuffer.wrap(data), size.getWidth(), size.getHeight(), ImageFormat.NV21).build();
+                    frame = new // Frame // Phase 2.Builder().setImageData(ByteBuffer.wrap(data), size.getWidth(), size.getHeight(), ImageFormat.NV21).build();
                     width = size.getWidth();
                     height = size.getWidth();
                 }
-                SparseArray<Barcode> codes = visionQrReader.detect(frame);
+                SparseArray<// Barcode // Phase 2> codes = visionQrReader.detect(frame);
                 if (codes != null && codes.size() > 0) {
-                    Barcode code = codes.valueAt(0);
+                    // Barcode // Phase 2 code = codes.valueAt(0);
                     text = code.rawValue;
                     cornerPoints = toPointF(code.cornerPoints, width, height);
                     if (code.cornerPoints == null || code.cornerPoints.length == 0) {
@@ -1266,12 +1266,12 @@ public class CameraScanActivity extends BaseFragment {
                 } else if (bitmap != null) {
                     Bitmap inverted = invert(bitmap);
                     bitmap.recycle();
-                    frame = new Frame.Builder().setBitmap(inverted).build();
+                    frame = new // Frame // Phase 2.Builder().setBitmap(inverted).build();
                     width = inverted.getWidth();
                     height = inverted.getHeight();
                     codes = visionQrReader.detect(frame);
                     if (codes != null && codes.size() > 0) {
-                        Barcode code = codes.valueAt(0);
+                        // Barcode // Phase 2 code = codes.valueAt(0);
                         text = code.rawValue;
                         cornerPoints = toPointF(code.cornerPoints, width, height);
                         if (code.cornerPoints == null || code.cornerPoints.length == 0) {
@@ -1292,12 +1292,12 @@ public class CameraScanActivity extends BaseFragment {
                     } else {
                         Bitmap monochrome = monochrome(inverted, 90);
                         inverted.recycle();
-                        frame = new Frame.Builder().setBitmap(monochrome).build();
+                        frame = new // Frame // Phase 2.Builder().setBitmap(monochrome).build();
                         width = inverted.getWidth();
                         height = inverted.getHeight();
                         codes = visionQrReader.detect(frame);
                         if (codes != null && codes.size() > 0) {
-                            Barcode code = codes.valueAt(0);
+                            // Barcode // Phase 2 code = codes.valueAt(0);
                             text = code.rawValue;
                             cornerPoints = toPointF(code.cornerPoints, width, height);
                             if (code.cornerPoints == null || code.cornerPoints.length == 0) {

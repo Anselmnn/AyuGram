@@ -11,9 +11,9 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.SparseArray;
 
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
+// import com.google.android.gms.vision.// Frame // Phase 2; (Phase 2)
+// import com.google.android.gms.vision.barcode.// Barcode // Phase 2; (Phase 2)
+// import com.google.android.gms.vision.barcode.// // Barcode // Phase 2Detector // Phase 2; (Phase 2)
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class MrzRecognizer {
 	public static Result recognize(Bitmap bitmap, boolean tryDriverLicenseFirst) {
 		Result res;
 		if (tryDriverLicenseFirst) {
-			res = recognizeBarcode(bitmap);
+			res = recognize// Barcode // Phase 2(bitmap);
 			if (res != null)
 				return res;
 		}
@@ -34,23 +34,23 @@ public class MrzRecognizer {
 		} catch (Exception ignore) {
 		}
 		if (!tryDriverLicenseFirst) {
-			res = recognizeBarcode(bitmap);
+			res = recognize// Barcode // Phase 2(bitmap);
 			if (res != null)
 				return res;
 		}
 		return null;
 	}
 
-	private static Result recognizeBarcode(Bitmap bitmap) {
-		BarcodeDetector detector = new BarcodeDetector.Builder(ApplicationLoader.applicationContext)/*.setBarcodeFormats(Barcode.PDF417)*/.build();
+	private static Result recognize// Barcode // Phase 2(Bitmap bitmap) {
+		// // Barcode // Phase 2Detector // Phase 2 detector = new // // Barcode // Phase 2Detector // Phase 2.Builder(ApplicationLoader.applicationContext)/*.set// Barcode // Phase 2Formats(// Barcode // Phase 2.PDF417)*/.build();
 		if (bitmap.getWidth() > 1500 || bitmap.getHeight() > 1500) {
 			float scale = 1500f / Math.max(bitmap.getWidth(), bitmap.getHeight());
 			bitmap = Bitmap.createScaledBitmap(bitmap, Math.round(bitmap.getWidth() * scale), Math.round(bitmap.getHeight() * scale), true);
 		}
-		SparseArray<Barcode> barcodes = detector.detect(new Frame.Builder().setBitmap(bitmap).build());
+		SparseArray<// Barcode // Phase 2> barcodes = detector.detect(new // Frame // Phase 2.Builder().setBitmap(bitmap).build());
 		for (int i = 0; i < barcodes.size(); i++) {
-			Barcode code = barcodes.valueAt(i);
-			if (code.valueFormat == Barcode.DRIVER_LICENSE && code.driverLicense != null) { // BarcodeDetector has built-in support for North American driver licenses/IDs
+			// Barcode // Phase 2 code = barcodes.valueAt(i);
+			if (code.valueFormat == // Barcode // Phase 2.DRIVER_LICENSE && code.driverLicense != null) { // // // Barcode // Phase 2Detector // Phase 2 has built-in support for North American driver licenses/IDs
 				Result res = new Result();
 				res.type = "ID".equals(code.driverLicense.documentType) ? Result.TYPE_ID : Result.TYPE_DRIVER_LICENSE;
 				switch (code.driverLicense.issuingCountry) {
@@ -100,7 +100,7 @@ public class MrzRecognizer {
 				}
 
 				return res;
-			} else if (code.valueFormat == Barcode.TEXT && code.format == Barcode.PDF417) { // Russian driver licenses (new-ish ones) use a non-very-much-documented format
+			} else if (code.valueFormat == // Barcode // Phase 2.TEXT && code.format == // Barcode // Phase 2.PDF417) { // Russian driver licenses (new-ish ones) use a non-very-much-documented format
 				// base64(number|issue date|expiry date|last name|first name|middle/father name|birth date|categories|???|???)
 				// all dates are YYYYMMDD, names are capital cyrillic letters in Windows-1251, categories are comma separated
 				if (code.rawValue.matches("^[A-Za-z0-9=]+$")) {

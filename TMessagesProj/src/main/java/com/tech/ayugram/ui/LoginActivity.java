@@ -99,22 +99,22 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingFlowParams;
-import com.android.billingclient.api.ProductDetails;
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.QueryProductDetailsParams;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.safetynet.SafetyNet;
-import com.google.android.gms.tasks.Task;
-import com.google.android.play.core.integrity.IntegrityManager;
-import com.google.android.play.core.integrity.IntegrityManagerFactory;
-import com.google.android.play.core.integrity.IntegrityTokenRequest;
-import com.google.android.play.core.integrity.IntegrityTokenResponse;
+// import com.android.billingclient.api.BillingClient; (Phase 2)
+// import com.android.billingclient.api.BillingFlowParams; (Phase 2)
+// import com.android.billingclient.api.ProductDetails; (Phase 2)
+// import com.android.billingclient.api.Purchase; (Phase 2)
+// import com.android.billingclient.api.QueryProductDetailsParams; (Phase 2)
+// import com.google.android.gms.auth.api.signin.GoogleSignIn; (Phase 2)
+// import com.google.android.gms.auth.api.signin.GoogleSignInAccount; (Phase 2)
+// import com.google.android.gms.auth.api.signin.GoogleSignInClient; (Phase 2)
+// import com.google.android.gms.auth.api.signin.GoogleSignInOptions; (Phase 2)
+// import com.google.android.gms.common.api.ApiException; (Phase 2)
+// import com.google.android.gms.safetynet.SafetyNet; (Phase 2)
+// import com.google.android.gms.tasks.Task; (Phase 2)
+// import com.google.android.play.core.integrity.IntegrityManager; (Phase 2)
+// import com.google.android.play.core.integrity.IntegrityManagerFactory; (Phase 2)
+// import com.google.android.play.core.integrity.IntegrityTokenRequest; (Phase 2)
+// import com.google.android.play.core.integrity.IntegrityTokenResponse; (Phase 2)
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -123,7 +123,7 @@ import com.tech.ayugram.messenger.AccountInstance;
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.ApplicationLoader;
 import com.tech.ayugram.messenger.AuthTokensHelper;
-import com.tech.ayugram.messenger.BillingController;
+// import com.tech.ayugram.messenger.BillingController; (Phase 2)
 import com.tech.ayugram.messenger.BuildConfig;
 import com.tech.ayugram.messenger.BuildVars;
 import com.tech.ayugram.messenger.CallReceiver;
