@@ -35,14 +35,14 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.google.mlkit.common.MlKitException;
-import com.google.mlkit.vision.common.InputImage;
-import com.google.mlkit.vision.label.ImageLabeling;
-import com.google.mlkit.vision.label.defaults.ImageLabelerOptions;
-import com.google.mlkit.vision.segmentation.subject.Subject;
-import com.google.mlkit.vision.segmentation.subject.SubjectSegmentation;
-import com.google.mlkit.vision.segmentation.subject.SubjectSegmenter;
-import com.google.mlkit.vision.segmentation.subject.SubjectSegmenterOptions;
+import com.tech.ayugram.mlkit.stub.MlKitException;
+import com.tech.ayugram.mlkit.stub.InputImage;
+import com.tech.ayugram.mlkit.stub.ImageLabeling;
+import com.tech.ayugram.mlkit.stub.ImageLabeling.ImageLabelerOptions;
+import com.tech.ayugram.mlkit.stub.Subject;
+import com.tech.ayugram.mlkit.stub.SubjectSegmentation;
+import com.tech.ayugram.mlkit.stub.SubjectSegmenter;
+import com.tech.ayugram.mlkit.stub.SubjectSegmenterOptions;
 
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.Emoji;
