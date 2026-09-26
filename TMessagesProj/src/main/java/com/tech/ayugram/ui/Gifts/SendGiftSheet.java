@@ -31,14 +31,14 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingFlowParams;
-import com.android.billingclient.api.ProductDetails;
+// import com.android.billingclient.api.BillingClient; (Phase 2: removed)
+// import com.android.billingclient.api.BillingFlowParams; (Phase 2: removed)
+// import com.android.billingclient.api.ProductDetails; (Phase 2: removed)
 
 import com.tech.ayugram.messenger.AccountInstance;
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.AnimationNotificationsLocker;
-import com.tech.ayugram.messenger.BillingController;
+// import com.tech.ayugram.messenger.BillingController; (Phase 2: removed)
 import com.tech.ayugram.messenger.BuildVars;
 import com.tech.ayugram.messenger.GiftAuctionController;
 import com.tech.ayugram.messenger.LocaleController;
@@ -284,8 +284,8 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
             action.flags |= 4;
             action.currency = premiumTier.getCurrency();
             action.amount = premiumTier.getPrice();
-            if (premiumTier.googlePlayProductDetails != null) {
-                action.amount = (long) (action.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(action.currency) - 6));
+// Phase 2:             if (premiumTier.googlePlayProductDetails != null) {
+// Phase 2:                 action.amount = (long) (action.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(action.currency) - 6));
             }
             action.flags |= 16;
             action.message = new TLRPC.TL_textWithEntities();
@@ -295,8 +295,8 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
             action.months = premiumTier.getMonths();
             action.currency = premiumTier.getCurrency();
             action.amount = premiumTier.getPrice();
-            if (premiumTier.googlePlayProductDetails != null) {
-                action.amount = (long) (action.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(action.currency) - 6));
+// Phase 2:             if (premiumTier.googlePlayProductDetails != null) {
+// Phase 2:                 action.amount = (long) (action.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(action.currency) - 6));
             }
             action.flags |= 2;
             action.message = new TLRPC.TL_textWithEntities();
@@ -586,8 +586,8 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
                     } else {
                         thisAction.currency = premiumTier.getCurrency();
                         thisAction.amount = premiumTier.getPrice();
-                        if (premiumTier.googlePlayProductDetails != null) {
-                            thisAction.amount = (long) (thisAction.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(thisAction.currency) - 6));
+// Phase 2:                         if (premiumTier.googlePlayProductDetails != null) {
+// Phase 2:                             thisAction.amount = (long) (thisAction.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(thisAction.currency) - 6));
                         }
                     }
                 } else if (action instanceof TLRPC.TL_messageActionGiftCode) {
@@ -598,8 +598,8 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
                     } else {
                         thisAction.currency = premiumTier.getCurrency();
                         thisAction.amount = premiumTier.getPrice();
-                        if (premiumTier.googlePlayProductDetails != null) {
-                            thisAction.amount = (long) (thisAction.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(thisAction.currency) - 6));
+// Phase 2:                         if (premiumTier.googlePlayProductDetails != null) {
+// Phase 2:                             thisAction.amount = (long) (thisAction.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(thisAction.currency) - 6));
                         }
                     }
                 }
@@ -843,15 +843,15 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
                     dismiss();
                 }
             } else {
-                if (BillingController.getInstance().isReady() && premiumTier.googlePlayProductDetails != null) {
+// Phase 2:                 if (BillingController.getInstance().isReady() && premiumTier.googlePlayProductDetails != null) {
                     TLRPC.TL_inputStorePaymentGiftPremium giftPremium = new TLRPC.TL_inputStorePaymentGiftPremium();
                     giftPremium.user_id = MessagesController.getInstance(currentAccount).getInputUser(user);
-                    ProductDetails.OneTimePurchaseOfferDetails offerDetails = premiumTier.googlePlayProductDetails.getOneTimePurchaseOfferDetails();
+// Phase 2:                     ProductDetails.OneTimePurchaseOfferDetails offerDetails = premiumTier.googlePlayProductDetails.getOneTimePurchaseOfferDetails();
                     giftPremium.currency = offerDetails.getPriceCurrencyCode();
-                    giftPremium.amount = (long) ((offerDetails.getPriceAmountMicros() / Math.pow(10, 6)) * Math.pow(10, BillingController.getInstance().getCurrencyExp(giftPremium.currency)));
+// Phase 2:                     giftPremium.amount = (long) ((offerDetails.getPriceAmountMicros() / Math.pow(10, 6)) * Math.pow(10, BillingController.getInstance().getCurrencyExp(giftPremium.currency)));
 
-                    BillingController.getInstance().addResultListener(premiumTier.giftOption.store_product, billingResult -> {
-                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+// Phase 2:                     BillingController.getInstance().addResultListener(premiumTier.giftOption.store_product, billingResult -> {
+// Phase 2:                         if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                             AndroidUtilities.runOnUIThread(() -> onGiftSuccess(true));
                         }
                     });
@@ -860,8 +860,8 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
                     req.purpose = giftPremium;
                     ConnectionsManager.getInstance(currentAccount).sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
                         if (response instanceof TLRPC.TL_boolTrue) {
-                            BillingController.getInstance().launchBillingFlow(getBaseFragment().getParentActivity(), AccountInstance.getInstance(currentAccount), giftPremium, Collections.singletonList(BillingFlowParams.ProductDetailsParams.newBuilder()
-                                    .setProductDetails(premiumTier.googlePlayProductDetails)
+// Phase 2:                             BillingController.getInstance().launchBillingFlow(getBaseFragment().getParentActivity(), AccountInstance.getInstance(currentAccount), giftPremium, Collections.singletonList(BillingFlowParams.ProductDetailsParams.newBuilder()
+// Phase 2:                                     .setProductDetails(premiumTier.googlePlayProductDetails)
                                     .build()));
                         } else if (error != null) {
                             AlertsCreator.processError(currentAccount, error, getBaseFragment(), req);

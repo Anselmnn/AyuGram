@@ -11,9 +11,9 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.SparseArray;
 
-// import com.google.android.gms.vision.// Object // Phase 2: Frame removed // Phase 2; (Phase 2)
-// import com.google.android.gms.vision.barcode.// Object // Phase 2: Barcode removed // Phase 2; (Phase 2)
-// import com.google.android.gms.vision.barcode.// // Object // Phase 2: Barcode removed // Phase 2Detector // Phase 2; (Phase 2)
+import com.tech.ayugram.vision.stub.Frame;
+import com.tech.ayugram.vision.stub.Barcode;
+import com.tech.ayugram.vision.stub.BarcodeDetector;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class MrzRecognizer {
 	public static Result recognize(Bitmap bitmap, boolean tryDriverLicenseFirst) {
 		Result res;
 		if (tryDriverLicenseFirst) {
-			res = recognize// Object // Phase 2: Barcode removed // Phase 2(bitmap);
+			res = recognizeBarcode(bitmap);
 			if (res != null)
 				return res;
 		}
@@ -34,23 +34,23 @@ public class MrzRecognizer {
 		} catch (Exception ignore) {
 		}
 		if (!tryDriverLicenseFirst) {
-			res = recognize// Object // Phase 2: Barcode removed // Phase 2(bitmap);
+			res = recognizeBarcode(bitmap);
 			if (res != null)
 				return res;
 		}
 		return null;
 	}
 
-	private static Result recognize// Object // Phase 2: Barcode removed // Phase 2(Bitmap bitmap) {
-		// // Object // Phase 2: Barcode removed // Phase 2Detector // Phase 2 detector = new // // Object // Phase 2: Barcode removed // Phase 2Detector // Phase 2.Builder(ApplicationLoader.applicationContext)/*.set// Object // Phase 2: Barcode removed // Phase 2Formats(// Object // Phase 2: Barcode removed // Phase 2.PDF417)*/.build();
+	private static Result recognizeBarcode(Bitmap bitmap) {
+		BarcodeDetector detector = new BarcodeDetector(ApplicationLoader.applicationContext).build();
 		if (bitmap.getWidth() > 1500 || bitmap.getHeight() > 1500) {
 			float scale = 1500f / Math.max(bitmap.getWidth(), bitmap.getHeight());
 			bitmap = Bitmap.createScaledBitmap(bitmap, Math.round(bitmap.getWidth() * scale), Math.round(bitmap.getHeight() * scale), true);
 		}
-		SparseArray<// Object // Phase 2: Barcode removed // Phase 2> barcodes = detector.detect(new // Object // Phase 2: Frame removed // Phase 2.Builder().setBitmap(bitmap).build());
+		SparseArray<Barcode> barcodes = detector.detect(new Frame.Builder().setBitmap(bitmap).build());
 		for (int i = 0; i < barcodes.size(); i++) {
-			// Object // Phase 2: Barcode removed // Phase 2 code = barcodes.valueAt(i);
-			if (code.valueFormat == // Object // Phase 2: Barcode removed // Phase 2.DRIVER_LICENSE && code.driverLicense != null) { // // // Object // Phase 2: Barcode removed // Phase 2Detector // Phase 2 has built-in support for North American driver licenses/IDs
+			Barcode code = barcodes.valueAt(i);
+			if (code.valueFormat == Barcode.DRIVER_LICENSE && code.driverLicense != null) { // BarcodeDetector has built-in support for North American driver licenses/IDs
 				Result res = new Result();
 				res.type = "ID".equals(code.driverLicense.documentType) ? Result.TYPE_ID : Result.TYPE_DRIVER_LICENSE;
 				switch (code.driverLicense.issuingCountry) {

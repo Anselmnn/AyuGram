@@ -99,22 +99,22 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
-// // import com.android.billingclient.api.// Phase 2: Removed BillingClient; (Phase 2) (Phase 2)
-// // import com.android.billingclient.api.// Phase 2: Removed BillingFlowParams; (Phase 2) (Phase 2)
-// // import com.android.billingclient.api.// Phase 2: Removed ProductDetails; (Phase 2) (Phase 2)
-// // import com.android.billingclient.api.// Phase 2: Removed Purchase; (Phase 2) (Phase 2)
-// // import com.android.billingclient.api.Query// Phase 2: Removed ProductDetailsParams; (Phase 2) (Phase 2)
-// // import com.google.android.gms.auth.api.signin.// Phase 2: Removed // Phase 2: Removed GoogleSignIn; (Phase 2) (Phase 2)
-// // import com.google.android.gms.auth.api.signin.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInAccount; (Phase 2) (Phase 2)
-// // import com.google.android.gms.auth.api.signin.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInClient; (Phase 2) (Phase 2)
-// // import com.google.android.gms.auth.api.signin.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInOptions; (Phase 2) (Phase 2)
-// // import com.google.android.gms.common.api.// Phase 2: Removed // Phase 2: Removed ApiException; (Phase 2) (Phase 2)
-// // import com.google.android.gms.safetynet.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet; (Phase 2) (Phase 2)
-// // import com.google.android.gms.tasks.// Phase 2: Removed Task; (Phase 2) (Phase 2)
-// // import com.google.android.play.core.integrity.// Phase 2: Removed // Phase 2: Removed IntegrityManager; (Phase 2) (Phase 2)
-// // import com.google.android.play.core.integrity.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed IntegrityManagerFactory; (Phase 2) (Phase 2)
-// // import com.google.android.play.core.integrity.// Phase 2: Removed // Phase 2: Removed IntegrityTokenRequest; (Phase 2) (Phase 2)
-// // import com.google.android.play.core.integrity.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed IntegrityTokenResponse; (Phase 2) (Phase 2)
+// import com.android.billingclient.api.BillingClient; (Phase 2: removed)
+// import com.android.billingclient.api.BillingFlowParams; (Phase 2: removed)
+// import com.android.billingclient.api.ProductDetails; (Phase 2: removed)
+// import com.android.billingclient.api.Purchase; (Phase 2: removed)
+// import com.android.billingclient.api.QueryProductDetailsParams; (Phase 2: removed)
+import com.tech.ayugram.play.stub.GoogleSignIn;
+import com.tech.ayugram.play.stub.GoogleSignIn.GoogleSignInAccount;
+import com.tech.ayugram.play.stub.GoogleSignIn.GoogleSignInClient;
+import com.tech.ayugram.play.stub.GoogleSignIn.GoogleSignInOptions;
+import com.tech.ayugram.play.stub.ApiException;
+import com.tech.ayugram.play.stub.SafetyNet;
+import com.tech.ayugram.play.stub.Task;
+import com.tech.ayugram.play.stub.IntegrityManager;
+import com.tech.ayugram.play.stub.IntegrityManager.IntegrityManagerFactory;
+import com.tech.ayugram.play.stub.IntegrityManager.IntegrityTokenRequest;
+import com.tech.ayugram.play.stub.IntegrityManager.IntegrityTokenResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -123,7 +123,7 @@ import com.tech.ayugram.messenger.AccountInstance;
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.ApplicationLoader;
 import com.tech.ayugram.messenger.AuthTokensHelper;
-// // import com.tech.ayugram.messenger.BillingController; (Phase 2) (Phase 2)
+// import com.tech.ayugram.messenger.BillingController; (Phase 2: removed)
 import com.tech.ayugram.messenger.BuildConfig;
 import com.tech.ayugram.messenger.BuildVars;
 import com.tech.ayugram.messenger.CallReceiver;
@@ -394,7 +394,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
     private Runnable[] editDoneCallback = new Runnable[2];
     private boolean[] postedEditDoneCallback = new boolean[2];
 
-    private boolean forceDisable// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet;
+    private boolean forceDisableSafetyNet;
 
     private static class ProgressView extends View {
 
@@ -1693,7 +1693,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
         fillNextCodeParams(params, res, true);
     }
 
-    private void resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(Bundle params, TLRPC.auth_SentCode res, String reason) {
+    private void resendCodeFromSafetyNet(Bundle params, TLRPC.auth_SentCode res, String reason) {
         if (!isRequestingFirebaseSms) {
             return;
         }
@@ -1717,9 +1717,9 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                     }
                     new AlertDialog.Builder(getContext())
                             .setTitle(getString(R.string.RestorePasswordNoEmailTitle))
-                            .setMessage(getString(R.string.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNetErrorOccurred))
+                            .setMessage(getString(R.string.SafetyNetErrorOccurred))
                             .setPositiveButton(getString(R.string.OK), (dialog, which) -> {
-                                forceDisable// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet = true;
+                                forceDisableSafetyNet = true;
                                 if (currentViewNum != VIEW_PHONE_INPUT) {
                                     setPage(VIEW_PHONE_INPUT, true, null, true);
                                 }
@@ -1774,17 +1774,17 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 isRequestingFirebaseSms = true;
                 final String phone = params.getString("phoneFormated");
                 if (r.play_integrity_nonce != null) {
-                    // Phase 2: Removed // Phase 2: Removed IntegrityManager integrityManager = // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed IntegrityManagerFactory.create(getContext());
+                    IntegrityManager integrityManager = IntegrityManager.IntegrityManagerFactory.create(getContext());
                     final String nonce = new String(Base64.encode(r.play_integrity_nonce, Base64.URL_SAFE));
                     FileLog.d("getting classic integrity with nonce = " + nonce);
-                    // Phase 2: Removed // Phase 2: Removed Task<// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed IntegrityTokenResponse> integrityTokenResponse = integrityManager.requestIntegrityToken(// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed IntegrityTokenRequest.builder().setNonce(nonce).setCloudProjectNumber(r.play_integrity_project_id).build());
+                    com.tech.ayugram.play.stub.Task<IntegrityManager.IntegrityTokenResponse> integrityTokenResponse = integrityManager.requestIntegrityToken(IntegrityManager.IntegrityTokenRequest.builder().setNonce(nonce).setCloudProjectNumber(r.play_integrity_project_id).build());
                     integrityTokenResponse
                         .addOnSuccessListener(result -> {
                             final String token = result.token();
 
                             if (token == null) {
                                 FileLog.d("Resend firebase sms because integrity token = null");
-                                resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "PLAYINTEGRITY_TOKEN_NULL");
+                                resendCodeFromSafetyNet(params, res, "PLAYINTEGRITY_TOKEN_NULL");
                                 return;
                             }
 
@@ -1802,17 +1802,17 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                                     AndroidUtilities.runOnUIThread(() -> fillNextCodeParams(params, res, animate));
                                 } else {
                                     FileLog.d("{PLAYINTEGRITY_REQUESTFIREBASESMS_FALSE} Resend firebase sms because auth.requestFirebaseSms = false");
-                                    resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "PLAYINTEGRITY_REQUESTFIREBASESMS_FALSE");
+                                    resendCodeFromSafetyNet(params, res, "PLAYINTEGRITY_REQUESTFIREBASESMS_FALSE");
                                 }
                             }, ConnectionsManager.RequestFlagFailOnServerErrors | ConnectionsManager.RequestFlagWithoutLogin);
                         })
                         .addOnFailureListener(e -> {
                             final String reason = "PLAYINTEGRITY_EXCEPTION_" + errorString(e);
                             FileLog.e("{"+reason+"} Resend firebase sms because integrity threw error", e);
-                            resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, reason);
+                            resendCodeFromSafetyNet(params, res, reason);
                         });
                 } else {
-                    // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet.getClient(ApplicationLoader.applicationContext).attest(res.type.nonce, BuildVars.SAFETYNET_KEY)
+                    SafetyNet.getClient(ApplicationLoader.applicationContext).attest(res.type.nonce, BuildVars.SAFETYNET_KEY)
                     .addOnSuccessListener(attestationResponse -> {
                         String jws = attestationResponse.getJwsResult();
 
@@ -1838,34 +1838,34 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                                                 AndroidUtilities.runOnUIThread(() -> fillNextCodeParams(params, res, animate));
                                             } else {
                                                 FileLog.d("{SAFETYNET_REQUESTFIREBASESMS_FALSE} Resend firebase sms because auth.requestFirebaseSms = false");
-                                                resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_REQUESTFIREBASESMS_FALSE");
+                                                resendCodeFromSafetyNet(params, res, "SAFETYNET_REQUESTFIREBASESMS_FALSE");
                                             }
                                         }, ConnectionsManager.RequestFlagFailOnServerErrors | ConnectionsManager.RequestFlagWithoutLogin);
                                     } else {
                                         if (!basicIntegrity && !ctsProfileMatch) {
                                             FileLog.d("{SAFETYNET_BASICINTEGRITY_CTSPROFILEMATCH_FALSE} Resend firebase sms because ctsProfileMatch = false and basicIntegrity = false");
-                                            resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_BASICINTEGRITY_CTSPROFILEMATCH_FALSE");
+                                            resendCodeFromSafetyNet(params, res, "SAFETYNET_BASICINTEGRITY_CTSPROFILEMATCH_FALSE");
                                         } else if (!basicIntegrity) {
                                             FileLog.d("{SAFETYNET_BASICINTEGRITY_FALSE} Resend firebase sms because basicIntegrity = false");
-                                            resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_BASICINTEGRITY_FALSE");
+                                            resendCodeFromSafetyNet(params, res, "SAFETYNET_BASICINTEGRITY_FALSE");
                                         } else if (!ctsProfileMatch) {
                                             FileLog.d("{SAFETYNET_CTSPROFILEMATCH_FALSE} Resend firebase sms because ctsProfileMatch = false");
-                                            resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_CTSPROFILEMATCH_FALSE");
+                                            resendCodeFromSafetyNet(params, res, "SAFETYNET_CTSPROFILEMATCH_FALSE");
                                         }
                                     }
                                 } catch (JSONException e) {
                                     FileLog.e(e);
 
                                     FileLog.d("{SAFETYNET_JSON_EXCEPTION} Resend firebase sms because of exception");
-                                    resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_JSON_EXCEPTION");
+                                    resendCodeFromSafetyNet(params, res, "SAFETYNET_JSON_EXCEPTION");
                                 }
                             } else {
                                 FileLog.d("{SAFETYNET_CANT_SPLIT} Resend firebase sms because can't split JWS token");
-                                resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_CANT_SPLIT");
+                                resendCodeFromSafetyNet(params, res, "SAFETYNET_CANT_SPLIT");
                             }
                         } else {
                             FileLog.d("{SAFETYNET_NULL_JWS} Resend firebase sms because JWS = null");
-                            resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_NULL_JWS");
+                            resendCodeFromSafetyNet(params, res, "SAFETYNET_NULL_JWS");
                         }
                     })
                     .addOnFailureListener(e -> {
@@ -1873,12 +1873,12 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
                         final String reason = "SAFETYNET_EXCEPTION_" + errorString(e);
                         FileLog.d("{"+reason+"} Resend firebase sms because of safetynet exception");
-                        resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, reason);
+                        resendCodeFromSafetyNet(params, res, reason);
                     });
                 }
             } else {
                 FileLog.d("{GOOGLE_PLAY_SERVICES_NOT_AVAILABLE} Resend firebase sms because firebase is not available");
-                resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "GOOGLE_PLAY_SERVICES_NOT_AVAILABLE");
+                resendCodeFromSafetyNet(params, res, "GOOGLE_PLAY_SERVICES_NOT_AVAILABLE");
             }
             return;
         }
@@ -3080,7 +3080,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
             settings.allow_flashcall = simcardAvailable && allowCall && allowCancelCall && allowReadCallLog;
             settings.allow_missed_call = simcardAvailable && allowCall;
             settings.allow_app_hash = settings.allow_firebase = PushListenerController.GooglePushListenerServiceProvider.INSTANCE.hasServices();
-            if (forceDisable// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet || TextUtils.isEmpty(BuildVars.SAFETYNET_KEY)) {
+            if (forceDisableSafetyNet || TextUtils.isEmpty(BuildVars.SAFETYNET_KEY)) {
                 settings.allow_firebase = false;
             }
 

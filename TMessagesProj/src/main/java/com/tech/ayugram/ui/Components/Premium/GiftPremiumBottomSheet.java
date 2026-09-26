@@ -19,14 +19,14 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingFlowParams;
-import com.android.billingclient.api.ProductDetails;
-import com.android.billingclient.api.QueryProductDetailsParams;
+// import com.android.billingclient.api.BillingClient; (Phase 2: removed)
+// import com.android.billingclient.api.BillingFlowParams; (Phase 2: removed)
+// import com.android.billingclient.api.ProductDetails; (Phase 2: removed)
+// import com.android.billingclient.api.QueryProductDetailsParams; (Phase 2: removed)
 
 import com.tech.ayugram.messenger.AccountInstance;
 import com.tech.ayugram.messenger.AndroidUtilities;
-import com.tech.ayugram.messenger.BillingController;
+// import com.tech.ayugram.messenger.BillingController; (Phase 2: removed)
 import com.tech.ayugram.messenger.BuildVars;
 import com.tech.ayugram.messenger.LocaleController;
 import com.tech.ayugram.messenger.MessagesController;
@@ -159,7 +159,7 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
         rowsCount = 0;
         TLRPC.UserFull userFull = MessagesController.getInstance(currentAccount).getUserFull(user.id);
         if (userFull != null) {
-            List<QueryProductDetailsParams.Product> products = new ArrayList<>();
+// Phase 2:             List<QueryProductDetailsParams.Product> products = new ArrayList<>();
             long pricePerMonthMax = 0;
 //            for (TLRPC.TL_premiumGiftOption option : userFull.premium_gifts) {
 //                if ("XTR".equalsIgnoreCase(option.currency)) continue;
@@ -189,13 +189,13 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
                 }
             } else if (!products.isEmpty()) {
                 long startMs = System.currentTimeMillis();
-                BillingController.getInstance().queryProductDetails(products, (billingResult, list) -> {
+// Phase 2:                 BillingController.getInstance().queryProductDetails(products, (billingResult, list) -> {
                     long pricePerMonthMaxStore = 0;
 
-                    for (ProductDetails details : list) {
+// Phase 2:                     for (ProductDetails details : list) {
                         for (GiftTier giftTier : giftTiers) {
                             if (giftTier.giftOption.store_product != null && giftTier.giftOption.store_product.equals(details.getProductId())) {
-                                giftTier.setGooglePlayProductDetails(details);
+// Phase 2:                                 giftTier.setGooglePlayProductDetails(details);
 
                                 if (giftTier.getPricePerMonth() > pricePerMonthMaxStore) {
                                     pricePerMonthMaxStore = giftTier.getPricePerMonth();
@@ -232,18 +232,18 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NotificationCenter.getGlobalInstance().addObserver(this, NotificationCenter.billingProductDetailsUpdated);
+// Phase 2:         NotificationCenter.getGlobalInstance().addObserver(this, NotificationCenter.billingProductDetailsUpdated);
     }
 
     @Override
     public void dismiss() {
         super.dismiss();
-        NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.billingProductDetailsUpdated);
+// Phase 2:         NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.billingProductDetailsUpdated);
     }
 
     @Override
     public void didReceivedNotification(int id, int account, Object... args) {
-        if (id == NotificationCenter.billingProductDetailsUpdated) {
+// Phase 2:         if (id == NotificationCenter.billingProductDetailsUpdated) {
             initData();
         }
     }
@@ -252,7 +252,7 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
         if (LocaleController.isRTL) {
             animated = false;
         }
-        if (!BuildVars.useInvoiceBilling() && (!BillingController.getInstance().isReady() || giftTiers.get(selectedTierIndex).googlePlayProductDetails == null)) {
+// Phase 2:         if (!BuildVars.useInvoiceBilling() && (!BillingController.getInstance().isReady() || giftTiers.get(selectedTierIndex).googlePlayProductDetails == null)) {
             premiumButtonView.setButton(LocaleController.getString(R.string.Loading), v -> {}, !LocaleController.isRTL);
             premiumButtonView.setFlickerDisabled(true);
             return;
@@ -312,15 +312,15 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
                 dismiss();
             }
         } else {
-            if (BillingController.getInstance().isReady() && tier.googlePlayProductDetails != null) {
+// Phase 2:             if (BillingController.getInstance().isReady() && tier.googlePlayProductDetails != null) {
                 TLRPC.TL_inputStorePaymentGiftPremium giftPremium = new TLRPC.TL_inputStorePaymentGiftPremium();
                 giftPremium.user_id = MessagesController.getInstance(currentAccount).getInputUser(user);
-                ProductDetails.OneTimePurchaseOfferDetails offerDetails = tier.googlePlayProductDetails.getOneTimePurchaseOfferDetails();
+// Phase 2:                 ProductDetails.OneTimePurchaseOfferDetails offerDetails = tier.googlePlayProductDetails.getOneTimePurchaseOfferDetails();
                 giftPremium.currency = offerDetails.getPriceCurrencyCode();
-                giftPremium.amount = (long) ((offerDetails.getPriceAmountMicros() / Math.pow(10, 6)) * Math.pow(10, BillingController.getInstance().getCurrencyExp(giftPremium.currency)));
+// Phase 2:                 giftPremium.amount = (long) ((offerDetails.getPriceAmountMicros() / Math.pow(10, 6)) * Math.pow(10, BillingController.getInstance().getCurrencyExp(giftPremium.currency)));
 
-                BillingController.getInstance().addResultListener(tier.giftOption.store_product, billingResult -> {
-                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+// Phase 2:                 BillingController.getInstance().addResultListener(tier.giftOption.store_product, billingResult -> {
+// Phase 2:                     if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                         AndroidUtilities.runOnUIThread(()-> onGiftSuccess(true));
                     }
                 });
@@ -329,8 +329,8 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
                 req.purpose = giftPremium;
                 ConnectionsManager.getInstance(currentAccount).sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(()->{
                     if (response instanceof TLRPC.TL_boolTrue) {
-                        BillingController.getInstance().launchBillingFlow(getBaseFragment().getParentActivity(), AccountInstance.getInstance(currentAccount), giftPremium, Collections.singletonList(BillingFlowParams.ProductDetailsParams.newBuilder()
-                                .setProductDetails(tier.googlePlayProductDetails)
+// Phase 2:                         BillingController.getInstance().launchBillingFlow(getBaseFragment().getParentActivity(), AccountInstance.getInstance(currentAccount), giftPremium, Collections.singletonList(BillingFlowParams.ProductDetailsParams.newBuilder()
+// Phase 2:                                 .setProductDetails(tier.googlePlayProductDetails)
                                 .build()));
                     } else if (error != null) {
                         AlertsCreator.processError(currentAccount, error, getBaseFragment(), req);
@@ -515,7 +515,7 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
         private long pricePerMonth;
 
         private long pricePerMonthRegular;
-        public ProductDetails googlePlayProductDetails;
+// Phase 2:         public ProductDetails googlePlayProductDetails;
 
         public int yOffset;
 
@@ -532,12 +532,12 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
             this.starsCodeOption = starsOption instanceof TLRPC.TL_premiumGiftCodeOption ? (TLRPC.TL_premiumGiftCodeOption) starsOption : null;
         }
 
-        public ProductDetails getGooglePlayProductDetails() {
-            return googlePlayProductDetails;
+// Phase 2:         public ProductDetails getGooglePlayProductDetails() {
+// Phase 2:             return googlePlayProductDetails;
         }
 
-        public void setGooglePlayProductDetails(ProductDetails googlePlayProductDetails) {
-            this.googlePlayProductDetails = googlePlayProductDetails;
+// Phase 2:         public void setGooglePlayProductDetails(ProductDetails googlePlayProductDetails) {
+// Phase 2:             this.googlePlayProductDetails = googlePlayProductDetails;
         }
 
         public void setPricePerMonthRegular(long pricePerMonthRegular) {
@@ -585,18 +585,18 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
 
         public String getFormattedPricePerMonth() {
             if (BuildVars.useInvoiceBilling() || giftOption != null && giftOption.store_product == null || giftCodeOption != null && giftCodeOption.store_product == null) {
-                return BillingController.getInstance().formatCurrency(getPricePerMonth(), getCurrency());
+// Phase 2:                 return BillingController.getInstance().formatCurrency(getPricePerMonth(), getCurrency());
             }
 
-            return googlePlayProductDetails == null ? "" : BillingController.getInstance().formatCurrency(getPricePerMonth(), getCurrency(), 6);
+// Phase 2:             return googlePlayProductDetails == null ? "" : BillingController.getInstance().formatCurrency(getPricePerMonth(), getCurrency(), 6);
         }
 
         public String getFormattedPrice() {
             if (BuildVars.useInvoiceBilling() || giftOption != null && giftOption.store_product == null || giftCodeOption != null && giftCodeOption.store_product == null) {
-                return BillingController.getInstance().formatCurrency(getPrice(), getCurrency());
+// Phase 2:                 return BillingController.getInstance().formatCurrency(getPrice(), getCurrency());
             }
 
-            return googlePlayProductDetails == null ? "" : BillingController.getInstance().formatCurrency(getPrice(), getCurrency(), 6);
+// Phase 2:             return googlePlayProductDetails == null ? "" : BillingController.getInstance().formatCurrency(getPrice(), getCurrency(), 6);
         }
 
         public long getPrice() {
@@ -609,7 +609,7 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
                     return giftCodeOption.amount;
                 }
             }
-            return googlePlayProductDetails == null ? 0 : googlePlayProductDetails.getOneTimePurchaseOfferDetails().getPriceAmountMicros();
+// Phase 2:             return googlePlayProductDetails == null ? 0 : googlePlayProductDetails.getOneTimePurchaseOfferDetails().getPriceAmountMicros();
         }
 
         public String getCurrency() {
@@ -622,7 +622,7 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
                     return giftCodeOption.currency;
                 }
             }
-            return googlePlayProductDetails == null ? "" : googlePlayProductDetails.getOneTimePurchaseOfferDetails().getPriceCurrencyCode();
+// Phase 2:             return googlePlayProductDetails == null ? "" : googlePlayProductDetails.getOneTimePurchaseOfferDetails().getPriceCurrencyCode();
         }
 
         public Object getStarsOption() {

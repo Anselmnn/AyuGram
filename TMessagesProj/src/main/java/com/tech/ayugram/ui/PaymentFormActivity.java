@@ -73,15 +73,15 @@ import androidx.dynamicanimation.animation.FloatValueHolder;
 import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.dynamicanimation.animation.SpringForce;
 
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.wallet.AutoResolveHelper;
-import com.google.android.gms.wallet.IsReadyToPayRequest;
-import com.google.android.gms.wallet.PaymentData;
-import com.google.android.gms.wallet.PaymentDataRequest;
-import com.google.android.gms.wallet.PaymentsClient;
-import com.google.android.gms.wallet.Wallet;
-import com.google.android.gms.wallet.WalletConstants;
+// import com.google.android.gms.common.api.Status; (Phase 2: removed)
+// import com.google.android.gms.tasks.Task; (Phase 2: removed)
+// import com.google.android.gms.wallet.AutoResolveHelper; (Phase 2: removed)
+// import com.google.android.gms.wallet.IsReadyToPayRequest; (Phase 2: removed)
+// import com.google.android.gms.wallet.PaymentData; (Phase 2: removed)
+// import com.google.android.gms.wallet.PaymentDataRequest; (Phase 2: removed)
+// import com.google.android.gms.wallet.PaymentsClient; (Phase 2: removed)
+// import com.google.android.gms.wallet.Wallet; (Phase 2: removed)
+// import com.google.android.gms.wallet.WalletConstants; (Phase 2: removed)
 import com.stripe.android.Stripe;
 import com.stripe.android.TokenCallback;
 import com.stripe.android.exception.APIConnectionException;
@@ -218,7 +218,7 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
     private HashMap<String, String> codesMap = new HashMap<>();
     private HashMap<String, String> phoneFormatMap = new HashMap<>();
 
-    private PaymentsClient paymentsClient;
+// Phase 2:     private PaymentsClient paymentsClient;
 
     private EditTextBoldCursor[] inputFields;
     private RadioCell[] radioCells;
@@ -3015,9 +3015,9 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
                 shippingAddressParameters.put("allowedCountryCodes", allowedCountryCodes);
                 paymentDataRequest.put("shippingAddressParameters", shippingAddressParameters);*/
 
-                PaymentDataRequest request = PaymentDataRequest.fromJson(paymentDataRequest.toString());
+// Phase 2:                 PaymentDataRequest request = PaymentDataRequest.fromJson(paymentDataRequest.toString());
                 if (request != null) {
-                    AutoResolveHelper.resolveTask(paymentsClient.loadPaymentData(request), getParentActivity(), LOAD_PAYMENT_DATA_REQUEST_CODE);
+// Phase 2:                     AutoResolveHelper.resolveTask(paymentsClient.loadPaymentData(request), getParentActivity(), LOAD_PAYMENT_DATA_REQUEST_CODE);
                 }
             } catch (JSONException e) {
                 FileLog.e(e);
@@ -3191,7 +3191,7 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
         return cardPaymentMethod;
     }
 
-    public Optional<JSONObject> getIsReadyToPayRequest() {
+// Phase 2:     public Optional<JSONObject> getIsReadyToPayRequest() {
         try {
             JSONObject isReadyToPayRequest = getBaseRequest();
             isReadyToPayRequest.put(
@@ -3207,17 +3207,17 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
         if (Build.VERSION.SDK_INT < 19 || getParentActivity() == null) {
             return;
         }
-        Wallet.WalletOptions walletOptions = new Wallet.WalletOptions.Builder()
-                .setEnvironment(paymentForm.invoice.test ? WalletConstants.ENVIRONMENT_TEST : WalletConstants.ENVIRONMENT_PRODUCTION)
-                .setTheme(WalletConstants.THEME_LIGHT)
+// Phase 2:         Wallet.WalletOptions walletOptions = new Wallet.WalletOptions.Builder()
+// Phase 2:                 .setEnvironment(paymentForm.invoice.test ? WalletConstants.ENVIRONMENT_TEST : WalletConstants.ENVIRONMENT_PRODUCTION)
+// Phase 2:                 .setTheme(WalletConstants.THEME_LIGHT)
                 .build();
-        paymentsClient = Wallet.getPaymentsClient(context, walletOptions);
+// Phase 2:         paymentsClient = Wallet.getPaymentsClient(context, walletOptions);
 
-        final Optional<JSONObject> isReadyToPayJson = getIsReadyToPayRequest();
+// Phase 2:         final Optional<JSONObject> isReadyToPayJson = getIsReadyToPayRequest();
         if (!isReadyToPayJson.isPresent()) {
             return;
         }
-        IsReadyToPayRequest request = IsReadyToPayRequest.fromJson(isReadyToPayJson.get().toString());
+// Phase 2:         IsReadyToPayRequest request = IsReadyToPayRequest.fromJson(isReadyToPayJson.get().toString());
         if (request == null) {
             return;
         }
@@ -3392,7 +3392,7 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
         if (requestCode == LOAD_PAYMENT_DATA_REQUEST_CODE) {
             AndroidUtilities.runOnUIThread(() -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    PaymentData paymentData = PaymentData.getFromIntent(data);
+// Phase 2:                     PaymentData paymentData = PaymentData.getFromIntent(data);
                     if (paymentData == null) {
                         return;
                     }
@@ -3427,8 +3427,8 @@ public class PaymentFormActivity extends BaseFragment implements NotificationCen
                         FileLog.e(e);
                     }
                 } else {
-                    if (resultCode == AutoResolveHelper.RESULT_ERROR) {
-                        Status status = AutoResolveHelper.getStatusFromIntent(data);
+// Phase 2:                     if (resultCode == AutoResolveHelper.RESULT_ERROR) {
+// Phase 2:                         Status status = AutoResolveHelper.getStatusFromIntent(data);
                         FileLog.e("android pay error " + (status != null ? status.getStatusMessage() : ""));
                     }
                 }

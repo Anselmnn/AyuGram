@@ -55,12 +55,12 @@ import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-// import com.android.billingclient.api.BillingClient; (Phase 2)
-// // import com.android.billingclient.api.ProductDetails; (Phase 2)
-// // import com.android.billingclient.api.QueryProductDetailsParams; (Phase 2)
+// import com.android.billingclient.api.BillingClient; (Phase 2: removed)
+// import com.android.billingclient.api.ProductDetails; (Phase 2: removed)
+// import com.android.billingclient.api.QueryProductDetailsParams; (Phase 2: removed)
 
 import com.tech.ayugram.messenger.AndroidUtilities;
-// import com.tech.ayugram.messenger.BillingController; (Phase 2)
+// import com.tech.ayugram.messenger.BillingController; (Phase 2: removed)
 import com.tech.ayugram.messenger.BirthdayController;
 import com.tech.ayugram.messenger.BuildVars;
 import com.tech.ayugram.messenger.DialogObject;
