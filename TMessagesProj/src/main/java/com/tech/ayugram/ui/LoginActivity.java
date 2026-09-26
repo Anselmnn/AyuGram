@@ -99,22 +99,22 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
-// import com.android.billingclient.api.BillingClient; (Phase 2)
-// import com.android.billingclient.api.BillingFlowParams; (Phase 2)
-// import com.android.billingclient.api.ProductDetails; (Phase 2)
-// import com.android.billingclient.api.Purchase; (Phase 2)
-// import com.android.billingclient.api.QueryProductDetailsParams; (Phase 2)
-// import com.google.android.gms.auth.api.signin.GoogleSignIn; (Phase 2)
-// import com.google.android.gms.auth.api.signin.GoogleSignInAccount; (Phase 2)
-// import com.google.android.gms.auth.api.signin.GoogleSignInClient; (Phase 2)
-// import com.google.android.gms.auth.api.signin.GoogleSignInOptions; (Phase 2)
-// import com.google.android.gms.common.api.ApiException; (Phase 2)
-// import com.google.android.gms.safetynet.SafetyNet; (Phase 2)
-// import com.google.android.gms.tasks.Task; (Phase 2)
-// import com.google.android.play.core.integrity.IntegrityManager; (Phase 2)
-// import com.google.android.play.core.integrity.IntegrityManagerFactory; (Phase 2)
-// import com.google.android.play.core.integrity.IntegrityTokenRequest; (Phase 2)
-// import com.google.android.play.core.integrity.IntegrityTokenResponse; (Phase 2)
+// // import com.android.billingclient.api.// Phase 2: Removed BillingClient; (Phase 2) (Phase 2)
+// // import com.android.billingclient.api.// Phase 2: Removed BillingFlowParams; (Phase 2) (Phase 2)
+// // import com.android.billingclient.api.// Phase 2: Removed ProductDetails; (Phase 2) (Phase 2)
+// // import com.android.billingclient.api.// Phase 2: Removed Purchase; (Phase 2) (Phase 2)
+// // import com.android.billingclient.api.Query// Phase 2: Removed ProductDetailsParams; (Phase 2) (Phase 2)
+// // import com.google.android.gms.auth.api.signin.// Phase 2: Removed // Phase 2: Removed GoogleSignIn; (Phase 2) (Phase 2)
+// // import com.google.android.gms.auth.api.signin.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInAccount; (Phase 2) (Phase 2)
+// // import com.google.android.gms.auth.api.signin.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInClient; (Phase 2) (Phase 2)
+// // import com.google.android.gms.auth.api.signin.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInOptions; (Phase 2) (Phase 2)
+// // import com.google.android.gms.common.api.// Phase 2: Removed // Phase 2: Removed ApiException; (Phase 2) (Phase 2)
+// // import com.google.android.gms.safetynet.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet; (Phase 2) (Phase 2)
+// // import com.google.android.gms.tasks.// Phase 2: Removed Task; (Phase 2) (Phase 2)
+// // import com.google.android.play.core.integrity.// Phase 2: Removed // Phase 2: Removed IntegrityManager; (Phase 2) (Phase 2)
+// // import com.google.android.play.core.integrity.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed IntegrityManagerFactory; (Phase 2) (Phase 2)
+// // import com.google.android.play.core.integrity.// Phase 2: Removed // Phase 2: Removed IntegrityTokenRequest; (Phase 2) (Phase 2)
+// // import com.google.android.play.core.integrity.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed IntegrityTokenResponse; (Phase 2) (Phase 2)
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -123,7 +123,7 @@ import com.tech.ayugram.messenger.AccountInstance;
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.ApplicationLoader;
 import com.tech.ayugram.messenger.AuthTokensHelper;
-// import com.tech.ayugram.messenger.BillingController; (Phase 2)
+// // import com.tech.ayugram.messenger.BillingController; (Phase 2) (Phase 2)
 import com.tech.ayugram.messenger.BuildConfig;
 import com.tech.ayugram.messenger.BuildVars;
 import com.tech.ayugram.messenger.CallReceiver;
@@ -216,7 +216,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Timer// Phase 2: Removed Task;
 import java.util.concurrent.atomic.AtomicReference;
 
 @SuppressLint("HardwareIds")
@@ -394,7 +394,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
     private Runnable[] editDoneCallback = new Runnable[2];
     private boolean[] postedEditDoneCallback = new boolean[2];
 
-    private boolean forceDisableSafetyNet;
+    private boolean forceDisable// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet;
 
     private static class ProgressView extends View {
 
@@ -1693,7 +1693,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
         fillNextCodeParams(params, res, true);
     }
 
-    private void resendCodeFromSafetyNet(Bundle params, TLRPC.auth_SentCode res, String reason) {
+    private void resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(Bundle params, TLRPC.auth_SentCode res, String reason) {
         if (!isRequestingFirebaseSms) {
             return;
         }
@@ -1717,9 +1717,9 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                     }
                     new AlertDialog.Builder(getContext())
                             .setTitle(getString(R.string.RestorePasswordNoEmailTitle))
-                            .setMessage(getString(R.string.SafetyNetErrorOccurred))
+                            .setMessage(getString(R.string.// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNetErrorOccurred))
                             .setPositiveButton(getString(R.string.OK), (dialog, which) -> {
-                                forceDisableSafetyNet = true;
+                                forceDisable// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet = true;
                                 if (currentViewNum != VIEW_PHONE_INPUT) {
                                     setPage(VIEW_PHONE_INPUT, true, null, true);
                                 }
@@ -1774,17 +1774,17 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 isRequestingFirebaseSms = true;
                 final String phone = params.getString("phoneFormated");
                 if (r.play_integrity_nonce != null) {
-                    IntegrityManager integrityManager = IntegrityManagerFactory.create(getContext());
+                    // Phase 2: Removed // Phase 2: Removed IntegrityManager integrityManager = // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed IntegrityManagerFactory.create(getContext());
                     final String nonce = new String(Base64.encode(r.play_integrity_nonce, Base64.URL_SAFE));
                     FileLog.d("getting classic integrity with nonce = " + nonce);
-                    Task<IntegrityTokenResponse> integrityTokenResponse = integrityManager.requestIntegrityToken(IntegrityTokenRequest.builder().setNonce(nonce).setCloudProjectNumber(r.play_integrity_project_id).build());
+                    // Phase 2: Removed // Phase 2: Removed Task<// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed IntegrityTokenResponse> integrityTokenResponse = integrityManager.requestIntegrityToken(// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed IntegrityTokenRequest.builder().setNonce(nonce).setCloudProjectNumber(r.play_integrity_project_id).build());
                     integrityTokenResponse
                         .addOnSuccessListener(result -> {
                             final String token = result.token();
 
                             if (token == null) {
                                 FileLog.d("Resend firebase sms because integrity token = null");
-                                resendCodeFromSafetyNet(params, res, "PLAYINTEGRITY_TOKEN_NULL");
+                                resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "PLAYINTEGRITY_TOKEN_NULL");
                                 return;
                             }
 
@@ -1802,17 +1802,17 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                                     AndroidUtilities.runOnUIThread(() -> fillNextCodeParams(params, res, animate));
                                 } else {
                                     FileLog.d("{PLAYINTEGRITY_REQUESTFIREBASESMS_FALSE} Resend firebase sms because auth.requestFirebaseSms = false");
-                                    resendCodeFromSafetyNet(params, res, "PLAYINTEGRITY_REQUESTFIREBASESMS_FALSE");
+                                    resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "PLAYINTEGRITY_REQUESTFIREBASESMS_FALSE");
                                 }
                             }, ConnectionsManager.RequestFlagFailOnServerErrors | ConnectionsManager.RequestFlagWithoutLogin);
                         })
                         .addOnFailureListener(e -> {
                             final String reason = "PLAYINTEGRITY_EXCEPTION_" + errorString(e);
                             FileLog.e("{"+reason+"} Resend firebase sms because integrity threw error", e);
-                            resendCodeFromSafetyNet(params, res, reason);
+                            resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, reason);
                         });
                 } else {
-                    SafetyNet.getClient(ApplicationLoader.applicationContext).attest(res.type.nonce, BuildVars.SAFETYNET_KEY)
+                    // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet.getClient(ApplicationLoader.applicationContext).attest(res.type.nonce, BuildVars.SAFETYNET_KEY)
                     .addOnSuccessListener(attestationResponse -> {
                         String jws = attestationResponse.getJwsResult();
 
@@ -1838,34 +1838,34 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                                                 AndroidUtilities.runOnUIThread(() -> fillNextCodeParams(params, res, animate));
                                             } else {
                                                 FileLog.d("{SAFETYNET_REQUESTFIREBASESMS_FALSE} Resend firebase sms because auth.requestFirebaseSms = false");
-                                                resendCodeFromSafetyNet(params, res, "SAFETYNET_REQUESTFIREBASESMS_FALSE");
+                                                resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_REQUESTFIREBASESMS_FALSE");
                                             }
                                         }, ConnectionsManager.RequestFlagFailOnServerErrors | ConnectionsManager.RequestFlagWithoutLogin);
                                     } else {
                                         if (!basicIntegrity && !ctsProfileMatch) {
                                             FileLog.d("{SAFETYNET_BASICINTEGRITY_CTSPROFILEMATCH_FALSE} Resend firebase sms because ctsProfileMatch = false and basicIntegrity = false");
-                                            resendCodeFromSafetyNet(params, res, "SAFETYNET_BASICINTEGRITY_CTSPROFILEMATCH_FALSE");
+                                            resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_BASICINTEGRITY_CTSPROFILEMATCH_FALSE");
                                         } else if (!basicIntegrity) {
                                             FileLog.d("{SAFETYNET_BASICINTEGRITY_FALSE} Resend firebase sms because basicIntegrity = false");
-                                            resendCodeFromSafetyNet(params, res, "SAFETYNET_BASICINTEGRITY_FALSE");
+                                            resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_BASICINTEGRITY_FALSE");
                                         } else if (!ctsProfileMatch) {
                                             FileLog.d("{SAFETYNET_CTSPROFILEMATCH_FALSE} Resend firebase sms because ctsProfileMatch = false");
-                                            resendCodeFromSafetyNet(params, res, "SAFETYNET_CTSPROFILEMATCH_FALSE");
+                                            resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_CTSPROFILEMATCH_FALSE");
                                         }
                                     }
                                 } catch (JSONException e) {
                                     FileLog.e(e);
 
                                     FileLog.d("{SAFETYNET_JSON_EXCEPTION} Resend firebase sms because of exception");
-                                    resendCodeFromSafetyNet(params, res, "SAFETYNET_JSON_EXCEPTION");
+                                    resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_JSON_EXCEPTION");
                                 }
                             } else {
                                 FileLog.d("{SAFETYNET_CANT_SPLIT} Resend firebase sms because can't split JWS token");
-                                resendCodeFromSafetyNet(params, res, "SAFETYNET_CANT_SPLIT");
+                                resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_CANT_SPLIT");
                             }
                         } else {
                             FileLog.d("{SAFETYNET_NULL_JWS} Resend firebase sms because JWS = null");
-                            resendCodeFromSafetyNet(params, res, "SAFETYNET_NULL_JWS");
+                            resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "SAFETYNET_NULL_JWS");
                         }
                     })
                     .addOnFailureListener(e -> {
@@ -1873,12 +1873,12 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
                         final String reason = "SAFETYNET_EXCEPTION_" + errorString(e);
                         FileLog.d("{"+reason+"} Resend firebase sms because of safetynet exception");
-                        resendCodeFromSafetyNet(params, res, reason);
+                        resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, reason);
                     });
                 }
             } else {
                 FileLog.d("{GOOGLE_PLAY_SERVICES_NOT_AVAILABLE} Resend firebase sms because firebase is not available");
-                resendCodeFromSafetyNet(params, res, "GOOGLE_PLAY_SERVICES_NOT_AVAILABLE");
+                resendCodeFrom// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet(params, res, "GOOGLE_PLAY_SERVICES_NOT_AVAILABLE");
             }
             return;
         }
@@ -3080,7 +3080,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
             settings.allow_flashcall = simcardAvailable && allowCall && allowCancelCall && allowReadCallLog;
             settings.allow_missed_call = simcardAvailable && allowCall;
             settings.allow_app_hash = settings.allow_firebase = PushListenerController.GooglePushListenerServiceProvider.INSTANCE.hasServices();
-            if (forceDisableSafetyNet || TextUtils.isEmpty(BuildVars.SAFETYNET_KEY)) {
+            if (forceDisable// Phase 2: Removed // Phase 2: Removed // Phase 2: Removed SafetyNet || TextUtils.isEmpty(BuildVars.SAFETYNET_KEY)) {
                 settings.allow_firebase = false;
             }
 
@@ -4581,7 +4581,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
             }
             codeTimer = new Timer();
             lastCodeTime = System.currentTimeMillis();
-            codeTimer.schedule(new TimerTask() {
+            codeTimer.schedule(new Timer// Phase 2: Removed Task() {
                 @Override
                 public void run() {
                     AndroidUtilities.runOnUIThread(() -> {
@@ -4625,7 +4625,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 progressView.resetProgressAnimation();
             }
             timeTimer = new Timer();
-            timeTimer.schedule(new TimerTask() {
+            timeTimer.schedule(new Timer// Phase 2: Removed Task() {
                 @Override
                 public void run() {
                     if (timeTimer == null) {
@@ -5899,7 +5899,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
         private String phone, emailPhone;
         private String requestPhone, phoneHash;
 
-        private GoogleSignInAccount googleAccount;
+        private // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInAccount googleAccount;
 
         public LoginActivitySetupEmail(Context context) {
             super(context);
@@ -6002,16 +6002,16 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
                         if (request == BasePermissionsActivity.REQUEST_CODE_SIGN_IN_WITH_GOOGLE) {
                             try {
-                                googleAccount = GoogleSignIn.getSignedInAccountFromIntent(data).getResult(ApiException.class);
+                                googleAccount = // Phase 2: Removed // Phase 2: Removed GoogleSignIn.getSignedInAccountFromIntent(data).getResult(// Phase 2: Removed // Phase 2: Removed ApiException.class);
                                 onNextPressed(null);
-                            } catch (ApiException e) {
+                            } catch (// Phase 2: Removed // Phase 2: Removed ApiException e) {
                                 FileLog.e(e);
                             }
                         }
                     }
                 }, NotificationCenter.onActivityResultReceived);
 
-                GoogleSignInClient googleClient = GoogleSignIn.getClient(getContext(), new GoogleSignInOptions.Builder()
+                // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInClient googleClient = // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignIn.getClient(getContext(), new // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInOptions.Builder()
                         .requestIdToken(BuildVars.GOOGLE_AUTH_CLIENT_ID)
                         .requestEmail()
                         .build());
@@ -6235,7 +6235,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
         private boolean resetRequestPending;
         private Bundle currentParams;
         private boolean nextPressed;
-        private GoogleSignInAccount googleAccount;
+        private // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInAccount googleAccount;
 
         private int resetAvailablePeriod, resetPendingDate;
         private String phone, emailPhone, email;
@@ -6336,16 +6336,16 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
                         if (request == BasePermissionsActivity.REQUEST_CODE_SIGN_IN_WITH_GOOGLE) {
                             try {
-                                googleAccount = GoogleSignIn.getSignedInAccountFromIntent(data).getResult(ApiException.class);
+                                googleAccount = // Phase 2: Removed // Phase 2: Removed GoogleSignIn.getSignedInAccountFromIntent(data).getResult(// Phase 2: Removed // Phase 2: Removed ApiException.class);
                                 onNextPressed(null);
-                            } catch (ApiException e) {
+                            } catch (// Phase 2: Removed // Phase 2: Removed ApiException e) {
                                 FileLog.e(e);
                             }
                         }
                     }
                 }, NotificationCenter.onActivityResultReceived);
 
-                GoogleSignInClient googleClient = GoogleSignIn.getClient(getContext(), new GoogleSignInOptions.Builder()
+                // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInClient googleClient = // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignIn.getClient(getContext(), new // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed // Phase 2: Removed GoogleSignInOptions.Builder()
                                 .requestIdToken(BuildVars.GOOGLE_AUTH_CLIENT_ID)
                                 .requestEmail()
                                 .build());
@@ -9604,7 +9604,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 //            }
 //            codeTimer = new Timer();
 //            lastCodeTime = System.currentTimeMillis();
-//            codeTimer.schedule(new TimerTask() {
+//            codeTimer.schedule(new Timer// Phase 2: Removed Task() {
 //                @Override
 //                public void run() {
 //                    AndroidUtilities.runOnUIThread(() -> {
@@ -9649,7 +9649,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 //                progressView.resetProgressAnimation();
 //            }
             timeTimer = new Timer();
-            timeTimer.schedule(new TimerTask() {
+            timeTimer.schedule(new Timer// Phase 2: Removed Task() {
                 @Override
                 public void run() {
                     if (timeTimer == null) {
@@ -10014,8 +10014,8 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 if (!TextUtils.isEmpty(currency) && amount > 0) {
                     button.setVisibility(View.VISIBLE);
                     button.setLoading(false);
-                    button.setText(formatString(R.string.SMSFeePurchaseTitle, BillingController.getInstance().formatCurrency(amount, currency)), false);
-                    button.setSubText(premium_days == 7 ? getString(R.string.SMSFeePurchaseText) : formatPluralStringComma("SMSFeePurchaseTextDays", premium_days), false);
+                    button.setText(formatString(R.string.SMSFee// Phase 2: Removed PurchaseTitle, // Phase 2: Removed BillingController.getInstance().formatCurrency(amount, currency)), false);
+                    button.setSubText(premium_days == 7 ? getString(R.string.SMSFee// Phase 2: Removed PurchaseText) : formatPluralStringComma("SMSFee// Phase 2: Removed PurchaseTextDays", premium_days), false);
                     button.setOnClickListener(v -> {
                         if (button.isLoading())
                             return;
@@ -10096,42 +10096,42 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 button.setLoading(true);
 
                 final Runnable fetch = () -> {
-                    final ArrayList<QueryProductDetailsParams.Product> productQueries = new ArrayList<>();
+                    final ArrayList<Query// Phase 2: Removed ProductDetailsParams.Product> productQueries = new ArrayList<>();
                     productQueries.add(
-                        QueryProductDetailsParams.Product.newBuilder()
-                            .setProductType(BillingClient.ProductType.INAPP)
+                        Query// Phase 2: Removed ProductDetailsParams.Product.newBuilder()
+                            .setProductType(// Phase 2: Removed BillingClient.ProductType.INAPP)
                             .setProductId(product)
                             .build()
                     );
                     FileLog.d("LoginBilling querying \"" + product + "\" product");
-                    BillingController.getInstance().queryProductDetails(productQueries, (result, list) -> AndroidUtilities.runOnUIThread(() -> {
+                    // Phase 2: Removed BillingController.getInstance().query// Phase 2: Removed ProductDetails(productQueries, (result, list) -> AndroidUtilities.runOnUIThread(() -> {
                         FileLog.d("LoginBilling queried \"" + product + "\" product: " + BillingController.getResponseCodeString(result.getResponseCode()));
-                        if (result.getResponseCode() != BillingClient.BillingResponseCode.OK) {
+                        if (result.getResponseCode() != // Phase 2: Removed BillingClient.BillingResponseCode.OK) {
                             lastError = "BILLING_" + BillingController.getResponseCodeString(result.getResponseCode());
                             BulletinFactory.of(slideViewsContainer, null).createSimpleBulletin(R.raw.error, formatString(R.string.UnknownErrorCode, BillingController.getResponseCodeString(result.getResponseCode())));
                             return;
                         }
                         if (list != null && !list.isEmpty()) {
-                            final ProductDetails productDetails = list.get(0);
+                            final // Phase 2: Removed ProductDetails productDetails = list.get(0);
 
-                            final ProductDetails.OneTimePurchaseOfferDetails offer = productDetails.getOneTimePurchaseOfferDetails();
+                            final // Phase 2: Removed ProductDetails.OneTime// Phase 2: Removed PurchaseOfferDetails offer = productDetails.getOneTime// Phase 2: Removed PurchaseOfferDetails();
 
                             final TLRPC.TL_inputStorePaymentAuthCode purpose = new TLRPC.TL_inputStorePaymentAuthCode();
                             purpose.currency = offer.getPriceCurrencyCode();
-                            purpose.amount = (long) ((offer.getPriceAmountMicros() / Math.pow(10, 6)) * Math.pow(10, BillingController.getInstance().getCurrencyExp(purpose.currency)));
+                            purpose.amount = (long) ((offer.getPriceAmountMicros() / Math.pow(10, 6)) * Math.pow(10, // Phase 2: Removed BillingController.getInstance().getCurrencyExp(purpose.currency)));
                             purpose.phone_code_hash = TextUtils.isEmpty(phoneHash) ? "" : phoneHash;
                             purpose.phone_number = phone;
                             purpose.premium_days = premium_days;
 
                             FileLog.d("LoginBilling found \"" + product + "\" product, with currency=" + purpose.currency + " amount=" + purpose.amount + "; phone=" + phone + ", phone_code_hash=" + phoneHash);
 
-                            final TLRPC.TL_payments_canPurchaseStore req = new TLRPC.TL_payments_canPurchaseStore();
+                            final TLRPC.TL_payments_can// Phase 2: Removed PurchaseStore req = new TLRPC.TL_payments_can// Phase 2: Removed PurchaseStore();
                             req.purpose = purpose;
                             ConnectionsManager.getInstance(currentAccount).sendRequest(req, (res, err) -> AndroidUtilities.runOnUIThread(() -> {
-                                FileLog.d("LoginBilling canPurchaseStore returned " + res + " " + err);
+                                FileLog.d("LoginBilling can// Phase 2: Removed PurchaseStore returned " + res + " " + err);
                                 if (res instanceof TLRPC.TL_boolTrue) {
-                                    button.setText(formatString(R.string.SMSFeePurchaseTitle, offer.getFormattedPrice()), false);
-                                    button.setSubText(premium_days == 7 ? getString(R.string.SMSFeePurchaseText) : formatPluralStringComma("SMSFeePurchaseTextDays", premium_days), false);
+                                    button.setText(formatString(R.string.SMSFee// Phase 2: Removed PurchaseTitle, offer.getFormattedPrice()), false);
+                                    button.setSubText(premium_days == 7 ? getString(R.string.SMSFee// Phase 2: Removed PurchaseText) : formatPluralStringComma("SMSFee// Phase 2: Removed PurchaseTextDays", premium_days), false);
                                     button.setLoading(false);
                                     button.setOnClickListener(v -> {
                                         if (button.isLoading()) return;
@@ -10148,28 +10148,28 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
                                         Runnable buy = () -> {
                                             paid = true;
-                                            BillingController.getInstance().addResultListener(productDetails.getProductId(), billingResult2 -> {
-                                                final boolean success = billingResult2.getResponseCode() == BillingClient.BillingResponseCode.OK;
+                                            // Phase 2: Removed BillingController.getInstance().addResultListener(productDetails.getProductId(), billingResult2 -> {
+                                                final boolean success = billingResult2.getResponseCode() == // Phase 2: Removed BillingClient.BillingResponseCode.OK;
                                                 final String error = success ? null : BillingController.getResponseCodeString(billingResult2.getResponseCode());
                                                 AndroidUtilities.runOnUIThread(() -> whenDone.run(error));
                                             });
-                                            BillingController.getInstance().setOnCanceled(() -> {
+                                            // Phase 2: Removed BillingController.getInstance().setOnCanceled(() -> {
                                                 AndroidUtilities.runOnUIThread(() -> whenDone.run("CANCELLED"));
                                             });
-                                            BillingController.getInstance().launchBillingFlow(
+                                            // Phase 2: Removed BillingController.getInstance().launchBillingFlow(
                                                 getParentActivity(),
                                                 AccountInstance.getInstance(currentAccount),
                                                 purpose,
-                                                Collections.singletonList(BillingFlowParams.ProductDetailsParams.newBuilder()
-                                                    .setProductDetails(productDetails)
+                                                Collections.singletonList(// Phase 2: Removed BillingFlowParams.// Phase 2: Removed ProductDetailsParams.newBuilder()
+                                                    .set// Phase 2: Removed ProductDetails(productDetails)
                                                     .build())
                                             );
                                         };
 
-                                        BillingController.getInstance().queryPurchases(BillingClient.ProductType.INAPP, (billingResult1, paidList) -> AndroidUtilities.runOnUIThread(() -> {
-                                            if (billingResult1.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                                        // Phase 2: Removed BillingController.getInstance().query// Phase 2: Removed Purchases(// Phase 2: Removed BillingClient.ProductType.INAPP, (billingResult1, paidList) -> AndroidUtilities.runOnUIThread(() -> {
+                                            if (billingResult1.getResponseCode() == // Phase 2: Removed BillingClient.BillingResponseCode.OK) {
                                                 if (paidList != null && !paidList.isEmpty()) {
-                                                    for (Purchase purchase : paidList) {
+                                                    for (// Phase 2: Removed Purchase purchase : paidList) {
                                                         if (purchase.getProducts().contains(product)) {
                                                             final TLRPC.TL_payments_assignPlayMarketTransaction req2 = new TLRPC.TL_payments_assignPlayMarketTransaction();
                                                             req2.receipt = new TLRPC.TL_dataJSON();
@@ -10195,7 +10195,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
                                                                     getMessagesController().processUpdates((TLRPC.Updates) response, false);
 
-                                                                    BillingController.getInstance().consumeGiftPurchase(purchase, req.purpose, null);
+                                                                    // Phase 2: Removed BillingController.getInstance().consumeGift// Phase 2: Removed Purchase(purchase, req.purpose, null);
                                                                     AndroidUtilities.runOnUIThread(() -> {
                                                                         button.setLoading(false);
                                                                     });
@@ -10227,8 +10227,8 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                         }
                     }));
                 };
-                if (!BillingController.getInstance().isReady()) {
-                    BillingController.getInstance().whenSetuped(fetch);
+                if (!// Phase 2: Removed BillingController.getInstance().isReady()) {
+                    // Phase 2: Removed BillingController.getInstance().whenSetuped(fetch);
                 } else {
                     fetch.run();
                 }
