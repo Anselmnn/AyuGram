@@ -142,6 +142,12 @@ jobs:
             ayugram-native-build-v2-
             ayugram-ccache-
 
+      - name: Clean workspace
+        run: |
+          rm -rf TMessagesProj/build TMessagesProj/.cxx TMessagesProj_App/build
+          git status
+          git diff HEAD
+
       - name: Build (assembleDebug)
         env:
           CCACHE_DIR: /home/runner/.ccache
