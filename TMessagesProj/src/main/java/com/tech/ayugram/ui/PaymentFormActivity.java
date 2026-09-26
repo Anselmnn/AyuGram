@@ -73,15 +73,15 @@ import androidx.dynamicanimation.animation.FloatValueHolder;
 import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.dynamicanimation.animation.SpringForce;
 
-// // import com.google.android.gms.common.api.Status; (Phase 2: removed) (Phase 2: removed)
-// // import com.google.android.gms.tasks.Task; (Phase 2: removed) (Phase 2: removed)
-// // import com.google.android.gms.wallet.AutoResolveHelper; (Phase 2: removed) (Phase 2: removed)
-// // import com.google.android.gms.wallet.IsReadyToPayRequest; (Phase 2: removed) (Phase 2: removed)
-// // import com.google.android.gms.wallet.PaymentData; (Phase 2: removed) (Phase 2: removed)
-// // import com.google.android.gms.wallet.PaymentDataRequest; (Phase 2: removed) (Phase 2: removed)
-// // import com.google.android.gms.wallet.PaymentsClient; (Phase 2: removed) (Phase 2: removed)
-// // import com.google.android.gms.wallet.Wallet; (Phase 2: removed) (Phase 2: removed)
-// // import com.google.android.gms.wallet.WalletConstants; (Phase 2: removed) (Phase 2: removed)
+// // import com.tech.ayugram.play.stub.ApiException; (Phase 2: removed) (Phase 2: removed)
+// // import com.tech.ayugram.play.stub.Task; (Phase 2: removed) (Phase 2: removed)
+// // import com.tech.ayugram.pay.stub.AutoResolveHelper; (Phase 2: removed) (Phase 2: removed)
+// // import com.tech.ayugram.pay.stub.IsReadyToPayRequest; (Phase 2: removed) (Phase 2: removed)
+// // import com.tech.ayugram.pay.stub.PaymentData; (Phase 2: removed) (Phase 2: removed)
+// // import com.tech.ayugram.pay.stub.PaymentDataRequest; (Phase 2: removed) (Phase 2: removed)
+// // import com.tech.ayugram.pay.stub.PaymentsClient; (Phase 2: removed) (Phase 2: removed)
+// // import com.tech.ayugram.pay.stub.Wallet; (Phase 2: removed) (Phase 2: removed)
+// // import com.tech.ayugram.pay.stub.Wallet.WalletConstants; (Phase 2: removed) (Phase 2: removed)
 import com.tech.ayugram.stripe.stub.Stripe;
 import com.tech.ayugram.stripe.stub.TokenCallback;
 import com.tech.ayugram.stripe.stub.APIConnectionException;
