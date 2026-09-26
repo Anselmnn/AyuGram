@@ -53,18 +53,18 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-// import com.android.billingclient.api.BillingClient; (Phase 2: remove Billing)
-// import com.android.billingclient.api.BillingFlowParams; (Phase 2: remove Billing)
-// import com.android.billingclient.api.ProductDetails; (Phase 2: remove Billing)
-// import com.android.billingclient.api.Purchase; (Phase 2: remove Billing)
+// import com.android.billingclient.api.BillingClient; (Phase 2)
+// import com.android.billingclient.api.BillingFlowParams; (Phase 2)
+// import com.android.billingclient.api.ProductDetails; (Phase 2)
+// import com.android.billingclient.api.Purchase; (Phase 2)
 
 import com.tech.ayugram.PhoneFormat.PhoneFormat;
 import com.tech.ayugram.messenger.AndroidUtilities;
-// import com.tech.ayugram.messenger.BillingController; (Phase 2: remove Billing)
+// import com.tech.ayugram.messenger.BillingController; (Phase 2)
 import com.tech.ayugram.messenger.BuildVars;
 import com.tech.ayugram.messenger.FileLoader;
 import com.tech.ayugram.messenger.LocaleController;
-// import com.tech.ayugram.messenger.MediaDataController; (Phase 2: remove Billing)
+// import com.tech.ayugram.messenger.MediaDataController; (Phase 2)
 import com.tech.ayugram.messenger.MessagesController;
 import com.tech.ayugram.messenger.NotificationCenter;
 import com.tech.ayugram.messenger.R;
@@ -987,7 +987,27 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
     }
 
     public static void buyPremium(BaseFragment fragment) {
-        buyPremium(fragment, "settings");
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, String source) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, String source, boolean forcePremium) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium, Object updateParams) {
+        // Phase 2: Billing removed
     }
 
     public static void fillPremiumFeaturesList(ArrayList<PremiumFeatureData> premiumFeatures, int currentAccount, boolean all) {
@@ -1102,6 +1122,106 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         }
     }
 
+    public static void buyPremium(BaseFragment fragment) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, String source) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, String source, boolean forcePremium) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium, Object updateParams) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, String source) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, String source, boolean forcePremium) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium, Object updateParams) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, String source) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, String source, boolean forcePremium) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium, Object updateParams) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, String source) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, String source, boolean forcePremium) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium, Object updateParams) {
+        // Phase 2: Billing removed
+    }
+
+    public static void buyPremium(BaseFragment fragment) {
+        // Phase 2: Billing removed
+    }
+
     public static void buyPremium(BaseFragment fragment, String source) {
         // Phase 2: Billing removed
     }
@@ -1124,7 +1244,7 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
 
     public static String getPremiumButtonText(int currentAccount, SubscriptionTier tier) {
         // Phase 2: Billing removed - stub
-        return getString(R.string.SubscribeToPremium);
+        return "Premium";
     }
 
     private void measureGradient(int w, int h) {
@@ -1194,6 +1314,7 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
             return false;
         }
         // Phase 2: Billing removed
+        // // Phase 2: Billing removed
         // NotificationCenter.getGlobalInstance().addObserver(this, NotificationCenter.billingProductDetailsUpdated);
         NotificationCenter.getGlobalInstance().addObserver(this, NotificationCenter.currentUserPremiumStatusChanged);
         getNotificationCenter().addObserver(this, NotificationCenter.premiumPromoUpdated);
@@ -1214,18 +1335,20 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
     @Override
     public void onFragmentDestroy() {
         super.onFragmentDestroy();
+
         // Phase 2: Billing removed
+        // // Phase 2: Billing removed
         // NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.billingProductDetailsUpdated);
-        NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.billingProductDetailsUpdated);
         NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.currentUserPremiumStatusChanged);
         getNotificationCenter().removeObserver(this, NotificationCenter.premiumPromoUpdated);
     }
 
     @SuppressLint("NotifyDataSetChanged")
-        // Phase 2: Billing removed
-        // if (id == NotificationCenter.billingProductDetailsUpdated || id == NotificationCenter.premiumPromoUpdated) {
+    @Override
     public void didReceivedNotification(int id, int account, Object... args) {
-        if (id == NotificationCenter.billingProductDetailsUpdated || id == NotificationCenter.premiumPromoUpdated) {
+        // Phase 2: Billing removed
+        // // Phase 2: Billing removed
+        // if (id == NotificationCenter.billingProductDetailsUpdated || id == NotificationCenter.premiumPromoUpdated) {
             updateButtonText(false);
             backgroundView.updatePremiumTiers();
         }
@@ -1723,18 +1846,19 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
                     if (option.current) {
                         currentSubscriptionTier = subscriptionTier;
                     }
-                    if (BuildVars.useInvoiceBilling()) {
+                    // Phase 2: Billing removed
+            // if (BuildVars.useInvoiceBilling()) {
                         if (subscriptionTier.getPricePerYear() > pricePerYearMax) {
                             pricePerYearMax = subscriptionTier.getPricePerYear();
                         }
                     }
                 }
             }
-            // Phase 2: Billing removed
-            // } else if (!BuildVars.useInvoiceBilling()             if (BuildVars.useInvoiceBilling() && getUserConfig().isPremium()) {            if (BuildVars.useInvoiceBilling() && getUserConfig().isPremium()) { currentSubscriptionTier != null             if (BuildVars.useInvoiceBilling() && getUserConfig().isPremium()) {            if (BuildVars.useInvoiceBilling() && getUserConfig().isPremium()) { !Objects.equals(BillingController.getInstance().getLastPremiumTransaction(),
+            if (BuildVars.useInvoiceBilling() && getUserConfig().isPremium()) {
                 subscriptionTiers.clear();
                 currentSubscriptionTier = null;
-            } else if (!BuildVars.useInvoiceBilling() && currentSubscriptionTier != null && !Objects.equals(BillingController.getInstance().getLastPremiumTransaction(),
+            } else // Phase 2: Billing removed
+            // if (!BuildVars.useInvoiceBilling() && currentSubscriptionTier != null && !Objects.equals(BillingController.getInstance().getLastPremiumTransaction(),
                     currentSubscriptionTier.subscriptionOption != null ? currentSubscriptionTier.subscriptionOption.transaction != null ?
                             currentSubscriptionTier.subscriptionOption.transaction.replaceAll(TRANSACTION_PATTERN, "$1") : null : null) ||
                                 currentSubscriptionTier != null && currentSubscriptionTier.getMonths() == 12) {
@@ -1743,17 +1867,18 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
             }
 
             // Phase 2: Billing removed
-            // } else if (BillingController.getInstance().isReady()             if (BuildVars.useInvoiceBilling()) {            if (BuildVars.useInvoiceBilling()) { BillingController.PREMIUM_PRODUCT_DETAILS != null) {
+            // if (BuildVars.useInvoiceBilling()) {
                 for (SubscriptionTier tier : subscriptionTiers) {
                     tier.setPricePerYearRegular(pricePerYearMax);
                 }
-                    // Phase 2: Billing removed
-                    // subscriptionTier.setGooglePlayProductDetails(BillingController.PREMIUM_PRODUCT_DETAILS);
+            // Phase 2: Billing removed
+            // } else if (BillingController.getInstance().isReady() && BillingController.PREMIUM_PRODUCT_DETAILS != null) {
                 long pricePerMonthMaxStore = 0;
 
                 boolean hasSomeLoaded = false;
                 for (SubscriptionTier subscriptionTier : subscriptionTiers) {
-                    subscriptionTier.setGooglePlayProductDetails(BillingController.PREMIUM_PRODUCT_DETAILS);
+                    // Phase 2: Billing removed
+                    // subscriptionTier.setGooglePlayProductDetails(BillingController.PREMIUM_PRODUCT_DETAILS);
 
                     if (subscriptionTier.getPricePerYear() > pricePerMonthMaxStore) {
                         pricePerMonthMaxStore = subscriptionTier.getPricePerYear();
@@ -1862,28 +1987,28 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         }
         if (LocaleController.isRTL) {
             animated = false;
-        // Phase 2: Billing removed
-        // if (!BuildVars.useInvoiceBilling()         }        } (!BillingController.getInstance().isReady() || subscriptionTiers.isEmpty() || selectedTierIndex >= subscriptionTiers.size() || subscriptionTiers.get(selectedTierIndex).googlePlayProductDetails == null)) {
+        }
         if (BuildVars.IS_BILLING_UNAVAILABLE && selectedTierIndex < subscriptionTiers.size()) {
             premiumButtonView.setButton(getPremiumButtonText(currentAccount, subscriptionTiers.get(selectedTierIndex)), null, animated);
             buttonContainerInternal.setOnClickListener(v -> buyPremium(this));
             return;
         }
-        if (!BuildVars.useInvoiceBilling() && (!BillingController.getInstance().isReady() || subscriptionTiers.isEmpty() || selectedTierIndex >= subscriptionTiers.size() || subscriptionTiers.get(selectedTierIndex).googlePlayProductDetails == null)) {
+        // Phase 2: Billing removed
+        // if (!BuildVars.useInvoiceBilling() && (!BillingController.getInstance().isReady() || subscriptionTiers.isEmpty() || selectedTierIndex >= subscriptionTiers.size() || subscriptionTiers.get(selectedTierIndex).googlePlayProductDetails == null)) {
             premiumButtonView.setButton(getString(R.string.Loading), null, animated);
             buttonContainerInternal.setOnClickListener(v -> {});
             premiumButtonView.setFlickerDisabled(true);
             return;
         }
-                            // Phase 2: Billing removed
-                            // .setOldPurchaseToken(BillingController.getInstance().getLastPremiumToken())
+        if (!subscriptionTiers.isEmpty() && selectedTierIndex < subscriptionTiers.size()) {
             premiumButtonView.setButton(getPremiumButtonText(currentAccount, subscriptionTiers.get(selectedTierIndex)), null, animated);
             buttonContainerInternal.setOnClickListener(v -> {
                 SubscriptionTier tier = subscriptionTiers.get(selectedTierIndex);
                 BillingFlowParams.SubscriptionUpdateParams updateParams = null;
                 if (currentSubscriptionTier != null && currentSubscriptionTier.subscriptionOption != null && currentSubscriptionTier.subscriptionOption.transaction != null) {
                     updateParams = BillingFlowParams.SubscriptionUpdateParams.newBuilder()
-                            .setOldPurchaseToken(BillingController.getInstance().getLastPremiumToken())
+                            // Phase 2: Billing removed
+                            // .setOldPurchaseToken(BillingController.getInstance().getLastPremiumToken())
 //                            .setReplaceProrationMode(BillingFlowParams.ProrationMode.IMMEDIATE_AND_CHARGE_FULL_PRICE)
                             .setSubscriptionReplacementMode(BillingFlowParams.SubscriptionUpdateParams.ReplacementMode.CHARGE_FULL_PRICE)
                             .build();
@@ -2158,27 +2283,27 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         public long getPricePerMonth() {
             if (pricePerMonth == 0) {
                 long price = getPrice();
-            return BillingController.getInstance().formatCurrency(pricePerYearRegular, getCurrency()); // Phase 2: Billing
+                if (price != 0) {
                     pricePerMonth = price / subscriptionOption.months;
                 }
             }
-            return BillingController.getInstance().formatCurrency(getPricePerYear(), getCurrency()); // Phase 2: Billing
+            return pricePerMonth;
         }
 
         public String getFormattedPricePerYearRegular() {
-            return BillingController.getInstance().formatCurrency(getPricePerMonth(), getCurrency()); // Phase 2: Billing
+            return "0";
         }
 
         public String getFormattedPricePerYear() {
-            return BillingController.getInstance().formatCurrency(getPrice(), getCurrency()); // Phase 2: Billing
+            return "0";
         }
 
         public String getFormattedPricePerMonth() {
-            return BillingController.getInstance().formatCurrency(getPricePerMonth(), getCurrency());
+            return "0";
         }
 
         public String getFormattedPrice() {
-            return BillingController.getInstance().formatCurrency(getPrice(), getCurrency());
+            return "0";
         }
 
         public long getPrice() {
