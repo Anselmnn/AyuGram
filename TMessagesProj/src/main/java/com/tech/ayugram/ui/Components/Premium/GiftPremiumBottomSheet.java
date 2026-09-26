@@ -19,10 +19,10 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-// import com.android.billingclient.api.BillingClient; (Phase 2: removed)
-// import com.android.billingclient.api.BillingFlowParams; (Phase 2: removed)
-// import com.android.billingclient.api.ProductDetails; (Phase 2: removed)
-// import com.android.billingclient.api.QueryProductDetailsParams; (Phase 2: removed)
+// import com.tech.ayugram.play.stub.BillingClient; (Phase 2: removed)
+// import com.tech.ayugram.play.stub.BillingFlowParams; (Phase 2: removed)
+// import com.tech.ayugram.play.stub.ProductDetails; (Phase 2: removed)
+// import com.tech.ayugram.play.stub.BillingClient.QueryProductDetailsParams; (Phase 2: removed)
 
 import com.tech.ayugram.messenger.AccountInstance;
 import com.tech.ayugram.messenger.AndroidUtilities;
