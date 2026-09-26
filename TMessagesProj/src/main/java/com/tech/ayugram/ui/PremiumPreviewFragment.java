@@ -1226,9 +1226,9 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
     public void didReceivedNotification(int id, int account, Object... args) {
         // Phase 2: Billing removed
         // if (id == NotificationCenter.billingProductDetailsUpdated || id == NotificationCenter.premiumPromoUpdated) {
-            updateButtonText(false);
-            backgroundView.updatePremiumTiers();
-        }
+        //     updateButtonText(false);
+        //     backgroundView.updatePremiumTiers();
+        // }
         if (id == NotificationCenter.currentUserPremiumStatusChanged || id == NotificationCenter.premiumPromoUpdated) {
             backgroundView.updateText();
             backgroundView.updatePremiumTiers();
@@ -1735,12 +1735,12 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
                 currentSubscriptionTier = null;
             // Phase 2: Billing removed
             // } else if (!BuildVars.useInvoiceBilling() && currentSubscriptionTier != null && !Objects.equals(BillingController.getInstance().getLastPremiumTransaction(),
-                    currentSubscriptionTier.subscriptionOption != null ? currentSubscriptionTier.subscriptionOption.transaction != null ?
-                            currentSubscriptionTier.subscriptionOption.transaction.replaceAll(TRANSACTION_PATTERN, "$1") : null : null) ||
-                                currentSubscriptionTier != null && currentSubscriptionTier.getMonths() == 12) {
-                subscriptionTiers.clear();
-                currentSubscriptionTier = null;
-            }
+            //         currentSubscriptionTier.subscriptionOption != null ? currentSubscriptionTier.subscriptionOption.transaction != null ?
+            //                 currentSubscriptionTier.subscriptionOption.transaction.replaceAll(TRANSACTION_PATTERN, "$1") : null : null) ||
+            //                 currentSubscriptionTier != null && currentSubscriptionTier.getMonths() == 12) {
+            //     subscriptionTiers.clear();
+            //     currentSubscriptionTier = null;
+            // }
 
             if (BuildVars.useInvoiceBilling()) {
                 for (SubscriptionTier tier : subscriptionTiers) {
@@ -1748,36 +1748,36 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
                 }
             // Phase 2: Billing removed
             // } else if (BillingController.getInstance().isReady() && BillingController.PREMIUM_PRODUCT_DETAILS != null) {
-                long pricePerMonthMaxStore = 0;
-
-                boolean hasSomeLoaded = false;
-                for (SubscriptionTier subscriptionTier : subscriptionTiers) {
-                    // Phase 2: Billing removed
-                    // subscriptionTier.setGooglePlayProductDetails(BillingController.PREMIUM_PRODUCT_DETAILS);
-
-                    if (subscriptionTier.getPricePerYear() > pricePerMonthMaxStore) {
-                        pricePerMonthMaxStore = subscriptionTier.getPricePerYear();
-                    }
-
-                    if (subscriptionTier.getOfferDetails() != null) {
-                        hasSomeLoaded = true;
-                    }
-                }
-
-                if (hasSomeLoaded) {
-                    for (int i = 0; i < subscriptionTiers.size(); ++i) {
-                        final SubscriptionTier tier = subscriptionTiers.get(i);
-                        if (tier.getOfferDetails() == null) {
-                            subscriptionTiers.remove(i);
-                            --i;
-                        }
-                    }
-                }
-
-                for (SubscriptionTier subscriptionTier : subscriptionTiers) {
-                    subscriptionTier.setPricePerYearRegular(pricePerMonthMaxStore);
-                }
-            }
+            //     long pricePerMonthMaxStore = 0;
+            //
+            //     boolean hasSomeLoaded = false;
+            //     for (SubscriptionTier subscriptionTier : subscriptionTiers) {
+            //         // Phase 2: Billing removed
+            //         // subscriptionTier.setGooglePlayProductDetails(BillingController.PREMIUM_PRODUCT_DETAILS);
+            //
+            //         if (subscriptionTier.getPricePerYear() > pricePerMonthMaxStore) {
+            //             pricePerMonthMaxStore = subscriptionTier.getPricePerYear();
+            //         }
+            //
+            //         if (subscriptionTier.getOfferDetails() != null) {
+            //             hasSomeLoaded = true;
+            //         }
+            //     }
+            //
+            //     if (hasSomeLoaded) {
+            //         for (int i = 0; i < subscriptionTiers.size(); ++i) {
+            //             final SubscriptionTier tier = subscriptionTiers.get(i);
+            //             if (tier.getOfferDetails() == null) {
+            //                 subscriptionTiers.remove(i);
+            //                 --i;
+            //             }
+            //         }
+            //     }
+            //
+            //     for (SubscriptionTier subscriptionTier : subscriptionTiers) {
+            //         subscriptionTier.setPricePerYearRegular(pricePerMonthMaxStore);
+            //     }
+            // }
 
             if (selectedTierIndex == -1) {
                 for (int i = 0; i < subscriptionTiers.size(); i++) {
@@ -1870,25 +1870,26 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         }
         // Phase 2: Billing removed
         // if (!BuildVars.useInvoiceBilling() && (!BillingController.getInstance().isReady() || subscriptionTiers.isEmpty() || selectedTierIndex >= subscriptionTiers.size() || subscriptionTiers.get(selectedTierIndex).googlePlayProductDetails == null)) {
-            premiumButtonView.setButton(getString(R.string.Loading), null, animated);
-            buttonContainerInternal.setOnClickListener(v -> {});
-            premiumButtonView.setFlickerDisabled(true);
-            return;
-        }
+        //     premiumButtonView.setButton(getString(R.string.Loading), null, animated);
+        //     buttonContainerInternal.setOnClickListener(v -> {});
+        //     premiumButtonView.setFlickerDisabled(true);
+        //     return;
+        // }
         if (!subscriptionTiers.isEmpty() && selectedTierIndex < subscriptionTiers.size()) {
             premiumButtonView.setButton(getPremiumButtonText(currentAccount, subscriptionTiers.get(selectedTierIndex)), null, animated);
             buttonContainerInternal.setOnClickListener(v -> {
                 SubscriptionTier tier = subscriptionTiers.get(selectedTierIndex);
-                BillingFlowParams.SubscriptionUpdateParams updateParams = null;
-                if (currentSubscriptionTier != null && currentSubscriptionTier.subscriptionOption != null && currentSubscriptionTier.subscriptionOption.transaction != null) {
-                    updateParams = BillingFlowParams.SubscriptionUpdateParams.newBuilder()
-                            // Phase 2: Billing removed
-                            // .setOldPurchaseToken(BillingController.getInstance().getLastPremiumToken())
-//                            .setReplaceProrationMode(BillingFlowParams.ProrationMode.IMMEDIATE_AND_CHARGE_FULL_PRICE)
-                            .setSubscriptionReplacementMode(BillingFlowParams.SubscriptionUpdateParams.ReplacementMode.CHARGE_FULL_PRICE)
-                            .build();
-                }
-                buyPremium(this, tier, "settings", true, updateParams);
+                // Phase 2: Billing removed
+                // BillingFlowParams.SubscriptionUpdateParams updateParams = null;
+                // if (currentSubscriptionTier != null && currentSubscriptionTier.subscriptionOption != null && currentSubscriptionTier.subscriptionOption.transaction != null) {
+                //     updateParams = BillingFlowParams.SubscriptionUpdateParams.newBuilder()
+                //             // Phase 2: Billing removed
+                //             // .setOldPurchaseToken(BillingController.getInstance().getLastPremiumToken())
+                // //                            .setReplaceProrationMode(BillingFlowParams.ProrationMode.IMMEDIATE_AND_CHARGE_FULL_PRICE)
+                //             .setSubscriptionReplacementMode(BillingFlowParams.SubscriptionUpdateParams.ReplacementMode.CHARGE_FULL_PRICE)
+                //             .build();
+                // }
+                buyPremium(this, tier, "settings", true, null);
             });
             premiumButtonView.setFlickerDisabled(false);
         }
