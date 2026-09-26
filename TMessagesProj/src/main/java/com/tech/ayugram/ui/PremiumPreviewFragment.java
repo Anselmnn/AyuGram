@@ -1118,7 +1118,7 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         // Phase 2: Billing removed
     }
 
-    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium, BillingFlowParams.SubscriptionUpdateParams updateParams) {
+    public static void buyPremium(BaseFragment fragment, SubscriptionTier tier, String source, boolean forcePremium, Object updateParams) {
         // Phase 2: Billing removed
     }
 
