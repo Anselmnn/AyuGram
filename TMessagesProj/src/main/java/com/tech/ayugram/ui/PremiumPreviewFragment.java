@@ -2501,3 +2501,4 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         scrollableViewNoiseSuppressor.invalidateResultRenderNodes(iBlur3Capture, fragmentView.getMeasuredWidth(), fragmentView.getMeasuredHeight());
     }
 }
+// Phase 2: Billing removed - trigger rebuild
