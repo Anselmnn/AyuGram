@@ -1,6 +1,6 @@
 package com.tech.ayugram.ui;
 
-import static org.telegram.messenger.AndroidUtilities.dp;
+import static com.tech.ayugram.messenger.AndroidUtilities.dp;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -81,7 +81,7 @@ import com.tech.ayugram.messenger.camera.CameraView;
 import com.tech.ayugram.messenger.camera.Size;
 import com.tech.ayugram.ui.ActionBar.ActionBar;
 import com.tech.ayugram.ui.ActionBar.BaseFragment;
-import org.telegram.ui.ActionBar.BottomSheet;
+import com.tech.ayugram.ui.ActionBar.BottomSheet;
 import com.tech.ayugram.ui.ActionBar.INavigationLayout;
 import com.tech.ayugram.ui.ActionBar.Theme;
 import com.tech.ayugram.ui.ActionBar.ThemeDescription;
