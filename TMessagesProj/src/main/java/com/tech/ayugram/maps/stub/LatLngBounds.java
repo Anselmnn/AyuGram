@@ -1,6 +1,6 @@
 package com.tech.ayugram.maps.stub;
 
-import com.tech.ayugram.maps.stub.LatLng;
+import com.tech.ayugram.maps.stub.model.LatLng;
 
 public class LatLngBounds {
     public final LatLng northeast;

@@ -1,6 +1,7 @@
 package com.tech.ayugram.cast.stub.framework;
 
 import com.tech.ayugram.cast.stub.MediaInfo;
+import com.tech.ayugram.cast.stub.framework.media.RemoteMediaClient;
 import com.tech.ayugram.cast.stub.MediaLoadOptions;
 import com.tech.ayugram.cast.stub.framework.media.RemoteMediaClient;
 
