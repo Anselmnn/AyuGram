@@ -15,7 +15,6 @@ public class RemoteMessage implements Parcelable {
     private long ttl;
     private Bundle data;
     private String collapseKey;
-    private String messageId;
     private String senderId;
     private String category;
     private String originalPriority;

@@ -1,5 +1,6 @@
-package com.tech.ayugram.stripe.stub;
+package com.tech.ayugram.stripe.stub.net;
 
+import com.tech.ayugram.stripe.stub.model.Token;
 import org.json.JSONException;
 import org.json.JSONObject;
 

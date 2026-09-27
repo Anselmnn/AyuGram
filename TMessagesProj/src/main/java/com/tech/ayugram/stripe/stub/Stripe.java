@@ -3,6 +3,8 @@ package com.tech.ayugram.stripe.stub;
 import android.content.Context;
 
 public class Stripe {
+    public static final String VERSION = "2023-08-16";
+
     private String apiKey;
     private String publishableKey;
 

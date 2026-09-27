@@ -3,7 +3,7 @@ package com.tech.ayugram.play.stub;
 import android.content.Context;
 
 public class IntegrityManager {
-    private IntegrityManager() {}
+    public IntegrityManager() {}
 
     public static class IntegrityManagerFactory {
         public IntegrityManager create(Context context) {

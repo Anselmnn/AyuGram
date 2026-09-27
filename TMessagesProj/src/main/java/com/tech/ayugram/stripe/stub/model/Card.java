@@ -1,4 +1,4 @@
-package com.tech.ayugram.stripe.stub;
+package com.tech.ayugram.stripe.stub.model;
 
 public class Card {
     private String number;

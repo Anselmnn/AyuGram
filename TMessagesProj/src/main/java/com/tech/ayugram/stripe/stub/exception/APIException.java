@@ -1,4 +1,4 @@
-package com.tech.ayugram.stripe.stub;
+package com.tech.ayugram.stripe.stub.exception;
 
 public class APIException extends Exception {
     private int statusCode;

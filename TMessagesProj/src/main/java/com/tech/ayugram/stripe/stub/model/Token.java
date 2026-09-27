@@ -1,4 +1,4 @@
-package com.tech.ayugram.stripe.stub;
+package com.tech.ayugram.stripe.stub.model;
 
 public class Token {
     private String id;
