@@ -2,10 +2,6 @@ package com.tech.ayugram.maps.stub;
 
 import java.util.List;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.Polygon
- * Google Maps dependency removed in Phase 2
- */
 public class Polygon {
     private String id;
     private List<LatLng> points;

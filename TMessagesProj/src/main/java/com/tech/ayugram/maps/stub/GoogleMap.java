@@ -11,10 +11,6 @@ import com.tech.ayugram.maps.stub.Polyline;
 import com.tech.ayugram.maps.stub.PolylineOptions;
 import com.tech.ayugram.maps.stub.CameraUpdate;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.GoogleMap
- * Google Maps dependency removed in Phase 2
- */
 public class GoogleMap {
     public interface OnMapClickListener {
         void onMapClick(LatLng latLng);
@@ -60,7 +56,7 @@ public class GoogleMap {
     public void setBuildingsEnabled(boolean enabled) {}
     public void setIndoorEnabled(boolean enabled) {}
     public void setMyLocationEnabled(boolean enabled) {}
-    public void getUiSettings() { return new UiSettings(); }
+    public UiSettings getUiSettings() { return new UiSettings(); }
     public void setOnCameraChangeListener(OnCameraChangeListener listener) {}
     public void setOnCameraMoveListener(OnCameraMoveListener listener) {}
     public void setOnCameraIdleListener(OnCameraIdleListener listener) {}

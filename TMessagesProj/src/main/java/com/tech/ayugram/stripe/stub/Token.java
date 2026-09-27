@@ -1,9 +1,5 @@
 package com.tech.ayugram.stripe.stub;
 
-/**
- * Phase 2: Stub for com.stripe.android.model.Token
- * Stripe dependency removed in Phase 2
- */
 public class Token {
     private String id;
     private String cardId;
@@ -13,8 +9,6 @@ public class Token {
     private String type;
     private boolean used;
     private Card card;
-
-    public Token() {}
 
     public String getId() { return id; }
     public String getCardId() { return cardId; }

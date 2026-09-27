@@ -1,9 +1,5 @@
 package com.tech.ayugram.maps.stub;
 
-/**
- * Phase 2: Stub for com.google.android.gms.maps.model.BitmapDescriptorFactory
- * Google Maps dependency removed in Phase 2
- */
 public class BitmapDescriptorFactory {
     public static BitmapDescriptor defaultMarker() {
         return new BitmapDescriptor();

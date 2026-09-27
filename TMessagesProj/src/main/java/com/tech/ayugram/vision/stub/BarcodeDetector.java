@@ -3,10 +3,6 @@ package com.tech.ayugram.vision.stub;
 import android.content.Context;
 import android.util.SparseArray;
 
-/**
- * Phase 2: Stub for com.google.android.gms.vision.barcode.BarcodeDetector
- * Google Vision dependency removed in Phase 2
- */
 public class BarcodeDetector {
     private Context context;
     private int barcodeFormats;
@@ -28,7 +24,5 @@ public class BarcodeDetector {
         return new SparseArray<>();
     }
 
-    public void release() {
-        // No-op
-    }
+    public void release() {}
 }

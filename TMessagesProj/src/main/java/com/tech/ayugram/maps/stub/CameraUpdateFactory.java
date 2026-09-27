@@ -1,15 +1,13 @@
 package com.tech.ayugram.maps.stub;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.CameraUpdateFactory
- * Google Maps dependency removed in Phase 2
- */
+import com.tech.ayugram.maps.stub.LatLng;
+
 public class CameraUpdateFactory {
-    public static CameraUpdate newLatLng(com.tech.ayugram.maps.stub.LatLng latLng) {
+    public static CameraUpdate newLatLng(LatLng latLng) {
         return CameraUpdate.newLatLng(latLng);
     }
 
-    public static CameraUpdate newLatLngZoom(com.tech.ayugram.maps.stub.LatLng latLng, float zoom) {
+    public static CameraUpdate newLatLngZoom(LatLng latLng, float zoom) {
         return CameraUpdate.newLatLngZoom(latLng, zoom);
     }
 

@@ -1,9 +1,5 @@
 package com.tech.ayugram.cast.stub;
 
-/**
- * Phase 2: Stub for com.google.android.gms.cast.MediaLoadOptions
- * Cast dependency removed in Phase 2
- */
 public class MediaLoadOptions {
     private boolean autoplay;
     private long playPosition;

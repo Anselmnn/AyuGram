@@ -2,10 +2,6 @@ package com.tech.ayugram.pay.stub;
 
 import android.content.Context;
 
-/**
- * Phase 2: Stub for com.google.android.gms.wallet.PaymentsClient
- * Google Pay dependency removed in Phase 2
- */
 public class PaymentsClient {
     public static class WalletOptions {
         public static class Builder {

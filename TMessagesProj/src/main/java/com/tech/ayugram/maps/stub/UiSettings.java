@@ -1,9 +1,5 @@
 package com.tech.ayugram.maps.stub;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.UiSettings
- * Google Maps dependency removed in Phase 2
- */
 public class UiSettings {
     public void setZoomControlsEnabled(boolean enabled) {}
     public void setCompassEnabled(boolean enabled) {}

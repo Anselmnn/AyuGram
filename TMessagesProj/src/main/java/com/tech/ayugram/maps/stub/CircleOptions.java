@@ -2,10 +2,6 @@ package com.tech.ayugram.maps.stub;
 
 import com.tech.ayugram.maps.stub.LatLng;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.CircleOptions
- * Google Maps dependency removed in Phase 2
- */
 public class CircleOptions {
     private LatLng center;
     private double radius;

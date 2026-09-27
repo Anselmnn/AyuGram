@@ -2,10 +2,6 @@ package com.tech.ayugram.wearable.stub;
 
 import java.util.List;
 
-/**
- * Phase 2: Stub for com.google.android.gms.wearable.DataEventBuffer
- * Wearable dependency removed in Phase 2
- */
 public class DataEventBuffer implements java.util.List<DataEvent> {
     public DataEventBuffer() {}
 

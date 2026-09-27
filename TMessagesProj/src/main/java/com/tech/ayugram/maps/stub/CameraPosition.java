@@ -1,9 +1,7 @@
 package com.tech.ayugram.maps.stub;
 
-/**
- * Phase 2: Stub for com.google.android.gms.maps.model.CameraPosition
- * Google Maps dependency removed in Phase 2
- */
+import com.tech.ayugram.maps.stub.LatLng;
+
 public class CameraPosition {
     public final LatLng target;
     public final float zoom;

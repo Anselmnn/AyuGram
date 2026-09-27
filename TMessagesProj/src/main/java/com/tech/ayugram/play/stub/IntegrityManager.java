@@ -2,10 +2,6 @@ package com.tech.ayugram.play.stub;
 
 import android.content.Context;
 
-/**
- * Phase 2: Stub for com.google.android.play.core.integrity.IntegrityManager
- * Google Play Integrity dependency removed in Phase 2
- */
 public class IntegrityManager {
     private IntegrityManager() {}
 
@@ -20,6 +16,10 @@ public class IntegrityManager {
         private long cloudProjectNumber;
 
         private IntegrityTokenRequest() {}
+
+        public static Builder builder() {
+            return new Builder();
+        }
 
         public static class Builder {
             private String nonce;
@@ -40,29 +40,15 @@ public class IntegrityManager {
             }
         }
 
-        public static Builder builder() {
-            return new Builder();
-        }
-
-        public String getNonce() {
-            return nonce;
-        }
-
-        public long getCloudProjectNumber() {
-            return cloudProjectNumber;
-        }
+        public String getNonce() { return nonce; }
+        public long getCloudProjectNumber() { return cloudProjectNumber; }
     }
 
     public static class IntegrityTokenResponse {
         private String token;
 
-        public String token() {
-            return token;
-        }
-
-        public void setToken(String token) {
-            this.token = token;
-        }
+        public String token() { return token; }
+        public void setToken(String token) { this.token = token; }
     }
 
     public com.tech.ayugram.play.stub.Task<IntegrityTokenResponse> requestIntegrityToken(IntegrityTokenRequest request) {

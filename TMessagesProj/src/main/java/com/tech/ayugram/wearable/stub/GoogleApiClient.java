@@ -1,9 +1,5 @@
 package com.tech.ayugram.wearable.stub;
 
-/**
- * Phase 2: Stub for com.google.android.gms.common.api.GoogleApiClient
- * Wearable dependency removed in Phase 2
- */
 public class GoogleApiClient {
     public interface ConnectionCallbacks {
         void onConnected(android.os.Bundle bundle);

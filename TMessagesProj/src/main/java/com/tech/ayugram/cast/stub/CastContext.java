@@ -2,10 +2,6 @@ package com.tech.ayugram.cast.stub;
 
 import android.content.Context;
 
-/**
- * Phase 2: Stub for com.google.android.gms.cast.framework.CastContext
- * Cast dependency removed in Phase 2
- */
 public class CastContext {
     private CastContext() {}
 
@@ -17,13 +13,9 @@ public class CastContext {
         return new CastSession();
     }
 
-    public void addCastStateListener(CastStateListener listener) {
-        // No-op
-    }
+    public void addCastStateListener(CastStateListener listener) {}
 
-    public void removeCastStateListener(CastStateListener listener) {
-        // No-op
-    }
+    public void removeCastStateListener(CastStateListener listener) {}
 
     public interface CastStateListener {
         void onCastStateChanged(int state);

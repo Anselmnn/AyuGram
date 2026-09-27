@@ -1,9 +1,5 @@
 package com.tech.ayugram.cast.stub;
 
-/**
- * Phase 2: Stub for com.google.android.gms.cast.framework.SessionManagerListener
- * Cast dependency removed in Phase 2
- */
 public interface SessionManagerListener {
     void onSessionStarting(CastSession session);
     void onSessionStarted(CastSession session, String sessionId);

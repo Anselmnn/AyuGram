@@ -1,25 +1,17 @@
 package com.tech.ayugram.wearable.stub;
 
 import android.content.Context;
-import com.tech.ayugram.wearable.stub.GoogleApiClient;
+import android.net.Uri;
 
-/**
- * Phase 2: Stub for com.google.android.gms.wearable.Wearable
- * Wearable dependency removed in Phase 2
- */
 public class Wearable {
     private Wearable() {}
 
     public static class MessageApi {
-        public static void sendMessage(GoogleApiClient googleApiClient, String nodeId, String path, byte[] data) {
-            // No-op
-        }
+        public static void sendMessage(GoogleApiClient googleApiClient, String nodeId, String path, byte[] data) {}
     }
 
     public static class NodeApi {
-        public static void getConnectedNodes(GoogleApiClient googleApiClient, ResultCallback<NodeApi.GetConnectedNodesResult> callback) {
-            // No-op
-        }
+        public static void getConnectedNodes(GoogleApiClient googleApiClient, ResultCallback<NodeApi.GetConnectedNodesResult> callback) {}
 
         public interface GetConnectedNodesResult {
             java.util.List<Node> getNodes();
@@ -27,13 +19,9 @@ public class Wearable {
     }
 
     public static class DataApi {
-        public static void putDataItem(GoogleApiClient googleApiClient, DataItem dataItem) {
-            // No-op
-        }
+        public static void putDataItem(GoogleApiClient googleApiClient, DataItem dataItem) {}
 
-        public static void getDataItems(GoogleApiClient googleApiClient, ResultCallback<DataItemBuffer> callback) {
-            // No-op
-        }
+        public static void getDataItems(GoogleApiClient googleApiClient, ResultCallback<DataItemBuffer> callback) {}
     }
 
     public static class Node {

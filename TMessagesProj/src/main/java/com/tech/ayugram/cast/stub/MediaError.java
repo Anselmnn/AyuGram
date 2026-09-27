@@ -1,9 +1,5 @@
 package com.tech.ayugram.cast.stub;
 
-/**
- * Phase 2: Stub for com.google.android.gms.cast.MediaError
- * Cast dependency removed in Phase 2
- */
 public class MediaError {
     public static final int UNKNOWN_ERROR = 0;
     public static final int INVALID_REQUEST = 1;

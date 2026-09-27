@@ -2,10 +2,6 @@ package com.tech.ayugram.maps.stub;
 
 import com.tech.ayugram.maps.stub.LatLng;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.MarkerOptions
- * Google Maps dependency removed in Phase 2
- */
 public class MarkerOptions {
     private LatLng position;
     private String title;

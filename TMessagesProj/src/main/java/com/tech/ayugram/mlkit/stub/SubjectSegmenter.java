@@ -4,10 +4,6 @@ import android.annotation.SuppressLint;
 
 import java.util.List;
 
-/**
- * Phase 2: Stub for com.google.mlkit.vision.segmentation.subject.SubjectSegmenter
- * ML Kit dependency removed in Phase 2
- */
 public class SubjectSegmenter {
     public interface Task<T> {
         Task<T> addOnSuccessListener(OnSuccessListener<T> listener);

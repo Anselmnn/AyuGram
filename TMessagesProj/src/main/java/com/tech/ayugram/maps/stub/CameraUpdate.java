@@ -1,18 +1,13 @@
 package com.tech.ayugram.maps.stub;
 
-import android.content.Context;
-import android.os.Bundle;
+import com.tech.ayugram.maps.stub.LatLng;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.CameraUpdate
- * Google Maps dependency removed in Phase 2
- */
 public class CameraUpdate {
-    public static CameraUpdate newLatLng(com.tech.ayugram.maps.stub.LatLng latLng) {
+    public static CameraUpdate newLatLng(LatLng latLng) {
         return new CameraUpdate();
     }
 
-    public static CameraUpdate newLatLngZoom(com.tech.ayugram.maps.stub.LatLng latLng, float zoom) {
+    public static CameraUpdate newLatLngZoom(LatLng latLng, float zoom) {
         return new CameraUpdate();
     }
 

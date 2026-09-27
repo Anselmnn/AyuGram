@@ -3,10 +3,6 @@ package com.tech.ayugram.vision.stub;
 import android.graphics.Bitmap;
 import java.nio.ByteBuffer;
 
-/**
- * Phase 2: Stub for com.google.android.gms.vision.Frame
- * Google Vision dependency removed in Phase 2
- */
 public class Frame {
     private Bitmap bitmap;
     private ByteBuffer imageData;
@@ -47,23 +43,9 @@ public class Frame {
         }
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
-
-    public ByteBuffer getImageData() {
-        return imageData;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getFormat() {
-        return format;
-    }
+    public Bitmap getBitmap() { return bitmap; }
+    public ByteBuffer getImageData() { return imageData; }
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
+    public int getFormat() { return format; }
 }

@@ -1,19 +1,18 @@
 package com.tech.ayugram.maps.stub;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.MapView
- * Google Maps dependency removed in Phase 2
- */
+import android.content.Context;
+import android.os.Bundle;
+
 public class MapView extends android.view.View {
-    public MapView(android.content.Context context) {
+    public MapView(Context context) {
         super(context);
     }
 
-    public MapView(android.content.Context context, android.util.AttributeSet attrs) {
+    public MapView(Context context, android.util.AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MapView(android.content.Context context, android.util.AttributeSet attrs, int defStyle) {
+    public MapView(Context context, android.util.AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

@@ -1,11 +1,5 @@
 package com.tech.ayugram.vision.stub;
 
-import android.util.SparseArray;
-
-/**
- * Phase 2: Stub for com.google.android.gms.vision.barcode.Barcode
- * Google Vision dependency removed in Phase 2
- */
 public class Barcode {
     public static final int QR_CODE = 1;
     public static final int DATA_MATRIX = 2;
@@ -17,58 +11,49 @@ public class Barcode {
     public static final int EAN_13 = 128;
     public static final int ITF = 256;
     public static final int PDF417 = 512;
-    public static final int DRIVER_LICENSE = 1024;
     public static final int UPC_A = 1024;
     public static final int UPC_E = 2048;
+    public static final int DRIVER_LICENSE = 1024;
 
     private String rawValue;
     private int valueFormat;
     private String displayValue;
     private int format;
     private CornerPoint[] cornerPoints;
+    private DriverLicense driverLicense;
 
-    public String getRawValue() {
-        return rawValue;
-    }
-
-    public void setRawValue(String rawValue) {
-        this.rawValue = rawValue;
-    }
-
-    public int getValueFormat() {
-        return valueFormat;
-    }
-
-    public void setValueFormat(int valueFormat) {
-        this.valueFormat = valueFormat;
-    }
-
-    public String getDisplayValue() {
-        return displayValue;
-    }
-
-    public void setDisplayValue(String displayValue) {
-        this.displayValue = displayValue;
-    }
-
-    public int getFormat() {
-        return format;
-    }
-
-    public void setFormat(int format) {
-        this.format = format;
-    }
-
-    public CornerPoint[] getCornerPoints() {
-        return cornerPoints;
-    }
-
-    public void setCornerPoints(CornerPoint[] cornerPoints) {
-        this.cornerPoints = cornerPoints;
-    }
+    public String getRawValue() { return rawValue; }
+    public void setRawValue(String rawValue) { this.rawValue = rawValue; }
+    public int getValueFormat() { return valueFormat; }
+    public void setValueFormat(int valueFormat) { this.valueFormat = valueFormat; }
+    public String getDisplayValue() { return displayValue; }
+    public void setDisplayValue(String displayValue) { this.displayValue = displayValue; }
+    public int getFormat() { return format; }
+    public void setFormat(int format) { this.format = format; }
+    public CornerPoint[] getCornerPoints() { return cornerPoints; }
+    public void setCornerPoints(CornerPoint[] cornerPoints) { this.cornerPoints = cornerPoints; }
+    public DriverLicense getDriverLicense() { return driverLicense; }
+    public void setDriverLicense(DriverLicense driverLicense) { this.driverLicense = driverLicense; }
 
     public static class CornerPoint {
         public float x;
         public float y;
+    }
+
+    public static class DriverLicense {
+        public String documentType;
+        public String issuingCountry;
+        public String firstName;
+        public String middleName;
+        public String lastName;
+        public String gender;
+        public String licenseNumber;
+        public String dateOfBirth;
+        public String dateOfExpiry;
+        public String dateOfIssue;
+        public String addressStreet;
+        public String addressCity;
+        public String addressState;
+        public String addressZip;
     }
 }

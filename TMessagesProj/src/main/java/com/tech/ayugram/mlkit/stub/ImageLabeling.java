@@ -2,10 +2,6 @@ package com.tech.ayugram.mlkit.stub;
 
 import java.util.List;
 
-/**
- * Phase 2: Stub for com.google.mlkit.vision.label.ImageLabeling
- * ML Kit dependency removed in Phase 2
- */
 public class ImageLabeling {
     private ImageLabeling() {}
 
@@ -59,12 +55,7 @@ public class ImageLabeling {
         private final String text = "";
         private final float confidence = 0.0f;
 
-        public String getText() {
-            return text;
-        }
-
-        public float getConfidence() {
-            return confidence;
-        }
+        public String getText() { return text; }
+        public float getConfidence() { return confidence; }
     }
 }

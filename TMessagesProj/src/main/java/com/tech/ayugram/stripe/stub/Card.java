@@ -1,9 +1,5 @@
 package com.tech.ayugram.stripe.stub;
 
-/**
- * Phase 2: Stub for com.stripe.android.model.Card
- * Stripe dependency removed in Phase 2
- */
 public class Card {
     private String number;
     private int expMonth;
@@ -25,7 +21,6 @@ public class Card {
         this.cvc = cvc;
     }
 
-    // Getters
     public String getNumber() { return number; }
     public int getExpMonth() { return expMonth; }
     public int getExpYear() { return expYear; }
@@ -39,7 +34,6 @@ public class Card {
     public String getAddressCountry() { return addressCountry; }
     public String getCurrency() { return currency; }
 
-    // Setters
     public void setNumber(String number) { this.number = number; }
     public void setExpMonth(int expMonth) { this.expMonth = expMonth; }
     public void setExpYear(int expYear) { this.expYear = expYear; }

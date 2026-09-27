@@ -3,10 +3,6 @@ package com.tech.ayugram.maps.stub;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.PolygonOptions
- * Google Maps dependency removed in Phase 2
- */
 public class PolygonOptions {
     private List<LatLng> points = new ArrayList<>();
     private List<List<LatLng>> holes = new ArrayList<>();
@@ -24,14 +20,14 @@ public class PolygonOptions {
         return this;
     }
 
-    public PolygonOptions addAll(Iterable<LatLng> latLngs) {
+    public PolygonOptions addAll(java.lang.Iterable<LatLng> latLngs) {
         for (LatLng latLng : latLngs) {
             points.add(latLng);
         }
         return this;
     }
 
-    public PolygonOptions addHole(Iterable<LatLng> latLngs) {
+    public PolygonOptions addHole(java.lang.Iterable<LatLng> latLngs) {
         List<LatLng> hole = new ArrayList<>();
         for (LatLng latLng : latLngs) {
             hole.add(latLng);

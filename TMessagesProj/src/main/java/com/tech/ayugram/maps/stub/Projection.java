@@ -1,9 +1,7 @@
 package com.tech.ayugram.maps.stub;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.Projection
- * Google Maps dependency removed in Phase 2
- */
+import com.tech.ayugram.maps.stub.LatLng;
+
 public class Projection {
     public LatLng fromScreenLocation(android.graphics.Point point) {
         return new LatLng(0, 0);

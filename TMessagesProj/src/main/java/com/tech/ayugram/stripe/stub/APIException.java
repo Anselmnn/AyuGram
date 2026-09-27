@@ -1,9 +1,5 @@
 package com.tech.ayugram.stripe.stub;
 
-/**
- * Phase 2: Stub for com.stripe.android.exception.APIException
- * Stripe dependency removed in Phase 2
- */
 public class APIException extends Exception {
     private int statusCode;
     private String stripeErrorCode;

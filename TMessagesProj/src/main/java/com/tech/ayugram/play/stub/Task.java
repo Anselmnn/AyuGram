@@ -1,9 +1,5 @@
 package com.tech.ayugram.play.stub;
 
-/**
- * Phase 2: Stub for com.google.android.gms.tasks.Task
- * Google Play Services dependency removed in Phase 2
- */
 public class Task<T> {
     private Task() {}
 

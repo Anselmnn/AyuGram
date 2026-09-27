@@ -1,9 +1,5 @@
 package com.tech.ayugram.wearable.stub;
 
-/**
- * Phase 2: Stub for com.google.android.gms.wearable.MessageEvent
- * Wearable dependency removed in Phase 2
- */
 public class MessageEvent {
     private String path;
     private byte[] data;

@@ -3,10 +3,6 @@ package com.tech.ayugram.maps.stub;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.PolylineOptions
- * Google Maps dependency removed in Phase 2
- */
 public class PolylineOptions {
     private List<LatLng> points = new ArrayList<>();
     private float width = 10.0f;
@@ -25,7 +21,7 @@ public class PolylineOptions {
         return this;
     }
 
-    public PolylineOptions addAll(Iterable<LatLng> latLngs) {
+    public PolylineOptions addAll(java.lang.Iterable<LatLng> latLngs) {
         for (LatLng latLng : latLngs) {
             points.add(latLng);
         }

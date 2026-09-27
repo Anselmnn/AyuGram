@@ -2,10 +2,6 @@ package com.tech.ayugram.stripe.stub;
 
 import android.content.Context;
 
-/**
- * Phase 2: Stub for com.stripe.android.Stripe
- * Stripe dependency removed in Phase 2
- */
 public class Stripe {
     private String apiKey;
     private String publishableKey;
@@ -15,7 +11,6 @@ public class Stripe {
     }
 
     public void createToken(Card card, TokenCallback callback) {
-        // No-op
         callback.onError(new Exception("Stripe removed in Phase 2"));
     }
 

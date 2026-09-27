@@ -2,10 +2,6 @@ package com.tech.ayugram.play.stub;
 
 import java.util.List;
 
-/**
- * Phase 2: Stub for com.android.billingclient.api.BillingClient
- * Billing dependency removed in Phase 2
- */
 public class BillingClient {
     public static class BillingResponseCode {
         public static final int OK = 0;
@@ -57,13 +53,8 @@ public class BillingClient {
                 return new Builder();
             }
 
-            public String getProductId() {
-                return productId;
-            }
-
-            public int getProductType() {
-                return productType;
-            }
+            public String getProductId() { return productId; }
+            public int getProductType() { return productType; }
         }
     }
 

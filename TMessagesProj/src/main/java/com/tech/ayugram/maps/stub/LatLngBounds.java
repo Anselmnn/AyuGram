@@ -1,9 +1,7 @@
 package com.tech.ayugram.maps.stub;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.LatLngBounds
- * Google Maps dependency removed in Phase 2
- */
+import com.tech.ayugram.maps.stub.LatLng;
+
 public class LatLngBounds {
     public final LatLng northeast;
     public final LatLng southwest;

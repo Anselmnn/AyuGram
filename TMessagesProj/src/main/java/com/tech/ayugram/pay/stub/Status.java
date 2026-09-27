@@ -2,10 +2,6 @@ package com.tech.ayugram.pay.stub;
 
 import android.content.Intent;
 
-/**
- * Phase 2: Stub for com.google.android.gms.common.api.Status
- * Google Play Services dependency removed in Phase 2
- */
 public class Status {
     private int statusCode;
     private String statusMessage;
@@ -31,11 +27,11 @@ public class Status {
     }
 
     public boolean isCanceled() {
-        return statusCode == 16; // Common canceled code
+        return statusCode == 16;
     }
 
     public boolean isInterrupted() {
-        return statusCode == 14; // Common interrupted code
+        return statusCode == 14;
     }
 
     public static Status getStatusFromIntent(android.content.Intent intent) {

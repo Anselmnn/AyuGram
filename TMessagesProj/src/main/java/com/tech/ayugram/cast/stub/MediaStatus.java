@@ -1,9 +1,5 @@
 package com.tech.ayugram.cast.stub;
 
-/**
- * Phase 2: Stub for com.google.android.gms.cast.MediaStatus
- * Cast dependency removed in Phase 2
- */
 public class MediaStatus {
     public static final int PLAYER_STATE_IDLE = 0;
     public static final int PLAYER_STATE_PLAYING = 1;

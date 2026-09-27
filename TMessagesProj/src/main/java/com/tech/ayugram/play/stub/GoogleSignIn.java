@@ -4,10 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-/**
- * Phase 2: Stub for com.google.android.gms.auth.api.signin.GoogleSignIn
- * Google Sign-In dependency removed in Phase 2
- */
 public class GoogleSignIn {
     private GoogleSignIn() {}
 

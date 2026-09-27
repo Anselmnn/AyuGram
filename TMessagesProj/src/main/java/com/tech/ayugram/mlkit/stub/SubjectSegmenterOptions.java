@@ -1,9 +1,5 @@
 package com.tech.ayugram.mlkit.stub;
 
-/**
- * Phase 2: Stub for com.google.mlkit.vision.segmentation.subject.SubjectSegmenterOptions
- * ML Kit dependency removed in Phase 2
- */
 public class SubjectSegmenterOptions {
     public static class Builder {
         private boolean enableMultipleSubjects = false;

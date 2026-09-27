@@ -1,9 +1,5 @@
 package com.tech.ayugram.maps.stub;
 
-/**
- * Phase 2: Stub for com.tech.ayugram.maps.stub.MapStyleOptions
- * Google Maps dependency removed in Phase 2
- */
 public class MapStyleOptions {
     private String jsonStyle;
 
