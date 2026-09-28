@@ -55,12 +55,12 @@ public class BillingController {
         return null;
     }
 
-    public String getResponseCodeString(int responseCode) {
+    public static String getResponseCodeString(int responseCode) {
         return String.valueOf(responseCode);
     }
 
-    public boolean whenSetuped() {
-        return false;
+    public void whenSetuped(Runnable runnable) {
+        // Billing removed in Phase 2
     }
 
     public String getPriceCurrencyCode() {

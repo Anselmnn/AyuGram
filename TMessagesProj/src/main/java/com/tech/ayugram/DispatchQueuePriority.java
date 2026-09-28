@@ -34,6 +34,10 @@ public class DispatchQueuePriority {
         executor.execute(runnable);
     }
 
+    public void postRunnable(Runnable runnable, int priority) {
+        executor.execute(runnable);
+    }
+
     public void cancelRunnable(Runnable runnable) {
         // No-op for stub
     }

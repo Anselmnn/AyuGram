@@ -5,10 +5,8 @@ import android.content.Context;
 public class IntegrityManager {
     public IntegrityManager() {}
 
-    public static class IntegrityManagerFactory {
-        public IntegrityManager create(Context context) {
-            return new IntegrityManager();
-        }
+    public static IntegrityManager create(Context context) {
+        return new IntegrityManager();
     }
 
     public static class IntegrityTokenRequest {
