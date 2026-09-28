@@ -10,6 +10,10 @@ public class MediaInfo {
     private TextTrackStyle textTrackStyle;
     private long customData;
 
+    public static final String STREAM_TYPE_BUFFERED = "BUFFERED";
+    public static final String STREAM_TYPE_LIVE = "LIVE";
+    public static final String STREAM_TYPE_NONE = "NONE";
+
     public static class Builder {
         private String contentId;
         private String streamType;
@@ -19,6 +23,11 @@ public class MediaInfo {
         private MediaTrack[] tracks;
         private TextTrackStyle textTrackStyle;
         private long customData;
+
+        public Builder(String contentId) {
+            this.contentId = contentId;
+            this.streamType = STREAM_TYPE_BUFFERED;
+        }
 
         public Builder(String contentId, String streamType) {
             this.contentId = contentId;
@@ -77,18 +86,6 @@ public class MediaInfo {
     public MediaTrack[] getTracks() { return tracks; }
     public TextTrackStyle getTextTrackStyle() { return textTrackStyle; }
     public long getCustomData() { return customData; }
-
-    public static class MediaMetadata {
-        private int type;
-        private String title;
-        private String subtitle;
-        private String[] images;
-
-        public int getType() { return type; }
-        public String getTitle() { return title; }
-        public String getSubtitle() { return subtitle; }
-        public String[] getImages() { return images; }
-    }
 
     public static class MediaTrack {
         private long id;

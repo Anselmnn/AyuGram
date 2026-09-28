@@ -1,22 +1,56 @@
 package com.tech.ayugram.cast.stub;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MediaMetadata {
     private int type;
-    private String title;
-    private String subtitle;
-    private String[] images;
+    private Map<String, Object> data = new HashMap<>();
+
+    public MediaMetadata() {}
+
+    public MediaMetadata(int type) {
+        this.type = type;
+    }
 
     public int getType() { return type; }
     public void setType(int type) { this.type = type; }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public void putString(String key, String value) {
+        data.put(key, value);
+    }
 
-    public String getSubtitle() { return subtitle; }
-    public void setSubtitle(String subtitle) { this.subtitle = subtitle; }
+    public void putInt(String key, int value) {
+        data.put(key, value);
+    }
 
-    public String[] getImages() { return images; }
-    public void setImages(String[] images) { this.images = images; }
+    public void putLong(String key, long value) {
+        data.put(key, value);
+    }
+
+    public void putBitmap(String key, android.graphics.Bitmap value) {
+        data.put(key, value);
+    }
+
+    public String getString(String key) {
+        Object value = data.get(key);
+        return value != null ? value.toString() : null;
+    }
+
+    public int getInt(String key) {
+        Object value = data.get(key);
+        return value instanceof Integer ? (Integer) value : 0;
+    }
+
+    public long getLong(String key) {
+        Object value = data.get(key);
+        return value instanceof Long ? (Long) value : 0;
+    }
+
+    public android.graphics.Bitmap getBitmap(String key) {
+        Object value = data.get(key);
+        return value instanceof android.graphics.Bitmap ? (android.graphics.Bitmap) value : null;
+    }
 
     public static final int MEDIA_TYPE_MOVIE = 0;
     public static final int MEDIA_TYPE_TV_SHOW = 1;
@@ -25,4 +59,17 @@ public class MediaMetadata {
     public static final int MEDIA_TYPE_AUDIO_BOOK = 4;
     public static final int MEDIA_TYPE_LIVE_TV = 5;
     public static final int MEDIA_TYPE_LIVE_RADIO = 6;
+
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_ARTIST = "artist";
+    public static final String KEY_ALBUM_TITLE = "albumTitle";
+    public static final String KEY_ALBUM_ARTIST = "albumArtist";
+    public static final String KEY_COMPOSER = "composer";
+    public static final String KEY_DISC_NUMBER = "discNumber";
+    public static final String KEY_TRACK_NUMBER = "trackNumber";
+    public static final String KEY_ALBUM_ART = "albumArt";
+    public static final String KEY_ART = "art";
+    public static final String KEY_WIDTH = "width";
+    public static final String KEY_HEIGHT = "height";
+    public static final String KEY_SUBTITLE = "subtitle";
 }
