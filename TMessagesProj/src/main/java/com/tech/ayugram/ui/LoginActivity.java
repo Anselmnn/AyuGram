@@ -103,7 +103,6 @@ import com.tech.ayugram.play.stub.BillingClient;
 import com.tech.ayugram.play.stub.BillingFlowParams;
 import com.tech.ayugram.play.stub.ProductDetails;
 import com.tech.ayugram.play.stub.Purchase;
-import com.tech.ayugram.play.stub.QueryProductDetailsParams;
 import com.tech.ayugram.play.stub.GoogleSignIn;
 import com.tech.ayugram.play.stub.GoogleSignInAccount;
 import com.tech.ayugram.play.stub.GoogleSignInClient;
@@ -112,7 +111,6 @@ import com.tech.ayugram.play.stub.ApiException;
 import com.tech.ayugram.play.stub.SafetyNet;
 import com.tech.ayugram.play.stub.Task;
 import com.tech.ayugram.play.stub.IntegrityManager;
-import com.tech.ayugram.play.stub.IntegrityManagerFactory;
 import com.tech.ayugram.play.stub.IntegrityTokenRequest;
 import com.tech.ayugram.play.stub.IntegrityTokenResponse;
 
@@ -1774,7 +1772,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 isRequestingFirebaseSms = true;
                 final String phone = params.getString("phoneFormated");
                 if (r.play_integrity_nonce != null) {
-                    IntegrityManager integrityManager = IntegrityManagerFactory.create(getContext());
+                    IntegrityManager integrityManager = IntegrityManager.create(getContext());
                     final String nonce = new String(Base64.encode(r.play_integrity_nonce, Base64.URL_SAFE));
                     FileLog.d("getting classic integrity with nonce = " + nonce);
                     Task<IntegrityTokenResponse> integrityTokenResponse = integrityManager.requestIntegrityToken(IntegrityTokenRequest.builder().setNonce(nonce).setCloudProjectNumber(r.play_integrity_project_id).build());
@@ -10096,9 +10094,9 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                 button.setLoading(true);
 
                 final Runnable fetch = () -> {
-                    final ArrayList<QueryProductDetailsParams.Product> productQueries = new ArrayList<>();
+                    final ArrayList<BillingClient.QueryProductDetailsParams.Product> productQueries = new ArrayList<>();
                     productQueries.add(
-                        QueryProductDetailsParams.Product.newBuilder()
+                        BillingClient.QueryProductDetailsParams.Product.newBuilder()
                             .setProductType(BillingClient.ProductType.INAPP)
                             .setProductId(product)
                             .build()

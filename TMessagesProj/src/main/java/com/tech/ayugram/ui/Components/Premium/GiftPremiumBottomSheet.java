@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tech.ayugram.play.stub.BillingClient;
 import com.tech.ayugram.play.stub.BillingFlowParams;
 import com.tech.ayugram.play.stub.ProductDetails;
-import com.tech.ayugram.play.stub.QueryProductDetailsParams;
 
 import com.tech.ayugram.messenger.AccountInstance;
 import com.tech.ayugram.messenger.AndroidUtilities;
@@ -159,7 +158,7 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
         rowsCount = 0;
         TLRPC.UserFull userFull = MessagesController.getInstance(currentAccount).getUserFull(user.id);
         if (userFull != null) {
-            List<QueryProductDetailsParams.Product> products = new ArrayList<>();
+            List<BillingClient.QueryProductDetailsParams.Product> products = new ArrayList<>();
             long pricePerMonthMax = 0;
 //            for (TLRPC.TL_premiumGiftOption option : userFull.premium_gifts) {
 //                if ("XTR".equalsIgnoreCase(option.currency)) continue;
@@ -177,7 +176,7 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
 //                        pricePerMonthMax = giftTier.getPricePerMonth();
 //                    }
 //                } else if (giftTier.giftOption.store_product != null && BillingController.getInstance().isReady()) {
-//                    products.add(QueryProductDetailsParams.Product.newBuilder()
+//                    products.add(BillingClient.QueryProductDetailsParams.Product.newBuilder()
 //                            .setProductType(BillingClient.ProductType.INAPP)
 //                            .setProductId(giftTier.giftOption.store_product)
 //                            .build());

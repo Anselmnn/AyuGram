@@ -57,7 +57,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.tech.ayugram.play.stub.BillingClient;
 import com.tech.ayugram.play.stub.ProductDetails;
-import com.tech.ayugram.play.stub.QueryProductDetailsParams;
 
 import com.tech.ayugram.messenger.AndroidUtilities;
 import com.tech.ayugram.messenger.BillingController;
@@ -829,7 +828,7 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
     private void updatePremiumTiers() {
         premiumTiers.clear();
         if (premiumTiers.isEmpty() && options != null && !options.isEmpty()) {
-            List<QueryProductDetailsParams.Product> products = new ArrayList<>();
+            List<BillingClient.QueryProductDetailsParams.Product> products = new ArrayList<>();
             long pricePerMonthMax = 0;
             for (int i = options.size() - 1; i >= 0; i--) {
                 final TLRPC.TL_premiumGiftCodeOption option = options.get(i);
@@ -848,7 +847,7 @@ public class GiftSheet extends BottomSheetWithRecyclerListView implements Notifi
                         pricePerMonthMax = giftTier.getPricePerMonth();
                     }
                 } else if (giftTier.getStoreProduct() != null && BillingController.getInstance().isReady()) {
-                    products.add(QueryProductDetailsParams.Product.newBuilder()
+                    products.add(BillingClient.QueryProductDetailsParams.Product.newBuilder()
                             .setProductType(BillingClient.ProductType.INAPP)
                             .setProductId(giftTier.getStoreProduct())
                             .build());

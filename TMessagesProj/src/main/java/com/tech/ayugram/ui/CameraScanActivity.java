@@ -1215,7 +1215,7 @@ public class CameraScanActivity extends BaseFragment {
         PointF[] cornerPoints;
     }
 
-    private static PointF[] toPointF(Point[] points, int w, int h) {
+    private static PointF[] toPointF(CornerPoint[] points, int w, int h) {
         PointF[] out = new PointF[points.length];
         for (int i = 0; i < points.length; ++i) {
             out[i] = new PointF(
@@ -1255,7 +1255,7 @@ public class CameraScanActivity extends BaseFragment {
                               maxX = Float.MIN_VALUE,
                               minY = Float.MAX_VALUE,
                               maxY = Float.MIN_VALUE;
-                        for (Point point : code.cornerPoints) {
+                        for (CornerPoint point : code.cornerPoints) {
                             minX = Math.min(minX, point.x);
                             maxX = Math.max(maxX, point.x);
                             minY = Math.min(minY, point.y);
@@ -1281,7 +1281,7 @@ public class CameraScanActivity extends BaseFragment {
                                     maxX = Float.MIN_VALUE,
                                     minY = Float.MAX_VALUE,
                                     maxY = Float.MIN_VALUE;
-                            for (Point point : code.cornerPoints) {
+                            for (CornerPoint point : code.cornerPoints) {
                                 minX = Math.min(minX, point.x);
                                 maxX = Math.max(maxX, point.x);
                                 minY = Math.min(minY, point.y);
@@ -1307,7 +1307,7 @@ public class CameraScanActivity extends BaseFragment {
                                         maxX = Float.MIN_VALUE,
                                         minY = Float.MAX_VALUE,
                                         maxY = Float.MIN_VALUE;
-                                for (Point point : code.cornerPoints) {
+                                for (CornerPoint point : code.cornerPoints) {
                                     minX = Math.min(minX, point.x);
                                     maxX = Math.max(maxX, point.x);
                                     minY = Math.min(minY, point.y);

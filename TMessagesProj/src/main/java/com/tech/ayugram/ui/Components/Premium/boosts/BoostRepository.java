@@ -7,7 +7,6 @@ import android.util.Pair;
 import com.tech.ayugram.play.stub.BillingClient;
 import com.tech.ayugram.play.stub.BillingFlowParams;
 import com.tech.ayugram.play.stub.ProductDetails;
-import com.tech.ayugram.play.stub.QueryProductDetailsParams;
 
 import org.json.JSONObject;
 import com.tech.ayugram.messenger.AccountInstance;
@@ -209,7 +208,7 @@ public class BoostRepository {
             payload.message = message;
         }
 
-        QueryProductDetailsParams.Product product = QueryProductDetailsParams.Product.newBuilder()
+        BillingClient.QueryProductDetailsParams.Product product = BillingClient.QueryProductDetailsParams.Product.newBuilder()
                 .setProductType(BillingClient.ProductType.INAPP)
                 .setProductId(option.store_product)
                 .build();
@@ -449,7 +448,7 @@ public class BoostRepository {
             payload.countries_iso2.add(country.iso2);
         }
 
-        QueryProductDetailsParams.Product product = QueryProductDetailsParams.Product.newBuilder()
+        BillingClient.QueryProductDetailsParams.Product product = BillingClient.QueryProductDetailsParams.Product.newBuilder()
                 .setProductType(BillingClient.ProductType.INAPP)
                 .setProductId(option.store_product)
                 .build();
@@ -658,12 +657,12 @@ public class BoostRepository {
             if (response instanceof Vector) {
                 final Vector<TLRPC.TL_premiumGiftCodeOption> vector = (Vector) response;
                 final List<TLRPC.TL_premiumGiftCodeOption> result = new ArrayList<>();
-                final List<QueryProductDetailsParams.Product> products = new ArrayList<>();
+                final List<BillingClient.QueryProductDetailsParams.Product> products = new ArrayList<>();
                 for (int i = 0; i < vector.objects.size(); i++) {
                     final TLRPC.TL_premiumGiftCodeOption object = vector.objects.get(i);
                     result.add(object);
                     if (object.store_product != null) {
-                        products.add(QueryProductDetailsParams.Product.newBuilder()
+                        products.add(BillingClient.QueryProductDetailsParams.Product.newBuilder()
                                 .setProductType(BillingClient.ProductType.INAPP)
                                 .setProductId(object.store_product)
                                 .build());

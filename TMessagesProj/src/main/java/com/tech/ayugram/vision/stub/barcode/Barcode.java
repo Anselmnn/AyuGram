@@ -55,5 +55,9 @@ public class Barcode {
         public String addressCity;
         public String addressState;
         public String addressZip;
+
+        // Aliases for compatibility
+        public String birthDate;
+        public String expiryDate;
     }
 }

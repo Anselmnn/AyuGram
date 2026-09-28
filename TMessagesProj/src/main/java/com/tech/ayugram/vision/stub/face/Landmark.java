@@ -15,6 +15,10 @@ public class Landmark {
     public static final int MOUTH_CENTER = 9;
     public static final int NOSE_TIP = 10;
 
+    // Aliases for compatibility
+    public static final int LEFT_MOUTH = MOUTH_LEFT;
+    public static final int RIGHT_MOUTH = MOUTH_RIGHT;
+
     private int type;
     private PointF position;
 
