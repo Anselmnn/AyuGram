@@ -14,6 +14,7 @@ public class Barcode {
     public static final int UPC_A = 1024;
     public static final int UPC_E = 2048;
     public static final int DRIVER_LICENSE = 1024;
+    public static final int TEXT = 16384;
 
     public String rawValue;
     public int valueFormat;

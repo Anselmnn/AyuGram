@@ -23,6 +23,9 @@ public class ProductDetails {
         public long getPriceAmountMicros() { return priceAmountMicros; }
         public String getFormattedPrice() { return formattedPrice; }
         public String getCurrencyCode() { return currencyCode; }
+
+        // Stub for compatibility with code that incorrectly calls this on one-time purchases
+        public PricingPhases getPricingPhases() { return null; }
     }
 
     public static class SubscriptionOfferDetails {

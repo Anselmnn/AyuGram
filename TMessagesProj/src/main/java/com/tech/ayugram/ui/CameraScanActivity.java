@@ -55,6 +55,7 @@ import androidx.dynamicanimation.animation.SpringForce;
 
 import com.tech.ayugram.vision.stub.Frame;
 import com.tech.ayugram.vision.stub.barcode.Barcode;
+import com.tech.ayugram.vision.stub.barcode.Barcode.CornerPoint;
 import com.tech.ayugram.vision.stub.barcode.BarcodeDetector;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
