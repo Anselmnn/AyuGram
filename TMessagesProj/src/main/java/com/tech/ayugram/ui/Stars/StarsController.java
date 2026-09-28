@@ -22,7 +22,7 @@ import androidx.annotation.Nullable;
 import com.tech.ayugram.play.stub.BillingClient;
 import com.tech.ayugram.play.stub.BillingFlowParams;
 import com.tech.ayugram.play.stub.ProductDetails;
-import com.tech.ayugram.play.stub.QueryProductDetailsParams;
+// import com.tech.ayugram.play.stub.QueryProductDetailsParams; (Phase 2: use BillingClient.QueryProductDetailsParams)
 
 import org.json.JSONObject;
 import com.tech.ayugram.SQLite.SQLiteCursor;
@@ -309,10 +309,10 @@ public class StarsController {
             NotificationCenter.getInstance(currentAccount).postNotificationName(NotificationCenter.starOptionsLoaded);
             if (!toLoadStorePrice.isEmpty()) {
                 Runnable fetchStorePrices = () -> {
-                    ArrayList<QueryProductDetailsParams.Product> productQueries = new ArrayList<>();
+                    ArrayList<BillingClient.QueryProductDetailsParams.Product> productQueries = new ArrayList<>();
                     for (int i = 0; i < toLoadStorePrice.size(); ++i) {
                         productQueries.add(
-                            QueryProductDetailsParams.Product.newBuilder()
+                            BillingClient.QueryProductDetailsParams.Product.newBuilder()
                                 .setProductType(BillingClient.ProductType.INAPP)
                                 .setProductId(toLoadStorePrice.get(i).store_product)
                                 .build()
@@ -396,10 +396,10 @@ public class StarsController {
             NotificationCenter.getInstance(currentAccount).postNotificationName(NotificationCenter.starGiftOptionsLoaded);
             if (!toLoadStorePrice.isEmpty()) {
                 Runnable fetchStorePrices = () -> {
-                    ArrayList<QueryProductDetailsParams.Product> productQueries = new ArrayList<>();
+                    ArrayList<BillingClient.QueryProductDetailsParams.Product> productQueries = new ArrayList<>();
                     for (int i = 0; i < toLoadStorePrice.size(); ++i) {
                         productQueries.add(
-                                QueryProductDetailsParams.Product.newBuilder()
+                                BillingClient.QueryProductDetailsParams.Product.newBuilder()
                                         .setProductType(BillingClient.ProductType.INAPP)
                                         .setProductId(toLoadStorePrice.get(i).store_product)
                                         .build()
@@ -483,10 +483,10 @@ public class StarsController {
             NotificationCenter.getInstance(currentAccount).postNotificationName(NotificationCenter.starGiveawayOptionsLoaded);
             if (!toLoadStorePrice.isEmpty()) {
                 Runnable fetchStorePrices = () -> {
-                    ArrayList<QueryProductDetailsParams.Product> productQueries = new ArrayList<>();
+                    ArrayList<BillingClient.QueryProductDetailsParams.Product> productQueries = new ArrayList<>();
                     for (int i = 0; i < toLoadStorePrice.size(); ++i) {
                         productQueries.add(
-                            QueryProductDetailsParams.Product.newBuilder()
+                            BillingClient.QueryProductDetailsParams.Product.newBuilder()
                                 .setProductType(BillingClient.ProductType.INAPP)
                                 .setProductId(toLoadStorePrice.get(i).store_product)
                                 .build()
@@ -855,7 +855,7 @@ public class StarsController {
         payload.stars = option.stars;
         payload.currency = option.currency;
         payload.amount = option.amount;
-        QueryProductDetailsParams.Product product = QueryProductDetailsParams.Product.newBuilder()
+        BillingClient.QueryProductDetailsParams.Product product = BillingClient.QueryProductDetailsParams.Product.newBuilder()
                 .setProductType(BillingClient.ProductType.INAPP)
                 .setProductId(option.store_product)
                 .build();
@@ -986,7 +986,7 @@ public class StarsController {
         payload.amount = option.amount;
         payload.user_id = MessagesController.getInstance(currentAccount).getInputUser(user_id);
 
-        QueryProductDetailsParams.Product product = QueryProductDetailsParams.Product.newBuilder()
+        BillingClient.QueryProductDetailsParams.Product product = BillingClient.QueryProductDetailsParams.Product.newBuilder()
                 .setProductType(BillingClient.ProductType.INAPP)
                 .setProductId(option.store_product)
                 .build();
@@ -1152,7 +1152,7 @@ public class StarsController {
             return;
         }
 
-        QueryProductDetailsParams.Product product = QueryProductDetailsParams.Product.newBuilder()
+        BillingClient.QueryProductDetailsParams.Product product = BillingClient.QueryProductDetailsParams.Product.newBuilder()
                 .setProductType(BillingClient.ProductType.INAPP)
                 .setProductId(option.store_product)
                 .build();

@@ -147,8 +147,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.android.internal.telephony.ITelephony;
 import androidx.media3.common.util.Consumer;
-import com.google.android.gms.auth.api.phone.SmsRetriever;
-import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
+// import com.google.android.gms.auth.api.phone.SmsRetriever; (Phase 2: removed)
+// import com.google.android.gms.auth.api.phone.SmsRetrieverClient; (Phase 2: removed)
+import com.tech.ayugram.play.stub.SmsRetriever;
+import com.tech.ayugram.play.stub.SmsRetrieverClient;
 import com.tech.ayugram.play.stub.Task;
 
 import com.tech.ayugram.PhoneFormat.PhoneFormat;

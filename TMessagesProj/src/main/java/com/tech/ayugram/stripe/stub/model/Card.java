@@ -14,12 +14,20 @@ public class Card {
     private String addressCountry;
     private String currency;
 
-    public Card(String number, int expMonth, int expYear, String cvc) {
-        this.number = number;
-        this.expMonth = expMonth;
-        this.expYear = expYear;
-        this.cvc = cvc;
-    }
+    public Card() {}
+
+    public Card setNumber(String number) { this.number = number; return this; }
+    public Card setExpMonth(int expMonth) { this.expMonth = expMonth; return this; }
+    public Card setExpYear(int expYear) { this.expYear = expYear; return this; }
+    public Card setCvc(String cvc) { this.cvc = cvc; return this; }
+    public Card setName(String name) { this.name = name; return this; }
+    public Card setAddressLine1(String addressLine1) { this.addressLine1 = addressLine1; return this; }
+    public Card setAddressLine2(String addressLine2) { this.addressLine2 = addressLine2; return this; }
+    public Card setAddressCity(String addressCity) { this.addressCity = addressCity; return this; }
+    public Card setAddressState(String addressState) { this.addressState = addressState; return this; }
+    public Card setAddressZip(String addressZip) { this.addressZip = addressZip; return this; }
+    public Card setAddressCountry(String addressCountry) { this.addressCountry = addressCountry; return this; }
+    public Card setCurrency(String currency) { this.currency = currency; return this; }
 
     public String getNumber() { return number; }
     public int getExpMonth() { return expMonth; }
@@ -33,22 +41,4 @@ public class Card {
     public String getAddressZip() { return addressZip; }
     public String getAddressCountry() { return addressCountry; }
     public String getCurrency() { return currency; }
-
-    public void setNumber(String number) { this.number = number; }
-    public void setExpMonth(int expMonth) { this.expMonth = expMonth; }
-    public void setExpYear(int expYear) { this.expYear = expYear; }
-    public void setCvc(String cvc) { this.cvc = cvc; }
-    public void setName(String name) { this.name = name; }
-    public void setAddressLine1(String addressLine1) { this.addressLine1 = addressLine1; }
-    public void setAddressLine2(String addressLine2) { this.addressLine2 = addressLine2; }
-    public void setAddressCity(String addressCity) { this.addressCity = addressCity; }
-    public void setAddressState(String addressState) { this.addressState = addressState; }
-    public void setAddressZip(String addressZip) { this.addressZip = addressZip; }
-    public void setAddressCountry(String addressCountry) { this.addressCountry = addressCountry; }
-    public void setCurrency(String currency) { this.currency = currency; }
-
-    public boolean validateCard() { return false; }
-    public boolean validateExpMonth() { return false; }
-    public boolean validateExpYear() { return false; }
-    public boolean validateCvc() { return false; }
 }

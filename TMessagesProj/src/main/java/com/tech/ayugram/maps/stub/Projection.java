@@ -1,6 +1,7 @@
 package com.tech.ayugram.maps.stub;
 
-import com.tech.ayugram.maps.stub.LatLng;
+import com.tech.ayugram.maps.stub.model.LatLng;
+import com.tech.ayugram.maps.stub.model.LatLngBounds;
 
 public class Projection {
     public LatLng fromScreenLocation(android.graphics.Point point) {

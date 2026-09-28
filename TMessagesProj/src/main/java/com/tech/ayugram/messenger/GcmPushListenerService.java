@@ -10,8 +10,8 @@ package com.tech.ayugram.messenger;
 
 import androidx.annotation.NonNull;
 
-// import com.google.firebase.messaging.FirebaseMessagingService; (Phase 2: removed)
-// import com.google.firebase.messaging.RemoteMessage; (Phase 2: removed)
+import com.tech.ayugram.firebase.stub.FirebaseMessagingService;
+import com.tech.ayugram.firebase.stub.RemoteMessage;
 
 import java.util.Map;
 

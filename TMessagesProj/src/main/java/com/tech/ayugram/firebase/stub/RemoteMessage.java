@@ -29,7 +29,6 @@ public class RemoteMessage implements Parcelable {
     public long getTtl() { return ttl; }
     public Bundle getData() { return data; }
     public String getCollapseKey() { return collapseKey; }
-    public String getMessageId() { return messageId; }
     public String getSenderId() { return senderId; }
     public String getCategory() { return category; }
     public String getOriginalPriority() { return originalPriority; }
@@ -73,7 +72,6 @@ public class RemoteMessage implements Parcelable {
         ttl = in.readLong();
         data = in.readBundle();
         collapseKey = in.readString();
-        messageId = in.readString();
         senderId = in.readString();
         category = in.readString();
         originalPriority = in.readString();

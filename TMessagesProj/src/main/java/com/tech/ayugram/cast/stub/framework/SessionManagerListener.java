@@ -1,13 +1,13 @@
 package com.tech.ayugram.cast.stub.framework;
 
-public interface SessionManagerListener {
-    void onSessionStarting(CastSession session);
-    void onSessionStarted(CastSession session, String sessionId);
-    void onSessionStartFailed(CastSession session, int error);
-    void onSessionEnding(CastSession session);
-    void onSessionEnded(CastSession session, int error);
-    void onSessionResuming(CastSession session, String sessionId);
-    void onSessionResumed(CastSession session, boolean wasSuspended);
-    void onSessionResumeFailed(CastSession session, int error);
-    void onSessionSuspended(CastSession session, int reason);
+public interface SessionManagerListener<T> {
+    void onSessionStarting(T session);
+    void onSessionStarted(T session, String sessionId);
+    void onSessionStartFailed(T session, int error);
+    void onSessionEnding(T session);
+    void onSessionEnded(T session, int error);
+    void onSessionResuming(T session, String sessionId);
+    void onSessionResumed(T session, boolean wasSuspended);
+    void onSessionResumeFailed(T session, int error);
+    void onSessionSuspended(T session, int reason);
 }

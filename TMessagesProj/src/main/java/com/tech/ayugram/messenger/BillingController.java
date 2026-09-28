@@ -8,6 +8,7 @@ import java.util.List;
 
 public class BillingController {
     private static volatile BillingController instance;
+    public static ProductDetails PREMIUM_PRODUCT_DETAILS = null;
 
     public static BillingController getInstance() {
         if (instance == null) {
@@ -42,8 +43,40 @@ public class BillingController {
         return "0";
     }
 
+    public String formatCurrency(long amount, String currency, int precision, boolean isRtl) {
+        return "0";
+    }
+
     public int getCurrencyExp(String currency) {
         return 6;
+    }
+
+    public String getLastPremiumTransaction() {
+        return null;
+    }
+
+    public String getResponseCodeString(int responseCode) {
+        return String.valueOf(responseCode);
+    }
+
+    public boolean whenSetuped() {
+        return false;
+    }
+
+    public String getPriceCurrencyCode() {
+        return "USD";
+    }
+
+    public long getPriceAmountMicros() {
+        return 0;
+    }
+
+    public Object getPricingPhases() {
+        return null;
+    }
+
+    public String getBillingPeriod() {
+        return "P1M";
     }
 
     public static class BillingResult {

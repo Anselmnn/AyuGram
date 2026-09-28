@@ -12,14 +12,15 @@ import androidx.core.util.Consumer;
 
 import com.tech.ayugram.play.stub.ApiException;
 import com.tech.ayugram.play.stub.GoogleApiClient;
-// import com.google.android.gms.location.FusedLocationProviderClient; (Phase 2: removed)
-// import com.google.android.gms.location.LocationCallback; (Phase 2: removed)
-// import com.google.android.gms.location.LocationRequest; (Phase 2: removed)
-// import com.google.android.gms.location.LocationResult; (Phase 2: removed)
-// import com.google.android.gms.location.LocationServices; (Phase 2: removed)
-// import com.google.android.gms.location.LocationSettingsRequest; (Phase 2: removed)
-// import com.google.android.gms.location.LocationSettingsStatusCodes; (Phase 2: removed)
-// import com.google.android.gms.location.SettingsClient; (Phase 2: removed)
+import com.tech.ayugram.play.stub.FusedLocationProviderClient;
+import com.tech.ayugram.play.stub.LocationCallback;
+import com.tech.ayugram.play.stub.LocationRequest;
+import com.tech.ayugram.play.stub.LocationResult;
+import com.tech.ayugram.play.stub.LocationServices;
+import com.tech.ayugram.play.stub.LocationSettingsRequest;
+import com.tech.ayugram.play.stub.LocationSettingsStatusCodes;
+import com.tech.ayugram.play.stub.SettingsClient;
+import com.tech.ayugram.play.stub.Task;
 
 @SuppressLint("MissingPermission")
 public class GoogleLocationProvider implements ILocationServiceProvider {

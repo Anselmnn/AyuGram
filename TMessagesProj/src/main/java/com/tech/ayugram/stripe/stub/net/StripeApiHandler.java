@@ -1,7 +1,7 @@
 package com.tech.ayugram.stripe.stub.net;
 
 import android.content.Context;
-import com.tech.ayugram.stripe.stub.Card;
+import com.tech.ayugram.stripe.stub.model.Card;
 import com.tech.ayugram.stripe.stub.TokenCallback;
 
 public class StripeApiHandler {
