@@ -23,13 +23,13 @@ public class RemoteMediaClient {
 
     public int getIdleReason() { return 0; }
 
-    public interface Callback {
-        void onStatusUpdated();
-        void onMetadataUpdated();
-        void onPreloadStatusUpdated();
-        void onAdBreakStatusUpdated();
-        void onMediaError(MediaError mediaError);
-        void onQueueStatusUpdated();
-        void onSendingRemoteMediaRequest();
+    public static abstract class Callback {
+        public void onStatusUpdated() {}
+        public void onMetadataUpdated() {}
+        public void onPreloadStatusUpdated() {}
+        public void onAdBreakStatusUpdated() {}
+        public void onMediaError(MediaError mediaError) {}
+        public void onQueueStatusUpdated() {}
+        public void onSendingRemoteMediaRequest() {}
     }
 }

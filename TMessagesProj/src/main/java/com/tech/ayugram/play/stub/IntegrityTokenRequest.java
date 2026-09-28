@@ -6,6 +6,10 @@ public class IntegrityTokenRequest {
 
     private IntegrityTokenRequest() {}
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private String nonce;
         private long cloudProjectNumber;
@@ -21,12 +25,11 @@ public class IntegrityTokenRequest {
         }
 
         public IntegrityTokenRequest build() {
-            return new IntegrityTokenRequest();
+            IntegrityTokenRequest request = new IntegrityTokenRequest();
+            request.nonce = this.nonce;
+            request.cloudProjectNumber = this.cloudProjectNumber;
+            return request;
         }
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public String getNonce() { return nonce; }

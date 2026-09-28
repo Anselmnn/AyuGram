@@ -19,7 +19,6 @@ import androidx.media3.common.util.UnstableApi;
 import androidx.media3.exoplayer.upstream.DefaultBandwidthMeter;
 import com.tech.ayugram.play.stub.Task;
 import com.tech.ayugram.play.stub.IntegrityManager;
-import com.tech.ayugram.play.stub.IntegrityManagerFactory;
 import com.tech.ayugram.play.stub.IntegrityTokenRequest;
 import com.tech.ayugram.play.stub.IntegrityTokenResponse;
 
@@ -1509,7 +1508,7 @@ public class ConnectionsManager extends BaseController {
         AndroidUtilities.runOnUIThread(() -> {
             long start = System.currentTimeMillis();
             FileLog.d("account"+currentAccount+": server requests integrity classic check with project = "+project+" nonce = " + nonce);
-            IntegrityManager integrityManager = IntegrityManagerFactory.create(ApplicationLoader.applicationContext);
+            IntegrityManager integrityManager = IntegrityManager.create(ApplicationLoader.applicationContext);
             final long project_id;
             try {
                 project_id = Long.parseLong(project);

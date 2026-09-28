@@ -30,12 +30,14 @@ public class DispatchQueuePriority {
         );
     }
 
-    public void postRunnable(Runnable runnable) {
+    public Runnable postRunnable(Runnable runnable) {
         executor.execute(runnable);
+        return runnable;
     }
 
-    public void postRunnable(Runnable runnable, int priority) {
+    public Runnable postRunnable(Runnable runnable, int priority) {
         executor.execute(runnable);
+        return runnable;
     }
 
     public void cancelRunnable(Runnable runnable) {
