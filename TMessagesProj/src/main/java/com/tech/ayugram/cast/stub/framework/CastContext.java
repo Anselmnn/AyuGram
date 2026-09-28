@@ -1,6 +1,7 @@
 package com.tech.ayugram.cast.stub.framework;
 
 import android.content.Context;
+import android.media.MediaRouteSelector;
 
 public class CastContext {
     private CastContext() {}
@@ -11,6 +12,10 @@ public class CastContext {
 
     public CastSession getSession() {
         return new CastSession();
+    }
+
+    public MediaRouteSelector getMergedSelector() {
+        return new MediaRouteSelector.Builder().build();
     }
 
     public void addCastStateListener(CastStateListener listener) {}
