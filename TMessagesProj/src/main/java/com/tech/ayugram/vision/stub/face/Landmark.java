@@ -1,5 +1,7 @@
 package com.tech.ayugram.vision.stub.face;
 
+import android.graphics.PointF;
+
 public class Landmark {
     public static final int LEFT_EYE = 0;
     public static final int RIGHT_EYE = 1;
@@ -14,10 +16,10 @@ public class Landmark {
     public static final int NOSE_TIP = 10;
 
     private int type;
-    private float x;
-    private float y;
+    private PointF position;
 
     public int getType() { return type; }
-    public float getX() { return x; }
-    public float getY() { return y; }
+    public PointF getPosition() { return position; }
+    public float getX() { return position != null ? position.x : 0; }
+    public float getY() { return position != null ? position.y : 0; }
 }

@@ -15,12 +15,12 @@ public class Barcode {
     public static final int UPC_E = 2048;
     public static final int DRIVER_LICENSE = 1024;
 
-    private String rawValue;
-    private int valueFormat;
-    private String displayValue;
-    private int format;
-    private CornerPoint[] cornerPoints;
-    private DriverLicense driverLicense;
+    public String rawValue;
+    public int valueFormat;
+    public String displayValue;
+    public int format;
+    public CornerPoint[] cornerPoints;
+    public DriverLicense driverLicense;
 
     public String getRawValue() { return rawValue; }
     public void setRawValue(String rawValue) { this.rawValue = rawValue; }

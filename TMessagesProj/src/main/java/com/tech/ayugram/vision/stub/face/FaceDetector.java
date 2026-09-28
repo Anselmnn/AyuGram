@@ -10,28 +10,49 @@ public class FaceDetector {
     private int mode;
     private boolean trackingEnabled;
 
-    public FaceDetector(Context context) {
+    private FaceDetector(Context context) {
         this.context = context;
     }
 
-    public FaceDetector setLandmarkType(int landmarkType) {
-        this.landmarkType = landmarkType;
-        return this;
-    }
+    public static class Builder {
+        private Context context;
+        private int landmarkType;
+        private int classificationType;
+        private int mode;
+        private boolean trackingEnabled;
 
-    public FaceDetector setClassificationType(int classificationType) {
-        this.classificationType = classificationType;
-        return this;
-    }
+        public Builder(Context context) {
+            this.context = context;
+        }
 
-    public FaceDetector setMode(int mode) {
-        this.mode = mode;
-        return this;
-    }
+        public Builder setLandmarkType(int landmarkType) {
+            this.landmarkType = landmarkType;
+            return this;
+        }
 
-    public FaceDetector enableTracking() {
-        this.trackingEnabled = true;
-        return this;
+        public Builder setClassificationType(int classificationType) {
+            this.classificationType = classificationType;
+            return this;
+        }
+
+        public Builder setMode(int mode) {
+            this.mode = mode;
+            return this;
+        }
+
+        public Builder enableTracking() {
+            this.trackingEnabled = true;
+            return this;
+        }
+
+        public FaceDetector build() {
+            FaceDetector detector = new FaceDetector(context);
+            detector.landmarkType = this.landmarkType;
+            detector.classificationType = this.classificationType;
+            detector.mode = this.mode;
+            detector.trackingEnabled = this.trackingEnabled;
+            return detector;
+        }
     }
 
     public boolean isOperational() {

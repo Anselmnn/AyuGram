@@ -7,13 +7,28 @@ public class BarcodeDetector {
     private Context context;
     private int barcodeFormats;
 
-    public BarcodeDetector(Context context) {
+    private BarcodeDetector(Context context) {
         this.context = context;
     }
 
-    public BarcodeDetector setBarcodeFormats(int formats) {
-        this.barcodeFormats = formats;
-        return this;
+    public static class Builder {
+        private Context context;
+        private int barcodeFormats;
+
+        public Builder(Context context) {
+            this.context = context;
+        }
+
+        public Builder setBarcodeFormats(int formats) {
+            this.barcodeFormats = formats;
+            return this;
+        }
+
+        public BarcodeDetector build() {
+            BarcodeDetector detector = new BarcodeDetector(context);
+            detector.barcodeFormats = this.barcodeFormats;
+            return detector;
+        }
     }
 
     public boolean isOperational() {
