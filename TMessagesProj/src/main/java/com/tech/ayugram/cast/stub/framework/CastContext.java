@@ -1,7 +1,7 @@
 package com.tech.ayugram.cast.stub.framework;
 
 import android.content.Context;
-import android.media.MediaRouteSelector;
+import androidx.mediarouter.media.MediaRouteSelector;
 
 public class CastContext {
     private CastContext() {}
