@@ -31,6 +31,10 @@ public class BillingController {
         callback.onResult(new BillingResult(BillingClient.BillingResponseCode.ERROR, "Billing removed"), null);
     }
 
+    public void queryPurchases(int productType, BillingResultCallback callback) {
+        callback.onResult(new BillingResult(BillingClient.BillingResponseCode.ERROR, "Billing removed"), null);
+    }
+
     public void addResultListener(String productId, BillingResultListener listener) {}
 
     public void launchBillingFlow(android.app.Activity activity, AccountInstance accountInstance, Object giftPremium, List<BillingFlowParams.ProductDetailsParams> params) {}

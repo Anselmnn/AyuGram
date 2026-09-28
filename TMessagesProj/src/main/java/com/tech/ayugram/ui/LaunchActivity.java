@@ -88,9 +88,9 @@ import androidx.core.view.ViewCompat;
 
 import com.tech.ayugram.play.stub.Status;
 import com.google.common.primitives.Longs;
-// import com.google.firebase.appindexing.Action; (Phase 2: removed)
-// import com.google.firebase.appindexing.FirebaseUserActions; (Phase 2: removed)
-// import com.google.firebase.appindexing.builders.AssistActionBuilder; (Phase 2: removed)
+import com.google.firebase.auth.Action;
+import com.google.firebase.auth.FirebaseUserActions;
+import com.google.firebase.auth.AssistActionBuilder;
 
 import com.tech.ayugram.PhoneFormat.PhoneFormat;
 import com.tech.ayugram.messenger.AccountInstance;
