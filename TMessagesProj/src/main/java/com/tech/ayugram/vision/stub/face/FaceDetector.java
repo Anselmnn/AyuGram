@@ -4,6 +4,13 @@ import android.content.Context;
 import android.util.SparseArray;
 
 public class FaceDetector {
+    public static final int ACCURATE_MODE = 1;
+    public static final int FAST_MODE = 0;
+    public static final int ALL_LANDMARKS = 1;
+    public static final int NO_LANDMARKS = 0;
+    public static final int ALL_CLASSIFICATIONS = 1;
+    public static final int NO_CLASSIFICATIONS = 0;
+
     private Context context;
     private int landmarkType;
     private int classificationType;

@@ -9,8 +9,14 @@ public class Frame {
     private int width;
     private int height;
     private int format;
+    private int rotation;
 
     private Frame() {}
+
+    public static final int ROTATION_0 = 0;
+    public static final int ROTATION_90 = 1;
+    public static final int ROTATION_180 = 2;
+    public static final int ROTATION_270 = 3;
 
     public static class Builder {
         private Bitmap bitmap;
@@ -18,9 +24,15 @@ public class Frame {
         private int width;
         private int height;
         private int format;
+        private int rotation = ROTATION_0;
 
         public Builder setBitmap(Bitmap bitmap) {
             this.bitmap = bitmap;
+            return this;
+        }
+
+        public Builder setRotation(int rotation) {
+            this.rotation = rotation;
             return this;
         }
 
@@ -39,6 +51,7 @@ public class Frame {
             frame.width = this.width;
             frame.height = this.height;
             frame.format = this.format;
+            frame.rotation = this.rotation;
             return frame;
         }
     }
@@ -48,4 +61,5 @@ public class Frame {
     public int getWidth() { return width; }
     public int getHeight() { return height; }
     public int getFormat() { return format; }
+    public int getRotation() { return rotation; }
 }
