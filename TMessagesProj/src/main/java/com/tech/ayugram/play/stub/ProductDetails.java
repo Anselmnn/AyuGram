@@ -15,11 +15,6 @@ public class ProductDetails {
     public OneTimePurchaseOfferDetails getOneTimePurchaseOfferDetails() { return oneTimePurchaseOfferDetails; }
     public List<SubscriptionOfferDetails> getSubscriptionOfferDetails() { return subscriptionOfferDetailsList; }
 
-    @Deprecated
-    public SubscriptionOfferDetails getSubscriptionOfferDetails() { return subscriptionOfferDetails; }
-
-    private SubscriptionOfferDetails subscriptionOfferDetails;
-
     public static class OneTimePurchaseOfferDetails {
         private long priceAmountMicros;
         private String formattedPrice;
