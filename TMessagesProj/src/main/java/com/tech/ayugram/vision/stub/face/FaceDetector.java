@@ -52,6 +52,11 @@ public class FaceDetector {
             return this;
         }
 
+        public Builder setTrackingEnabled(boolean enabled) {
+            this.trackingEnabled = enabled;
+            return this;
+        }
+
         public FaceDetector build() {
             FaceDetector detector = new FaceDetector(context);
             detector.landmarkType = this.landmarkType;

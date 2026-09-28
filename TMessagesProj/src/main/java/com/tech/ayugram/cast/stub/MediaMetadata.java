@@ -1,11 +1,14 @@
 package com.tech.ayugram.cast.stub;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MediaMetadata {
     private int type;
     private Map<String, Object> data = new HashMap<>();
+    private List<com.google.android.gms.common.images.WebImage> images = new ArrayList<>();
 
     public MediaMetadata() {}
 
@@ -30,6 +33,14 @@ public class MediaMetadata {
 
     public void putBitmap(String key, android.graphics.Bitmap value) {
         data.put(key, value);
+    }
+
+    public void addImage(com.google.android.gms.common.images.WebImage image) {
+        images.add(image);
+    }
+
+    public List<com.google.android.gms.common.images.WebImage> getImages() {
+        return images;
     }
 
     public String getString(String key) {
