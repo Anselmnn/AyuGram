@@ -34,6 +34,7 @@ public class Task<T> {
     public boolean isComplete() { return false; }
     public boolean isCanceled() { return false; }
     public T getResult() { return null; }
+    public <X extends Throwable> T getResult(Class<X> exceptionClass) throws X { return null; }
     public Exception getException() { return null; }
 
     public static <T> Task<T> forResult(T result) {
