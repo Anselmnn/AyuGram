@@ -1,6 +1,7 @@
 package com.tech.ayugram.maps.stub;
 
 import com.tech.ayugram.maps.stub.LatLng;
+import com.tech.ayugram.maps.stub.model.LatLngBounds;
 
 public class CameraUpdateFactory {
     public static CameraUpdate newLatLng(LatLng latLng) {
@@ -37,5 +38,9 @@ public class CameraUpdateFactory {
 
     public static CameraUpdate newCameraPosition(CameraPosition cameraPosition) {
         return CameraUpdate.newCameraPosition(cameraPosition);
+    }
+
+    public static CameraUpdate newLatLngBounds(LatLngBounds bounds, int padding) {
+        return new CameraUpdate();
     }
 }
