@@ -4,6 +4,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'org.telegram.build-plugin'
 apply plugin: 'idea'
 
+ext {
+    forceRebuild = "20260929-006"
+}
+
 idea {
     module {
         excludeDirs += [
