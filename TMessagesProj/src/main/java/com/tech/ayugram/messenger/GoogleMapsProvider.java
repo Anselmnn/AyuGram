@@ -25,7 +25,7 @@ import com.tech.ayugram.maps.stub.model.Circle;
 import com.tech.ayugram.maps.stub.model.CircleOptions;
 import com.tech.ayugram.maps.stub.model.Dash;
 import com.tech.ayugram.maps.stub.model.Gap;
-import LatLngBounds;
+import com.tech.ayugram.maps.stub.model.LatLngBounds;
 import com.tech.ayugram.maps.stub.model.MapStyleOptions;
 import com.tech.ayugram.maps.stub.model.Marker;
 import com.tech.ayugram.maps.stub.model.MarkerOptions;
