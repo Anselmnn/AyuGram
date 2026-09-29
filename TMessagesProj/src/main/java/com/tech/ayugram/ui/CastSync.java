@@ -13,6 +13,5 @@ public class CastSync {
     public static float getDeviceVolume() { return 1.0f; }
     public static float getVolume() { return 1.0f; }
     public static float getSpeed() { return 1.0f; }
-    public static boolean isPlaying() { return false; }
     public static void setPlaying(boolean playing) {}
 }
