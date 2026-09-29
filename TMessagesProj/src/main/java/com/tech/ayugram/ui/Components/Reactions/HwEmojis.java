@@ -8,4 +8,7 @@ public class HwEmojis {
     public static boolean grabIfWeakDevice(View view, Object context) { return false; }
     public static boolean grabIfWeakDevice(Object context) { return false; }
     public static boolean isHwEnabledOrPreparing() { return false; }
+    public static void exec() {}
+    public static boolean isHwEnabled() { return false; }
+    public static boolean isPreparing() { return false; }
 }
