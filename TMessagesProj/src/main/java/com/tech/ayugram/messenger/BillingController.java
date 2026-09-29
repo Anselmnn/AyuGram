@@ -60,6 +60,10 @@ public class BillingController {
         return null;
     }
 
+    public String getLastPremiumToken() {
+        return null;
+    }
+
     public static String getResponseCodeString(int responseCode) {
         return String.valueOf(responseCode);
     }

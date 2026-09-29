@@ -4,11 +4,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class IsReadyToPayRequest {
-    public static IsReadyToPayRequest fromJson(String json) throws org.json.JSONException {
+    private JSONObject json;
+
+    public static IsReadyToPayRequest fromJson(String json) throws Exception {
         return new IsReadyToPayRequest();
     }
 
-    public static IsReadyToPayRequest fromJson(JSONObject json) {
-        return new IsReadyToPayRequest();
-    }
+    public JSONObject toJson() { return new JSONObject(); }
 }

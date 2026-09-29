@@ -1,49 +1,17 @@
 package com.tech.ayugram.messenger;
 
+import android.app.Service;
 import android.content.Intent;
+import android.os.IBinder;
 
-import androidx.annotation.NonNull;
-
-import com.tech.ayugram.wearable.stub.MessageEvent;
-import com.tech.ayugram.wearable.stub.WearableListenerService;
-
-import com.tech.ayugram.ui.LaunchActivity;
-import com.tech.ayugram.ui.WearAuthSheet;
-
-public class WearAuthListenerService extends WearableListenerService {
-
-    public static final String PATH_OFFER = "/tg-wear-auth/offer";
-    public static final String PATH_CANCEL = "/tg-wear-auth/cancel";
+public class WearAuthListenerService extends Service {
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 
     @Override
-    public void onMessageReceived(@NonNull MessageEvent event) {
-        final String path = event.getPath();
-        final String node = event.getSourceNodeId();
-        final byte[] data = event.getData();
-        if (PATH_OFFER.equals(path)) {
-            try {
-                Intent intent = new Intent(this, LaunchActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                    | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-            } catch (Exception e) {
-                FileLog.e("wear-auth: failed to pop LaunchActivity", e);
-            }
-        }
-        AndroidUtilities.runOnUIThread(() -> {
-            switch (path) {
-                case PATH_OFFER:
-                    FileLog.d("wear-auth: offer from " + node + " (" + data.length + " bytes)");
-                    WearAuthSheet.onOfferReceived(data, node);
-                    break;
-                case PATH_CANCEL:
-                    FileLog.d("wear-auth: cancel from " + node);
-                    WearAuthSheet.onCancelReceived();
-                    break;
-                default:
-                    FileLog.d("wear-auth: unexpected path " + path);
-                    break;
-            }
-        });
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_STICKY;
     }
 }

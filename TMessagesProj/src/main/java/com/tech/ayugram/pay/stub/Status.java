@@ -1,40 +1,18 @@
 package com.tech.ayugram.pay.stub;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.os.Bundle;
 
 public class Status {
-    private int statusCode;
-    private String statusMessage;
+    public static Status getStatusFromIntent(Intent data) { return new Status(); }
+    public int getStatusCode() { return 0; }
+    public String getStatusMessage() { return ""; }
+    public boolean isSuccess() { return false; }
+    public boolean isCanceled() { return false; }
 
-    public Status() {
-        this.statusCode = 0;
-    }
-
-    public Status(int statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public int getStatusCode() {
-        return statusCode;
-    }
-
-    public String getStatusMessage() {
-        return statusMessage;
-    }
-
-    public boolean isSuccess() {
-        return statusCode == 0;
-    }
-
-    public boolean isCanceled() {
-        return statusCode == 16;
-    }
-
-    public boolean isInterrupted() {
-        return statusCode == 14;
-    }
-
-    public static Status getStatusFromIntent(android.content.Intent intent) {
-        return new Status();
-    }
+    public void startResolutionForResult(Activity activity, int requestCode) throws IntentSender.SendIntentException {}
+    public void startResolutionForResult(Activity activity, int requestCode, IntentSender intentSender) throws IntentSender.SendIntentException {}
+    public void startResolutionForResult(Activity activity, int requestCode, IntentSender intentSender, Bundle bundle) throws IntentSender.SendIntentException {}
 }

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 
-public final class GoogleSignIn {
+public class GoogleSignIn {
     private GoogleSignIn() {}
 
     @NonNull
@@ -28,94 +28,94 @@ public final class GoogleSignIn {
         return com.tech.ayugram.play.stub.Task.forResult(null);
     }
 
-    public static final String VERSION = "2026.09.29.3";
+    public static final String VERSION = "2026.09.29.4";
+}
 
-    public static final class GoogleSignInClient {
-        public com.tech.ayugram.play.stub.Task<GoogleSignInAccount> silentSignIn() {
-            return com.tech.ayugram.play.stub.Task.forResult(null);
-        }
-
-        public com.tech.ayugram.play.stub.Task<GoogleSignInAccount> signIn() {
-            return com.tech.ayugram.play.stub.Task.forResult(null);
-        }
-
-        public Intent getSignInIntent() {
-            return new Intent();
-        }
-
-        public com.tech.ayugram.play.stub.Task<Void> signOut() {
-            return com.tech.ayugram.play.stub.Task.forResult(null);
-        }
-
-        public com.tech.ayugram.play.stub.Task<Void> revokeAccess() {
-            return com.tech.ayugram.play.stub.Task.forResult(null);
-        }
+class GoogleSignInClient {
+    public com.tech.ayugram.play.stub.Task<GoogleSignInAccount> silentSignIn() {
+        return com.tech.ayugram.play.stub.Task.forResult(null);
     }
 
-    public static final class GoogleSignInAccount {
-        private String id;
-        private String email;
-        private String displayName;
-        private String givenName;
-        private String familyName;
-        private android.net.Uri photoUrl;
-        private String idToken;
-        private String serverAuthCode;
-
-        public String getId() { return id; }
-        public String getEmail() { return email; }
-        public String getDisplayName() { return displayName; }
-        public String getGivenName() { return givenName; }
-        public String getFamilyName() { return familyName; }
-        public android.net.Uri getPhotoUrl() { return photoUrl; }
-        public String getIdToken() { return idToken; }
-        public String getServerAuthCode() { return serverAuthCode; }
+    public com.tech.ayugram.play.stub.Task<GoogleSignInAccount> signIn() {
+        return com.tech.ayugram.play.stub.Task.forResult(null);
     }
 
-    public static final class GoogleSignInOptions {
-        public static final int DEFAULT_SIGN_IN = 1;
-        public static final int SIGN_IN = 2;
+    public Intent getSignInIntent() {
+        return new Intent();
+    }
 
-        private GoogleSignInOptions() {}
+    public com.tech.ayugram.play.stub.Task<Void> signOut() {
+        return com.tech.ayugram.play.stub.Task.forResult(null);
+    }
 
-        public static final class Builder {
-            private boolean requestIdToken = false;
-            private String serverClientId;
-            private boolean requestEmail = false;
-            private boolean requestProfile = false;
-            private boolean requestId = false;
+    public com.tech.ayugram.play.stub.Task<Void> revokeAccess() {
+        return com.tech.ayugram.play.stub.Task.forResult(null);
+    }
+}
 
-            public Builder() {}
+class GoogleSignInAccount {
+    private String id;
+    private String email;
+    private String displayName;
+    private String givenName;
+    private String familyName;
+    private android.net.Uri photoUrl;
+    private String idToken;
+    private String serverAuthCode;
 
-            public Builder requestIdToken(String serverClientId) {
-                this.requestIdToken = true;
-                this.serverClientId = serverClientId;
-                return this;
-            }
+    public String getId() { return id; }
+    public String getEmail() { return email; }
+    public String getDisplayName() { return displayName; }
+    public String getGivenName() { return givenName; }
+    public String getFamilyName() { return familyName; }
+    public android.net.Uri getPhotoUrl() { return photoUrl; }
+    public String getIdToken() { return idToken; }
+    public String getServerAuthCode() { return serverAuthCode; }
+}
 
-            public Builder requestServerAuthCode(String serverClientId) {
-                this.serverClientId = serverClientId;
-                return this;
-            }
+class GoogleSignInOptions {
+    public static final int DEFAULT_SIGN_IN = 1;
+    public static final int SIGN_IN = 2;
 
-            public Builder requestEmail() {
-                this.requestEmail = true;
-                return this;
-            }
+    private GoogleSignInOptions() {}
 
-            public Builder requestProfile() {
-                this.requestProfile = true;
-                return this;
-            }
+    public static class Builder {
+        private boolean requestIdToken = false;
+        private String serverClientId;
+        private boolean requestEmail = false;
+        private boolean requestProfile = false;
+        private boolean requestId = false;
 
-            public Builder requestId() {
-                this.requestId = true;
-                return this;
-            }
+        public Builder() {}
 
-            public GoogleSignInOptions build() {
-                return new GoogleSignInOptions();
-            }
+        public Builder requestIdToken(String serverClientId) {
+            this.requestIdToken = true;
+            this.serverClientId = serverClientId;
+            return this;
+        }
+
+        public Builder requestServerAuthCode(String serverClientId) {
+            this.serverClientId = serverClientId;
+            return this;
+        }
+
+        public Builder requestEmail() {
+            this.requestEmail = true;
+            return this;
+        }
+
+        public Builder requestProfile() {
+            this.requestProfile = true;
+            return this;
+        }
+
+        public Builder requestId() {
+            this.requestId = true;
+            return this;
+        }
+
+        public GoogleSignInOptions build() {
+            return new GoogleSignInOptions();
         }
     }
 }

@@ -522,6 +522,10 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         return this;
     }
 
+    public void setForcePremium() {
+        // Billing removed in Phase 2
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public View createView(Context context) {
