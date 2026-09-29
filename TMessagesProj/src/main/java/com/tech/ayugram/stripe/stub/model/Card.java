@@ -16,6 +16,23 @@ public class Card {
 
     public Card() {}
 
+    public Card(String number, Integer expMonth, Integer expYear, String cvc, String name,
+                String addressLine1, String addressLine2, String addressCity, String addressState,
+                String addressZip, String addressCountry, String currency) {
+        this.number = number;
+        this.expMonth = expMonth != null ? expMonth : 0;
+        this.expYear = expYear != null ? expYear : 0;
+        this.cvc = cvc;
+        this.name = name;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.addressCity = addressCity;
+        this.addressState = addressState;
+        this.addressZip = addressZip;
+        this.addressCountry = addressCountry;
+        this.currency = currency;
+    }
+
     public Card setNumber(String number) { this.number = number; return this; }
     public Card setExpMonth(int expMonth) { this.expMonth = expMonth; return this; }
     public Card setExpYear(int expYear) { this.expYear = expYear; return this; }
@@ -41,4 +58,9 @@ public class Card {
     public String getAddressZip() { return addressZip; }
     public String getAddressCountry() { return addressCountry; }
     public String getCurrency() { return currency; }
+
+    public String getBrand() { return "Visa"; }
+    public String getLast4() { return "4242"; }
+
+    public boolean validateNumber() { return true; }
 }

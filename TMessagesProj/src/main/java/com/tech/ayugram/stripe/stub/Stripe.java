@@ -13,6 +13,10 @@ public class Stripe {
         this.publishableKey = publishableKey;
     }
 
+    public Stripe(String publishableKey) {
+        this.publishableKey = publishableKey;
+    }
+
     public void createToken(Card card, TokenCallback callback) {
         callback.onError(new Exception("Stripe removed in Phase 2"));
     }

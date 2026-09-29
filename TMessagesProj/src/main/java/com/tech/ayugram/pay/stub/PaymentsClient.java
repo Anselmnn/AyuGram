@@ -26,7 +26,7 @@ public class PaymentsClient {
 
     private PaymentsClient() {}
 
-    public static PaymentsClient getPaymentsClient(Context context, WalletOptions walletOptions) {
+    public static PaymentsClient getPaymentsClient(Context context, com.tech.ayugram.pay.stub.Wallet.WalletOptions walletOptions) {
         return new PaymentsClient();
     }
 

@@ -33,7 +33,7 @@ public class Wallet {
 
     private Wallet() {}
 
-    public static com.tech.ayugram.pay.stub.PaymentsClient getPaymentsClient(Context context, com.tech.ayugram.pay.stub.PaymentsClient.WalletOptions walletOptions) {
+    public static com.tech.ayugram.pay.stub.PaymentsClient getPaymentsClient(Context context, com.tech.ayugram.pay.stub.Wallet.WalletOptions walletOptions) {
         return com.tech.ayugram.pay.stub.PaymentsClient.getPaymentsClient(context, walletOptions);
     }
 }

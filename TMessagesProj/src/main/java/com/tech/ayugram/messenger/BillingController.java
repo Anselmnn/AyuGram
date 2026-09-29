@@ -31,8 +31,8 @@ public class BillingController {
         callback.onResult(new BillingResult(BillingClient.BillingResponseCode.ERROR, "Billing removed"), null);
     }
 
-    public void queryPurchases(int productType, BillingResultCallback callback) {
-        callback.onResult(new BillingResult(BillingClient.BillingResponseCode.ERROR, "Billing removed"), null);
+    public void queryPurchases(int productType, PurchaseCallback callback) {
+        callback.onPurchasesResult(new BillingResult(BillingClient.BillingResponseCode.ERROR, "Billing removed"), null);
     }
 
     public void addResultListener(String productId, BillingResultListener listener) {}
@@ -67,6 +67,10 @@ public class BillingController {
         // Billing removed in Phase 2
     }
 
+    public void setOnCanceled(Runnable runnable) {
+        // Billing removed in Phase 2
+    }
+
     public String getPriceCurrencyCode() {
         return "USD";
     }
@@ -98,6 +102,10 @@ public class BillingController {
 
     public interface BillingResultCallback {
         void onResult(BillingResult billingResult, List<ProductDetails> list);
+    }
+
+    public interface PurchaseCallback {
+        void onPurchasesResult(BillingResult billingResult, List<com.tech.ayugram.play.stub.Purchase> list);
     }
 
     public interface BillingResultListener {

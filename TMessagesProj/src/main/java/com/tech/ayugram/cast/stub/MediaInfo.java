@@ -39,6 +39,11 @@ public class MediaInfo {
             return this;
         }
 
+        public Builder setStreamType(String streamType) {
+            this.streamType = streamType;
+            return this;
+        }
+
         public Builder setMetadata(MediaMetadata metadata) {
             this.metadata = metadata;
             return this;

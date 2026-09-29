@@ -22,4 +22,8 @@ public class Purchase {
     public String getOriginalJson() { return originalJson; }
     public String getSignature() { return signature; }
     public boolean isAcknowledged() { return isAcknowledged; }
+
+    public java.util.List<String> getProducts() {
+        return java.util.Collections.singletonList(productId);
+    }
 }

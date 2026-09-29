@@ -8,7 +8,7 @@ public class AutoResolveHelper {
 
     public static void resolveTask(com.tech.ayugram.play.stub.Task<?> task, Activity activity, int requestCode) {}
 
-    public static int getStatusFromIntent(Intent data) {
-        return 0;
+    public static com.tech.ayugram.pay.stub.Status getStatusFromIntent(Intent data) {
+        return new com.tech.ayugram.pay.stub.Status();
     }
 }

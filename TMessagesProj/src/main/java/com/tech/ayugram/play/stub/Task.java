@@ -1,5 +1,7 @@
 package com.tech.ayugram.play.stub;
 
+import android.app.Activity;
+
 public class Task<T> {
     private Task() {}
 
@@ -20,9 +22,13 @@ public class Task<T> {
     }
 
     public Task<T> addOnSuccessListener(OnSuccessListener<T> listener) { return this; }
+    public Task<T> addOnSuccessListener(Activity activity, OnSuccessListener<T> listener) { return this; }
     public Task<T> addOnFailureListener(OnFailureListener listener) { return this; }
+    public Task<T> addOnFailureListener(Activity activity, OnFailureListener listener) { return this; }
     public Task<T> addOnCompleteListener(OnCompleteListener<T> listener) { return this; }
+    public Task<T> addOnCompleteListener(Activity activity, OnCompleteListener<T> listener) { return this; }
     public Task<T> addOnCanceledListener(OnCanceledListener listener) { return this; }
+    public Task<T> addOnCanceledListener(Activity activity, OnCanceledListener listener) { return this; }
 
     public boolean isSuccessful() { return false; }
     public boolean isComplete() { return false; }
