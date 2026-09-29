@@ -23,12 +23,12 @@ public class GoogleSignIn {
         return null;
     }
 
+    @NonNull
     public static com.tech.ayugram.play.stub.Task<GoogleSignInAccount> getSignedInAccountFromIntent(@NonNull Intent intent) {
         return com.tech.ayugram.play.stub.Task.forResult(null);
     }
 
-    // Force recompilation
-    public static final String VERSION = "2026.09.29.1";
+    public static final String VERSION = "2026.09.29.2";
 
     public static class GoogleSignInClient {
         public com.tech.ayugram.play.stub.Task<GoogleSignInAccount> silentSignIn() {
