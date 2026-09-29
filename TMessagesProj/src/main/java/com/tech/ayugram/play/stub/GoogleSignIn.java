@@ -19,11 +19,6 @@ public class GoogleSignIn {
     }
 
     @NonNull
-    public static GoogleSignInClient getClient(@NonNull android.content.Context context, @NonNull GoogleSignInOptions options) {
-        return new GoogleSignInClient();
-    }
-
-    @NonNull
     public static GoogleSignInAccount getLastSignedInAccount(@NonNull Context context) {
         return null;
     }
