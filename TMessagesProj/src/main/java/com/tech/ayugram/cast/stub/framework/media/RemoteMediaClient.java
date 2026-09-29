@@ -25,7 +25,7 @@ public class RemoteMediaClient {
 
     public int getIdleReason() { return 0; }
 
-    public Task<Void> queueSetRepeatMode(int repeatMode, com.tech.ayugram.cast.stub.MediaQueueItem[] items) {
+    public Task<Void> queueSetRepeatMode(int repeatMode, Object[] items) {
         return com.tech.ayugram.play.stub.Task.forResult(null);
     }
 
