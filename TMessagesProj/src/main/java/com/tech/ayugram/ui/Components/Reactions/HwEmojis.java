@@ -11,4 +11,13 @@ public class HwEmojis {
     public static void exec() {}
     public static boolean isHwEnabled() { return false; }
     public static boolean isPreparing() { return false; }
+    public static boolean grab(View view) { return false; }
+    public static boolean grab(Object context) { return false; }
+    public static boolean grab(Object context, int flags) { return false; }
+    public static void beforePreparing() {}
+    public static boolean isFirstOpen() { return false; }
+    public static boolean isCascade() { return false; }
+    public static void disableHw() {}
+    public static void prepare(Runnable callback, boolean flag) {}
+    public static void enableHw() {}
 }
