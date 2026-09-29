@@ -54,12 +54,12 @@ public class GoogleMapsProvider implements IMapsProvider {
 
     @Override
     public ICameraUpdate newCameraUpdateLatLng(LatLng latLng) {
-        return new GoogleCameraUpdate(CameraUpdateFactory.newLatLng(new LatLng(latLng.latitude, latLng.longitude)));
+        return new GoogleCameraUpdate(CameraUpdateFactory.newLatLng(new com.tech.ayugram.maps.stub.LatLng(latLng.latitude, latLng.longitude)));
     }
 
     @Override
     public ICameraUpdate newCameraUpdateLatLngZoom(LatLng latLng, float zoom) {
-        return new GoogleCameraUpdate(CameraUpdateFactory.newLatLngZoom(new LatLng(latLng.latitude, latLng.longitude), zoom));
+        return new GoogleCameraUpdate(CameraUpdateFactory.newLatLngZoom(new com.tech.ayugram.maps.stub.LatLng(latLng.latitude, latLng.longitude), zoom));
     }
 
     @Override
@@ -171,7 +171,7 @@ public class GoogleMapsProvider implements IMapsProvider {
         @Override
         public CameraPosition getCameraPosition() {
             com.tech.ayugram.maps.stub.model.CameraPosition pos = googleMap.getCameraPosition();
-            return new CameraPosition(new LatLng(pos.target.latitude, pos.target.longitude), pos.zoom);
+            return new CameraPosition(new com.tech.ayugram.maps.stub.LatLng(pos.target.latitude, pos.target.longitude), pos.zoom);
         }
 
         @Override
@@ -292,12 +292,12 @@ public class GoogleMapsProvider implements IMapsProvider {
             @Override
             public LatLng getPosition() {
                 LatLng latLng = marker.getPosition();
-                return new LatLng(latLng.latitude, latLng.longitude);
+                return new com.tech.ayugram.maps.stub.LatLng(latLng.latitude, latLng.longitude);
             }
 
             @Override
             public void setPosition(LatLng latLng) {
-                marker.setPosition(new LatLng(latLng.latitude, latLng.longitude));
+                marker.setPosition(new com.tech.ayugram.maps.stub.LatLng(latLng.latitude, latLng.longitude));
             }
 
             @Override
@@ -351,7 +351,7 @@ public class GoogleMapsProvider implements IMapsProvider {
 
             @Override
             public void setCenter(LatLng latLng) {
-                circle.setCenter(new LatLng(latLng.latitude, latLng.longitude));
+                circle.setCenter(new com.tech.ayugram.maps.stub.LatLng(latLng.latitude, latLng.longitude));
             }
 
             @Override
@@ -371,7 +371,7 @@ public class GoogleMapsProvider implements IMapsProvider {
 
         @Override
         public Point toScreenLocation(LatLng latLng) {
-            return projection.toScreenLocation(new LatLng(latLng.latitude, latLng.longitude));
+            return projection.toScreenLocation(new com.tech.ayugram.maps.stub.LatLng(latLng.latitude, latLng.longitude));
         }
     }
 
@@ -407,7 +407,7 @@ public class GoogleMapsProvider implements IMapsProvider {
 
         @Override
         public ICircleOptions center(LatLng latLng) {
-            circleOptions.center(new LatLng(latLng.latitude, latLng.longitude));
+            circleOptions.center(new com.tech.ayugram.maps.stub.LatLng(latLng.latitude, latLng.longitude));
             return this;
         }
 
@@ -459,7 +459,7 @@ public class GoogleMapsProvider implements IMapsProvider {
 
         @Override
         public IMarkerOptions position(LatLng latLng) {
-            markerOptions.position(new LatLng(latLng.latitude, latLng.longitude));
+            markerOptions.position(new com.tech.ayugram.maps.stub.LatLng(latLng.latitude, latLng.longitude));
             return this;
         }
 
@@ -509,7 +509,7 @@ public class GoogleMapsProvider implements IMapsProvider {
 
         @Override
         public ILatLngBoundsBuilder include(LatLng latLng) {
-            builder.include(new LatLng(latLng.latitude, latLng.longitude));
+            builder.include(new com.tech.ayugram.maps.stub.LatLng(latLng.latitude, latLng.longitude));
             return this;
         }
 
@@ -529,7 +529,7 @@ public class GoogleMapsProvider implements IMapsProvider {
         @Override
         public LatLng getCenter() {
             LatLng latLng = bounds.getCenter();
-            return new LatLng(latLng.latitude, latLng.longitude);
+            return new com.tech.ayugram.maps.stub.LatLng(latLng.latitude, latLng.longitude);
         }
     }
 
