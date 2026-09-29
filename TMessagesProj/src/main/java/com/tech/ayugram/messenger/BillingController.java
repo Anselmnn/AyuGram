@@ -9,6 +9,7 @@ import java.util.List;
 public class BillingController {
     private static volatile BillingController instance;
     public static ProductDetails PREMIUM_PRODUCT_DETAILS = null;
+    public static final String PREMIUM_PRODUCT_ID = "premium_subscription";
 
     public static BillingController getInstance() {
         if (instance == null) {
@@ -85,6 +86,11 @@ public class BillingController {
 
     public String getBillingPeriod() {
         return "P1M";
+    }
+
+    public void consumeGiftPurchase(com.tech.ayugram.play.stub.Purchase purchase, Object purpose, Runnable onSuccess) {
+        // Billing removed in Phase 2
+        if (onSuccess != null) onSuccess.run();
     }
 
     public static class BillingResult {

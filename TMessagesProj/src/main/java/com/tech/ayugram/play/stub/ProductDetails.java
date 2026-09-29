@@ -70,6 +70,7 @@ public class ProductDetails {
             public long getPriceAmountMicros() { return priceAmountMicros; }
             public String getFormattedPrice() { return formattedPrice; }
             public String getCurrencyCode() { return currencyCode; }
+            public String getPriceCurrencyCode() { return currencyCode; }
             public int getBillingPeriodCount() { return billingPeriodCount; }
             public String getBillingPeriod() { return billingPeriod; }
         }

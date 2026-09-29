@@ -3,19 +3,23 @@ package com.tech.ayugram.play.stub;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import androidx.annotation.NonNull;
 
 public class GoogleSignIn {
     private GoogleSignIn() {}
 
-    public static GoogleSignInClient getClient(Activity activity, GoogleSignInOptions options) {
+    @NonNull
+    public static GoogleSignInClient getClient(@NonNull Activity activity, @NonNull GoogleSignInOptions options) {
         return new GoogleSignInClient();
     }
 
-    public static GoogleSignInClient getClient(Context context, GoogleSignInOptions options) {
+    @NonNull
+    public static GoogleSignInClient getClient(@NonNull Context context, @NonNull GoogleSignInOptions options) {
         return new GoogleSignInClient();
     }
 
-    public static GoogleSignInAccount getLastSignedInAccount(Context context) {
+    @NonNull
+    public static GoogleSignInAccount getLastSignedInAccount(@NonNull Context context) {
         return null;
     }
 

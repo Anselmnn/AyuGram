@@ -14,9 +14,27 @@ public class Wearable {
         return Task.forResult(null);
     }
 
+    public static MessageClient getMessageClient(Context context) {
+        return new MessageClient();
+    }
+
+    public static DataClient getDataClient(Context context) {
+        return new DataClient();
+    }
+
     public static class ListenerService {
         public void onMessageReceived(MessageEvent messageEvent) {}
         public void onDataChanged(DataEventBuffer dataEventBuffer) {}
+    }
+
+    public static class MessageClient {
+        public Task<Integer> sendMessage(String nodeId, String path, byte[] data) {
+            return Task.forResult(0);
+        }
+    }
+
+    public static class DataClient {
+        // Data client methods
     }
 
     public static class MessageEvent {
