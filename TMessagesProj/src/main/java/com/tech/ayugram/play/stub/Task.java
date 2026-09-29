@@ -3,6 +3,7 @@ package com.tech.ayugram.play.stub;
 import android.app.Activity;
 
 public class Task<T> {
+    public static final String VERSION = "2026.09.29.4";
     private Task() {}
 
     public interface OnSuccessListener<T> {

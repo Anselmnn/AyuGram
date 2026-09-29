@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 
-public class GoogleSignIn {
+public final class GoogleSignIn {
     private GoogleSignIn() {}
 
     @NonNull
@@ -28,9 +28,9 @@ public class GoogleSignIn {
         return com.tech.ayugram.play.stub.Task.forResult(null);
     }
 
-    public static final String VERSION = "2026.09.29.2";
+    public static final String VERSION = "2026.09.29.3";
 
-    public static class GoogleSignInClient {
+    public static final class GoogleSignInClient {
         public com.tech.ayugram.play.stub.Task<GoogleSignInAccount> silentSignIn() {
             return com.tech.ayugram.play.stub.Task.forResult(null);
         }
@@ -52,7 +52,7 @@ public class GoogleSignIn {
         }
     }
 
-    public static class GoogleSignInAccount {
+    public static final class GoogleSignInAccount {
         private String id;
         private String email;
         private String displayName;
@@ -72,13 +72,13 @@ public class GoogleSignIn {
         public String getServerAuthCode() { return serverAuthCode; }
     }
 
-    public static class GoogleSignInOptions {
+    public static final class GoogleSignInOptions {
         public static final int DEFAULT_SIGN_IN = 1;
         public static final int SIGN_IN = 2;
 
         private GoogleSignInOptions() {}
 
-        public static class Builder {
+        public static final class Builder {
             private boolean requestIdToken = false;
             private String serverClientId;
             private boolean requestEmail = false;
