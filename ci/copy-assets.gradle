@@ -1,0 +1,13 @@
+// Copy assets and native libraries
+task copyAssets(type: Copy) {
+    from 'src/main/assets'
+    into 'build/intermediates/merged_assets/debug/out'
+}
+
+task copyJniLibs(type: Copy) {
+    from 'src/main/jniLibs'
+    into 'build/intermediates/merged_jni_libs/debug/out'
+}
+
+tasks.named('mergeDebugAssets') { finalizedBy copyAssets }
+tasks.named('mergeDebugJniLibs') { finalizedBy copyJniLibs }

@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Ghost Mode -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ghost_mode"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/textPrimary" />
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/ghost_mode_desc"
+            android:textSize="14sp"
+            android:textColor="@color/textSecondary" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:background="@drawable/preference_background">
+            
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ghost_mode"
+                    android:textSize="16sp"
+                    android:textColor="@color/textPrimary" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ghost_mode_desc"
+                    android:textSize="13sp"
+                    android:textColor="@color/textSecondary" />
+            </LinearLayout>
+            
+            <Switch
+                android:id="@+id/switch_ghost_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Hide Reactions (B1) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/preference_background">
+            
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hide Reactions (B1)"
+                    android:textSize="16sp"
+                    android:textColor="@color/textPrimary" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hide reaction counts and animations"
+                    android:textSize="13sp"
+                    android:textColor="@color/textSecondary" />
+            </LinearLayout>
+            
+            <Switch
+                android:id="@+id/switch_hide_reactions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Remember Send Options (B5) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/preference_background">
+            
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Remember Send Options (B5)"
+                    android:textSize="16sp"
+                    android:textColor="@color/textPrimary" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Remember last used send options (silent, schedule, etc.)"
+                    android:textSize="13sp"
+                    android:textColor="@color/textSecondary" />
+            </LinearLayout>
+            
+            <Switch
+                android:id="@+id/switch_remember_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Hide Panel Buttons (B6) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/preference_background">
+            
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hide Panel Buttons (B6)"
+                    android:textSize="16sp"
+                    android:textColor="@color/textPrimary" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hide attach/media/emoji buttons in chat input panel"
+                    android:textSize="13sp"
+                    android:textColor="@color/textSecondary" />
+            </LinearLayout>
+            
+            <Switch
+                android:id="@+id/switch_hide_panel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Local Premium -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/preference_background">
+            
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/local_premium"
+                    android:textSize="16sp"
+                    android:textColor="@color/textPrimary" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Enable local premium features without server validation"
+                    android:textSize="13sp"
+                    android:textColor="@color/textSecondary" />
+            </LinearLayout>
+            
+            <Switch
+                android:id="@+id/switch_local_premium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Save/Restore -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/preference_background">
+            
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save_restore"
+                    android:textSize="16sp"
+                    android:textColor="@color/textPrimary" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Backup and restore settings via service channel"
+                    android:textSize="13sp"
+                    android:textColor="@color/textSecondary" />
+            </LinearLayout>
+            
+            <Switch
+                android:id="@+id/switch_save_restore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Regex Filters -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/regex_filters"
+                android:textSize="16sp"
+                android:textColor="@color/textPrimary" />
+            
+            <TextView
+                android:id="@+id/text_regex_filters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="16dp"
+                android:background="@drawable/edit_text_background"
+                android:text="Tap to edit"
+                android:textSize="14sp"
+                android:textColor="@color/textSecondary" />
+        </LinearLayout>
+
+        <!-- Forwarder -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/preference_background">
+            
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/forwarder"
+                    android:textSize="16sp"
+                    android:textColor="@color/textPrimary" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Auto-forward messages matching rules"
+                    android:textSize="13sp"
+                    android:textColor="@color/textSecondary" />
+            </LinearLayout>
+            
+            <Switch
+                android:id="@+id/switch_forwarder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Push (R16) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/preference_background">
+            
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Push Notifications"
+                    android:textSize="16sp"
+                    android:textColor="@color/textPrimary" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Enable/disable FCM push notifications"
+                    android:textSize="13sp"
+                    android:textColor="@color/textSecondary" />
+            </LinearLayout>
+            
+            <Switch
+                android:id="@+id/switch_push"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- GMS Override -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gms_override"
+                android:textSize="16sp"
+                android:textColor="@color/textPrimary" />
+            
+            <TextView
+                android:id="@+id/text_gms_override"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="16dp"
+                android:background="@drawable/edit_text_background"
+                android:text="com.google.android.gms (or microG package)"
+                android:textSize="14sp"
+                android:textColor="@color/textSecondary" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

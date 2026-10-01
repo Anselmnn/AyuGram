@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_media"
+        android:title="Media"
+        android:icon="@android:drawable/ic_menu_gallery"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_files"
+        android:title="Files"
+        android:icon="@android:drawable/ic_menu_agenda"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_mute"
+        android:title="Mute"
+        android:icon="@android:drawable/ic_lock_silent_mode"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_clear_history"
+        android:title="Clear History"
+        android:icon="@android:drawable/ic_menu_delete"
+        app:showAsAction="never" />
+</menu>

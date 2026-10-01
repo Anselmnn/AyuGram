@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+    
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">127.0.0.1</domain>
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">10.0.2.2</domain>
+    </domain-config>
+    
+    <!-- Telegram MTProto endpoints - HTTPS only -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">telegram.org</domain>
+        <domain includeSubdomains="true">telegram.me</domain>
+        <domain includeSubdomains="true">t.me</domain>
+        <domain includeSubdomains="true">cdn.telegram.org</domain>
+        <domain includeSubdomains="true">venus.telegram.org</domain>
+        <domain includeSubdomains="true">pluto.telegram.org</domain>
+        <domain includeSubdomains="true">mercury.telegram.org</domain>
+        <domain includeSubdomains="true">mars.telegram.org</domain>
+        <domain includeSubdomains="true">saturn.telegram.org</domain>
+    </domain-config>
+    
+    <!-- Google Maps (for hybrid maps) -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">maps.googleapis.com</domain>
+        <domain includeSubdomains="true">maps.gstatic.com</domain>
+        <domain includeSubdomains="true">mt0.google.com</domain>
+        <domain includeSubdomains="true">mt1.google.com</domain>
+        <domain includeSubdomains="true">mt2.google.com</domain>
+        <domain includeSubdomains="true">mt3.google.com</domain>
+    </domain-config>
+    
+    <!-- Yandex Static Maps (fallback in master) -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">static-maps.yandex.ru</domain>
+    </domain-config>
+    
+    <!-- MapLibre / OSM tiles (for no-GMS maps) -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">tile.openstreetmap.org</domain>
+        <domain includeSubdomains="true">a.tile.openstreetmap.org</domain>
+        <domain includeSubdomains="true">b.tile.openstreetmap.org</domain>
+        <domain includeSubdomains="true">c.tile.openstreetmap.org</domain>
+        <domain includeSubdomains="true">maps.libre.io</domain>
+    </domain-config>
+    
+    <!-- FCM -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">fcm.googleapis.com</domain>
+        <domain includeSubdomains="true">android.googleapis.com</domain>
+    </domain-config>
+    
+    <!-- Chromecast local network -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">*.local</domain>
+    </domain-config>
+</network-security-config>

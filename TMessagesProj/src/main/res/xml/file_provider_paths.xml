@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- External files -->
+    <external-files-path name="external_files" path="." />
+    <external-files-path name="external_files_downloads" path="Download/" />
+    <external-files-path name="external_files_telegram" path="Telegram/" />
+    <external-files-path name="external_files_telegram_downloads" path="Telegram/Downloads/" />
+    <external-files-path name="external_files_telegram_documents" path="Telegram/Documents/" />
+    <external-files-path name="external_files_telegram_images" path="Telegram/Images/" />
+    <external-files-path name="external_files_telegram_video" path="Telegram/Video/" />
+    <external-files-path name="external_files_telegram_audio" path="Telegram/Audio/" />
+    
+    <!-- External cache -->
+    <external-cache-path name="external_cache" path="." />
+    
+    <!-- Internal files -->
+    <files-path name="internal_files" path="." />
+    <files-path name="internal_cache" path="cache/" />
+    
+    <!-- Media store (Android 10+) -->
+    <external-media-path name="external_media" path="." />
+    
+    <!-- Root (for legacy) -->
+    <root-path name="root" path="." />
+</paths>

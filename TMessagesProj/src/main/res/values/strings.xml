@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">AyuGram</string>
+    <string name="app_name_short">AyuGram</string>
+    
+    <!-- Permissions strings -->
+    <string name="perm_read_contacts">Allow AyuGram to access your contacts to find friends on Telegram</string>
+    <string name="perm_write_contacts">Allow AyuGram to save contacts to your device</string>
+    <string name="perm_read_media">Allow AyuGram to access photos, videos, and audio on your device</string>
+    <string name="perm_write_external">Allow AyuGram to save files to your device</string>
+    <string name="perm_location">Allow AyuGram to access your location for sharing</string>
+    <string name="perm_record_audio">Allow AyuGram to record voice messages and video messages</string>
+    <string name="perm_notifications">Allow AyuGram to send you notifications</string>
+    <string name="perm_microphone">Allow AyuGram to use microphone for voice/video calls and messages</string>
+    <string name="perm_camera">Allow AyuGram to use camera for photos and videos</string>
+    <string name="perm_biometric">Allow AyuGram to use biometric authentication</string>
+    
+    <!-- General -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="done">Done</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="close">Close</string>
+    <string name="loading">Loading…</string>
+    <string name="error">Error</string>
+    <string name="retry">Retry</string>
+    
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="privacy_security">Privacy & Security</string>
+    <string name="data_storage">Data & Storage</string>
+    <string name="appearance">Appearance</string>
+    <string name="notifications_sounds">Notifications & Sounds</string>
+    <string name="devices">Devices</string>
+    <string name="language">Language</string>
+    
+    <!-- AyuGram specific -->
+    <string name="ayugram_settings">AyuGram Settings</string>
+    <string name="ghost_mode">Ghost Mode</string>
+    <string name="ghost_mode_desc">Hide online status, typing indicator, read receipts</string>
+    <string name="save_restore">Save/Restore</string>
+    <string name="regex_filters">Regex Filters</string>
+    <string name="forwarder">Forwarder</string>
+    <string name="local_premium">Local Premium</string>
+    
+    <!-- Maps -->
+    <string name="map_provider_google">Google Maps (requires GMS)</string>
+    <string name="map_provider_maplibre">MapLibre + OSM (no GMS)</string>
+    
+    <!-- Push -->
+    <string name="push_enabled">Push notifications enabled</string>
+    <string name="push_disabled">Push notifications disabled</string>
+    <string name="gms_override">GMS Package Override (microG/ReVanced)</string>
+</resources>

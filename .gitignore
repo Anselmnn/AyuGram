@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+*/build/
+*/build.gradle.kts.d/
+
+# Local configuration
+local.properties
+*.keystore
+*.jks
+gradlew.bat
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary
+*.tmp
+*.temp

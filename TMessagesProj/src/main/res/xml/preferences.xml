@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Account">
+        <Preference
+            android:key="pref_account"
+            android:title="Account Settings"
+            android:summary="Phone number, privacy, security" />
+        <Preference
+            android:key="pref_privacy"
+            android:title="Privacy & Security"
+            android:summary="Last seen, profile photo, calls, groups" />
+        <Preference
+            android:key="pref_two_step"
+            android:title="Two-Step Verification"
+            android:summary="Additional password for login" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Chat Settings">
+        <SwitchPreferenceCompat
+            android:key="pref_save_media"
+            android:title="Save to Gallery"
+            android:summary="Automatically save photos and videos to gallery"
+            android:defaultValue="true" />
+        <SwitchPreferenceCompat
+            android:key="pref_autoplay_media"
+            android:title="Autoplay Media"
+            android:summary="Autoplay videos and GIFs"
+            android:defaultValue="true" />
+        <SwitchPreferenceCompat
+            android:key="pref_autoplay_gifs"
+            android:title="Autoplay GIFs"
+            android:summary="Autoplay animated GIFs"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Notifications">
+        <Preference
+            android:key="pref_notifications"
+            android:title="Notification Settings"
+            android:summary="Sounds, vibration, preview" />
+        <SwitchPreferenceCompat
+            android:key="pref_sound"
+            android:title="Sound"
+            android:defaultValue="true" />
+        <SwitchPreferenceCompat
+            android:key="pref_vibrate"
+            android:title="Vibrate"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Data & Storage">
+        <Preference
+            android:key="pref_storage"
+            android:title="Storage Usage"
+            android:summary="Manage cached data" />
+        <SwitchPreferenceCompat
+            android:key="pref_auto_download_wifi"
+            android:title="Auto-download on WiFi"
+            android:defaultValue="true" />
+        <SwitchPreferenceCompat
+            android:key="pref_auto_download_mobile"
+            android:title="Auto-download on Mobile"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Appearance">
+        <Preference
+            android:key="pref_theme"
+            android:title="Theme"
+            android:summary="Light, Dark, System default" />
+        <Preference
+            android:key="pref_chat_background"
+            android:title="Chat Background"
+            android:summary="Set custom wallpaper" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Language">
+        <ListPreference
+            android:key="pref_language"
+            android:title="App Language"
+            android:summary="Select interface language"
+            android:entries="@array/languages"
+            android:entryValues="@array/language_codes"
+            android:defaultValue="system" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Advanced">
+        <Preference
+            android:key="pref_proxy"
+            android:title="Proxy Settings"
+            android:summary="Configure MTProto proxy" />
+        <Preference
+            android:key="pref_logs"
+            android:title="Log Settings"
+            android:summary="Enable debug logging" />
+    </PreferenceCategory>
+</PreferenceScreen>

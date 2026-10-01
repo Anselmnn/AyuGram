@@ -1,0 +1,45 @@
+<resources>
+    <!-- AyuGram Colors (Telegram-like) -->
+    <color name="colorPrimary">#0088CC</color>
+    <color name="colorPrimaryDark">#006699</color>
+    <color name="colorAccent">#FF6B35</color>
+    
+    <!-- Background colors -->
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="background">#F5F5F5</color>
+    <color name="settingsBackground">#EEEEEE</color>
+    <color name="dialogBackground">#FFFFFF</color>
+    
+    <!-- Text colors -->
+    <color name="textPrimary">#212121</color>
+    <color name="textSecondary">#757575</color>
+    <color name="textHint">#9E9E9E</color>
+    <color name="textLink">#0088CC</color>
+    <color name="textError">#D32F2F</color>
+    
+    <!-- Divider -->
+    <color name="divider">#E0E0E0</color>
+    <color name="dividerDark">#BDBDBD</color>
+    
+    <!-- Message bubbles -->
+    <color name="bubbleOutgoing">#0088CC</color>
+    <color name="bubbleOutgoingText">#FFFFFF</color>
+    <color name="bubbleIncoming">#F1F0F0</color>
+    <color name="bubbleIncomingText">#212121</color>
+    
+    <!-- Status colors -->
+    <color name="statusOnline">#4CAF50</color>
+    <color name="statusOffline">#9E9E9E</color>
+    <color name="statusTyping">#FFC107</color>
+    
+    <!-- Notification -->
+    <color name="notificationColor">#0088CC</color>
+    
+    <!-- Map -->
+    <color name="mapMarkerColor">#0088CC</color>
+    
+    <!-- Transparent -->
+    <color name="transparent">#00000000</color>
+    <color name="blackOverlay">#80000000</color>
+    <color name="whiteOverlay">#80FFFFFF</color>
+</resources>
