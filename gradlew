@@ -46,10 +46,16 @@ download_gradle() {
         echo "Error: curl or wget required to download Gradle"
         exit 1
     fi
-    unzip -q gradle.zip
-    rm gradle.zip
+    echo "Extracting Gradle..."
+    unzip -q -o gradle.zip
+    rm -f gradle.zip
     GRADLE_HOME=$(find "${WRAPPER_DIR}" -name "gradle-${GRADLE_VERSION}" -type d 2>/dev/null | head -1)
-    echo "${GRADLE_HOME}/bin/gradle"
+    if [ -n "${GRADLE_HOME}" ] && [ -f "${GRADLE_HOME}/bin/gradle" ]; then
+        echo "${GRADLE_HOME}/bin/gradle"
+        return 0
+    fi
+    echo "Error: Gradle binary not found after extraction"
+    exit 1
 }
 
 GRADLE_BIN=$(find_gradle) || GRADLE_BIN=$(download_gradle)
