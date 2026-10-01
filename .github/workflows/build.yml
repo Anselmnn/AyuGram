@@ -129,14 +129,15 @@ jobs:
           restore-keys: |
             ayugram-ccache-
 
-      - name: Install ccache
-        run: sudo apt-get update && sudo apt-get install -y ccache
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.5
-          cache-read-only: false
+      - name: Install ccache and Gradle
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ccache
+          # Install Gradle 8.5
+          wget -q https://services.gradle.org/distributions/gradle-8.5-bin.zip -O /tmp/gradle-8.5-bin.zip
+          sudo unzip -q /tmp/gradle-8.5-bin.zip -d /opt
+          sudo ln -sf /opt/gradle-8.5/bin/gradle /usr/local/bin/gradle
+          gradle --version
 
       - name: Build (assembleDebug)
         env:
