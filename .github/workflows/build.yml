@@ -133,7 +133,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ccache
-          # Install Gradle 8.5
+          # Install Gradle 8.5 system-wide
           wget -q https://services.gradle.org/distributions/gradle-8.5-bin.zip -O /tmp/gradle-8.5-bin.zip
           sudo unzip -q /tmp/gradle-8.5-bin.zip -d /opt
           sudo ln -sf /opt/gradle-8.5/bin/gradle /usr/local/bin/gradle
@@ -153,7 +153,7 @@ jobs:
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
           CMAKE_ASM_COMPILER_LAUNCHER: ccache
         run: |
-          ./gradlew :TMessagesProj:assembleDebug --stacktrace --no-watch-fs
+          gradle :TMessagesProj:assembleDebug --stacktrace --no-watch-fs
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
