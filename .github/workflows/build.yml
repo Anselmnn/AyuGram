@@ -108,6 +108,8 @@ jobs:
             ~/.gradle/wrapper
             ~/.gradle/caches
           key: ayugram-gradle-8.5-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ayugram-gradle-8.5-
 
       - name: Cache NDK/CMake build state + Gradle build
         uses: actions/cache@v4
@@ -130,6 +132,12 @@ jobs:
       - name: Install ccache
         run: sudo apt-get update && sudo apt-get install -y ccache
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.5
+          cache-read-only: false
+
       - name: Build (assembleDebug)
         env:
           ANDROID_HOME: $HOME/android-sdk
@@ -144,10 +152,7 @@ jobs:
           CMAKE_CXX_COMPILER_LAUNCHER: ccache
           CMAKE_ASM_COMPILER_LAUNCHER: ccache
         run: |
-          chmod +x ./gradlew
-          ccache -z
           ./gradlew :TMessagesProj:assembleDebug --stacktrace --no-watch-fs
-          ccache -s
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
