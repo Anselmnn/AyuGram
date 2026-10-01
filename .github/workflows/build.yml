@@ -127,6 +127,9 @@ jobs:
           restore-keys: |
             ayugram-ccache-
 
+      - name: Install ccache
+        run: sudo apt-get update && sudo apt-get install -y ccache
+
       - name: Build (assembleDebug)
         env:
           ANDROID_HOME: $HOME/android-sdk
