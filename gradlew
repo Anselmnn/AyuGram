@@ -1,13 +1,28 @@
-#!/bin/bash
-# Gradle wrapper script - downloads gradle if needed
-# This is a minimal wrapper for CI environments
+#!/bin/sh
+#
+# Gradle wrapper script for AyuGram
+# Generated for Gradle 8.5
+#
 
+set -e
+
+# Gradle version
 GRADLE_VERSION="8.5"
-GRADLE_DIST_URL="https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip"
-GRADLE_USER_HOME="${GRADLE_USER_HOME:-$HOME/.gradle}"
+
+# Determine the directory of this script
+APP_HOME="$(cd "$(dirname "$0")" && pwd)"
+
+# Gradle distribution
+GRADLE_DIST="gradle-${GRADLE_VERSION}-bin.zip"
+GRADLE_URL="https://services.gradle.org/distributions/${GRADLE_DIST}"
+
+# Gradle user home
+GRADLE_USER_HOME="${GRADLE_USER_HOME:-${HOME}/.gradle}"
+
+# Wrapper directory
 WRAPPER_DIR="${GRADLE_USER_HOME}/wrapper/dists/gradle-${GRADLE_VERSION}-bin"
 
-# Find or download gradle
+# Find or download Gradle
 find_gradle() {
     if [ -d "${WRAPPER_DIR}" ]; then
         GRADLE_HOME=$(find "${WRAPPER_DIR}" -name "gradle-${GRADLE_VERSION}" -type d 2>/dev/null | head -1)
@@ -24,16 +39,16 @@ download_gradle() {
     cd "${WRAPPER_DIR}"
     echo "Downloading Gradle ${GRADLE_VERSION}..."
     if command -v curl >/dev/null; then
-        curl -L -o gradle.zip "${GRADLE_DIST_URL}"
+        curl -L -o gradle.zip "${GRADLE_URL}"
     elif command -v wget >/dev/null; then
-        wget -O gradle.zip "${GRADLE_DIST_URL}"
+        wget -O gradle.zip "${GRADLE_URL}"
     else
         echo "Error: curl or wget required to download Gradle"
         exit 1
     fi
     unzip -q gradle.zip
     rm gradle.zip
-    GRADLE_HOME=$(find "${WRADLE_DIR}" -name "gradle-${GRADLE_VERSION}" -type d 2>/dev/null | head -1)
+    GRADLE_HOME=$(find "${WRAPPER_DIR}" -name "gradle-${GRADLE_VERSION}" -type d 2>/dev/null | head -1)
     echo "${GRADLE_HOME}/bin/gradle"
 }
 
