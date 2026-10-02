@@ -10,6 +10,9 @@ public class WatcherRule {
     @NonNull
     public String id;
     
+    @NonNull
+    public String user_id;
+    
     public String title = "";
     public String regex_pattern = "";
     public String included_dialog_ids = ""; // JSON array

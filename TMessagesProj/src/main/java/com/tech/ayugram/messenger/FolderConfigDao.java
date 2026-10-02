@@ -21,7 +21,7 @@ public interface FolderConfigDao {
     @Query("SELECT * FROM folder_configs WHERE id = :id")
     FolderConfig getConfig(String id);
     
-    @Query("SELECT * FROM folder_configs WHERE user_id = :userId ORDER BY order ASC")
+    @Query("SELECT * FROM folder_configs WHERE user_id = :userId ORDER BY `order` ASC")
     LiveData<List<FolderConfig>> getAllConfigs(long userId);
     
     @Query("SELECT * FROM folder_configs WHERE user_id = :userId AND is_custom = 1")
