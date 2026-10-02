@@ -26,6 +26,15 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+        
+        // Build config fields
+        buildConfigField "String", "APP_PACKAGE", "\"com.tech.ayugram\""
+        buildConfigField "String", "APP_NAME", "\"AyuGram\""
+        buildConfigField "int", "APP_VERSION_CODE", "1"
+        buildConfigField "String", "APP_VERSION_NAME", "\"1.0.0\""
+        buildConfigField "int", "APP_API_ID", "6"
+        buildConfigField "String", "APP_API_HASH", "\"eb06d4abfb49dc3eeb1aeb98ae0f581e\""
+        buildConfigField "boolean", "IS_DEBUG", "true"
     }
 
     signingConfigs {
@@ -110,16 +119,6 @@ android {
             manifest.srcFile 'src/main/AndroidManifest.xml'
         }
     }
-
-    // Build config fields
-    buildConfigField "String", "APP_PACKAGE", "\"com.tech.ayugram\""
-    buildConfigField "String", "APP_NAME", "\"AyuGram\""
-    buildConfigField "int", "APP_VERSION_CODE", "1"
-    buildConfigField "String", "APP_VERSION_NAME", "\"1.0.0\""
-    buildConfigField "int", "APP_API_ID", "6"
-    buildConfigField "String", "APP_API_HASH", "\"eb06d4abfb49dc3eeb1aeb98ae0f581e\""
-    buildConfigField "boolean", "IS_DEBUG", "true"
-}
 
 dependencies {
     // ============ CORE ============
