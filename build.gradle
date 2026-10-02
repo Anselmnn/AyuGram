@@ -5,12 +5,13 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        // AGP теперь через plugins DSL в модуле, здесь только kotlin-android
+        classpath "com.android.tools.build:gradle:8.3.0"
     }
 }
 
 plugins {
     id 'org.jetbrains.kotlin.android' version '1.9.20' apply false
+    id 'com.android.application' version '8.3.0' apply false
 }
 
 allprojects {
