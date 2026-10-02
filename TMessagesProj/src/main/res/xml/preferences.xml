@@ -7,7 +7,7 @@
             android:summary="Phone number, privacy, security" />
         <Preference
             android:key="pref_privacy"
-            android:title="Privacy & Security"
+            android:title="Privacy &amp; Security"
             android:summary="Last seen, profile photo, calls, groups" />
         <Preference
             android:key="pref_two_step"
@@ -48,7 +48,7 @@
             android:defaultValue="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Data & Storage">
+    <PreferenceCategory android:title="Data &amp; Storage">
         <Preference
             android:key="pref_storage"
             android:title="Storage Usage"
