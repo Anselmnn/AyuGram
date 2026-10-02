@@ -283,16 +283,6 @@
             </intent-filter>
         </receiver>
 
-        <!-- ============ REMOVED SERVICES/RECEIVERS (per PLAN.md §6) ============ -->
-        <service android:name="...StoryUploadingService" />                    <!-- R19 REMOVED -->
-        <service android:name="...TelegramCarAppService" />                    <!-- R20 REMOVED  -->
-        <service android:name="...WearAuthListenerService" />                  <!-- R21 REMOVED  -->
-        <service android:name="...AuthenticatorService" />                     <!-- R32 REMOVED -->
-        <service android:name="...ContactsSyncAdapterService" />               <!-- R32 REMOVED -->
-        <service android:name="...LocationSharingService" />                   <!-- R34 REMOVED -->
-        <receiver android:name="...WearReplyReceiver" />                       <!-- R21 REMOVED  -->
-        <receiver android:name="...AppStartReceiver" />                        <!-- R32 REMOVED -->
-
         <!-- ============ META-DATA ============ -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
