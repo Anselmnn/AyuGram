@@ -11,5 +11,9 @@ task copyJniLibs(type: Copy) {
 
 afterEvaluate {
     tasks.named('mergeDebugAssets') { finalizedBy copyAssets }
-    tasks.named('mergeDebugJniLibs') { finalizedBy copyJniLibs }
+    // mergeDebugJniLibs task may not exist - use mergeDebugNativeLibs instead
+    def jniTask = tasks.findByName('mergeDebugJniLibs') ?: tasks.findByName('mergeDebugNativeLibs')
+    if (jniTask) {
+        jniTask.finalizedBy copyJniLibs
+    }
 }
