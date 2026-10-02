@@ -123,7 +123,8 @@
             android:name="androidx.startup.InitializationProvider"
             android:authorities="com.tech.ayugram.androidx-startup"
             android:exported="false"
-            tools:node="merge">
+            tools:node="merge"
+            tools:replace="android:authorities">
             <meta-data
                 android:name="androidx.room.RoomInitializer"
                 android:value="androidx.room.RoomInitializer" />
