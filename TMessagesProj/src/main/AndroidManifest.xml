@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tech.ayugram">
 
-    <!-- ============ PERMISSIONS (Final set per PLAN.md §6) ============ -->
+    <!-- PERMISSIONS (Final set per PLAN.md) -->
     
     <!-- Network -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -52,30 +52,29 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
 
-    <!-- ============ REMOVED PERMISSIONS (per PLAN.md §6) ============ -->
-    <!-- 
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />  <!-- R34: REMOVED -->
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />           <!-- R32: REMOVED -->
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />                <!-- R32: REMOVED -->
-    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />             <!-- R32: REMOVED -->
-    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />            <!-- R32: REMOVED -->
-    <uses-permission android:name="android.permission.READ_PROFILE" />                   <!-- R32: REMOVED -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />                   <!-- R32/R36: REMOVED -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />                       <!-- R22/R34: REMOVED -->
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />              <!-- R22/R34: REMOVED -->
-    <uses-permission android:name="android.permission.CAMERA" />                         <!-- R26: REMOVED (system camera only) -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />      <!-- R26: REMOVED -->
-    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />               <!-- R32: REMOVED (dead) -->
-    <uses-permission android:name="android.permission.READ_APP_BADGE" />                 <!-- R25: REMOVED -->
-    <uses-permission android:name="android.permission.READ_CLIPBOARD" />                 <!-- R32: REMOVED (verified) -->
-    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />             <!-- R32: REMOVED -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />               <!-- R32: REMOVED -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />         <!-- R32: REMOVED -->
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />       <!-- R24: REMOVED -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />            <!-- R32: REMOVED -->
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />         <!-- R32: REMOVED -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />    <!-- R34: REMOVED -->
-    <uses-permission android:name="com.android.vending.BILLING" />                       <!-- R22: REMOVED -->
+    <!-- REMOVED PERMISSIONS (per PLAN.md) -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />  <!-- R34 REMOVED -->
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />           <!-- R32 REMOVED -->
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />                <!-- R32 REMOVED -->
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />             <!-- R32 REMOVED -->
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />            <!-- R32 REMOVED -->
+    <uses-permission android:name="android.permission.READ_PROFILE" />                   <!-- R32 REMOVED -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />                   <!-- R32/R36 REMOVED -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />                       <!-- R22/R34 REMOVED -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />              <!-- R22/R34 REMOVED -->
+    <uses-permission android:name="android.permission.CAMERA" />                         <!-- R26 REMOVED (system camera only) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />      <!-- R26 REMOVED -->
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />               <!-- R32 REMOVED (dead) -->
+    <uses-permission android:name="android.permission.READ_APP_BADGE" />                 <!-- R25 REMOVED -->
+    <uses-permission android:name="android.permission.READ_CLIPBOARD" />                 <!-- R32 REMOVED (verified) -->
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />             <!-- R32 REMOVED -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />               <!-- R32 REMOVED -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />         <!-- R32 REMOVED -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />       <!-- R24 REMOVED  -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />            <!-- R32 REMOVED -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />         <!-- R32 REMOVED -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />    <!-- R34 REMOVED -->
+    <uses-permission android:name="com.android.vending.BILLING" />                       <!-- R22 REMOVED  -->
     <!-- 14 vendor badge permissions - R25: REMOVED -->
     -->
 
@@ -284,16 +283,14 @@
         </receiver>
 
         <!-- ============ REMOVED SERVICES/RECEIVERS (per PLAN.md §6) ============ -->
-        <!--
-        <service android:name="...StoryUploadingService" />                    <!-- R19: REMOVED -->
-        <service android:name="...TelegramCarAppService" />                    <!-- R20: REMOVED -->
-        <service android:name="...WearAuthListenerService" />                  <!-- R21: REMOVED -->
-        <service android:name="...AuthenticatorService" />                     <!-- R32: REMOVED -->
-        <service android:name="...ContactsSyncAdapterService" />               <!-- R32: REMOVED -->
-        <service android:name="...LocationSharingService" />                   <!-- R34: REMOVED -->
-        <receiver android:name="...WearReplyReceiver" />                       <!-- R21: REMOVED -->
-        <receiver android:name="...AppStartReceiver" />                        <!-- R32: REMOVED -->
-        -->
+        <service android:name="...StoryUploadingService" />                    <!-- R19 REMOVED -->
+        <service android:name="...TelegramCarAppService" />                    <!-- R20 REMOVED  -->
+        <service android:name="...WearAuthListenerService" />                  <!-- R21 REMOVED  -->
+        <service android:name="...AuthenticatorService" />                     <!-- R32 REMOVED -->
+        <service android:name="...ContactsSyncAdapterService" />               <!-- R32 REMOVED -->
+        <service android:name="...LocationSharingService" />                   <!-- R34 REMOVED -->
+        <receiver android:name="...WearReplyReceiver" />                       <!-- R21 REMOVED  -->
+        <receiver android:name="...AppStartReceiver" />                        <!-- R32 REMOVED -->
 
         <!-- ============ META-DATA ============ -->
         <meta-data
