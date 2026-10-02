@@ -1,6 +1,8 @@
 package com.tech.ayugram.ui;
 
-public class PremiumPreviewFragment extends BaseFragment {
+import androidx.fragment.app.Fragment;
+
+public class PremiumPreviewFragment extends Fragment {
     public static final String TRANSACTION_PATTERN = "^(.*?)(?:\\.\\d*|)$";
     private final static boolean IS_PREMIUM_TIERS_UNAVAILABLE = false;
     
