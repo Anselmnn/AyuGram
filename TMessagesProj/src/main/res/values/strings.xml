@@ -30,10 +30,10 @@
     
     <!-- Settings -->
     <string name="settings">Settings</string>
-    <string name="privacy_security">Privacy & Security</string>
-    <string name="data_storage">Data & Storage</string>
+    <string name="privacy_security">Privacy &amp; Security</string>
+    <string name="data_storage">Data &amp; Storage</string>
     <string name="appearance">Appearance</string>
-    <string name="notifications_sounds">Notifications & Sounds</string>
+    <string name="notifications_sounds">Notifications &amp; Sounds</string>
     <string name="devices">Devices</string>
     <string name="language">Language</string>
     
