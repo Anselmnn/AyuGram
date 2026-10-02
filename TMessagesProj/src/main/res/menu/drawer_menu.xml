@@ -15,7 +15,7 @@
             android:title="Calls" />
         <item
             android:id="@+id/nav_saved"
-            android:icon="@android:drawable/ic_menu_star"
+            android:icon="@drawable/ic_star"
             android:title="Saved Messages" />
         <item
             android:id="@+id/nav_settings"

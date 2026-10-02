@@ -45,6 +45,7 @@
     <string name="regex_filters">Regex Filters</string>
     <string name="forwarder">Forwarder</string>
     <string name="local_premium">Local Premium</string>
+    <string name="profile">Profile</string>
     
     <!-- Maps -->
     <string name="map_provider_google">Google Maps (requires GMS)</string>

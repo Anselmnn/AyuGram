@@ -147,6 +147,9 @@ dependencies {
     // ============ JSON ============
     implementation "com.google.code.gson:gson:2.11.0"
 
+    // ============ MATERIAL COMPONENTS ============
+    implementation "com.google.android.material:material:1.12.0"
+
     // ============ FIREBASE (Messaging only - R5) ============
     implementation "com.google.firebase:firebase-messaging:22.0.0"
 
