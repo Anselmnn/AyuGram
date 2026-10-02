@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.annotation.Keep;
 import androidx.appcompat.app.AppCompatActivity;
