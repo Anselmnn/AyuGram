@@ -40,7 +40,7 @@ jobs:
   build-debug:
     name: Assemble Debug (incremental)
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 180
     steps:
       - name: Free Disk Space
         run: |
@@ -123,10 +123,21 @@ jobs:
       - name: Install Android SDK / NDK / CMake
         if: steps.sdk-cache.outputs.cache-hit != 'true'
         run: |
+          set -e
           mkdir -p "$ANDROID_HOME/cmdline-tools"
-          curl -fsSL "https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip" -o /tmp/cmdtools.zip
+          # --retry-all-errors: повторять и на "успешных" но битых передачах (HTTP-level retry)
+          curl -fsSL --retry 5 --retry-delay 3 --retry-all-errors \
+            "https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip" -o /tmp/cmdtools.zip
+          # защита от усечённой/битой загрузки: zip ~174MB, проверяем размер и CRC всех записей
+          SZ=$(stat -c%s /tmp/cmdtools.zip)
+          echo "cmdtools size: $SZ bytes"
+          [ "$SZ" -gt 150000000 ] || { echo "FATAL: cmdtools.zip too small ($SZ)"; exit 1; }
+          unzip -tq /tmp/cmdtools.zip
           unzip -q /tmp/cmdtools.zip -d /tmp/cmdtools
           mv /tmp/cmdtools/cmdline-tools "$ANDROID_HOME/cmdline-tools/latest"
+          # защита от кривого дерева после распаковки
+          [ -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ] || { echo "FATAL: sdkmanager missing"; find "$ANDROID_HOME/cmdline-tools" -maxdepth 3; exit 1; }
+          [ -d "$ANDROID_HOME/cmdline-tools/latest/lib" ] || { echo "FATAL: cmdline-tools/lib missing"; find "$ANDROID_HOME/cmdline-tools" -maxdepth 3; exit 1; }
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" --licenses > /dev/null
           "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" \
             "build-tools;36.0.0" \
