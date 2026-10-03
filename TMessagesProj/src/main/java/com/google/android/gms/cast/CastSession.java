@@ -1,44 +1,19 @@
 package com.google.android.gms.cast;
 
+import android.content.Context;
+import android.content.Intent;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.tasks.Task;
+
 public class CastSession {
-    public void setMessageReceivedCallbacks(String namespace, MessageReceivedCallback callback) {
-    }
-
-    public void sendMessage(String namespace, String message) {
-    }
-
     public void sendMessage(String namespace, String message, ResultCallback<Status> callback) {
-    }
-
-    public void endSession() {
-    }
-
-    public void endSession(boolean stopCasting) {
     }
 
     public RemoteMediaClient getRemoteMediaClient() {
         return null;
     }
 
-    public void addCastSessionListener(CastSessionListener listener) {
-    }
-
-    public void removeCastSessionListener(CastSessionListener listener) {
-    }
-
-    public interface MessageReceivedCallback {
-        void onMessageReceived(CastDevice castDevice, String namespace, String message);
-    }
-
-    public interface CastSessionListener {
-        void onSessionStarting(CastSession session);
-        void onSessionStarted(CastSession session, String sessionId);
-        void onSessionStartFailed(CastSession session, int error);
-        void onSessionEnding(CastSession session);
-        void onSessionEnded(CastSession session, int error);
-        void onSessionResuming(CastSession session, String sessionId);
-        void onSessionResumed(CastSession session, boolean wasSuspended);
-        void onSessionResumeFailed(CastSession session, int error);
-        void onSessionSuspended(CastSession session, int reason);
+    public void endSession(boolean stopCasting) {
     }
 }

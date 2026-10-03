@@ -1,5 +1,7 @@
 package com.tech.ayugram.ui;
 
+import android.app.Activity;
+
 public class PhotoViewer {
     public static PhotoViewer getInstance() { return new PhotoViewer(); }
     public void setParentActivity(Activity activity) {}

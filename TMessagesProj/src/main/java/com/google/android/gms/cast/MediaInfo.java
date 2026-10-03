@@ -1,76 +1,19 @@
 package com.google.android.gms.cast;
 
 public class MediaInfo {
-    private String contentId;
-    private String streamType;
-    private String contentType;
-    private MediaMetadata metadata;
-    private long duration;
-    private MediaStreamType streamTypeEnum;
-    private MediaMetadata mediaMetadata;
-    private com.google.android.gms.cast.MediaInfo.Builder builder;
+    public static final int STREAM_TYPE_BUFFERED = 1;
+    public static final int STREAM_TYPE_LIVE = 2;
+    public static final int STREAM_TYPE_NONE = 0;
 
-    public MediaInfo(String contentId, String streamType, String contentType, MediaMetadata metadata, long duration, MediaStreamType streamTypeEnum, MediaMetadata mediaMetadata) {
-        this.contentId = contentId;
-        this.streamType = streamType;
-        this.contentType = contentType;
-        this.metadata = metadata;
-        this.duration = duration;
-    }
-
-    public String getContentId() {
-        return contentId;
-    }
-
-    public String getStreamType() {
-        return streamType;
-    }
-
-    public String getContentType() {
-        return contentType;
-    }
-
-    public MediaMetadata getMetadata() {
-        return metadata;
-    }
-
-    public long getDuration() {
-        return duration;
+    public MediaInfo(String contentId, String streamType, String contentType, MediaMetadata metadata, long duration, int streamTypeEnum, MediaMetadata mediaMetadata) {
     }
 
     public static class Builder {
-        private String contentId;
-        private String streamType;
-        private String contentType;
-        private MediaMetadata metadata;
-        private long duration;
-
-        public Builder(String contentId, String streamType) {
-            this.contentId = contentId;
-            this.streamType = streamType;
-        }
-
-        public Builder setContentType(String contentType) {
-            this.contentType = contentType;
-            return this;
-        }
-
-        public Builder setMetadata(MediaMetadata metadata) {
-            this.metadata = metadata;
-            return this;
-        }
-
-        public Builder setDuration(long duration) {
-            this.duration = duration;
-            return this;
-        }
-
-        public MediaInfo build() {
-            return new MediaInfo(contentId, streamType, contentType, metadata, duration, null, null);
-        }
+        public Builder(String contentId, String streamType) { return this; }
+        public Builder setContentType(String contentType) { return this; }
+        public Builder setMetadata(MediaMetadata metadata) { return this; }
+        public Builder setStreamDuration(long duration) { return this; }
+        public Builder setStreamType(int streamType) { return this; }
+        public MediaInfo build() { return new MediaInfo("", "", "", null, 0, 0, null); }
     }
-
-    public static final String STREAM_TYPE_BUFFERED = "BUFFERED";
-    public static final String STREAM_TYPE_LIVE = "LIVE";
-    public static final String STREAM_TYPE_UNKNOWN = "UNKNOWN";
 }
