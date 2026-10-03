@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application' version '8.3.0'
     id 'org.jetbrains.kotlin.android'
-    // kotlin-kapt is included in org.jetbrains.kotlin.android
+    id 'kotlin-kapt'
 }
 
 android {
@@ -170,10 +170,19 @@ dependencies {
     // Maps (R17) - hybrid: GMS -> Google, else MapLibre
     implementation "com.google.android.gms:play-services-maps:18.2.0"
     
+    // Location (R34) - for FusedLocationProviderClient, SettingsClient
+    implementation "com.google.android.gms:play-services-location:21.0.1"
+    
     // Cast stack (R2) - keep
     implementation "com.google.android.gms:play-services-cast:21.4.0"
     implementation "com.google.android.gms:play-services-cast-framework:21.4.0"
     implementation "androidx.mediarouter:mediarouter:1.6.0"
+    
+    // Auth (Google Sign-In) - R5
+    implementation "com.google.android.gms:play-services-auth:20.7.0"
+    
+    // Auth API Sign-In
+    implementation "com.google.android.gms:play-services-auth-base:18.0.10"
 
     // ============ ROOM DATABASE (for AyuGram features) ============
     def roomVersion = "2.6.1"
@@ -187,6 +196,13 @@ dependencies {
     // ============ OKHTTP ============
     implementation "com.squareup.okhttp3:okhttp:4.12.0"
     implementation "com.squareup.okhttp3:logging-interceptor:4.12.0"
+
+    // ============ STRIPE ============
+    implementation "com.stripe:stripe-android:20.4.0"
+
+    // ============ GOOGLE SIGN-IN ============
+    implementation "com.google.android.gms:play-services-auth:20.7.0"
+    implementation "com.google.android.gms:play-services-auth-base:18.0.10"
 
     // ============ WORKMANAGER ============
     implementation "androidx.work:work-runtime-ktx:2.9.0"
