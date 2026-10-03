@@ -5,7 +5,7 @@ import com.google.android.gms.tasks.Task;
 
 public class SettingsClient {
     public Task<LocationSettingsResponse> checkLocationSettings(LocationSettingsRequest request) {
-        return null;
+        return com.google.android.gms.tasks.Tasks.forResult(null);
     }
 
     public static class LocationSettingsRequest {
@@ -16,5 +16,8 @@ public class SettingsClient {
     }
 
     public static class LocationSettingsResponse {
+    }
+    
+    public static class LocationSettingsRequest {
     }
 }

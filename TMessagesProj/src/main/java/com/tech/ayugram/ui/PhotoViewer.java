@@ -11,5 +11,4 @@ public class PhotoViewer {
     public void onResume() {}
     public void onPause() {}
     public void onDestroy() {}
-    public void setParentActivity(android.app.Activity activity) {}
 }
