@@ -19854,7 +19854,8 @@ public class MessagesController extends BaseController implements NotificationCe
                             getContactsController().setPrivacyRules(update.rules, ContactsController.PRIVACY_RULES_TYPE_BIO);
                         } else if (update.key instanceof TLRPC.TL_privacyKeyBirthday) {
                             getContactsController().setPrivacyRules(update.rules, ContactsController.PRIVACY_RULES_TYPE_BIRTHDAY);
-                    } else    if (baseUpdate instanceof TL_update.TL_updateUserStatus) {
+                        }
+                    } else if (baseUpdate instanceof TL_update.TL_updateUserStatus) {
                         TL_update.TL_updateUserStatus update = (TL_update.TL_updateUserStatus) baseUpdate;
                         TLRPC.User currentUser = getUser(update.user_id);
 
