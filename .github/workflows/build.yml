@@ -122,24 +122,82 @@ jobs:
 
       - name: Install Android SDK / NDK / CMake
         if: steps.sdk-cache.outputs.cache-hit != 'true'
+        env:
+          CMDTOOLS_URL: "https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip"
+          CMDTOOLS_SHA256: "4e4c464f145a7512b57d088ac6c278c03c9eea610886b35a5e0804e74eedf583"
+          CMDTOOLS_EXPECTED_FILES: '141'
         run: |
           set -e
           mkdir -p "$ANDROID_HOME/cmdline-tools"
           # --retry-all-errors: повторять и на "успешных" но битых передачах (HTTP-level retry)
-          curl -fsSL --retry 5 --retry-delay 3 --retry-all-errors \
-            "https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip" -o /tmp/cmdtools.zip
+          curl -fsSL --retry 5 --retry-delay 3 --retry-all-errors "$CMDTOOLS_URL" -o /tmp/cmdtools.zip
           # защита от усечённой/битой загрузки: zip ~174MB, проверяем размер и CRC всех записей
           SZ=$(stat -c%s /tmp/cmdtools.zip)
           echo "cmdtools size: $SZ bytes"
           [ "$SZ" -gt 150000000 ] || { echo "FATAL: cmdtools.zip too small ($SZ)"; exit 1; }
           unzip -tq /tmp/cmdtools.zip
+          # sha256 для сопоставления с эталоном (Google может переиздать _latest — не fatality, а диагностика)
+          echo "cmdtools sha256: $(sha256sum /tmp/cmdtools.zip | cut -d' ' -f1) (baseline: $CMDTOOLS_SHA256)"
           unzip -q /tmp/cmdtools.zip -d /tmp/cmdtools
+          # самовосстановление распаковки: если unzip не извлёк все записи (141 в 15859902),
+          # повторяем через python zipfile — независимая реализация (инцидент 04.10.2026,
+          # runs 37162887512/37163288277: ClassNotFoundException на runner при целом zip)
+          N=$(find /tmp/cmdtools/cmdline-tools -type f | wc -l)
+          if [ "$N" -ne "$CMDTOOLS_EXPECTED_FILES" ]; then
+            echo "DIAG: unzip extracted $N/$CMDTOOLS_EXPECTED_FILES files — re-extracting with python zipfile"
+            rm -rf /tmp/cmdtools
+            python3 - <<'PYEOF'
+          import zipfile, os
+          z = zipfile.ZipFile('/tmp/cmdtools.zip')
+          base = '/tmp/cmdtools'
+          rb = os.path.realpath(base)
+          for info in z.infolist():
+              dest = os.path.join(base, info.filename)
+              if not os.path.realpath(dest).startswith(rb):
+                  print("SKIP (path traversal):", info.filename)
+                  continue
+              if info.is_dir():
+                  os.makedirs(dest, exist_ok=True)
+                  continue
+              os.makedirs(os.path.dirname(dest), exist_ok=True)
+              with z.open(info) as src, open(dest, 'wb') as out:
+                  out.write(src.read())
+              mode = (info.external_attr >> 16) & 0o7777
+              if mode:
+                  os.chmod(dest, mode)
+          print("python zipfile extraction done")
+          PYEOF
+            N=$(find /tmp/cmdtools/cmdline-tools -type f | wc -l)
+            echo "DIAG: after python extraction: $N/$CMDTOOLS_EXPECTED_FILES files"
+          fi
           mv /tmp/cmdtools/cmdline-tools "$ANDROID_HOME/cmdline-tools/latest"
           # защита от кривого дерева после распаковки
           [ -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ] || { echo "FATAL: sdkmanager missing"; find "$ANDROID_HOME/cmdline-tools" -maxdepth 3; exit 1; }
           [ -d "$ANDROID_HOME/cmdline-tools/latest/lib" ] || { echo "FATAL: cmdline-tools/lib missing"; find "$ANDROID_HOME/cmdline-tools" -maxdepth 3; exit 1; }
-          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" --licenses > /dev/null
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" \
+
+          LATEST="$ANDROID_HOME/cmdline-tools/latest"
+          # --- диагностика инцидента: что реально на диске в момент ошибки ---
+          echo "DIAG: unzip: $(unzip -v 2>&1 | head -1)"
+          echo "DIAG: java:  $("$JAVA_HOME/bin/java" -version 2>&1 | head -1)"
+          echo "DIAG: fs /tmp=$(stat -f -c %T /tmp) home=$(stat -f -c %T "$HOME")"
+          echo "DIAG: lib jars on disk: $(find "$LATEST/lib" -name '*.jar' | wc -l)"
+          ls -la "$LATEST/lib/sdkmanager-classpath.jar" "$LATEST/lib/sdklib/libsdkmanager_lib.jar"
+          # probe A: штатный путь — одиночный classpath-jar, Class-Path в MANIFEST.MF
+          echo "PROBE A (classpath jar only, manifest Class-Path):"
+          "$JAVA_HOME/bin/java" -Dcom.android.sdklib.toolsdir="$LATEST" \
+            -cp "$LATEST/lib/sdkmanager-classpath.jar" com.android.sdklib.tool.sdkmanager.SdkManagerCli 2>&1 | head -6 || true
+          # probe B: явный classpath по всем jar в lib/ (обходит MANIFEST целиком)
+          CP=$(find "$LATEST/lib" -name '*.jar' | tr '\n' ':')
+          echo "PROBE B (explicit all-jars classpath):"
+          "$JAVA_HOME/bin/java" -Dcom.android.sdklib.toolsdir="$LATEST" \
+            -cp "$CP" com.android.sdklib.tool.sdkmanager.SdkManagerCli 2>&1 | head -6 || true
+          echo "DIAG: end"
+
+          # --- установка. SdkManagerCli запускаем напрямую явным classpath:
+          #     без bin/sdkmanager-скрипта и без MANIFEST Class-Path (устойчиво к инциденту) ---
+          sm() { "$JAVA_HOME/bin/java" -Dcom.android.sdklib.toolsdir="$LATEST" -cp "$CP" com.android.sdklib.tool.sdkmanager.SdkManagerCli "$@"; }
+          yes | sm --sdk_root="$ANDROID_HOME" --licenses > /dev/null
+          sm --sdk_root="$ANDROID_HOME" \
             "build-tools;36.0.0" \
             "platforms;android-36" \
             "platform-tools" \
