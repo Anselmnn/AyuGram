@@ -14,7 +14,6 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.tgnet.tl.TL_stories;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.ShadowSectionCell;
@@ -30,13 +29,11 @@ import org.telegram.ui.Components.Premium.boosts.cells.HeaderCell;
 import org.telegram.ui.Components.Premium.boosts.cells.ParticipantsTypeCell;
 import org.telegram.ui.Components.Premium.boosts.cells.DurationCell;
 import org.telegram.ui.Components.Premium.boosts.cells.SliderCell;
-import org.telegram.ui.Components.Premium.boosts.cells.StarGiveawayOptionCell;
 import org.telegram.ui.Components.Premium.boosts.cells.SubtitleWithCounterCell;
 import org.telegram.ui.Components.Premium.boosts.cells.SwitcherCell;
 import org.telegram.ui.Components.Premium.boosts.cells.TextInfoCell;
 import org.telegram.ui.Components.RecyclerListView;
 import org.telegram.ui.Components.SlideChooseView;
-import org.telegram.ui.Stars.StarsIntroActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -210,9 +207,7 @@ public class BoostAdapter extends AdapterWithDiffUtils {
                 || itemViewType == HOLDER_TYPE_ADD_CHANNEL
                 || itemViewType == HOLDER_TYPE_DATE_END
                 || itemViewType == HOLDER_TYPE_SWITCHER
-                || itemViewType == HOLDER_TYPE_DURATION
-                || itemViewType == HOLDER_TYPE_STAR_OPTION
-                || itemViewType == HOLDER_TYPE_EXPAND_OPTIONS;
+                || itemViewType == HOLDER_TYPE_DURATION;
     }
 
     @NonNull
@@ -251,11 +246,6 @@ public class BoostAdapter extends AdapterWithDiffUtils {
             case HOLDER_TYPE_ADD_CHANNEL:
                 view = new AddChannelCell(context, resourcesProvider);
                 break;
-            case HOLDER_TYPE_EXPAND_OPTIONS:
-                StarsIntroActivity.ExpandView expandView = new StarsIntroActivity.ExpandView(context, resourcesProvider);
-                expandView.set(LocaleController.getString(R.string.NotifyMoreOptions), true, true, false);
-                view = expandView;
-                break;
             case HOLDER_TYPE_SLIDER:
                 view = new SliderCell(context, resourcesProvider);
                 break;
@@ -278,9 +268,6 @@ public class BoostAdapter extends AdapterWithDiffUtils {
                 break;
             case HOLDER_TYPE_DURATION:
                 view = new DurationCell(context, resourcesProvider);
-                break;
-            case HOLDER_TYPE_STAR_OPTION:
-                view = new StarGiveawayOptionCell(context, resourcesProvider);
                 break;
         }
         view.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -361,11 +348,6 @@ public class BoostAdapter extends AdapterWithDiffUtils {
             case HOLDER_TYPE_DURATION: {
                 DurationCell cell = (DurationCell) holder.itemView;
                 cell.setDuration(item.object, item.intValue, item.intValue2, item.longValue, item.text, item.boolValue, item.selectable);
-                break;
-            }
-            case HOLDER_TYPE_STAR_OPTION: {
-                StarGiveawayOptionCell cell = (StarGiveawayOptionCell) holder.itemView;
-                cell.setOption(item.object == null ? null : (TL_stars.TL_starsGiveawayOption) item.object, item.intValue, item.longValue, item.selectable, item.boolValue);
                 break;
             }
             case HOLDER_TYPE_SIMPLE_DIVIDER: {
@@ -498,10 +480,6 @@ public class BoostAdapter extends AdapterWithDiffUtils {
             return new Item(HOLDER_TYPE_ADD_CHANNEL, false);
         }
 
-        public static Item asExpandOptions() {
-            return new Item(HOLDER_TYPE_EXPAND_OPTIONS, false);
-        }
-
         public static Item asSubTitle(CharSequence text) {
             Item item = new Item(HOLDER_TYPE_SUBTITLE, false);
             item.text = text;
@@ -526,15 +504,6 @@ public class BoostAdapter extends AdapterWithDiffUtils {
             return item;
         }
 
-        public static Item asOption(TL_stars.TL_starsGiveawayOption option, int index, long starsPerUser, boolean selected, boolean needDivider) {
-            Item item = new Item(HOLDER_TYPE_STAR_OPTION, selected);
-            item.intValue = index;
-            item.longValue = starsPerUser;
-            item.object = option;
-            item.boolValue = needDivider;
-            return item;
-        }
-
         public static Item asParticipants(int subType, int selectedSubType, boolean needDivider, List<TLObject> countries) {
             Item item = new Item(HOLDER_TYPE_PARTICIPANTS, selectedSubType == subType);
             item.subType = subType;
@@ -553,9 +522,6 @@ public class BoostAdapter extends AdapterWithDiffUtils {
             }
             if (viewType == HOLDER_TYPE_HEADER) {
                 return true;
-            }
-            if (viewType == HOLDER_TYPE_STAR_OPTION) {
-                return intValue == i.intValue && object == i.object;
             }
             if (viewType == HOLDER_TYPE_SLIDER) {
                 return eq(values, i.values);
@@ -594,9 +560,6 @@ public class BoostAdapter extends AdapterWithDiffUtils {
             if (i.viewType != viewType) return false;
             if (viewType == HOLDER_TYPE_HEADER) {
                 return boolValue == i.boolValue;
-            }
-            if (i.viewType == HOLDER_TYPE_STAR_OPTION) {
-                return intValue == i.intValue && longValue == i.longValue && object == i.object && boolValue == i.boolValue && selectable == i.selectable;
             }
             if (viewType == HOLDER_TYPE_SLIDER) {
                 return intValue == i.intValue && eq(values, i.values);

@@ -74,12 +74,9 @@ import org.telegram.ui.Components.Premium.boosts.cells.selector.SelectorSearchCe
 import org.telegram.ui.Components.Premium.boosts.cells.selector.SelectorUserCell;
 import org.telegram.ui.Components.RecyclerListView;
 import org.telegram.ui.Components.ScaleStateListAnimator;
-import org.telegram.ui.Gifts.GiftSheet;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.PrivacyControlActivity;
 import org.telegram.ui.ProfileActivity;
-import org.telegram.ui.Stars.StarsController;
-import org.telegram.ui.Stars.StarsIntroActivity;
 import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
 
 import java.util.ArrayList;
@@ -186,7 +183,6 @@ public class UserSelectorBottomSheet extends BottomSheetWithRecyclerListView imp
     private String query;
     private SelectorAdapter selectorAdapter;
     private int listPaddingTop = AndroidUtilities.dp(56 + 64);
-    private final List<TLRPC.TL_premiumGiftCodeOption> paymentOptions = new ArrayList<>();
     private boolean isHintSearchText = false;
     private int lastRequestId;
     private float recipientsBtnExtraSpace;
@@ -443,11 +439,11 @@ public class UserSelectorBottomSheet extends BottomSheetWithRecyclerListView imp
                     if (searchField != null) {
                         AndroidUtilities.hideKeyboard(searchField.getEditText());
                     }
-                    StarsIntroActivity.GiftStarsSheet sheet = new StarsIntroActivity.GiftStarsSheet(getContext(), resourcesProvider, user, this::dismiss);
+                    
                     if (!AndroidUtilities.isTablet()) {
-                        sheet.makeAttached(attachedFragment);
+                        
                     }
-                    sheet.show();
+                    
                     return;
                 }
                 if (type == TYPE_PREMIUM || type == TYPE_STAR_GIFT) {
@@ -455,11 +451,7 @@ public class UserSelectorBottomSheet extends BottomSheetWithRecyclerListView imp
                         BulletinFactory.of(container, resourcesProvider).createSimpleBulletin(R.raw.error, AndroidUtilities.replaceTags(LocaleController.formatString(R.string.UserDisallowedGifts, DialogObject.getShortName(id)))).show();
                         return;
                     }
-                    List<TLRPC.TL_premiumGiftCodeOption> options = BoostRepository.filterGiftOptions(paymentOptions, 1);
-                    options = BoostRepository.filterGiftOptionsByBilling(options);
-                    new GiftSheet(getContext(), currentAccount, id, options, this::dismiss)
-                        .setBirthday(birthdays != null && birthdays.contains(id))
-                        .show();
+                    
                     return;
                 }
                 if (type == TYPE_CALL && selectedIds.isEmpty()) {
@@ -578,19 +570,7 @@ public class UserSelectorBottomSheet extends BottomSheetWithRecyclerListView imp
         initHints(false);
         updateList(false, true);
         if (type == TYPE_PREMIUM || type == TYPE_STAR_GIFT) {
-            BoostRepository.loadGiftOptions(currentAccount, null, arg -> {
-                paymentOptions.clear();
-                paymentOptions.addAll(arg);
-                if (actionButton.isLoading()) {
-                    actionButton.setLoading(false);
-                    if (recyclerListView.isAttachedToWindow()) {
-                        next();
-                    }
-                }
-            });
-        }
-        if (type == TYPE_PREMIUM || type == TYPE_STAR_GIFT) {
-            StarsController.getInstance(currentAccount).loadStarGifts();
+            
         }
     }
 
@@ -625,7 +605,7 @@ public class UserSelectorBottomSheet extends BottomSheetWithRecyclerListView imp
     }
 
     private void next() {
-        if (selectedIds.size() == 0 || paymentOptions.isEmpty() && (type != TYPE_PREMIUM && type != TYPE_STAR_GIFT && type != TYPE_CALL)) {
+        if (selectedIds.size() == 0) {
             return;
         }
         List<TLRPC.User> selectedUsers = new ArrayList<>();
@@ -646,17 +626,13 @@ public class UserSelectorBottomSheet extends BottomSheetWithRecyclerListView imp
             dismiss();
             return;
         }
-        List<TLRPC.TL_premiumGiftCodeOption> options = BoostRepository.filterGiftOptions(paymentOptions, selectedUsers.size());
-        options = BoostRepository.filterGiftOptionsByBilling(options);
         if (selectedUsers.size() == 1) {
             final long userId = selectedUsers.get(0).id;
             if (UserObject.areGiftsDisabled(userId)) {
                 BulletinFactory.of(container, resourcesProvider).createSimpleBulletin(R.raw.error, AndroidUtilities.replaceTags(LocaleController.formatString(R.string.UserDisallowedGifts, DialogObject.getShortName(userId)))).show();
                 return;
             }
-            new GiftSheet(getContext(), currentAccount, userId, options, this::dismiss)
-                .setBirthday(birthdays != null && birthdays.contains(userId))
-                .show();
+            
         }
     }
 

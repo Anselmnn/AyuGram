@@ -135,7 +135,7 @@
     <string name="PaymentCheckoutPhoneNumber">Phone number</string>
     <string name="PaymentCheckoutEmail">Contact address</string>
     <string name="PaymentCheckoutShippingMethod">Shipping method</string>
-    <string name="PaymentReceipt">Receipt</string>
+    <string name="ReceiptButton">Receipt</string>
     <string name="PaymentConfirmationNewCard">Choose a different card</string>
     <string name="PaymentConfirmationMessage">Your card %1$s is on file. To pay with this card, please enter your 2-Step-Verification password.</string>
     <string name="PaymentPrecheckoutFailed">Sorry, the payment was cancelled by the bot.</string>

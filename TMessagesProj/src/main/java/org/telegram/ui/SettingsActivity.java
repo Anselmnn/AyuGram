@@ -5,7 +5,6 @@ import static org.telegram.messenger.AndroidUtilities.lerp;
 import static org.telegram.messenger.AndroidUtilities.replaceSingleTag;
 import static org.telegram.messenger.LocaleController.formatString;
 import static org.telegram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarGiftSheet.replaceUnderstood;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -129,11 +128,8 @@ import org.telegram.ui.Components.blur3.ViewGroupPartRenderer;
 import org.telegram.ui.Components.blur3.capture.IBlur3Capture;
 import org.telegram.ui.Components.blur3.source.BlurredBackgroundSourceRenderNode;
 import org.telegram.ui.Components.voip.VoIPHelper;
-import org.telegram.ui.Stars.StarsController;
-import org.telegram.ui.Stars.StarsIntroActivity;
 import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
 import org.telegram.ui.Stories.recorder.DualCameraView;
-import org.telegram.ui.TON.TONIntroActivity;
 import org.telegram.ui.bots.BotBiometry;
 import org.telegram.ui.bots.BotDownloads;
 import org.telegram.ui.bots.BotLocation;
@@ -704,15 +700,15 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
             items.add(SettingCell.Factory.of(11, 0xFFB659FF, 0xFF617CFF, R.drawable.settings_premium, getString(R.string.TelegramPremium)));
         }
         if (getMessagesController().starsPurchaseAvailable()) {
-            StarsController c = StarsController.getInstance(currentAccount);
-            long balance = c.getBalance().amount;
-            items.add(SettingCell.Factory.of(12, 0xFFEFA612, 0xFFE77512, R.drawable.settings_stars, getString(R.string.TelegramStars), null, c.balanceAvailable() && balance > 0 ? StarsIntroActivity.formatStarsAmount(c.getBalance(), 0.85f, ' ') : ""));
+            
+            
+            
         }
-        StarsController.getInstance(currentAccount, true).getBalance();
-        if (ApplicationLoader.isBetaBuild() || ApplicationLoader.isStandaloneBuild() || ApplicationLoader.isHuaweiStoreBuild() || (StarsController.getInstance(currentAccount, true).balanceAvailable() && (StarsController.getInstance(currentAccount, true).hasTransactions() || StarsController.getInstance(currentAccount, true).getBalance().positive()))) {
-            StarsController c = StarsController.getTonInstance(currentAccount);
-            long balance = c.getBalance().amount;
-            items.add(SettingCell.Factory.of(13, 0xFF1BA4ED, 0xFF1488E1, R.drawable.settings_gram_24, getString(R.string.MyTON), null, c.balanceAvailable() && balance > 0 ? StarsIntroActivity.formatStarsAmount(c.getBalance(), 0.85f, ' ') : ""));
+        
+        if (ApplicationLoader.isBetaBuild() || ApplicationLoader.isStandaloneBuild() || ApplicationLoader.isHuaweiStoreBuild()) {
+            
+            
+            
         }
 
         TLRPC.TL_attachMenuBots menuBots = MediaDataController.getInstance(UserConfig.selectedAccount).getAttachMenuBots();
@@ -839,12 +835,6 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
 
             case 11:
                 presentSettingFragment(new PremiumPreviewFragment("settings"));
-                break;
-            case 12:
-                presentSettingFragment(new StarsIntroActivity());
-                break;
-            case 13:
-                presentSettingFragment(new TONIntroActivity());
                 break;
             case 15:
                 presentSettingFragment(new PremiumPreviewFragment(PremiumPreviewFragment.FEATURES_BUSINESS, "settings"));

@@ -320,7 +320,6 @@ import org.telegram.ui.Components.blur3.utils.Blur3Utils;
 import org.telegram.ui.Components.chat.ViewPositionWatcher;
 import org.telegram.ui.Components.spoilers.SpoilersTextView;
 import org.telegram.ui.Components.voip.AnimatedFileInfo;
-import org.telegram.ui.Stars.StarsController;
 import org.telegram.ui.Stories.DarkThemeResourceProvider;
 import org.telegram.ui.Stories.recorder.CaptionContainerView;
 import org.telegram.ui.Stories.recorder.HintView2;
@@ -7370,7 +7369,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                         parentChatActivity.messageSuggestionParams :
                         MessageSuggestionParams.of(parentChatActivity.editingMessageObject.messageOwner.suggested_post);
 
-                if (!StarsController.isEnoughAmount(currentAccount, params.amount)) {
+                 {
                     if (parentChatActivity != null) {
                         parentChatActivity.showSuggestionOfferForEditMessage(params);
                     }
@@ -13674,9 +13673,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                         size[0] = -1;
                     }
                 }
-            } else if (MessageObject.getMedia(message.messageOwner) instanceof TLRPC.TL_messageMediaInvoice) {
-                return ImageLocation.getForWebFile(WebFile.createWithWebDocument(((TLRPC.TL_messageMediaInvoice) MessageObject.getMedia(message.messageOwner)).webPhoto));
-            } else if (message.getDocument() != null) {
+            } else  if (message.getDocument() != null) {
                 TLRPC.Document document = message.getDocument();
                 if (sharedMediaType == MediaDataController.MEDIA_GIF) {
                     return ImageLocation.getForDocument(document);
@@ -13779,9 +13776,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                 } else if (size != null) {
                     size[0] = -1;
                 }
-            } else if (MessageObject.getMedia(message.messageOwner) instanceof TLRPC.TL_messageMediaInvoice) {
-                return ((TLRPC.TL_messageMediaInvoice) MessageObject.getMedia(message.messageOwner)).photo;
-            } else if (message.getDocument() != null && MessageObject.isDocumentHasThumb(message.getDocument())) {
+            } else  if (message.getDocument() != null && MessageObject.isDocumentHasThumb(message.getDocument())) {
                 TLRPC.PhotoSize thumb = FileLoader.getClosestPhotoSizeWithSize(message.getDocument().thumbs, 90);
                 if (size != null) {
                     size[0] = thumb.size;
@@ -14134,7 +14129,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                     if (messageObject.canForwardMessage() && !noforwards) {
                         setItemVisible(sendItem, true, false);
                     }
-                } else if (!messageObject.scheduled && !messageObject.isQuickReply() && !messageObject.isSponsored() && !(MessageObject.getMedia(messageObject.messageOwner) instanceof TLRPC.TL_messageMediaInvoice) && !(MessageObject.getMedia(messageObject.messageOwner) instanceof TLRPC.TL_messageMediaWebPage) && (messageObject.messageOwner.action == null || messageObject.messageOwner.action instanceof TLRPC.TL_messageActionEmpty)) {
+                } else if (!messageObject.scheduled && !messageObject.isQuickReply() && !messageObject.isSponsored() && !(MessageObject.getMedia(messageObject.messageOwner) instanceof TLRPC.TL_messageMediaWebPage) && (messageObject.messageOwner.action == null || messageObject.messageOwner.action instanceof TLRPC.TL_messageActionEmpty)) {
                     needSearchImageInArr = true;
                     imagesByIds[0].put(messageObject.getId(), messageObject);
                     if (parentChatActivity == null || !parentChatActivity.isThreadChat() && parentChatActivity.getChatMode() != ChatActivity.MODE_SAVED && parentChatActivity.getChatMode() != ChatActivity.MODE_QUICK_REPLIES) {

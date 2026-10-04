@@ -4,7 +4,6 @@ import static org.telegram.messenger.AndroidUtilities.dp;
 import static org.telegram.messenger.AndroidUtilities.dpf2;
 import static org.telegram.messenger.LocaleController.formatPluralString;
 import static org.telegram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarGiftSheet.replaceUnderstood;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -47,7 +46,6 @@ import org.telegram.ui.ActionBar.ActionBarPopupWindow;
 import org.telegram.ui.ActionBar.BaseFragment;
 import org.telegram.ui.ActionBar.BottomSheet;
 import org.telegram.ui.ActionBar.Theme;
-import org.telegram.ui.ChannelMonetizationLayout;
 import org.telegram.ui.ChatActivity;
 import org.telegram.ui.RestrictedLanguagesSelectActivity;
 import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
@@ -459,26 +457,11 @@ public class TranslateButton extends FrameLayout implements Theme.Colorable {
 
         layout.addView(topView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT));
 
-        layout.addView(
-            new ChannelMonetizationLayout.FeatureCell(context, R.drawable.menu_privacy, getString(R.string.CocoonFeature1Title), AndroidUtilities.replaceSingleTag(getString(R.string.CocoonFeature1Text), () -> {
-                sheet[0].dismiss();
-                Browser.openUrl(context, getString(R.string.CocoonFeature1TextLink));
-            }), resourcesProvider),
-            LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 32, 16, 32, 16)
-        );
+        
 
-        layout.addView(
-            new ChannelMonetizationLayout.FeatureCell(context, R.drawable.msg_stats, getString(R.string.CocoonFeature2Title), getString(R.string.CocoonFeature2Text), resourcesProvider),
-            LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 32, 0, 32, 16)
-        );
+        
 
-        layout.addView(
-            new ChannelMonetizationLayout.FeatureCell(context, R.drawable.menu_gift, getString(R.string.CocoonFeature3Title), AndroidUtilities.replaceSingleTag(getString(R.string.CocoonFeature3Text), () -> {
-                sheet[0].dismiss();
-                Browser.openUrlInSystemBrowser(context, getString(R.string.CocoonFeature3TextLink));
-            }), resourcesProvider),
-            LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 32, 0, 32, 16)
-        );
+        
 
         final View separatorView = new View(context);
         separatorView.setBackgroundColor(Theme.getColor(Theme.key_divider, resourcesProvider));

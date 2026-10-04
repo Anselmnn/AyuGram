@@ -622,22 +622,7 @@ public class BotShareSheet extends BottomSheetWithRecyclerListView {
                     msg.flags |= TLObject.FLAG_7;
                     msg.entities = m.entities;
                 }
-            } else if (message instanceof TLRPC.TL_botInlineMessageMediaInvoice) {
-                final TLRPC.TL_botInlineMessageMediaInvoice m = (TLRPC.TL_botInlineMessageMediaInvoice) message;
-                final TLRPC.TL_messageMediaInvoice media = new TLRPC.TL_messageMediaInvoice();
-                media.shipping_address_requested = m.shipping_address_requested;
-                media.test = m.test;
-                media.title = m.title;
-                media.description = m.description;
-                if (TLObject.hasFlag(m.flags, TLObject.FLAG_0)) {
-                    media.flags |= TLObject.FLAG_7;
-                    media.webPhoto = m.photo;
-                }
-                media.currency = m.currency;
-                media.total_amount = m.total_amount;
-                msg.flags |= 512;
-                msg.media = media;
-            } else if (message instanceof TLRPC.TL_botInlineMessageMediaWebPage) {
+            } else  if (message instanceof TLRPC.TL_botInlineMessageMediaWebPage) {
                 final TLRPC.TL_botInlineMessageMediaWebPage m = (TLRPC.TL_botInlineMessageMediaWebPage) message;
                 final TLRPC.TL_messageMediaWebPage media = new TLRPC.TL_messageMediaWebPage();
                 media.force_large_media = m.force_large_media;

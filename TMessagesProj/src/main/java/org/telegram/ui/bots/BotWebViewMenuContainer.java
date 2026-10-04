@@ -68,7 +68,6 @@ import org.telegram.ui.Components.SimpleFloatPropertyCompat;
 import org.telegram.ui.DialogsActivity;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.ReportBottomSheet;
-import org.telegram.ui.Stars.StarsController;
 import org.telegram.ui.web.BotWebViewContainer;
 
 import java.util.List;

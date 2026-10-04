@@ -19,7 +19,6 @@ import org.telegram.ui.Components.Premium.boosts.DiscountSpan;
 public class DurationWithDiscountCell extends DurationCell {
 
     protected final CheckBox2 checkBox;
-    private TLRPC.TL_premiumGiftCodeOption option;
 
     public DurationWithDiscountCell(Context context, Theme.ResourcesProvider resourcesProvider) {
         super(context, resourcesProvider);
@@ -49,27 +48,6 @@ public class DurationWithDiscountCell extends DurationCell {
         if (checkBox.getVisibility() == View.VISIBLE) {
             checkBox.setChecked(checked, animated);
         }
-    }
-
-    public void setDuration(TLRPC.TL_premiumGiftCodeOption option, TLRPC.TL_premiumGiftCodeOption minOption, int usersCount, boolean needDivider, boolean selected) {
-        this.option = option;
-        long price = option.amount;
-        CharSequence currency = option.currency;
-        SpannableStringBuilder titleBuilder = new SpannableStringBuilder(LocaleController.formatPluralString("Months", option.months)) ;
-        int discount = (int) ((1.0 - (option.amount / (double) option.months) / (minOption.amount / (double) minOption.months)) * 100);
-        if (discount > 0) {
-            titleTextView.setText(titleBuilder.append(DiscountSpan.applySpan("", discount)));
-        } else {
-            titleTextView.setText(titleBuilder);
-        }
-        setSubtitle(null);
-        totalTextView.setText(BillingController.getInstance().formatCurrency(usersCount > 0 ? price : 0, currency.toString()));
-        setDivider(needDivider);
-        checkBox.setChecked(selected, false);
-    }
-
-    public TLRPC.TL_premiumGiftCodeOption getOption() {
-        return option;
     }
 
     @Override

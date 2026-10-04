@@ -1255,12 +1255,7 @@ public class FileLoader extends BaseController {
                         }
                     }
                 }
-            } else if (MessageObject.getMedia(message) instanceof TLRPC.TL_messageMediaInvoice) {
-                TLRPC.WebDocument document = ((TLRPC.TL_messageMediaInvoice) MessageObject.getMedia(message)).webPhoto;
-                if (document != null) {
-                    return Utilities.MD5(document.url) + "." + ImageLoader.getHttpUrlExtension(document.url, getMimeTypePart(document.mime_type));
-                }
-            }
+            } else 
         }
         return "";
     }
@@ -1310,9 +1305,7 @@ public class FileLoader extends BaseController {
                         }
                     }
                 }
-            } else if (MessageObject.getMedia(message) instanceof TLRPC.TL_messageMediaInvoice) {
-                return getPathToAttach(((TLRPC.TL_messageMediaInvoice) MessageObject.getMedia(message)).photo, null, true, useFileDatabaseQueue);
-            }
+            } else 
         }
         return new File("");
     }

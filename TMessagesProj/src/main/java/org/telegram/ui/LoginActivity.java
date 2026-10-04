@@ -160,7 +160,6 @@ import org.telegram.ui.Components.OutlineTextContainerView;
 import org.telegram.ui.Components.Premium.GLIcon.GLIconRenderer;
 import org.telegram.ui.Components.Premium.GLIcon.GLIconTextureView;
 import org.telegram.ui.Components.Premium.GLIcon.Icon3D;
-import org.telegram.ui.Components.Premium.StarParticlesView;
 import org.telegram.ui.Components.ProxyDrawable;
 import org.telegram.ui.Components.RLottieDrawable;
 import org.telegram.ui.Components.RLottieImageView;
@@ -176,7 +175,6 @@ import org.telegram.ui.Components.URLSpanNoUnderline;
 import org.telegram.ui.Components.VerticalPositionAutoAnimator;
 import org.telegram.ui.Components.chat.ViewPositionWatcher;
 import org.telegram.ui.Components.spoilers.SpoilersTextView;
-import org.telegram.ui.Stars.ExplainStarsSheet;
 import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
 
 import java.io.BufferedReader;
@@ -236,8 +234,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
             VIEW_CODE_EMAIL = 14,
             VIEW_CODE_FRAGMENT_SMS = 15,
             VIEW_CODE_WORD = 16,
-            VIEW_CODE_PHRASE = 17,
-            VIEW_PAY = 18;
+            VIEW_CODE_PHRASE = 17;
 
     public final static int COUNTRY_STATE_NOT_SET_OR_VALID = 0,
             COUNTRY_STATE_EMPTY = 1,
@@ -285,7 +282,6 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
             VIEW_CODE_FRAGMENT_SMS,
             VIEW_CODE_WORD,
             VIEW_CODE_PHRASE,
-            VIEW_PAY
     })
     private @interface ViewNumber {}
 
@@ -298,7 +294,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
     @ViewNumber
     private int currentViewNum;
-    private final SlideView[] views = new SlideView[19];
+    private final SlideView[] views = new SlideView[18];
     private CustomPhoneKeyboardView keyboardView;
     private ValueAnimator keyboardAnimator;
     private boolean paid;
@@ -663,12 +659,10 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
         views[VIEW_CODE_FRAGMENT_SMS] = new LoginActivitySmsView(context, AUTH_TYPE_FRAGMENT_SMS);
         views[VIEW_CODE_WORD] = new LoginActivityPhraseView(context, AUTH_TYPE_WORD);
         views[VIEW_CODE_PHRASE] = new LoginActivityPhraseView(context, AUTH_TYPE_PHRASE);
-        views[VIEW_PAY] = new LoginPayView(context);
 
         for (int a = 0; a < views.length; a++) {
             views[a].setVisibility(a == 0 ? View.VISIBLE : View.GONE);
-            final boolean needsTopMargin = a != VIEW_PAY;
-            slideViewsContainer.addView(views[a], LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT, Gravity.CENTER, AndroidUtilities.isTablet() ? 26 : 18, needsTopMargin ? 30 : 0, AndroidUtilities.isTablet() ? 26 : 18, 0));
+            slideViewsContainer.addView(views[a], LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT, Gravity.CENTER, AndroidUtilities.isTablet() ? 26 : 18, 30, AndroidUtilities.isTablet() ? 26 : 18, 0));
         }
 
         Bundle savedInstanceState = activityMode == MODE_LOGIN ? loadCurrentState(newAccount, currentAccount) : null;
@@ -1734,18 +1728,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
     private boolean isRequestingFirebaseSms;
     private void fillNextCodeParams(Bundle params, TLRPC.auth_SentCode res, boolean animate) {
-        if (res instanceof TLRPC.TL_auth_sentCodePaymentRequired) {
-            final TLRPC.TL_auth_sentCodePaymentRequired auth = (TLRPC.TL_auth_sentCodePaymentRequired) res;
-            params.putString("product", auth.store_product);
-            params.putString("phoneHash", auth.phone_code_hash);
-            params.putString("support_email_address", auth.support_email_address);
-            params.putString("support_email_subject", auth.support_email_subject);
-            params.putString("currency", auth.currency);
-            params.putInt("premium_days", auth.premium_days);
-            params.putLong("amount", auth.amount);
-            setPage(VIEW_PAY, true, params, true);
-            return;
-        }
+        
         if (res.type instanceof TLRPC.TL_auth_sentCodeTypeFirebaseSms && !res.type.verifiedFirebase && !isRequestingFirebaseSms) {
             isRequestingFirebaseSms = true;
             resendCodeFromSafetyNet(params, res, "GSA_REMOVED");
@@ -9415,358 +9398,6 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 //                        len--;
 //                    }
             return ((st > 0) || (len < str.length())) ? str.substring(st, len) : str;
-        }
-    }
-
-    public class LoginPayView extends SlideView {
-
-        private StarParticlesView starParticlesView;
-        private ImageView optionsButton;
-        private ButtonWithCounterView button;
-
-        private ExplainStarsSheet.FeatureCell[] cells = new ExplainStarsSheet.FeatureCell[3];
-
-        public LoginPayView(Context context) {
-            super(context);
-
-            setOrientation(VERTICAL);
-            setClipChildren(false);
-            setClipToPadding(false);
-            setPadding(0, 0, 0, dp(16));
-
-            final FrameLayout topView = new FrameLayout(context);
-            topView.setClipChildren(false);
-            topView.setClipToPadding(false);
-            addView(topView, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, 200));
-
-            starParticlesView = new StarParticlesView(context) {
-                @Override
-                protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-                    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-                    drawable.rect2.set(0, 0, getMeasuredWidth(), getMeasuredHeight() - AndroidUtilities.dp(52));
-                }
-
-                @Override
-                protected void configure() {
-                    drawable.useGradient = true;
-                    drawable.useBlur = false;
-                    drawable.checkBounds = true;
-                    drawable.isCircle = true;
-                    drawable.centerOffsetY = dp(-14);
-                    drawable.minLifeTime = 2000;
-                    drawable.randLifeTime = 3000;
-                    drawable.size1 = 16;
-                    drawable.useRotate = false;
-                    drawable.type = PremiumPreviewFragment.PREMIUM_FEATURE_BUSINESS;
-                    drawable.colorKey = Theme.key_premiumGradient2;
-                    drawable.init();
-                }
-            };
-            topView.addView(starParticlesView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, 200, Gravity.FILL));
-
-            optionsButton = new ImageView(context);
-            optionsButton.setImageResource(R.drawable.ic_ab_other);
-            optionsButton.setScaleType(ImageView.ScaleType.CENTER);
-            optionsButton.setColorFilter(new PorterDuffColorFilter(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText, resourceProvider), PorterDuff.Mode.SRC_IN));
-            optionsButton.setBackground(Theme.createSelectorDrawable(Theme.getColor(Theme.key_listSelector)));
-            topView.addView(optionsButton, LayoutHelper.createFrame(32, 32, Gravity.RIGHT | Gravity.TOP, 0, 16, -2, 0));
-
-            GLIconTextureView iconTextureView = new GLIconTextureView(context, GLIconRenderer.DIALOG_STYLE, Icon3D.TYPE_COIN) {
-                @Override
-                protected void onAttachedToWindow() {
-                    super.onAttachedToWindow();
-                    setPaused(false);
-                }
-
-                @Override
-                protected void onDetachedFromWindow() {
-                    super.onDetachedFromWindow();
-                    setPaused(true);
-                }
-            };
-            iconTextureView.setStarParticlesView(starParticlesView);
-            Bitmap bitmap = Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
-            canvas.drawColor(ColorUtils.blendARGB(Theme.getColor(Theme.key_premiumGradient2), Theme.getColor(Theme.key_dialogBackground), 0.5f));
-            iconTextureView.setBackgroundBitmap(bitmap);
-//                iconTextureView.mRenderer.forceNight = true;
-            iconTextureView.mRenderer.colorKey1 = Theme.key_premiumGradient2;
-            iconTextureView.mRenderer.colorKey2 = Theme.key_premiumGradient1;
-            iconTextureView.mRenderer.updateColors();
-            topView.addView(iconTextureView, LayoutHelper.createFrame(160, 160, Gravity.CENTER_HORIZONTAL));
-
-            TextView textView = new TextView(context);
-            textView.setText(getString(R.string.SMSFeeTitle));
-            textView.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
-            textView.setTypeface(AndroidUtilities.bold());
-            textView.setGravity(Gravity.CENTER);
-            topView.addView(textView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 16, 152, 16, 0));
-
-            cells[0] = new ExplainStarsSheet.FeatureCell(context, ExplainStarsSheet.FeatureCell.STYLE_SHEET, resourceProvider);
-            cells[0].set(R.drawable.menu_high_price, getString(R.string.SMSFee1Title), getString(R.string.SMSFee1Text));
-            addView(cells[0], LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.FILL_HORIZONTAL | Gravity.TOP, 0, 0, 0, 6));
-
-            cells[1] = new ExplainStarsSheet.FeatureCell(context, ExplainStarsSheet.FeatureCell.STYLE_SHEET, resourceProvider);
-            cells[1].set(R.drawable.menu_feature_code, getString(R.string.SMSFee2Title), getString(R.string.SMSFee2Text));
-            addView(cells[1], LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.FILL_HORIZONTAL | Gravity.TOP, 0, 0, 0, 6));
-
-            cells[2] = new ExplainStarsSheet.FeatureCell(context, ExplainStarsSheet.FeatureCell.STYLE_SHEET, resourceProvider);
-            cells[2].set(R.drawable.menu_feature_hands, AndroidUtilities.replaceArrows(replaceSingleTag(getString(R.string.SMSFee3Title), () -> {
-                final PremiumPreviewFragment fragment = new PremiumPreviewFragment("sms");
-                fragment.setCurrentAccount(currentAccount);
-                presentFragment(fragment);
-            }), true, dp(8f / 3f), dp(1)), getString(R.string.SMSFee3Text));
-            addView(cells[2], LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.FILL_HORIZONTAL | Gravity.TOP, 0, 0, 0, 6));
-
-            addView(new Space(context), LayoutHelper.createLinear(0, 0, 1, Gravity.FILL));
-
-            button = new ButtonWithCounterView(context, null).setRound();
-            button.setLoading(true);
-            addView(button, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, 48, Gravity.FILL_HORIZONTAL, 0, 16, 0, 16));
-        }
-
-        private Bundle params;
-        private String lastError;
-
-        @Override
-        public void setParams(Bundle params, boolean restore) {
-            super.setParams(params, restore);
-
-            this.params = params;
-            final String countryCode = params == null ? null : params.getString("country");
-            final String countryName = LocaleController.getCountryName(countryCode);
-
-            final String product = params == null ? null : params.getString("product");
-            final String phone = params == null ? null : params.getString("phoneFormated");
-            final String phoneHash = params == null ? null : params.getString("phoneHash");
-            final String support_email_email = params == null ? null : params.getString("support_email_email");
-            final String support_email_subject = params == null ? null : params.getString("support_email_subject");
-            final String currency = params == null ? null : params.getString("currency");
-            final long amount = params == null ? 0 : params.getLong("amount");
-            final int premium_days = params == null ? 0 : params.getInt("premium_days");
-
-            if (TextUtils.isEmpty(countryName)) {
-                cells[0].subtitleView.setText(getString(R.string.SMSFee1Text));
-            } else {
-                cells[0].subtitleView.setText(formatString(R.string.SMSFee1TextCountry, countryName));
-            }
-
-            cells[2].setSubtitle(premium_days == 7 ? getString(R.string.SMSFee3Text) : formatPluralStringComma("SMSFee3TextDays", premium_days));
-
-            optionsButton.setOnClickListener(v -> {
-                ItemOptions.makeOptions(LoginActivity.this, optionsButton)
-                    .add(R.drawable.msg_help, getString(R.string.SettingsHelp), () -> {
-                        try {
-                            PackageInfo pInfo = ApplicationLoader.applicationContext.getPackageManager().getPackageInfo(ApplicationLoader.applicationContext.getPackageName(), 0);
-                            String version = String.format(Locale.US, "%s (%d)", pInfo.versionName, pInfo.versionCode);
-
-                            Intent mailer = new Intent(Intent.ACTION_SENDTO);
-                            mailer.setData(Uri.parse("mailto:"));
-                            if (!TextUtils.isEmpty(support_email_email)) {
-                                mailer.putExtra(Intent.EXTRA_EMAIL, new String[]{support_email_email});
-                            } else {
-                                mailer.putExtra(Intent.EXTRA_EMAIL, new String[]{"sms@telegram.org"});
-                            }
-                            if (!TextUtils.isEmpty(support_email_subject)) {
-                                mailer.putExtra(Intent.EXTRA_SUBJECT, support_email_subject);
-                            } else {
-                                mailer.putExtra(Intent.EXTRA_SUBJECT, "Android Registration/Login Billing Issue #billing_issue");
-                            }
-
-                            StringBuilder body = new StringBuilder();
-                            body.append("Technical Details (PLEASE DO NOT EDIT OR REMOVE)\n");
-                            body.append("Device: ").append(Build.MANUFACTURER).append(" ").append(Build.MODEL).append("\n");
-                            body.append("OS version: SDK ").append(android.os.Build.VERSION.SDK_INT).append("\n");
-                            body.append("Locale: ").append(Locale.getDefault()).append("\n");
-                            body.append("\n");
-                            body.append("Target Phone: +").append(phone).append("\n");
-                            body.append("\n");
-                            try {
-                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-                                    final SubscriptionManager subscriptionManager = SubscriptionManager.from(getContext());
-                                    List<SubscriptionInfo> infos = null;
-                                    if (Build.VERSION.SDK_INT >= 30) {
-                                        infos = subscriptionManager.getCompleteActiveSubscriptionInfoList();
-                                    }
-                                    if ((infos == null || infos.isEmpty()) && Build.VERSION.SDK_INT >= 28) {
-                                        infos = subscriptionManager.getAccessibleSubscriptionInfoList();
-                                    }
-                                    if (infos == null || infos.isEmpty()) {
-                                        infos = subscriptionManager.getActiveSubscriptionInfoList();
-                                    }
-                                    if (infos != null) {
-                                        for (SubscriptionInfo info : infos) {
-                                            final String number = info.getNumber();
-                                            if (!TextUtils.isEmpty(number)) {
-                                                final String sim = "SIM" + info.getSimSlotIndex();
-                                                body.append(sim).append(".Phone: ").append(number).append("\n");
-                                                body.append(sim).append(".MCC: ").append(info.getMcc()).append("\n");
-                                                body.append(sim).append(".MNC: ").append(info.getMnc()).append("\n");
-                                                body.append(sim).append(".Carrier: ").append(TextUtils.isEmpty(info.getCarrierName()) ? "unknown" : info.getCarrierName()).append("\n\n");
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    try {
-                                        final TelephonyManager tm = (TelephonyManager) ApplicationLoader.applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
-                                        final String number = tm.getLine1Number();
-                                        if (!TextUtils.isEmpty(number)) {
-                                            body.append("SIM0.Phone: ").append(number).append("\n");
-                                            body.append("SIM0.MCC: unknown\n");
-                                            body.append("SIM0.MNC: unknown\n");
-                                            body.append("SIM0.Carrier: unknown\n\n");
-                                        }
-                                    } catch (Exception e) {
-                                        FileLog.e(e);
-                                    }
-                                }
-                            } catch (Exception e) {
-                                FileLog.e(e);
-                            }
-                            if (Build.VERSION.SDK_INT >= 29) {
-                                try {
-                                    TelephonyManager tm = getContext().getSystemService(TelephonyManager.class);
-                                    ConnectivityManager cm = getContext().getSystemService(ConnectivityManager.class);
-                                    SignalStrength signal = tm.getSignalStrength();
-                                    if (signal != null) {
-                                        body.append("Signal: ").append(signal.getLevel()).append("/4\n");
-                                    } else {
-                                        body.append("Signal: unknown\n");
-                                    }
-                                } catch (Exception e) {
-                                    FileLog.e(e);
-                                }
-                            } else {
-                                body.append("Signal: unknown\n");
-                            }
-                            body.append("Wi-Fi: ").append(AndroidUtilities.isWifiEnabled(getContext())).append("\n");
-                            body.append("Airplane Mode: ").append(AndroidUtilities.isInAirplaneMode(getContext())).append("\n");
-                            body.append("\n");
-                            body.append("App: ").append(BuildVars.APP_ID).append("\n");
-                            final String versionType;
-                            switch (pInfo.versionCode % 10) {
-                                case 1:
-                                case 2:
-                                    versionType = "store";
-                                    break;
-                                default:
-                                case 9:
-                                    if (ApplicationLoader.isStandaloneBuild()) {
-                                        versionType = "direct";
-                                    } else if (ApplicationLoader.isBetaBuild()) {
-                                        versionType = "beta";
-                                    } else if (ApplicationLoader.isHuaweiStoreBuild()) {
-                                        versionType = "huawei";
-                                    } else {
-                                        versionType = "universal";
-                                    }
-                                    break;
-                            }
-                            body.append("App version: ").append(version).append(" ").append(versionType).append("\n");
-                            body.append("\n");
-                            body.append("Issue: ").append("billing_issue").append("\n");
-                            if (!TextUtils.isEmpty(lastError)) {
-                                body.append("Error: ").append(lastError).append("\n");
-                            }
-                            body.append("\n\n================================================\n");
-                            body.append("WRITE YOUR COMMENT HERE:\n");
-                            body.append("\n");
-                            body.append("\n");
-                            mailer.putExtra(Intent.EXTRA_TEXT, body.toString());
-                            getContext().startActivity(Intent.createChooser(mailer, "Send email..."));
-                        } catch (Exception e) {
-                            needShowAlert(getString(R.string.AppName), getString("NoMailInstalled", R.string.NoMailInstalled));
-                        }
-                    })
-                    .setGravity(Gravity.RIGHT)
-                    .show();
-            });
-
-            button.setEnabled(true);
-            button.setOnClickListener(null);
-            if (!TextUtils.isEmpty(currency) && amount > 0) {
-                button.setVisibility(View.VISIBLE);
-                button.setLoading(false);
-                button.setText(formatString(R.string.SMSFeePurchaseTitle, BillingController.getInstance().formatCurrency(amount, currency)), false);
-                button.setSubText(premium_days == 7 ? getString(R.string.SMSFeePurchaseText) : formatPluralStringComma("SMSFeePurchaseTextDays", premium_days), false);
-                button.setOnClickListener(v -> {
-                    if (button.isLoading())
-                        return;
-                    BulletinFactory.of(slideViewsContainer, null).createErrorBulletin(LocaleController.getString(R.string.PaymentUnavailable)).show();
-                });
-            } else {
-                button.setVisibility(View.VISIBLE);
-                button.setLoading(false);
-                button.setEnabled(false);
-                button.setText(getString(R.string.Unavailable), false);
-            }
-        }
-
-        private boolean polling;
-        private String pollingPhoneNumber;
-        private String pollingPhoneCodeHash;
-        private long pollingFormId;
-        private int pollingRequestId = -1;
-        private void startPoll(String phone_number, String phone_code_hash, long form_id) {
-            if (polling) return;
-
-            polling = true;
-            pollingPhoneNumber = phone_number;
-            pollingPhoneCodeHash = phone_code_hash;
-            pollingFormId = form_id;
-
-            button.setLoading(true);
-
-            poll();
-        }
-
-        private void poll() {
-            if (!polling) return;
-
-            final TLRPC.TL_checkPaidAuth req = new TLRPC.TL_checkPaidAuth();
-
-            req.form_id = pollingFormId;
-            req.phone_number = pollingPhoneNumber;
-            req.phone_code_hash = pollingPhoneCodeHash;
-
-            pollingRequestId = ConnectionsManager.getInstance(currentAccount).sendRequest(req, (res, err) -> AndroidUtilities.runOnUIThread(() -> {
-                pollingRequestId = -1;
-                if (res instanceof TLRPC.auth_SentCode) {
-                    polling = false;
-                    button.setLoading(false);
-                    fillNextCodeParams(params, (TLRPC.auth_SentCode) res);
-                } else if (err != null) {
-                    if (err.text != null && err.text.startsWith("FLOOD_WAIT_")) {
-                        final int seconds = Integer.parseInt(err.text.substring("FLOOD_WAIT_".length()));
-                        AndroidUtilities.runOnUIThread(this::poll, seconds * 1000);
-                    } else if (err.text != null && "PHONE_CODE_EXPIRED".equalsIgnoreCase(err.text)) {
-                        onBackPressed(true);
-                        setPage(VIEW_PHONE_INPUT, true, null, true);
-                        needShowAlert(getString(R.string.RestorePasswordNoEmailTitle), getString(R.string.CodeExpired));
-                    } else {
-                        lastError = err.text;
-                        polling = false;
-                        button.setLoading(false);
-                        BulletinFactory.of(slideViewsContainer, null).createSimpleBulletin(R.raw.error, formatString(R.string.UnknownErrorCode, err.text));
-                    }
-                }
-            }), ConnectionsManager.RequestFlagWithoutLogin | ConnectionsManager.RequestFlagInvokeAfter | ConnectionsManager.RequestFlagDoNotWaitFloodWait);
-        }
-
-        private void stopPoll() {
-            if (pollingRequestId >= 0) {
-                ConnectionsManager.getInstance(currentAccount).cancelRequest(pollingRequestId, true);
-                pollingRequestId = -1;
-            }
-            polling = false;
-            button.setLoading(false);
-        }
-
-        @Override
-        public void onHide() {
-            super.onHide();
-            stopPoll();
         }
     }
 

@@ -42,19 +42,9 @@ public class PremiumPreviewGiftLinkBottomSheet extends PremiumPreviewBottomSheet
         GiftInfoBottomSheet.show(LaunchActivity.getLastFragment(), slug, progress);
     }
 
-    public static void show(String slug, TLRPC.TL_premiumGiftOption giftOption, TLRPC.User user, boolean isUsed) {
-        BaseFragment fragment = LaunchActivity.getLastFragment();
-        if (fragment == null || instance != null) {
-            return;
-        }
-        GiftPremiumBottomSheet.GiftTier tier = new GiftPremiumBottomSheet.GiftTier(giftOption, null);
-        PremiumPreviewGiftLinkBottomSheet sheet = new PremiumPreviewGiftLinkBottomSheet(fragment, UserConfig.selectedAccount, user, tier, slug, isUsed, fragment.getResourceProvider());
-        sheet.show();
-        instance = sheet;
-    }
 
     public PremiumPreviewGiftLinkBottomSheet(BaseFragment fragment, int currentAccount, TLRPC.User user, GiftPremiumBottomSheet.GiftTier gift, String slug, boolean isUsed, Theme.ResourcesProvider resourcesProvider) {
-        super(fragment, currentAccount, user, gift, null, resourcesProvider);
+        super(fragment, currentAccount, user, resourcesProvider);
         this.slug = slug;
         this.isUsed = isUsed;
         init();
@@ -136,24 +126,7 @@ public class PremiumPreviewGiftLinkBottomSheet extends PremiumPreviewBottomSheet
             recyclerListView.setPadding(backgroundPaddingLeft, 0, backgroundPaddingLeft, dp(BOTTOM_HEIGHT_DP));
             actionBtn = new ActionBtnCell(getContext(), resourcesProvider);
             actionBtn.setOnClickListener(v -> {
-                if (actionBtn.isLoading()) {
-                    return;
-                }
-                actionBtn.updateLoading(true);
-                BoostRepository.applyGiftCode(slug, result -> {
-                    actionBtn.updateLoading(false);
-                    dismiss();
-                    AndroidUtilities.runOnUIThread(() -> {
-                        PremiumPreviewBottomSheet previewBottomSheet = new PremiumPreviewBottomSheet(getBaseFragment(), UserConfig.selectedAccount, null, null, null, resourcesProvider)
-                                .setAnimateConfetti(true)
-                                .setAnimateConfettiWithStars(true)
-                                .setOutboundGift(true);
-                        getBaseFragment().showDialog(previewBottomSheet);
-                    }, 200);
-                }, error -> {
-                    actionBtn.updateLoading(false);
-                    BoostDialogs.processApplyGiftCodeError(error, (FrameLayout) containerView, resourcesProvider, this::share);
-                });
+
             });
             actionBtn.setActivateForFreeStyle();
             containerView.addView(actionBtn, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, BOTTOM_HEIGHT_DP, Gravity.BOTTOM, 0, 0, 0, 0));

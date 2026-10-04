@@ -98,8 +98,6 @@ import org.telegram.ui.Components.UniversalRecyclerView;
 import org.telegram.ui.Components.spoilers.SpoilersTextView;
 import org.telegram.ui.GradientClip;
 import org.telegram.ui.ProfileActivity;
-import org.telegram.ui.Stars.StarsIntroActivity;
-import org.telegram.ui.Stars.StarsReactionsSheet;
 import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
 
 import java.util.ArrayList;
@@ -884,35 +882,10 @@ public class LiveCommentsView extends FrameLayout implements NotificationCenter.
         final TLRPC.Peer sendAsPeer = getDefaultSendAs();
         if (sendAsPeer != null)
             send_as = DialogObject.getPeerDialogId(sendAsPeer);
-        final StarsReactionsSheet sheet = new StarsReactionsSheet(getContext(), currentAccount, dialogId, null, null, reactors, !disabledPaidFeatures, true, send_as, new DarkThemeResourceProvider() {
-            @Override
-            public void appendColors() {
-                sparseIntArray.put(Theme.key_divider, 0x14FFFFFF);
-            }
-        });
-        sheet.setLiveCommentsView(this);
-        sheet.setOnSend((peer, stars) -> {
-            closeBulletin.run();
-            localStars = stars;
-            Bulletin b = BulletinFactory.of(topBulletinContainer, new DarkThemeResourceProvider())
-                .createSimpleBulletin(R.raw.stars_topup, getStarsToastTitle(), getStarsToastSubtitle());
-            b.hideAfterBottomSheet = false;
-            b.show(true);
-
-            localStars = 0;
-            sentStars = true;
-
-            int msg_id = send(new TLRPC.TL_textWithEntities(), stars);
-
-            final long minStars = livePlayer == null ? 0 : livePlayer.getSendPaidMessagesStars();
-            final boolean fromAdmin = getDefaultPeerId() == this.dialogId && isAdmin();
-            if (stars < minStars && !fromAdmin) {
-                return Integer.MIN_VALUE;
-            }
-
-            return msg_id;
-        });
-        sheet.show();
+        
+        
+        
+        
     }
 
     private Runnable closeBulletin = () -> {
@@ -1159,9 +1132,7 @@ public class LiveCommentsView extends FrameLayout implements NotificationCenter.
             } else if (err != null) {
                 AndroidUtilities.runOnUIThread(() -> {
                     delete(id);
-                    if ("BALANCE_TOO_LOW".equalsIgnoreCase(err.text)) {
-                        new StarsIntroActivity.StarsNeededSheet(getContext(), new DarkThemeResourceProvider(), stars, StarsIntroActivity.StarsNeededSheet.TYPE_LIVE_COMMENTS, "", () -> send(send_as, text, stars), dialogId).show();
-                    } else if ("GROUPCALL_INVALID".equalsIgnoreCase(err.text)) {
+                    if ("GROUPCALL_INVALID".equalsIgnoreCase(err.text)) {
                         if (livePlayer != null) {
                             livePlayer.storyDeleted();
                         }
@@ -1531,7 +1502,7 @@ public class LiveCommentsView extends FrameLayout implements NotificationCenter.
             this.filled = filled;
 
             layout = new LinearLayout(context) {
-                StarsReactionsSheet.Particles particles;
+                
                 Path clipPath = new Path();
 
                 @Override
@@ -1543,13 +1514,13 @@ public class LiveCommentsView extends FrameLayout implements NotificationCenter.
                         canvas.save();
                         canvas.clipPath(clipPath);
 
-                        if (particles == null) {
-                            particles = new StarsReactionsSheet.Particles(StarsReactionsSheet.Particles.TYPE_RADIAL, 250);
+                         {
+                            
                         }
-                        particles.setBounds(0, 0, getWidth(), getHeight());
-                        particles.setSpeed(30.0f);
-                        particles.process();
-                        particles.draw(canvas, 0xFFFFFFFF, 0.85f);
+                        
+                        
+                        
+                        
                         invalidate();
 
                         canvas.restore();
@@ -1756,7 +1727,7 @@ public class LiveCommentsView extends FrameLayout implements NotificationCenter.
                 background.setAlpha((int) (0xFF * (backgroundViewAlpha = !filled ? 0.65f : 1.0f)));
                 if (!message.isReaction) {
                     smallStarsView.setVisibility(View.VISIBLE);
-                    smallStarsView.setText(StarsIntroActivity.replaceStars("⭐️ " + LocaleController.formatNumber(message.stars, ','), 0.75f, smallStarsViewCache, 0, 0, 1.0f));
+                    smallStarsView.setText("⭐️ " + LocaleController.formatNumber(message.stars, ','));
                     starsView.setVisibility(View.GONE);
                     starsView.setText("");
                 } else {
@@ -1764,7 +1735,7 @@ public class LiveCommentsView extends FrameLayout implements NotificationCenter.
                     smallStarsView.setText("");
                     starsView.setVisibility(View.VISIBLE);
                     starsView.setBackground(Theme.createRoundRectDrawable(dp(13), Theme.multAlpha(darkerBackgroundColor, 0.25f)));
-                    starsView.setText(StarsIntroActivity.replaceStars("⭐️ " + LocaleController.formatNumber(message.stars, ','), 0.75f, starsViewCache, 0, dp(0.66f), 1.0f));
+                    starsView.setText("⭐️ " + LocaleController.formatNumber(message.stars, ','));
                     if (starsViewCache[0] != null) {
                         starsViewCache[0].draw = drawStar;
                     }
@@ -1883,7 +1854,7 @@ public class LiveCommentsView extends FrameLayout implements NotificationCenter.
             ScaleStateListAnimator.apply(this);
 
             layout = new LinearLayout(context) {
-                StarsReactionsSheet.Particles particles;
+                
                 final Path clipPath = new Path();
                 final Paint fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
                 long lastDialogId = 0;
@@ -1912,13 +1883,13 @@ public class LiveCommentsView extends FrameLayout implements NotificationCenter.
                         canvas.drawRect(getWidth() * progress, 0, getWidth(), getHeight(), fillPaint);
                     }
 
-                    if (particles == null) {
-                        particles = new StarsReactionsSheet.Particles(StarsReactionsSheet.Particles.TYPE_RADIAL, 250);
+                     {
+                        
                     }
-                    particles.setBounds(0, 0, getWidth(), getHeight());
-                    particles.setSpeed(30.0f);
-                    particles.process();
-                    particles.draw(canvas, 0xFFFFFFFF, 0.85f);
+                    
+                    
+                    
+                    
                     invalidate();
 
                     canvas.restore();

@@ -14,7 +14,6 @@ import static org.telegram.messenger.NotificationsController.TYPE_CHANNEL;
 import static org.telegram.messenger.NotificationsController.TYPE_PRIVATE;
 import static org.telegram.messenger.NotificationsController.TYPE_REACTIONS_MESSAGES;
 import static org.telegram.messenger.Utilities.tryParseLong;
-import static org.telegram.ui.Stars.StarsController.findAttribute;
 import static org.telegram.ui.Stories.HighlightMessageSheet.parseTiers;
 import static org.telegram.ui.Stories.HighlightMessageSheet.parseTiersString;
 import static org.telegram.ui.Stories.HighlightMessageSheet.tiersEqual;
@@ -77,7 +76,6 @@ import org.telegram.tgnet.tl.TL_communities;
 import org.telegram.tgnet.tl.TL_ephemeral;
 import org.telegram.tgnet.tl.TL_forum;
 import org.telegram.tgnet.tl.TL_phone;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.tgnet.tl.TL_stories;
 import org.telegram.tgnet.tl.TL_chatlists;
 import org.telegram.tgnet.tl.TL_update;
@@ -108,8 +106,6 @@ import org.telegram.ui.MainTabsActivity;
 import org.telegram.ui.PremiumPreviewFragment;
 import org.telegram.ui.ProfileActivity;
 import org.telegram.ui.SecretMediaViewer;
-import org.telegram.ui.Stars.BotStarsController;
-import org.telegram.ui.Stars.StarsController;
 import org.telegram.ui.Stories.StoriesController;
 import org.telegram.ui.ThemeActivity;
 import org.telegram.ui.TopicsFragment;
@@ -2572,22 +2568,13 @@ public class MessagesController extends BaseController implements NotificationCe
     public static TLRPC.TL_emojiStatusCollectible emojiStatusCollectibleFromGift(TL_stars.TL_starGiftUnique gift) {
         final TLRPC.TL_emojiStatusCollectible status = new TLRPC.TL_emojiStatusCollectible();
         status.collectible_id = gift.id;
-        final TL_stars.starGiftAttributeModel model = findAttribute(gift.attributes, TL_stars.starGiftAttributeModel.class);
-        final TL_stars.starGiftAttributeBackdrop backdrop = findAttribute(gift.attributes, TL_stars.starGiftAttributeBackdrop.class);
-        final TL_stars.starGiftAttributePattern pattern = findAttribute(gift.attributes, TL_stars.starGiftAttributePattern.class);
+        
+        
+        
         status.title = gift.title + " #" + gift.num;
-        if (model != null) {
-            status.document_id = model.document.id;
-        }
-        if (pattern != null) {
-            status.pattern_document_id = pattern.document.id;
-        }
-        if (backdrop != null) {
-            status.center_color = backdrop.center_color;
-            status.edge_color = backdrop.edge_color;
-            status.text_color = backdrop.text_color;
-            status.pattern_color = backdrop.pattern_color;
-        }
+        
+        
+        
         return status;
     }
 
@@ -2601,9 +2588,7 @@ public class MessagesController extends BaseController implements NotificationCe
     public void updateEmojiStatus(long dialogId, TLRPC.EmojiStatus newStatus, TL_stars.StarGift gift) {
         final boolean myself = dialogId == 0 || dialogId == getUserConfig().getClientUserId();
         TLRPC.EmojiStatus new_emoji_status = newStatus;
-        if (new_emoji_status instanceof TLRPC.TL_inputEmojiStatusCollectible && gift instanceof TL_stars.TL_starGiftUnique) {
-            new_emoji_status = emojiStatusCollectibleFromGift((TL_stars.TL_starGiftUnique) gift);
-        }
+        
 
         TLObject r;
         if (myself) {
@@ -7834,7 +7819,7 @@ public class MessagesController extends BaseController implements NotificationCe
                     }
                     fullUsers.put(user.id, userFull);
                     getTranslateController().updateDialogFull(user.id);
-                    StarsController.getInstance(currentAccount).invalidateProfileGifts(userFull);
+                    
                     loadingFullUsers.remove(user.id);
                     loadedFullUsers.put(user.id, System.currentTimeMillis());
                     String names = user.first_name + user.last_name + UserObject.getPublicUsername(user);
@@ -10494,7 +10479,7 @@ public class MessagesController extends BaseController implements NotificationCe
                 if (fullUsers.get(user.id) == null) {
                     fullUsers.put(user.id, info);
                     getTranslateController().updateDialogFull(user.id);
-                    StarsController.getInstance(currentAccount).invalidateProfileGifts(info);
+                    
 
                     int index = blockePeers.indexOfKey(user.id);
                     if (info.blocked) {
@@ -12165,11 +12150,7 @@ public class MessagesController extends BaseController implements NotificationCe
                                 msg.generatePinMessageText(null, null);
                             } else if (msg.messageOwner.action instanceof TLRPC.TL_messageActionGameScore) {
                                 msg.generateGameMessageText(null);
-                            } else if (msg.messageOwner.action instanceof TLRPC.TL_messageActionPaymentSent) {
-                                msg.generatePaymentSentMessageText(null, false);
-                            } else if (msg.messageOwner.action instanceof TLRPC.TL_messageActionPaymentSentMe) {
-                                msg.generatePaymentSentMessageText(null, true);
-                            } else if (msg.messageOwner.action instanceof TLRPC.TL_messageActionSuggestedPostApproval) {
+                            } else   if (msg.messageOwner.action instanceof TLRPC.TL_messageActionSuggestedPostApproval) {
                                 msg.generateSuggestionApprovalMessageText();
                             }
                             break;
@@ -18744,12 +18725,7 @@ public class MessagesController extends BaseController implements NotificationCe
                     markContentAsReadMessages.put(dialogId, ids);
                 }
                 ids.addAll(update.messages);
-            } else if (baseUpdate instanceof TL_update.TL_updateStarGiftAuctionState || baseUpdate instanceof TL_update.TL_updateStarGiftAuctionUserState) {
-                if (updatesOnMainThread == null) {
-                    updatesOnMainThread = new ArrayList<>();
-                }
-                updatesOnMainThread.add(baseUpdate);
-            } else if (baseUpdate instanceof TL_update.TL_updateReadMonoForumInbox) {
+            } else  if (baseUpdate instanceof TL_update.TL_updateReadMonoForumInbox) {
                 TL_update.TL_updateReadMonoForumInbox update = (TL_update.TL_updateReadMonoForumInbox) baseUpdate;
                 if (savedReadInbox == null) {
                     savedReadInbox = new HashMap<>();
@@ -19895,16 +19871,8 @@ public class MessagesController extends BaseController implements NotificationCe
                             getContactsController().setPrivacyRules(update.rules, ContactsController.PRIVACY_RULES_TYPE_BIO);
                         } else if (update.key instanceof TLRPC.TL_privacyKeyBirthday) {
                             getContactsController().setPrivacyRules(update.rules, ContactsController.PRIVACY_RULES_TYPE_BIRTHDAY);
-                        } else if (update.key instanceof TLRPC.TL_privacyKeyStarGiftsAutoSave) {
-                            getContactsController().setPrivacyRules(update.rules, ContactsController.PRIVACY_RULES_TYPE_GIFTS);
-                        }
-                    } else if (baseUpdate instanceof TL_update.TL_updateStarGiftAuctionState) {
-                        GiftAuctionController.getInstance(currentAccount).processUpdate((TL_update.TL_updateStarGiftAuctionState) baseUpdate);
-                    } else if (baseUpdate instanceof TL_update.TL_updateStarGiftAuctionUserState) {
-                        GiftAuctionController.getInstance(currentAccount).processUpdate((TL_update.TL_updateStarGiftAuctionUserState) baseUpdate);
-                    } else if (baseUpdate instanceof TL_update.TL_updateStarsRevenueStatus) {
-                        BotStarsController.getInstance(currentAccount).onUpdate((TL_update.TL_updateStarsRevenueStatus) baseUpdate);
-                    } else if (baseUpdate instanceof TL_update.TL_updateUserStatus) {
+                        } else 
+                    } else    if (baseUpdate instanceof TL_update.TL_updateUserStatus) {
                         TL_update.TL_updateUserStatus update = (TL_update.TL_updateUserStatus) baseUpdate;
                         TLRPC.User currentUser = getUser(update.user_id);
 
@@ -19928,11 +19896,7 @@ public class MessagesController extends BaseController implements NotificationCe
                         }
                     } else if (baseUpdate instanceof TL_update.TL_updateMonoForumNoPaidException) {
                         TL_update.TL_updateMonoForumNoPaidException update = (TL_update.TL_updateMonoForumNoPaidException) baseUpdate;
-                        StarsController.getInstance(currentAccount).processUpdateMonoForumNoPaidException(
-                            update.channel_id,
-                            DialogObject.getPeerDialogId(update.saved_peer_id),
-                            update.exception
-                        );
+                        
                     } else if (baseUpdate instanceof TL_update.TL_updatePeerWallpaper) {
                         TL_update.TL_updatePeerWallpaper update = (TL_update.TL_updatePeerWallpaper) baseUpdate;
                         ChatThemeController.getInstance(currentAccount).processUpdate(update);
@@ -20074,12 +20038,7 @@ public class MessagesController extends BaseController implements NotificationCe
                         }
                         messageObjects.add(message);
                         getNotificationsController().processNewMessages(messageObjects, true, false, null);
-                    } else if (baseUpdate instanceof TL_update.TL_updateStarsBalance) {
-                        TL_update.TL_updateStarsBalance update = (TL_update.TL_updateStarsBalance) baseUpdate;
-                        final boolean ton = update.balance instanceof TL_stars.TL_starsTonAmount;
-                        StarsController.getInstance(currentAccount, ton).updateBalance(update.balance);
-                        StarsController.getInstance(currentAccount, ton).invalidateTransactions(false);
-                    } else if (baseUpdate instanceof TL_update.TL_updateUser) {
+                    } else  if (baseUpdate instanceof TL_update.TL_updateUser) {
                         TL_update.TL_updateUser update = (TL_update.TL_updateUser) baseUpdate;
                         TLRPC.User currentUser = getUser(update.user_id);
                         TLRPC.User updated = null;
@@ -20580,8 +20539,8 @@ public class MessagesController extends BaseController implements NotificationCe
                         long dialogId = MessageObject.getPeerId(update.peer);
                         long pendingPaid = StarsController.getInstance(currentAccount).getPendingPaidReactions(dialogId, update.msg_id);
                         if (pendingPaid != 0) {
-                            final StarsController starsController = StarsController.getInstance(currentAccount);
-                            MessageObject.addPaidReactions(currentAccount, update.reactions, (int) pendingPaid, starsController.getPaidReactionsDialogId(StarsController.MessageId.from(dialogId, update.msg_id), update.reactions), true);
+                            
+                            MessageObject.addPaidReactions(currentAccount, update.reactions, (int) pendingPaid, false, true);
                         }
                         getNotificationCenter().postNotificationName(NotificationCenter.didUpdateReactions, dialogId, update.msg_id, update.reactions);
                     } else if (baseUpdate instanceof TL_update.TL_updateMessageExtendedMedia) {
@@ -20743,11 +20702,7 @@ public class MessagesController extends BaseController implements NotificationCe
                     } else if (baseUpdate instanceof TL_update.TL_updateChatParticipantRank) {
                         final TL_update.TL_updateChatParticipantRank update = (TL_update.TL_updateChatParticipantRank) baseUpdate;
                         updateRank(update.chat_id, update.user_id, update.rank);
-                    } else if (baseUpdate instanceof TL_update.TL_updateAiComposeTones) {
-                        if (tonesController != null) {
-                            tonesController.invalidate();
-                        }
-                    } else if (baseUpdate instanceof TL_update.TL_updateWebBrowserSettings) {
+                    } else  if (baseUpdate instanceof TL_update.TL_updateWebBrowserSettings) {
                         applyWebBrowserUpdate((TL_update.TL_updateWebBrowserSettings) baseUpdate);
                     } else if (baseUpdate instanceof TL_update.TL_updateWebBrowserException) {
                         applyWebBrowserUpdate((TL_update.TL_updateWebBrowserException) baseUpdate);
@@ -24724,10 +24679,10 @@ public class MessagesController extends BaseController implements NotificationCe
     };
 
     public void reportMessageDelivery(long dialogId, int messageId, boolean push) {
-        final StarsController.MessageId key = StarsController.MessageId.from(dialogId, messageId);
-        if (reportedMessageDelivery.contains(key)) return;
-        reportedMessageDelivery.add(key);
-        pendingReportMessageDelivery.add(new Pair<>(key, new AtomicBoolean(push)));
+        
+        
+        
+        
 
         AndroidUtilities.cancelRunOnUIThread(this.sendReportMessageDeliver);
         AndroidUtilities.runOnUIThread(this.sendReportMessageDeliver);

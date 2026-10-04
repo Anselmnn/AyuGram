@@ -2712,9 +2712,6 @@ public class ContactsController extends BaseController {
                 case PRIVACY_RULES_TYPE_BIRTHDAY:
                     req.key = new TLRPC.TL_inputPrivacyKeyBirthday();
                     break;
-                case PRIVACY_RULES_TYPE_GIFTS:
-                    req.key = new TLRPC.TL_inputPrivacyKeyStarGiftsAutoSave();
-                    break;
                 case PRIVACY_RULES_TYPE_NO_PAID_MESSAGES:
                     req.key = new TLRPC.TL_inputPrivacyKeyNoPaidMessages();
                     break;

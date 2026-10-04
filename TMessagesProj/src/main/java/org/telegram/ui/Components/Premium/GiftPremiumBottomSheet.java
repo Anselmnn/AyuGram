@@ -370,10 +370,6 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
 
     public final static class GiftTier {
 
-        public final TLRPC.TL_premiumGiftOption giftOption;
-        public final TLRPC.TL_premiumGiftCodeOption giftCodeOption;
-        public final TLRPC.TL_premiumGiftOption starsOption;
-        public final TLRPC.TL_premiumGiftCodeOption starsCodeOption;
         private int discount;
         private long pricePerMonth;
 
@@ -381,32 +377,19 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
 
         public int yOffset;
 
-        public GiftTier(TLRPC.TL_premiumGiftOption giftOption, Object starsOption) {
-            this.giftOption = giftOption;
-            this.giftCodeOption = null;
-            this.starsOption = starsOption instanceof TLRPC.TL_premiumGiftOption ? (TLRPC.TL_premiumGiftOption) starsOption : null;
-            this.starsCodeOption = starsOption instanceof TLRPC.TL_premiumGiftCodeOption ? (TLRPC.TL_premiumGiftCodeOption) starsOption : null;
+        public GiftTier() {
         }
-        public GiftTier(TLRPC.TL_premiumGiftCodeOption giftCodeOption, Object starsOption) {
-            this.giftOption = null;
-            this.giftCodeOption = giftCodeOption;
-            this.starsOption = starsOption instanceof TLRPC.TL_premiumGiftOption ? (TLRPC.TL_premiumGiftOption) starsOption : null;
-            this.starsCodeOption = starsOption instanceof TLRPC.TL_premiumGiftCodeOption ? (TLRPC.TL_premiumGiftCodeOption) starsOption : null;
-        }
+
 
         public void setPricePerMonthRegular(long pricePerMonthRegular) {
             this.pricePerMonthRegular = pricePerMonthRegular;
         }
 
         public String getStoreProduct() {
-            if (giftOption != null) return giftOption.store_product;
-            if (giftCodeOption != null) return giftCodeOption.store_product;
             return null;
         }
 
         public int getMonths() {
-            if (giftOption != null) return giftOption.months;
-            if (giftCodeOption != null) return giftCodeOption.months;
             return 1;
         }
 
@@ -446,42 +429,22 @@ public class GiftPremiumBottomSheet extends BottomSheetWithRecyclerListView impl
         }
 
         public long getPrice() {
-            if (giftOption != null) {
-                return giftOption.amount;
-            }
-            if (giftCodeOption != null) {
-                return giftCodeOption.amount;
-            }
             return 0;
         }
 
         public String getCurrency() {
-            if (giftOption != null) {
-                return giftOption.currency;
-            }
-            if (giftCodeOption != null) {
-                return giftCodeOption.currency;
-            }
             return "";
         }
 
         public Object getStarsOption() {
-            if (starsOption != null) return starsOption;
-            if (starsCodeOption != null) return starsCodeOption;
             return null;
         }
 
         public boolean isStarsPaymentAvailable() {
-            return starsOption != null || starsCodeOption != null;
+            return false;
         }
 
         public long getStarsPrice() {
-            if (starsOption != null) {
-                return starsOption.amount;
-            }
-            if (starsCodeOption != null) {
-                return starsCodeOption.amount;
-            }
             return 0;
         }
     }

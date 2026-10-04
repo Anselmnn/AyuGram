@@ -1,7 +1,6 @@
 package org.telegram.ui;
 
 import static org.telegram.messenger.AndroidUtilities.dp;
-import static org.telegram.tgnet.TLRPC.TL_payments_checkedGiftCode.NO_USER_ID;
 import static org.telegram.ui.Components.Premium.LimitReachedBottomSheet.TYPE_FEATURES;
 
 import android.animation.Animator;
@@ -66,7 +65,6 @@ import org.telegram.ui.Components.Premium.boosts.cells.statistics.GiftedUserCell
 import org.telegram.ui.Components.Premium.boosts.cells.statistics.GiveawayCell;
 import org.telegram.ui.Components.RecyclerListView;
 import org.telegram.ui.Components.ScrollSlidingTextTabStrip;
-import org.telegram.ui.Stars.StarsIntroActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -806,31 +804,24 @@ public class BoostsActivity extends GradientHeaderActivity implements Notificati
                 GiftedUserCell cell = (GiftedUserCell) view;
                 TL_stories.Boost boost = cell.getBoost();
                 if (boost.giveaway && boost.stars > 0) {
-                    StarsIntroActivity.showBoostsSheet(context, currentAccount, dialogId, boost, getResourceProvider());
+                    
                 } else if (((boost.gift || boost.giveaway) && boost.user_id >= 0) || boost.unclaimed) {
-                    TLRPC.TL_payments_checkedGiftCode giftCode = new TLRPC.TL_payments_checkedGiftCode();
-                    giftCode.giveaway_msg_id = boost.giveaway_msg_id;
-                    giftCode.to_id = boost.user_id;
-                    giftCode.from_id = MessagesController.getInstance(UserConfig.selectedAccount).getPeer(-currentChat.id);
-                    giftCode.date = boost.date;
-                    giftCode.via_giveaway = boost.giveaway;
-                    giftCode.days = (boost.expires - boost.date) / 86400;
-                    giftCode.months = (boost.expires - boost.date) / 30 / 86400;
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     if (boost.unclaimed) {
-                        giftCode.to_id = NO_USER_ID;
-                        giftCode.flags = -1;
+                        
+                        
                     } else {
-                        giftCode.boost = boost;
+                        
                     }
-                    new GiftInfoBottomSheet(this, false, true, giftCode, boost.used_gift_slug).show();
-                } else if (boost.giveaway && boost.user_id == NO_USER_ID) {
-                    final Bulletin.LottieLayout layout = new Bulletin.LottieLayout(getParentActivity(), getResourceProvider());
-                    layout.setAnimation(R.raw.chats_infotip, 36, 36);
-                    layout.textView.setText(LocaleController.getString(R.string.BoostingRecipientWillBeSelected));
-                    layout.textView.setSingleLine(false);
-                    layout.textView.setMaxLines(2);
-                    Bulletin.make(this, layout, Bulletin.DURATION_LONG).show();
-                } else if (!boost.gift && !boost.giveaway) {
+                    
+                } else  if (!boost.gift && !boost.giveaway) {
                     presentFragment(ProfileActivity.of(cell.getDialogId()));
                 }
             }

@@ -538,15 +538,12 @@ public class PrivacySettingsActivity extends BaseFragment implements Notificatio
                     builder.setTitle(getString("SuggestContactsTitle", R.string.SuggestContactsTitle));
                     builder.setMessage(getString("SuggestContactsAlert", R.string.SuggestContactsAlert));
                     builder.setPositiveButton(getString("MuteDisable", R.string.MuteDisable), (dialogInterface, i) -> {
-                        TLRPC.TL_payments_clearSavedInfo req = new TLRPC.TL_payments_clearSavedInfo();
-                        req.credentials = clear[1];
-                        req.info = clear[0];
+                        
+                        
+                        
                         getUserConfig().tmpPassword = null;
                         getUserConfig().saveConfig(false);
-                        getConnectionsManager().sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
-                            newSuggest = !newSuggest;
-                            cell.setChecked(newSuggest);
-                        }));
+                        
                     });
                     builder.setNegativeButton(getString("Cancel", R.string.Cancel), null);
                     AlertDialog alertDialog = builder.create();
@@ -615,14 +612,12 @@ public class PrivacySettingsActivity extends BaseFragment implements Notificatio
                     builder1.setTitle(getString("PrivacyPaymentsClearAlertTitle", R.string.PrivacyPaymentsClearAlertTitle));
                     builder1.setMessage(getString("PrivacyPaymentsClearAlert", R.string.PrivacyPaymentsClearAlert));
                     builder1.setPositiveButton(getString("ClearButton", R.string.ClearButton), (dialogInterface2, i2) -> {
-                        TLRPC.TL_payments_clearSavedInfo req = new TLRPC.TL_payments_clearSavedInfo();
-                        req.credentials = clear[1];
-                        req.info = clear[0];
+                        
+                        
+                        
                         getUserConfig().tmpPassword = null;
                         getUserConfig().saveConfig(false);
-                        getConnectionsManager().sendRequest(req, (response, error) -> {
-
-                        });
+                        
                         String text;
                         if (clear[0] && clear[1]) {
                             text = getString("PrivacyPaymentsPaymentShippingCleared", R.string.PrivacyPaymentsPaymentShippingCleared);

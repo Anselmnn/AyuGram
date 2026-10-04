@@ -10,7 +10,6 @@ package org.telegram.ui;
 
 import static org.telegram.messenger.AndroidUtilities.dp;
 import static org.telegram.messenger.LocaleController.getString;
-import static org.telegram.ui.bots.AffiliateProgramFragment.percents;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -54,7 +53,6 @@ import org.telegram.messenger.Utilities;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.tgnet.tl.TL_communities;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
@@ -2303,12 +2301,10 @@ public class ChatUsersActivity extends BaseFragment implements NotificationCente
             }
 
             if (enablePrice != initialEnablePrice || enablePrice && initialStarsPrice != starsPrice) {
-                final TL_stars.updatePaidMessagesPrice req = new TL_stars.updatePaidMessagesPrice();
-                req.channel = getMessagesController().getInputChannel(chatId);
-                req.send_paid_messages_stars = enablePrice ? starsPrice : 0;
-                getConnectionsManager().sendRequest(req, (res, err) -> AndroidUtilities.runOnUIThread(() -> {
-
-                }));
+                
+                
+                0;
+                
 
                 final TLRPC.Chat chat = getMessagesController().getChat(chatId);
                 if (chat != null) {

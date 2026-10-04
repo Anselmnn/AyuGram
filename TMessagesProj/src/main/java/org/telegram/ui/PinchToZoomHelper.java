@@ -669,9 +669,7 @@ public class PinchToZoomHelper {
                     size[0] = -1;
                 }
             }
-        } else if (message.messageOwner.media instanceof TLRPC.TL_messageMediaInvoice) {
-            return ImageLocation.getForWebFile(WebFile.createWithWebDocument(((TLRPC.TL_messageMediaInvoice) message.messageOwner.media).webPhoto));
-        } else if (message.getDocument() != null) {
+        } else  if (message.getDocument() != null) {
             TLRPC.Document document = message.getDocument();
             if (MessageObject.isDocumentHasThumb(message.getDocument())) {
                 TLRPC.PhotoSize thumb = FileLoader.getClosestPhotoSizeWithSize(document.thumbs, 90);

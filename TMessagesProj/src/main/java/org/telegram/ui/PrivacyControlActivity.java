@@ -12,7 +12,6 @@ import static org.telegram.messenger.AndroidUtilities.dp;
 import static org.telegram.messenger.ContactsController.findRule;
 import static org.telegram.messenger.LocaleController.formatString;
 import static org.telegram.messenger.LocaleController.getString;
-import static org.telegram.ui.bots.AffiliateProgramFragment.percents;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -1065,7 +1064,7 @@ public class PrivacyControlActivity extends BaseFragment implements Notification
         } else if (rulesType == PRIVACY_RULES_TYPE_BIRTHDAY) {
             req.key = new TLRPC.TL_inputPrivacyKeyBirthday();
         } else if (rulesType == PRIVACY_RULES_TYPE_GIFTS) {
-            req.key = new TLRPC.TL_inputPrivacyKeyStarGiftsAutoSave();
+            
         } else {
             req.key = new TLRPC.TL_inputPrivacyKeyStatusTimestamp();
         }
@@ -1176,7 +1175,7 @@ public class PrivacyControlActivity extends BaseFragment implements Notification
             req2.settings.display_gifts_button = selectedGiftIconValue;
             if (getUserConfig().isPremium()) {
                 req2.settings.flags |= 64;
-                req2.settings.disallowed_stargifts = new TLRPC.DisallowedGiftsSettings();
+                
                 req2.settings.disallowed_stargifts.disallow_unlimited_stargifts = !selectedGiftUnlimitedValue;
                 req2.settings.disallowed_stargifts.disallow_limited_stargifts = !selectedGiftLimitedValue;
                 req2.settings.disallowed_stargifts.disallow_unique_stargifts = !selectedGiftUniqueValue;
@@ -1192,7 +1191,7 @@ public class PrivacyControlActivity extends BaseFragment implements Notification
                 }
                 settings.display_gifts_button = currentGiftIconValue = req2.settings.display_gifts_button;
                 if (settings.disallowed_stargifts == null) {
-                    settings.disallowed_stargifts = new TLRPC.DisallowedGiftsSettings();
+                    
                 }
                 if (req2.settings.disallowed_stargifts != null) {
                     settings.flags |= 64;

@@ -48,7 +48,6 @@ public class BoostPagerBottomSheet extends BottomSheet {
         BaseFragment fragmentWrapper = forceDark ? new DarkFragmentWrapper(fragment) : fragment;
         resourcesProvider = fragmentWrapper.getResourceProvider();
         BoostPagerBottomSheet alert = new BoostPagerBottomSheet(fragment.getParentActivity(), true,
-                new BoostViaGiftsBottomSheet(fragmentWrapper, false, false, dialogId, prepaidGiveaway),
                 new SelectorBottomSheet(fragmentWrapper, false, dialogId),
                 resourcesProvider, forceDark);
         alert.show();
@@ -61,7 +60,7 @@ public class BoostPagerBottomSheet extends BottomSheet {
 
     private boolean isLandscapeOrientation;
 
-    public BoostPagerBottomSheet(Context context, boolean needFocus, BoostViaGiftsBottomSheet leftSheet, SelectorBottomSheet rightSheet, Theme.ResourcesProvider resourcesProvider, boolean forceDark) {
+    public BoostPagerBottomSheet(Context context, boolean needFocus, SelectorBottomSheet rightSheet, Theme.ResourcesProvider resourcesProvider, boolean forceDark) {
         super(context, needFocus, resourcesProvider);
         this.rightSheet = rightSheet;
         setApplyBottomPadding(false);
@@ -113,34 +112,10 @@ public class BoostPagerBottomSheet extends BottomSheet {
 
             @Override
             protected void dispatchDraw(Canvas canvas) {
-                backgroundPaint.setColor(Theme.getColor(Theme.key_dialogBackground, resourcesProvider));
-                if (isScrolling) {
-                    int top1 = leftSheet.getTop() + AndroidUtilities.dp(10);
-                    int top2 = rightSheet.getTop();
-                    int diffTop = Math.abs(top1 - top2);
-                    int currentTop;
-                    if (viewPager.getCurrentPosition() == 0) {
-                        float diffFloat = diffTop * viewPager.getPositionAnimated();
-                        currentTop = top1 < top2 ? (int) (top1 + diffFloat) : (int) (top1 - diffFloat);
-                    } else {
-                        float diffFloat = diffTop * (1 - viewPager.getPositionAnimated());
-                        currentTop = top2 < top1 ? (int) (top2 + diffFloat) : (int) (top2 - diffFloat);
-                    }
-                    final float r = dp(14);
-                    AndroidUtilities.rectTmp.set(0, currentTop, getWidth(), getHeight() + dp(8));
-                    canvas.drawRoundRect(AndroidUtilities.rectTmp, r, r, backgroundPaint);
-                    canvas.save();
-                    path.rewind();
-                    path.addRoundRect(AndroidUtilities.rectTmp, r, r, Path.Direction.CW);
-                    canvas.clipPath(path);
-                    super.dispatchDraw(canvas);
-                    canvas.restore();
-                } else {
-                    if (isTablet || isLandscapeOrientation) {
-                        canvas.clipRect(0, 0, getMeasuredWidth(), getMeasuredHeight());
-                    }
-                    super.dispatchDraw(canvas);
+                if (isTablet || isLandscapeOrientation) {
+                    canvas.clipRect(0, 0, getMeasuredWidth(), getMeasuredHeight());
                 }
+                super.dispatchDraw(canvas);
             }
 
             @Override
@@ -153,7 +128,7 @@ public class BoostPagerBottomSheet extends BottomSheet {
 
             @Override
             protected boolean canScroll(MotionEvent e) {
-                return viewPager.getCurrentPosition() == 1;
+                return viewPager.getCurrentPosition() == 0;
             }
         };
         viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -162,16 +137,12 @@ public class BoostPagerBottomSheet extends BottomSheet {
         ViewPagerFixed.Adapter adapter = new ViewPagerFixed.Adapter() {
             @Override
             public int getItemCount() {
-                return 2;
+                return 1;
             }
 
             @Override
             public View createView(int viewType) {
-                if (viewType == 0) {
-                    return leftSheet.getContainerView();
-                } else {
-                    return rightSheet.getContainerView();
-                }
+                return rightSheet.getContainerView();
             }
 
             @Override
@@ -187,43 +158,18 @@ public class BoostPagerBottomSheet extends BottomSheet {
         viewPager.setAdapter(adapter);
         viewPager.setPosition(0);
         setCustomView(viewPager);
-        leftSheet.setOnCloseClick(this::dismiss);
-        leftSheet.setActionListener(new BoostViaGiftsBottomSheet.ActionListener() {
-            @Override
-            public void onAddChat(List<TLObject> chats) {
-                rightSheet.prepare(chats, SelectorBottomSheet.TYPE_CHANNEL);
-                viewPager.scrollToPosition(1);
-            }
-
-            @Override
-            public void onSelectUser(List<TLObject> users) {
-                rightSheet.prepare(users, SelectorBottomSheet.TYPE_USER);
-                viewPager.scrollToPosition(1);
-            }
-
-            @Override
-            public void onSelectCountries(List<TLObject> countries) {
-                rightSheet.prepare(countries, SelectorBottomSheet.TYPE_COUNTRY);
-                viewPager.scrollToPosition(1);
-            }
-        });
+        
         rightSheet.setSelectedObjectsListener(new SelectorBottomSheet.SelectedObjectsListener() {
             @Override
             public void onChatsSelected(List<TLRPC.Chat> chats, boolean animated) {
-                viewPager.scrollToPosition(0);
-                leftSheet.onChatsSelected(chats, !isKeyboardVisible());
             }
 
             @Override
             public void onUsersSelected(List<TLRPC.User> users) {
-                viewPager.scrollToPosition(0);
-                leftSheet.onUsersSelected(users);
             }
 
             @Override
             public void onCountrySelected(List<TLRPC.TL_help_country> countries) {
-                viewPager.scrollToPosition(0);
-                leftSheet.onCountrySelected(countries);
             }
 
             @Override
@@ -270,16 +216,11 @@ public class BoostPagerBottomSheet extends BottomSheet {
         }
     }
 
-    @Override
     public void onBackPressed() {
-        if (viewPager.getCurrentPosition() > 0) {
-            if (rightSheet.hasChanges()) {
-                return;
-            }
-            hideKeyboardIfVisible();
-            viewPager.scrollToPosition(0);
+        if (rightSheet.hasChanges()) {
             return;
         }
+        hideKeyboardIfVisible();
         super.onBackPressed();
     }
 

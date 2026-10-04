@@ -95,141 +95,14 @@ public class BoostRepository {
         return peers;
     }
 
-    public static void payGiftCode(List<TLObject> users, TLRPC.TL_premiumGiftCodeOption option, TLRPC.Chat chat, TLRPC.TL_textWithEntities message, BaseFragment baseFragment, Utilities.Callback<Void> onSuccess, Utilities.Callback<TLRPC.TL_error> onError) {
-        onError.run(null);
-        return;
-    }
 
     public static boolean isGoogleBillingAvailable() {
         return false;
     }
 
-    public static void launchPreparedGiveaway(TL_stories.PrepaidGiveaway prepaidGiveaway, List<TLObject> chats, List<TLObject> selectedCountries,
-                                              TLRPC.Chat chat, int date, boolean onlyNewSubscribers, boolean winnersVisible, boolean withAdditionPrize, int users, String prizeDesc,
-                                              Utilities.Callback<Void> onSuccess, Utilities.Callback<TLRPC.TL_error> onError) {
-        MessagesController controller = MessagesController.getInstance(UserConfig.selectedAccount);
-        ConnectionsManager connection = ConnectionsManager.getInstance(UserConfig.selectedAccount);
 
-        TLRPC.InputStorePaymentPurpose finalPurpose;
-        if (prepaidGiveaway instanceof TL_stories.TL_prepaidGiveaway) {
-            TLRPC.TL_inputStorePaymentPremiumGiveaway purpose = new TLRPC.TL_inputStorePaymentPremiumGiveaway();
-            purpose.only_new_subscribers = onlyNewSubscribers;
-            purpose.winners_are_visible = winnersVisible;
-            purpose.prize_description = prizeDesc;
-            purpose.until_date = date;
-            purpose.flags |= 2;
-            purpose.flags |= 4;
-            if (withAdditionPrize) {
-                purpose.flags |= 16;
-            }
-            purpose.random_id = System.currentTimeMillis();
-            purpose.additional_peers = new ArrayList<>();
-            purpose.boost_peer = controller.getInputPeer(-chat.id);
-            purpose.currency = "";
 
-            for (TLObject object : selectedCountries) {
-                TLRPC.TL_help_country country = (TLRPC.TL_help_country) object;
-                purpose.countries_iso2.add(country.iso2);
-            }
 
-            for (TLObject o : chats) {
-                if (o instanceof TLRPC.Chat) {
-                    purpose.additional_peers.add(controller.getInputPeer(-((TLRPC.Chat) o).id));
-                }
-            }
-
-            finalPurpose = purpose;
-        } else if (prepaidGiveaway instanceof TL_stories.TL_prepaidStarsGiveaway) {
-            TLRPC.TL_inputStorePaymentStarsGiveaway purpose = new TLRPC.TL_inputStorePaymentStarsGiveaway();
-            purpose.only_new_subscribers = onlyNewSubscribers;
-            purpose.winners_are_visible = winnersVisible;
-            purpose.prize_description = prizeDesc;
-            purpose.until_date = date;
-            purpose.flags |= 2;
-            purpose.flags |= 4;
-            if (withAdditionPrize) {
-                purpose.flags |= 16;
-            }
-            purpose.random_id = System.currentTimeMillis();
-            purpose.additional_peers = new ArrayList<>();
-            purpose.boost_peer = controller.getInputPeer(-chat.id);
-            purpose.currency = "";
-
-            purpose.stars = ((TL_stories.TL_prepaidStarsGiveaway) prepaidGiveaway).stars;
-            purpose.users = prepaidGiveaway.quantity;
-
-            for (TLObject object : selectedCountries) {
-                TLRPC.TL_help_country country = (TLRPC.TL_help_country) object;
-                purpose.countries_iso2.add(country.iso2);
-            }
-
-            for (TLObject o : chats) {
-                if (o instanceof TLRPC.Chat) {
-                    purpose.additional_peers.add(controller.getInputPeer(-((TLRPC.Chat) o).id));
-                }
-            }
-
-            finalPurpose = purpose;
-        } else {
-            return;
-        }
-
-        TLRPC.TL_payments_launchPrepaidGiveaway req = new TLRPC.TL_payments_launchPrepaidGiveaway();
-        req.giveaway_id = prepaidGiveaway.id;
-        req.peer = controller.getInputPeer(-chat.id);
-        req.purpose = finalPurpose;
-        connection.sendRequest(req, (response, error) -> {
-            if (error != null) {
-                AndroidUtilities.runOnUIThread(() -> onError.run(error));
-                return;
-            }
-            if (response != null) {
-                controller.processUpdates((TLRPC.Updates) response, false);
-                AndroidUtilities.runOnUIThread(() -> onSuccess.run(null));
-            }
-        });
-    }
-
-    public static void payGiveAway(List<TLObject> chats, List<TLObject> selectedCountries, TLRPC.TL_premiumGiftCodeOption option,
-                                   TLRPC.Chat chat, int date, boolean onlyNewSubscribers, BaseFragment baseFragment,
-                                   boolean winnersVisible, boolean withAdditionPrize, String prizeDesc,
-                                   Utilities.Callback<Void> onSuccess, Utilities.Callback<TLRPC.TL_error> onError) {
-        onError.run(null);
-        return;
-    }
-
-    public static List<TLRPC.TL_premiumGiftCodeOption> filterGiftOptions(List<TLRPC.TL_premiumGiftCodeOption> list, int selected) {
-        List<TLRPC.TL_premiumGiftCodeOption> result = new ArrayList<>();
-        for (TLRPC.TL_premiumGiftCodeOption item : list) {
-            boolean isAvailableInGoogleStore = item.store_product != null;
-            if (item.users == selected) {
-                result.add(item);
-            }
-        }
-        if (result.isEmpty()) {
-            for (TLRPC.TL_premiumGiftCodeOption item : list) {
-                if (item.users == 1) {
-                    result.add(item);
-                }
-            }
-        }
-        return result;
-    }
-
-    public static List<TLRPC.TL_premiumGiftCodeOption> filterGiftOptionsByBilling(List<TLRPC.TL_premiumGiftCodeOption> list) {
-        if (BoostRepository.isGoogleBillingAvailable()) {
-            List<TLRPC.TL_premiumGiftCodeOption> result = new ArrayList<>();
-            for (TLRPC.TL_premiumGiftCodeOption item : list) {
-                boolean isAvailableInGoogleStore = item.store_product != null;
-                if (isAvailableInGoogleStore) {
-                    result.add(item);
-                }
-            }
-            return result;
-        } else {
-            return list;
-        }
-    }
 
     public static void loadCountriesForPolls(Utilities.Callback<Pair<Map<String, List<TLRPC.TL_help_country>>, List<String>>> onDone) {
         ConnectionsManager connection = ConnectionsManager.getInstance(UserConfig.selectedAccount);
@@ -329,60 +202,7 @@ public class BoostRepository {
         });
     }
 
-    private static HashMap<Integer, Pair<Long, List<TLRPC.TL_premiumGiftCodeOption>>> cachedGiftOptions;
-    public static List<TLRPC.TL_premiumGiftCodeOption> getCachedGiftOptions(int currentAccount) {
-        if (cachedGiftOptions == null) return null;
-        Pair<Long, List<TLRPC.TL_premiumGiftCodeOption>> pair = cachedGiftOptions.get(currentAccount);
-        if (pair != null && System.currentTimeMillis() - pair.first < 1000 * 60 * 30) {
-            return pair.second;
-        }
-        return null;
-    }
 
-    public static void saveGiftOptionsToCache(int currentAccount, List<TLRPC.TL_premiumGiftCodeOption> options) {
-        if (cachedGiftOptions == null) cachedGiftOptions = new HashMap<>();
-        cachedGiftOptions.put(currentAccount, new Pair<>(System.currentTimeMillis(), options));
-    }
-
-    public static void invalidateGiftOptionsToCache(int currentAccount) {
-        if (cachedGiftOptions != null) {
-            cachedGiftOptions.remove(currentAccount);
-        }
-    }
-
-    public static int loadGiftOptions(int currentAccount, TLRPC.Chat chat, Utilities.Callback<List<TLRPC.TL_premiumGiftCodeOption>> onDone) {
-        if (chat == null) {
-            List<TLRPC.TL_premiumGiftCodeOption> cached = getCachedGiftOptions(currentAccount);
-            if (cached != null) {
-                onDone.run(cached);
-                return -1;
-            }
-        }
-
-        MessagesController controller = MessagesController.getInstance(currentAccount);
-        ConnectionsManager connection = ConnectionsManager.getInstance(currentAccount);
-        TLRPC.TL_payments_getPremiumGiftCodeOptions req = new TLRPC.TL_payments_getPremiumGiftCodeOptions();
-        if (chat != null) {
-            req.flags = 1;
-            req.boost_peer = controller.getInputPeer(-chat.id);
-        }
-
-        return connection.sendRequest(req, (response, error) -> {
-            if (response instanceof Vector) {
-                final Vector<TLRPC.TL_premiumGiftCodeOption> vector = (Vector) response;
-                final List<TLRPC.TL_premiumGiftCodeOption> result = new ArrayList<>();
-                for (int i = 0; i < vector.objects.size(); i++) {
-                    result.add(vector.objects.get(i));
-                }
-                AndroidUtilities.runOnUIThread(() -> {
-                    if (chat == null) {
-                        saveGiftOptionsToCache(currentAccount, result);
-                    }
-                    onDone.run(result);
-                });
-            }
-        });
-    }
 
     public static int searchContacts(String query, boolean allowBots, Utilities.Callback<List<TLRPC.User>> onDone) {
         MessagesController controller = MessagesController.getInstance(UserConfig.selectedAccount);
@@ -509,50 +329,15 @@ public class BoostRepository {
         }));
     }
 
-    public static void checkGiftCode(String slug, Utilities.Callback<TLRPC.TL_payments_checkedGiftCode> onDone, Utilities.Callback<TLRPC.TL_error> onError) {
-        ConnectionsManager connection = ConnectionsManager.getInstance(UserConfig.selectedAccount);
-        MessagesController controller = MessagesController.getInstance(UserConfig.selectedAccount);
-        TLRPC.TL_payments_checkGiftCode req = new TLRPC.TL_payments_checkGiftCode();
-        req.slug = slug;
-        int reqId = connection.sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
-            if (response instanceof TLRPC.TL_payments_checkedGiftCode) {
-                TLRPC.TL_payments_checkedGiftCode checkedGiftCode = (TLRPC.TL_payments_checkedGiftCode) response;
-                controller.putChats(checkedGiftCode.chats, false);
-                controller.putUsers(checkedGiftCode.users, false);
-                onDone.run((TLRPC.TL_payments_checkedGiftCode) response);
-            }
-            onError.run(error);
-        }));
-    }
 
-    public static void applyGiftCode(String slug, Utilities.Callback<Void> onDone, Utilities.Callback<TLRPC.TL_error> onError) {
-        ConnectionsManager connection = ConnectionsManager.getInstance(UserConfig.selectedAccount);
-        TLRPC.TL_payments_applyGiftCode req = new TLRPC.TL_payments_applyGiftCode();
-        req.slug = slug;
-        int reqId = connection.sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
-            if (error != null) {
-                onError.run(error);
-                return;
-            }
-            onDone.run(null);
-        }), ConnectionsManager.RequestFlagFailOnServerErrors);
-    }
 
     public static void getGiveawayInfo(MessageObject messageObject, Utilities.Callback<TLRPC.payments_GiveawayInfo> onDone, Utilities.Callback<TLRPC.TL_error> onError) {
         ConnectionsManager connection = ConnectionsManager.getInstance(UserConfig.selectedAccount);
         MessagesController controller = MessagesController.getInstance(UserConfig.selectedAccount);
-        TLRPC.TL_payments_getGiveawayInfo req = new TLRPC.TL_payments_getGiveawayInfo();
-        req.msg_id = messageObject.getId();
-        req.peer = controller.getInputPeer(MessageObject.getPeerId(messageObject.messageOwner.peer_id));
-        int reqId = connection.sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
-            if (error != null) {
-                onError.run(error);
-                return;
-            }
-            if (response instanceof TLRPC.payments_GiveawayInfo) {
-                onDone.run((TLRPC.payments_GiveawayInfo) response);
-            }
-        }));
+        
+        
+        
+        
     }
 
     public static void getMyBoosts(Utilities.Callback<TL_stories.TL_premium_myBoosts> onDone, Utilities.Callback<TLRPC.TL_error> onError) {

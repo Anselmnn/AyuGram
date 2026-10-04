@@ -59,7 +59,6 @@ import org.telegram.ui.Components.ButtonBounce;
 import org.telegram.ui.Components.CounterView;
 import org.telegram.ui.Components.CubicBezierInterpolator;
 import org.telegram.ui.Components.RLottieDrawable;
-import org.telegram.ui.Stars.StarsReactionsSheet;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -491,48 +490,7 @@ public class ReactionsLayoutInBubble {
     }
 
     public boolean drawOverlay(Canvas canvas, float animationProgress) {
-        if (isEmpty && outButtons.isEmpty()) {
-            return false;
-        }
-        float totalX = this.x;
-        float totalY = this.y;
-        if (isEmpty) {
-            totalX = lastDrawnX;
-            totalY = lastDrawnY;
-        } else if (animateMove) {
-            totalX = totalX * (animationProgress) + fromX * (1f - animationProgress);
-            totalY = totalY * (animationProgress) + fromY * (1f - animationProgress);
-        }
-        boolean needsInvalidate = false;
-        for (int i = 0; i < reactionButtons.size(); i++) {
-            ReactionButton reactionButton = reactionButtons.get(i);
-            if (!reactionButton.paid) continue;
-            canvas.save();
-            float x = reactionButton.x;
-            float y = reactionButton.y;
-            if (animationProgress != 1f && reactionButton.animationType == ANIMATION_TYPE_MOVE) {
-                x = reactionButton.x * animationProgress + reactionButton.animateFromX * (1f - animationProgress);
-                y = reactionButton.y * animationProgress + reactionButton.animateFromY * (1f - animationProgress);
-            }
-            float alpha = 1f;
-            if (animationProgress != 1f && reactionButton.animationType == ANIMATION_TYPE_IN) {
-                float s = 0.5f + 0.5f * animationProgress;
-                alpha = animationProgress;
-                canvas.scale(s, s, totalX + x + reactionButton.width / 2f, totalY + y + reactionButton.height / 2f);
-            }
-            needsInvalidate = needsInvalidate || reactionButton.drawOverlay(canvas, totalX + x, totalY + y, reactionButton.animationType == ANIMATION_TYPE_MOVE ? animationProgress : 1f, alpha, false);
-            canvas.restore();
-        }
-        for (int i = 0; i < outButtons.size(); i++) {
-            ReactionButton reactionButton = outButtons.get(i);
-            if (!reactionButton.paid) continue;
-            float s = 0.5f + 0.5f * (1f - animationProgress);
-            canvas.save();
-            canvas.scale(s, s, totalX + reactionButton.x + reactionButton.width / 2f, totalY + reactionButton.y + reactionButton.height / 2f);
-            needsInvalidate = needsInvalidate || outButtons.get(i).drawOverlay(canvas, totalX + reactionButton.x, totalY + reactionButton.y, 1f, (1f - animationProgress), false);
-            canvas.restore();
-        }
-        return needsInvalidate;
+        return false;
     }
 
     public void drawPreview(View view, Canvas canvas, int offset, Integer drawOnlyReaction) {
@@ -842,7 +800,6 @@ public class ReactionsLayoutInBubble {
         private final Theme.ResourcesProvider resourcesProvider;
 
         public final ButtonBounce bounce;
-        private StarsReactionsSheet.Particles particles;
 
         private RLottieDrawable starDrawable;
 
@@ -925,7 +882,6 @@ public class ReactionsLayoutInBubble {
 //                    } else {
 //                        imageReceiver.setImageBitmap(ApplicationLoader.applicationContext.getResources().getDrawable(R.drawable.star_small_inner));
 //                    }
-                    particles = reuseFrom != null && reuseFrom.particles != null ? reuseFrom.particles : new StarsReactionsSheet.Particles(StarsReactionsSheet.Particles.TYPE_RADIAL, SharedConfig.getDevicePerformanceClass() == SharedConfig.PERFORMANCE_CLASS_HIGH ? 18 : 8);
                 } else if (visibleReaction.emojicon != null) {
                     TLRPC.TL_availableReaction r = MediaDataController.getInstance(currentAccount).getReactionsMap().get(visibleReaction.emojicon);
                     if (r != null) {
@@ -988,32 +944,6 @@ public class ReactionsLayoutInBubble {
 
         protected boolean drawTextWithCounter() {
             return false;
-        }
-
-        public boolean drawOverlay(Canvas canvas, float x, float y, float progress, float alpha, boolean drawOverlayScrim) {
-            if (particles == null) return false;
-            if (!LiteMode.isEnabled(LiteMode.FLAG_ANIMATED_EMOJI_REACTIONS) || !LiteMode.isEnabled(LiteMode.FLAG_PARTICLES)) return false;
-
-            AndroidUtilities.rectTmp.set(x, y, x + width, y + height);
-            float rad = height / 2f;
-
-            particles.bounds.set(AndroidUtilities.rectTmp);
-            particles.bounds.inset(-dp(4), -dp(4));
-            particles.setBounds(particles.bounds);
-            final boolean needsPostInvalidate = particles.process();
-            particles.draw(canvas, ColorUtils.blendARGB(ColorUtils.setAlphaComponent(backgroundColor, 0xFF), ColorUtils.blendARGB(serviceTextColor, ColorUtils.setAlphaComponent(backgroundColor, 0xFF), .4f), getDrawServiceShaderBackground()));
-
-            if (isSelected) {
-                tagPath.rewind();
-                tagPath.addRoundRect(AndroidUtilities.rectTmp, rad, rad, Path.Direction.CW);
-
-                canvas.save();
-                canvas.clipPath(tagPath);
-                particles.draw(canvas, textColor);
-                canvas.restore();
-            }
-
-            return needsPostInvalidate;
         }
 
         public void draw(Canvas canvas, float x, float y, float progress, float alpha, boolean drawOverlayScrim, boolean scrimProgressDirection, float scrimProgress) {
@@ -1134,7 +1064,6 @@ public class ReactionsLayoutInBubble {
                 canvas.saveLayerAlpha(AndroidUtilities.rectTmp, 0xFF, Canvas.ALL_SAVE_FLAG);
                 AndroidUtilities.rectTmp.right -= dp(4);
             }
-            final boolean particlesEnabled = particles != null && LiteMode.isEnabled(LiteMode.FLAG_ANIMATED_EMOJI_REACTIONS);
             drawRoundRect(canvas, AndroidUtilities.rectTmp, rad, paint);
             if (isTag && drawTagDot()) {
                 Paint paint;

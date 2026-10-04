@@ -14,7 +14,6 @@ import static org.telegram.messenger.LocaleController.formatNumber;
 import static org.telegram.messenger.LocaleController.formatPluralStringComma;
 import static org.telegram.messenger.LocaleController.formatString;
 import static org.telegram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarsController.findAttribute;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -81,7 +80,6 @@ import org.telegram.messenger.ImageReceiver;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MediaDataController;
 import org.telegram.messenger.MessageObject;
-import org.telegram.messenger.MessageSuggestionParams;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
@@ -98,7 +96,6 @@ import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.tgnet.tl.TL_keyboard;
 import org.telegram.tgnet.tl.TL_payments;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.tgnet.tl.TL_stories;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.BaseFragment;
@@ -134,16 +131,10 @@ import org.telegram.ui.Components.TopicSeparator;
 import org.telegram.ui.Components.TypefaceSpan;
 import org.telegram.ui.Components.URLSpanNoUnderline;
 import org.telegram.ui.Components.spoilers.SpoilerEffect;
-import org.telegram.ui.Gifts.GiftSheet;
 import org.telegram.ui.GradientClip;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.PhotoViewer;
 import org.telegram.ui.ProfileActivity;
-import org.telegram.ui.Stars.GiftOfferSheet;
-import org.telegram.ui.Stars.StarGiftSheet;
-import org.telegram.ui.Stars.StarGiftUniqueActionLayout;
-import org.telegram.ui.Stars.StarsIntroActivity;
-import org.telegram.messenger.utils.tlutils.AmountUtils;
 import org.telegram.ui.Stories.StoriesUtilities;
 import org.telegram.ui.Stories.UploadingDotsSpannable;
 import org.telegram.ui.Stories.recorder.HintView2;
@@ -227,12 +218,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         }
 
         default void didClickButton(ChatActionCell cell) {
-        }
-
-        default void didOpenPremiumGift(ChatActionCell cell, TLRPC.TL_premiumGiftOption giftOption, String slug, boolean animateConfetti) {
-        }
-
-        default void didOpenPremiumGiftChannel(ChatActionCell cell, String slug, boolean animateConfetti) {
         }
 
         default boolean didLongPress(ChatActionCell cell, float x, float y) {
@@ -359,16 +344,11 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
     private boolean hasReplyMessage;
 
     public final ReactionsLayoutInBubble reactionsLayoutInBubble = new ReactionsLayoutInBubble(this);
-    public float starGiftLayoutX, starGiftLayoutY;
-    public final StarGiftUniqueActionLayout starGiftLayout;
-
     public SuggestBirthdayActionLayout birthdayLayout;
 
     private MessageObject currentMessageObject;
     private int customDate;
     private CharSequence customText;
-    private GiftSheet.CardBackground cardBackground;
-
     private int overrideBackground = -1;
     private int overrideText = -1;
     private Paint overrideBackgroundPaint;
@@ -512,7 +492,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         avatarDrawable = new AvatarDrawable();
         TAG = DownloadController.getInstance(currentAccount).generateObserverTag();
 
-        starGiftLayout = new StarGiftUniqueActionLayout(currentAccount, this, resourcesProvider);
+        
 
         giftTitlePaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics()));
         giftSubtitlePaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 15, getResources().getDisplayMetrics()));
@@ -658,7 +638,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
             birthdayLayout.detach();
             birthdayLayout = null;
         }
-        starGiftLayout.set(messageObject, !messageIdChanged);
         imageReceiver.setAutoRepeatCount(0);
         imageReceiver.clearDecorators();
         if (messageObject.type != MessageObject.TYPE_ACTION_WALLPAPER) {
@@ -799,56 +778,13 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
                         b.addSharingOfferKeyboard();
                         botInlineButtons = b.build();
                     }
-                } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionStarGiftPurchaseOffer) {
-                    final TLRPC.TL_messageActionStarGiftPurchaseOffer action = (TLRPC.TL_messageActionStarGiftPurchaseOffer) messageObject.messageOwner.action;
-                    final TL_stars.StarGift gift = action.gift;
-                    if (gift != null) {
-                        document = TlUtils.getGiftDocument(gift);
-                        if (cardBackground == null) {
-                            cardBackground = new GiftSheet.CardBackground(this, themeDelegate, false);
-                        }
-                        cardBackground.setBackdrop(findAttribute(gift.attributes, TL_stars.starGiftAttributeBackdrop.class));
-                        cardBackground.setPattern(findAttribute(gift.attributes, TL_stars.starGiftAttributePattern.class));
-                    }
-
-                    offerExpired = action.expires_at < ConnectionsManager.getInstance(currentAccount).getCurrentTime();
-                    if (!messageObject.isOut() && !action.accepted && !action.declined && !offerExpired) {
-                        final BotInlineKeyboard.Builder b = new BotInlineKeyboard.Builder();
-                        b.addGiftOfferKeyboard();
-                        botInlineButtons = b.build();
-                    }
-                } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionSetChatTheme) {
+                } else  if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionSetChatTheme) {
                     final TLRPC.TL_messageActionSetChatTheme action = (TLRPC.TL_messageActionSetChatTheme) messageObject.messageOwner.action;
-                    final TLRPC.TL_chatThemeUniqueGift chatThemeUniqueGift = (TLRPC.TL_chatThemeUniqueGift) action.theme;
-                    final TL_stars.StarGift gift = chatThemeUniqueGift.gift;
-                    if (gift != null) {
-                        document = TlUtils.getGiftDocument(gift);
-                        if (cardBackground == null) {
-                            cardBackground = new GiftSheet.CardBackground(this, themeDelegate, false);
-                        }
-                        cardBackground.setBackdrop(findAttribute(gift.attributes, TL_stars.starGiftAttributeBackdrop.class));
-                        cardBackground.setPattern(findAttribute(gift.attributes, TL_stars.starGiftAttributePattern.class));
-                    }
-                } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionStarGift) {
-                    parentObject = messageObject;
-                    final TLRPC.TL_messageActionStarGift action = (TLRPC.TL_messageActionStarGift) messageObject.messageOwner.action;
-                    if (action.gift != null) {
-                        document = action.gift.sticker;
-                    }
-                } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionStarGiftUnique && ((TLRPC.TL_messageActionStarGiftUnique) messageObject.messageOwner.action).refunded) {
-                    parentObject = messageObject;
-                    final TLRPC.TL_messageActionStarGiftUnique action = (TLRPC.TL_messageActionStarGiftUnique) messageObject.messageOwner.action;
-                    if (action.gift != null) {
-                        document = action.gift.getDocument();
-                    }
-                } else {
-                    if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftTon) {
-                        packName = UserConfig.getInstance(currentAccount).premiumTonStickerPack;
-                        if (packName == null) {
-                            MediaDataController.getInstance(currentAccount).checkTonGiftStickers();
-                            return;
-                        }
-                    } else {
+                    
+                    
+                    
+                } else   {
+                     {
                         packName = UserConfig.getInstance(currentAccount).premiumGiftsStickerPack;
                         if (packName == null) {
                             MediaDataController.getInstance(currentAccount).checkPremiumGiftStickers();
@@ -864,40 +800,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
                         parentObject = set;
                         int months = messageObject.messageOwner.action.months;
                         String monthsEmoticon;
-                        if (messageObject.type == MessageObject.TYPE_GIFT_STARS) {
-                            String emoji;
-                            if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftTon) {
-                                emoji = StarsIntroActivity.getTonGiftEmoji(messageObject.messageOwner.action.cryptoAmount);
-                            } else {
-                                final long stars;
-                                if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftStars) {
-                                    stars = ((TLRPC.TL_messageActionGiftStars) messageObject.messageOwner.action).stars;
-                                } else {
-                                    stars = ((TLRPC.TL_messageActionPrizeStars) messageObject.messageOwner.action).stars;
-                                }
-                                if (stars <= 1000) {
-                                    emoji = "2⃣";
-                                } else if (stars < 2500) {
-                                    emoji = "3⃣";
-                                } else {
-                                    emoji = "4⃣";
-                                }
-                            }
-                            for (int i = 0; i < set.packs.size(); ++i) {
-                                TLRPC.TL_stickerPack pack = set.packs.get(i);
-                                if (TextUtils.equals(pack.emoticon, emoji) && !pack.documents.isEmpty()) {
-                                    long documentId = pack.documents.get(0);
-                                    for (int j = 0; j < set.documents.size(); ++j) {
-                                        TLRPC.Document d = set.documents.get(j);
-                                        if (d != null && d.id == documentId) {
-                                            document = d;
-                                            break;
-                                        }
-                                    }
-                                    break;
-                                }
-                            }
-                        } else {
                             if (USE_PREMIUM_GIFT_MONTHS_AS_EMOJI_NUMBERS) {
                                 StringBuilder monthsEmoticonBuilder = new StringBuilder();
                                 while (months > 0) {
@@ -926,7 +828,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
                                     break;
                                 }
                             }
-                        }
                         if (document == null && !set.documents.isEmpty()) {
                             document = set.documents.get(0);
                         }
@@ -1068,7 +969,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         if (getPaddingTop() != topicSeparatorTopPadding) {
             setPadding(0, topicSeparatorTopPadding, 0, 0);
         }
-        rippleView.setVisibility(isButtonLayout(messageObject) && !starGiftLayout.has() ? VISIBLE : GONE);
+        rippleView.setVisibility(isButtonLayout(messageObject) ? VISIBLE : GONE);
         ForumUtilities.applyTopicToMessage(messageObject);
         requestLayout();
     }
@@ -1161,7 +1062,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         avatarStoryParams.onDetachFromWindow();
 
         transitionParams.onDetach();
-        starGiftLayout.detach();
         reactionsLayoutInBubble.onDetachFromWindow();
         if (topicSeparator != null) {
             topicSeparator.detach();
@@ -1196,7 +1096,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         if (currentMessageObject != null && currentMessageObject.type == MessageObject.TYPE_SUGGEST_PHOTO) {
             setMessageObject(currentMessageObject, true);
         }
-        starGiftLayout.attach();
         reactionsLayoutInBubble.onAttachToWindow();
         if (topicSeparator != null) {
             topicSeparator.attach();
@@ -1255,10 +1154,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         }
 
         if (birthdayLayout != null && birthdayLayout.onTouchEvent(event)) {
-            return true;
-        }
-
-        if (starGiftLayout.has() && starGiftLayout.onTouchEvent(starGiftLayoutX, starGiftLayoutY, event)) {
             return true;
         }
 
@@ -1371,21 +1266,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
                                     new CommunitySheet(lastFragment, ((TLRPC.TL_messageActionChangeCommunity) messageObject.messageOwner.action).community_id)
                                         .show();
                                 }
-                            } else if (messageObject.type == MessageObject.TYPE_GIFT_THEME_UPDATE) {
-                                playSoundEffect(SoundEffectConstants.CLICK);
-                                openStarsGiftTransaction();
-                            } else if (messageObject.type == MessageObject.TYPE_GIFT_PREMIUM_CHANNEL) {
-                                playSoundEffect(SoundEffectConstants.CLICK);
-                                openPremiumGiftChannel();
-                            } else if (messageObject.type == MessageObject.TYPE_GIFT_PREMIUM) {
-                                playSoundEffect(SoundEffectConstants.CLICK);
-                                openPremiumGiftPreview();
-                            } else if (messageObject.type == MessageObject.TYPE_GIFT_STARS) {
-                                playSoundEffect(SoundEffectConstants.CLICK);
-                                openStarsGiftTransaction();
-                            } else if (messageObject.messageOwner != null && messageObject.messageOwner.action instanceof TLRPC.TL_messageActionSuggestedPostApproval && ((TLRPC.TL_messageActionSuggestedPostApproval) messageObject.messageOwner.action).balance_too_low) {
-                                playSoundEffect(SoundEffectConstants.CLICK);
-                                openStarsNeedSheet();
                             } else {
                                 ImageUpdater imageUpdater = MessagesController.getInstance(currentAccount).photoSuggestion.get(messageObject.messageOwner.local_id);
                                 if (imageUpdater == null) {
@@ -1425,15 +1305,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
                             }
                             return true;
                         }
-                        if (messageObject.type == MessageObject.TYPE_GIFT_THEME_UPDATE) {
-                            openStarsGiftTransaction();
-                        } else if (messageObject.type == MessageObject.TYPE_GIFT_PREMIUM_CHANNEL) {
-                            openPremiumGiftChannel();
-                        } else if (messageObject.type == MessageObject.TYPE_GIFT_PREMIUM) {
-                            openPremiumGiftPreview();
-                        } else if (messageObject.type == MessageObject.TYPE_GIFT_STARS) {
-                            openStarsGiftTransaction();
-                        } else if (delegate != null) {
+                        if (delegate != null) {
                             boolean consumed = false;
                             if (messageObject.type == MessageObject.TYPE_SUGGEST_PHOTO) {
                                 ImageUpdater imageUpdater = MessagesController.getInstance(currentAccount).photoSuggestion.get(messageObject.messageOwner.local_id);
@@ -1542,98 +1414,12 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         return result;
     }
 
-    private void openPremiumGiftChannel() {
-        if (delegate != null) {
-            TLRPC.TL_messageActionGiftCode gifCodeAction = (TLRPC.TL_messageActionGiftCode) currentMessageObject.messageOwner.action;
-            AndroidUtilities.runOnUIThread(() -> delegate.didOpenPremiumGiftChannel(ChatActionCell.this, gifCodeAction.slug, false));
-        }
-    }
-
-    private boolean isSelfGiftCode() {
-        if (currentMessageObject != null && (currentMessageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftCode || currentMessageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftStars)) {
-            if (currentMessageObject.messageOwner.from_id instanceof TLRPC.TL_peerUser) {
-                return UserObject.isUserSelf(MessagesController.getInstance(currentAccount).getUser(currentMessageObject.messageOwner.from_id.user_id));
-            }
-        }
-        return false;
-    }
 
     private OnClickListener onActionClick;
     public void setOnActionClickListener(@Nullable OnClickListener l) {
         this.onActionClick = l;
     }
 
-    private boolean isGiftCode() {
-        return currentMessageObject != null && currentMessageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftCode;
-    }
-
-    private void openPremiumGiftPreview() {
-        final TLRPC.TL_premiumGiftOption giftOption = new TLRPC.TL_premiumGiftOption();
-        final TLRPC.MessageAction action = currentMessageObject.messageOwner.action;
-        giftOption.amount = action.amount;
-        giftOption.months = action.months;
-        giftOption.currency = action.currency;
-        String slug;
-        if (isGiftCode()) {
-            slug = isSelfGiftCode() ? null : ((TLRPC.TL_messageActionGiftCode) currentMessageObject.messageOwner.action).slug;
-        } else {
-            slug = null;
-        }
-        if (delegate != null) {
-            AndroidUtilities.runOnUIThread(() -> delegate.didOpenPremiumGift(ChatActionCell.this, giftOption, slug, false));
-        }
-    }
-
-    private void openStarsGiftTransaction() {
-        if (currentMessageObject == null || currentMessageObject.messageOwner == null) return;
-        if (currentMessageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftStars) {
-            StarsIntroActivity.showTransactionSheet(getContext(), currentAccount, currentMessageObject.messageOwner.date, currentMessageObject.messageOwner.from_id, currentMessageObject.messageOwner.peer_id, (TLRPC.TL_messageActionGiftStars) currentMessageObject.messageOwner.action, avatarStoryParams.resourcesProvider);
-        } else if (currentMessageObject.messageOwner.action instanceof TLRPC.TL_messageActionPrizeStars) {
-            StarsIntroActivity.showTransactionSheet(getContext(), currentAccount, currentMessageObject.messageOwner.date, currentMessageObject.messageOwner.from_id, currentMessageObject.messageOwner.peer_id, (TLRPC.TL_messageActionPrizeStars) currentMessageObject.messageOwner.action, avatarStoryParams.resourcesProvider);
-        } else if (currentMessageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftTon) {
-            StarsIntroActivity.showTransactionSheet(getContext(), currentAccount, currentMessageObject.messageOwner.date, currentMessageObject.messageOwner.from_id, currentMessageObject.messageOwner.peer_id, (TLRPC.TL_messageActionGiftTon) currentMessageObject.messageOwner.action, avatarStoryParams.resourcesProvider);
-        } else if (currentMessageObject.messageOwner.action instanceof TLRPC.TL_messageActionStarGift) {
-            final TLRPC.TL_messageActionStarGift action = (TLRPC.TL_messageActionStarGift) currentMessageObject.messageOwner.action;
-            if (action.forceIn) return;
-//            StarsIntroActivity.showActionGiftSheet(getContext(), currentAccount, currentMessageObject.getDialogId(), currentMessageObject.isOutOwner(), currentMessageObject.messageOwner.date, currentMessageObject.getId(), action, themeDelegate);
-            new StarGiftSheet(getContext(), currentAccount, currentMessageObject.getDialogId(), themeDelegate)
-                .set(currentMessageObject)
-                .show();
-        } else if (currentMessageObject.messageOwner.action instanceof TLRPC.TL_messageActionStarGiftUnique) {
-            final TLRPC.TL_messageActionStarGiftUnique action = (TLRPC.TL_messageActionStarGiftUnique) currentMessageObject.messageOwner.action;
-            if (action.gift.burned) {
-                final BaseFragment lastFragment = LaunchActivity.getSafeLastFragment();
-                if (lastFragment == null) return;
-                BulletinFactory.of(lastFragment)
-                    .createSimpleBulletin(R.raw.fire_on, getString(R.string.UniqueGiftNotFoundBurned))
-                    .show();
-                return;
-            }
-            new StarGiftSheet(getContext(), currentAccount, currentMessageObject.getDialogId(), themeDelegate)
-                .set(currentMessageObject)
-                .show();
-        } else if (currentMessageObject.messageOwner.action instanceof TLRPC.TL_messageActionSetChatTheme) {
-            TLRPC.TL_messageActionSetChatTheme action = (TLRPC.TL_messageActionSetChatTheme) currentMessageObject.messageOwner.action;
-            if (action.theme instanceof TLRPC.TL_chatThemeUniqueGift) {
-                TL_stars.StarGift gift = ((TLRPC.TL_chatThemeUniqueGift) action.theme).gift;
-                if (gift instanceof TL_stars.TL_starGiftUnique) {
-                    new StarGiftSheet(getContext(), currentAccount, currentMessageObject.getDialogId(), themeDelegate)
-                        .set(gift.slug, (TL_stars.TL_starGiftUnique) gift, null)
-                        .show();
-                }
-            }
-        }
-    }
-
-    private void openStarsNeedSheet() {
-        final MessageSuggestionParams params = currentMessageObject.obtainSuggestionOffer();
-        if (params.amount == null || params.amount.currency != AmountUtils.Currency.STARS) {
-            return;
-        }
-
-        new StarsIntroActivity.StarsNeededSheet(getContext(), themeDelegate, params.amount.asDecimal(), StarsIntroActivity.StarsNeededSheet.TYPE_PRIVATE_MESSAGE, ForumUtilities.getMonoForumTitle(currentAccount, currentMessageObject.getDialogId(), true), null, currentMessageObject.getDialogId())
-            .show();
-    }
 
     private void openLink(CharacterStyle link) {
         if (delegate != null && link instanceof URLSpan) {
@@ -1849,16 +1635,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         }
 
         int exactlyHeight = 0;
-        if (starGiftLayout.has()) {
-            if (!starGiftLayout.repost) {
-                exactlyHeight += textY + textHeight + dp(4 + 6 + 6);
-            }
-            exactlyHeight += (int) starGiftLayout.getHeight() + dp(4 + 4);
-            if (!reactionsLayoutInBubble.isEmpty) {
-                reactionsLayoutInBubble.totalHeight = reactionsLayoutInBubble.height + dp(8);
-                exactlyHeight += reactionsLayoutInBubble.totalHeight;
-            }
-        } else if (birthdayLayout != null) {
+        if (birthdayLayout != null) {
             exactlyHeight += birthdayLayout.height() + dp(12);
             if (!reactionsLayoutInBubble.isEmpty) {
                 reactionsLayoutInBubble.totalHeight = reactionsLayoutInBubble.height + dp(8);
@@ -1925,10 +1702,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
             } else {
                 additionalHeight -= dp(40);
                 giftPremiumAdditionalHeight -= dp(40);
-                if (currentMessageObject != null && currentMessageObject.messageOwner != null && currentMessageObject.messageOwner.action instanceof TLRPC.TL_messageActionStarGift) {
-                    additionalHeight -= dp(8);
-                    giftPremiumAdditionalHeight -= dp(8);
-                }
+                
             }
             int sizeInternal = getMeasuredWidth() << 16 + getMeasuredHeight();
             starParticlesDrawable.rect.set(giftButtonRect);
@@ -1991,8 +1765,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
     }
 
     private boolean isNewStyleButtonLayout() {
-        return starGiftLayout.has()
-            || birthdayLayout != null
+        return birthdayLayout != null
             || currentMessageObject.type == MessageObject.TYPE_GIFT_THEME_UPDATE
             || currentMessageObject.type == MessageObject.TYPE_COMMUNITY_CHANGED
             || currentMessageObject.type == MessageObject.TYPE_GIFT_OFFER
@@ -2115,213 +1888,13 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
                 imageReceiver.setImageCoords((previousWidth - AndroidUtilities.roundMessageSize) / 2f, textHeight + dp(19), AndroidUtilities.roundMessageSize, AndroidUtilities.roundMessageSize);
             } else if (messageObject.type == MessageObject.TYPE_GIFT_PREMIUM_CHANNEL) {
                 createGiftPremiumChannelLayouts();
-            } else if (messageObject.type == MessageObject.TYPE_GIFT_STARS) {
-                final TLRPC.User user = MessagesController.getInstance(currentAccount).getUser(currentMessageObject.getDialogId());
-                final long stars;
-                if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftStars) {
-                    stars = ((TLRPC.TL_messageActionGiftStars) messageObject.messageOwner.action).stars;
-                    createGiftPremiumLayouts(
-                        formatPluralStringComma("ActionGiftStarsTitle", (int) stars),
-                        null,
-                        null, AndroidUtilities.replaceTags(currentMessageObject.isOutOwner() ? formatString(R.string.ActionGiftStarsSubtitle, UserObject.getForcedFirstName(user)) : getString(R.string.ActionGiftStarsSubtitleYou)),
-                        false, getString(R.string.ActionGiftStarsView),
-                            11, null, giftRectSize,
-                        true,
-                            false);
-                } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionStarGiftUnique && ((TLRPC.TL_messageActionStarGiftUnique) messageObject.messageOwner.action).refunded) {
-                    final long selfId = UserConfig.getInstance(currentAccount).getClientUserId();
-                    final TLRPC.TL_messageActionStarGiftUnique action = (TLRPC.TL_messageActionStarGiftUnique) messageObject.messageOwner.action;
-                    final long fromId = messageObject.isOutOwner() == !action.upgrade ? selfId : messageObject.getDialogId();
-                    final TLRPC.User fromUser = MessagesController.getInstance(currentAccount).getUser(fromId);
-                    final SpannableStringBuilder sb = new SpannableStringBuilder();
-                    sb.append(LocaleController.getString(action.prepaid_upgrade ? R.string.Gift2ActionUpgradeTitle : R.string.Gift2ActionTitle)).append(" ");
-                    if (fromUser != null && fromUser.photo != null) {
-                        sb.append("a ");
-                        final AvatarSpan avatarSpan = new AvatarSpan(this, currentAccount, 18);
-                        avatarSpan.setUser(fromUser);
-                        sb.setSpan(avatarSpan, sb.length() - 2, sb.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    }
-                    sb.append(UserObject.getForcedFirstName(fromUser));
-                    createGiftPremiumLayouts(
-                        sb,
-                        null,
-                        null, getString(R.string.Gift2ActionUpgradeRefundedText),
-                        false,
-                        getString(R.string.ActionGiftStarsView),
-                        12, getString(R.string.Gift2UniqueRibbon),
-                        giftRectSize,
-                        true,
-                        false
-                    );
-                } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionStarGift) {
-                    final TLRPC.TL_messageActionStarGift action = (TLRPC.TL_messageActionStarGift) messageObject.messageOwner.action;
-                    stars = action.convert_stars;
-                    final long selfId = UserConfig.getInstance(currentAccount).getClientUserId();
-                    final boolean isForChannel = action.peer != null && (!action.prepaid_upgrade || action.peer instanceof TLRPC.TL_peerChannel);
-                    final boolean self = messageObject.getDialogId() == selfId && !isForChannel;
-                    long fromId = messageObject.getFromChatId();
-                    if (!action.prepaid_upgrade && action.from_id != null) {
-                        fromId = DialogObject.getPeerDialogId(action.from_id);
-                    }
-                    final SpannableStringBuilder sb = new SpannableStringBuilder();
-                    final TLObject sender = MessagesController.getInstance(currentAccount).getUserOrChat(fromId);
-                    long toId = DialogObject.getPeerDialogId(action.to_id);
-                    final TLObject recipient = MessagesController.getInstance(currentAccount).getUserOrChat(toId);
-                    final boolean freeUpgrade = action.can_upgrade && !action.converted && action.upgrade_stars > 0 && !action.upgraded;
-                    if (toId != 0 && action.auction_acquired && recipient != null) {
-                        sb.append(getString(R.string.Gift2ActionTitleTo)).append(" ");
-                        if (DialogObject.hasPhoto(recipient)) {
-                            sb.append("a ");
-                            final AvatarSpan avatarSpan = new AvatarSpan(this, currentAccount, 18);
-                            avatarSpan.setObject(recipient);
-                            sb.setSpan(avatarSpan, sb.length() - 2, sb.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        }
-                        sb.append(DialogObject.getShortName(recipient));
-                    } else if (self) {
-                        if (action.gift_num > 0 && action.gift != null && action.gift.title != null) {
-                            sb.append(action.gift.title).append(" #").append(formatNumber(action.gift_num, ','));
-                        } else {
-                            sb.append(getString(R.string.Gift2ActionSelfTitle));
-                        }
-                    } else {
-                        sb.append(LocaleController.getString(action.prepaid_upgrade ? R.string.Gift2ActionUpgradeTitle : R.string.Gift2ActionTitle)).append(" ");
-                        if (DialogObject.hasPhoto(sender)) {
-                            sb.append("a ");
-                            final AvatarSpan avatarSpan = new AvatarSpan(this, currentAccount, 18);
-                            avatarSpan.setObject(sender);
-                            sb.setSpan(avatarSpan, sb.length() - 2, sb.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        }
-                        sb.append(DialogObject.getShortName(sender));
-                    }
-                    final int within = MessagesController.getInstance(currentAccount).stargiftsConvertPeriodMax - (ConnectionsManager.getInstance(currentAccount).getCurrentTime() - messageObject.messageOwner.date);
-                    final boolean canConvert = (messageObject.isOutOwner() && !self || !action.converted) && action.convert_stars > 0 && within > 0 && !action.refunded;
-                    CharSequence title;
-                    if (action.refunded) {
-                        title = getString(R.string.Gift2ActionConvertRefundedText);
-                    } else if (action.message != null && !TextUtils.isEmpty(action.message.text)) {
-                        title = new SpannableStringBuilder(action.message.text);
-                        giftTextPaint.setTextSize(dp(13));
-                        MessageObject.addEntitiesToText(title, action.message.entities, false, false, true, true);
-                        title = Emoji.replaceEmoji(title, giftTextPaint.getFontMetricsInt(), false, null);
-                        title = MessageObject.replaceAnimatedEmoji(title, action.message.entities, giftTextPaint.getFontMetricsInt());
-                    } else if (action.auction_acquired) {
-                        title = formatString(R.string.Gift2ActionWonActionText, formatNumber(action.gift.stars + action.upgrade_stars, ','));
-                    }  else if (isForChannel) {
-                        if (action.converted) {
-                            title = formatPluralStringComma("Gift2ActionConvertedInfo", (int) stars);
-                        } else if (canConvert && stars > 0) {
-                            title = AndroidUtilities.replaceTags(formatPluralStringComma("Gift2ActionInfoChannel", (int) stars));
-                        } else {
-                            title = AndroidUtilities.replaceTags(getString(R.string.Gift2ActionInfoChannelNoConvert));
-                        }
-                    } else if (self) {
-                        if (action.converted && stars > 0) {
-                            title = formatPluralStringComma("Gift2ActionConvertedInfo", (int) stars);
-                        } else if (action.can_upgrade) {
-                            title = AndroidUtilities.replaceTags(getString(R.string.Gift2ActionSelfInfoUpgrade));
-                        } else {
-                            title = AndroidUtilities.replaceTags(getString(R.string.Gift2ActionSelfInfoNoConvert));
-                        }
-                    } else if (freeUpgrade) {
-                        title = AndroidUtilities.replaceTags(messageObject.isOutOwner() ? formatString(R.string.Gift2ActionUpgradeOut, UserObject.getForcedFirstName(user)) : getString(R.string.Gift2ActionUpgrade));
-                    } else if (messageObject.isOutOwner()) {
-                        if (canConvert && stars > 0) {
-                            title = AndroidUtilities.replaceTags(formatPluralStringComma("Gift2ActionOutInfo", (int) stars, UserObject.getForcedFirstName(user)));
-                        } else if (action.can_upgrade) {
-                            title = AndroidUtilities.replaceTags(formatString(R.string.Gift2ActionOutInfoUpgrade, UserObject.getForcedFirstName(user)));
-                        } else {
-                            title = AndroidUtilities.replaceTags(formatString(R.string.Gift2ActionOutInfoNoConvert, UserObject.getForcedFirstName(user)));
-                        }
-                    } else {
-                        if (action.converted) {
-                            title = formatPluralStringComma("Gift2ActionConvertedInfo", (int) stars);
-                        } else if (action.saved) {
-                            if (!canConvert) {
-                                title = getString(R.string.Gift2ActionBotSavedInfo);
-                            } else {
-                                title = getString(R.string.Gift2ActionSavedInfo);
-                            }
-                        } else if (!canConvert) {
-                            title = getString(R.string.Gift2ActionBotInfo);
-                        } else {
-                            title = AndroidUtilities.replaceTags(formatPluralStringComma("Gift2ActionInfo", (int) stars));
-                        }
-                    }
-                    CharSequence ribbon = null;
-                    if (action.gift != null && action.gift.limited) {
-                        ribbon = LocaleController.formatString(R.string.Gift2Limited1OfRibbon, action.gift.availability_total > 1500 ? AndroidUtilities.formatWholeNumber(action.gift.availability_total, 0) : action.gift.availability_total);
-                    }
-                    CharSequence buttonText = getString(R.string.ActionGiftStarsView);
-                    if (!messageObject.isOutOwner() || action.forceIn || freeUpgrade) {
-                        if (!messageObject.isOutOwner() && freeUpgrade) {
-                            SpannableStringBuilder ssb = new SpannableStringBuilder();
-                            ssb.append("^  ");
-                            ColoredImageSpan span = new ColoredImageSpan(R.drawable.gift_unpack);
-                            span.setScale(.8f, .8f);
-                            ssb.setSpan(span, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            ssb.append(LocaleController.getString(R.string.Gift2Unpack));
-                            buttonText = ssb;
-                        }
-                    }
-                    CharSequence releasedBy = null;
-                    if (action.gift != null && action.gift.released_by != null) {
-                        final String username = DialogObject.getPublicUsername(MessagesController.getInstance(currentAccount).getUserOrChat(DialogObject.getPeerDialogId(action.gift.released_by)));
-                        if (username != null) {
-                            releasedBy = StarGiftSheet.replaceSingleTagToLink(LocaleController.formatString(R.string.Gift2ActionReleasedBy, "@" + username), null);
-                        }
-                    }
-                    createGiftPremiumLayouts(
-                        sb,
-                        null,
-                        releasedBy, title,
-                        false,
-                        buttonText,
-                        11, ribbon,
-                        giftRectSize,
-                        true,
-                            false);
-                } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftTon) {
-                    createGiftPremiumLayouts(
-                        getString(R.string.ActionGiftTonTitle),
-                        null,
-                        null, currentMessageObject.messageText,
-                        false, getString(R.string.ActionGiftStarsView),
-                        11, null,
-                        giftRectSize,
-                        true,
-                        false);
-                    textLayout = null;
-                    textHeight = 0;
-                    titleLayout = null;
-                    titleHeight = 0;
-                    textY = 0;
-                } else {
-                    createGiftPremiumLayouts(
-                        getString(R.string.ActionStarGiveawayPrizeTitle),
-                        null,
-                        null, currentMessageObject.messageText,
-                        false, getString(R.string.ActionGiftStarsView),
-                            11, null,
-                        giftRectSize,
-                        true,
-                            false);
-                    textLayout = null;
-                    textHeight = 0;
-                    titleLayout = null;
-                    titleHeight = 0;
-                    textY = 0;
-                }
             } else if (messageObject.type == MessageObject.TYPE_GIFT_OFFER) {
-                final TLRPC.TL_messageActionStarGiftPurchaseOffer action = (TLRPC.TL_messageActionStarGiftPurchaseOffer) messageObject.messageOwner.action;
+                
 
                 SpannableStringBuilder ssb = new SpannableStringBuilder(text);
                 ssb.append("\n\n");
-                if (action.accepted) {
-                    ssb.append(replaceTags(getString(R.string.GiftOfferStatusAccepted)));
-                } else if (action.declined) {
-                    ssb.append(replaceTags(getString(R.string.GiftOfferStatusRejected)));
-                } else {
-                    final int remainingTime = Math.max(0, action.expires_at - ConnectionsManager.getInstance(currentAccount).getCurrentTime());
+                  {
+                    
                     if (remainingTime == 0) {
                         ssb.append(replaceTags(getString(R.string.GiftOfferStatusExpired)));
                     } else {
@@ -2401,9 +1974,9 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
                 giftRectEmpty = true;
             } else if (messageObject.type == MessageObject.TYPE_GIFT_THEME_UPDATE) {
                 final TLRPC.TL_messageActionSetChatTheme action = (TLRPC.TL_messageActionSetChatTheme) messageObject.messageOwner.action;
-                final TLRPC.TL_chatThemeUniqueGift chatThemeUniqueGift = (TLRPC.TL_chatThemeUniqueGift) action.theme;
-                final TL_stars.StarGift gift = chatThemeUniqueGift.gift;
-                final String giftTitle = gift.title + " #" + LocaleController.formatNumber(gift.num, ',');
+                
+                
+                
 
                 final long fromDialogId = messageObject.getFromChatId();
                 final boolean isUserSelf = UserConfig.getInstance(currentAccount).getClientUserId() == fromDialogId;
@@ -2445,11 +2018,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
             } else if (messageObject.type == MessageObject.TYPE_GIFT_PREMIUM) {
                 int months;
                 TLRPC.TL_textWithEntities textWithEntities = null;
-                if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftPremium) {
-                    textWithEntities = ((TLRPC.TL_messageActionGiftPremium) messageObject.messageOwner.action).message;
-                } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftCode) {
-                    textWithEntities = ((TLRPC.TL_messageActionGiftCode) messageObject.messageOwner.action).message;
-                }
+                 
                 CharSequence messageText = null;
                 if (textWithEntities != null && !TextUtils.isEmpty(textWithEntities.text)) {
                     messageText = new SpannableStringBuilder(textWithEntities.text);
@@ -2461,7 +2030,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
                 if (messageText == null) {
                     messageText = LocaleController.getString(R.string.ActionGiftPremiumText);
                 }
-                String actionName = getString(isGiftCode() && !isSelfGiftCode() ? R.string.GiftPremiumUseGiftBtn : R.string.ActionGiftPremiumView);
+                String actionName = getString(R.string.ActionGiftPremiumView);
                 createGiftPremiumLayouts(formatPluralStringComma("ActionGiftPremiumTitle2", messageObject.messageOwner.action.months), null, null, messageText, true, actionName, 11, null, giftRectSize, false, false);
             } else if (messageObject.type == MessageObject.TYPE_SUGGEST_PHOTO) {
                 TLRPC.TL_messageActionSuggestProfilePhoto actionSuggestProfilePhoto = (TLRPC.TL_messageActionSuggestProfilePhoto) messageObject.messageOwner.action;
@@ -2558,22 +2127,16 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         width -= dp(16);
         giftTitlePaint.setTextSize(dp(14));
         giftTextPaint.setTextSize(dp(13));
-        TLRPC.TL_messageActionGiftCode gifCodeAction = (TLRPC.TL_messageActionGiftCode) currentMessageObject.messageOwner.action;
-        int months = gifCodeAction.months;
-        TLRPC.Chat chat = MessagesController.getInstance(currentAccount).getChat(-DialogObject.getPeerDialogId(gifCodeAction.boost_peer));
+        
+        
+        
         String from = chat == null ? null : chat.title;
-        boolean isPrize = gifCodeAction.via_giveaway;
-        CharSequence title = gifCodeAction.unclaimed ?
-                getString("BoostingUnclaimedPrize", R.string.BoostingUnclaimedPrize)
-                : getString("BoostingCongratulations", R.string.BoostingCongratulations);
+        
+        getString(                         , R.string.BoostingCongratulations);
         SpannableStringBuilder subtitle;
         CharSequence monthsStr = months == 12 ? LocaleController.formatPluralString("BoldYears", 1) : LocaleController.formatPluralString("BoldMonths", months);
         if (isPrize) {
-            if (gifCodeAction.unclaimed) {
-                subtitle = new SpannableStringBuilder(AndroidUtilities.replaceTags(formatString(R.string.BoostingYouHaveUnclaimedPrize, from)));
-                subtitle.append("\n\n");
-                subtitle.append(AndroidUtilities.replaceTags(formatString(R.string.BoostingUnclaimedPrizeDuration, monthsStr)));
-            } else {
+             {
                 subtitle = new SpannableStringBuilder(AndroidUtilities.replaceTags(formatString(R.string.BoostingReceivedPrizeFrom, from)));
                 subtitle.append("\n\n");
                 subtitle.append(AndroidUtilities.replaceTags(formatString(R.string.BoostingReceivedPrizeDuration, monthsStr)));
@@ -2700,7 +2263,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
             }
             if (giftRibbonPath == null) {
                 giftRibbonPath = new Path();
-                GiftSheet.RibbonDrawable.fillRibbonPath(giftRibbonPath, 1.35f, false);
+                
             }
             giftRibbonText = new Text(ribbon, ribbonTextDp, AndroidUtilities.bold());
             giftRibbonText.ellipsize(dp(62));
@@ -2737,7 +2300,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         MessageObject messageObject = currentMessageObject;
         final float expanded = giftPremiumTextExpandedAnimated.set(!giftPremiumTextCollapsed);
         int imageSize = stickerSize;
-        if (!starGiftLayout.has() && birthdayLayout == null && isButtonLayout(messageObject)) {
+        if (birthdayLayout == null && isButtonLayout(messageObject)) {
             stickerSize = giftRectSize - dp(106);
             if (isNewStyleButtonLayout()) {
                 imageSize = getImageSize(messageObject);
@@ -2770,7 +2333,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
                 imageReceiver.setImageCoords((previousWidth - imageSize) / 2f, textY + textHeight + giftRectSize * 0.075f + dp(2), imageSize, imageSize);
             } else if (messageObject.type == MessageObject.TYPE_GIFT_STARS) {
                 imageSize = (int) (stickerSize * 1.1f);
-                if (messageObject.messageOwner != null && !(messageObject.messageOwner.action instanceof TLRPC.TL_messageActionStarGift)) {
+                if (messageObject.messageOwner != null) {
                     imageReceiver.setImageCoords((previousWidth - imageSize) / 2f, textY + textHeight + giftRectSize * 0.075f - dp(22), imageSize, imageSize);
                 } else {
                     imageReceiver.setImageCoords((previousWidth - imageSize) / 2f, textY + textHeight + giftRectSize * 0.075f - dp(12), imageSize, imageSize);
@@ -2797,29 +2360,11 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
 
         drawBackground(canvas, false);
 
-        if (starGiftLayout.has()) {
-            canvas.save();
-            canvas.translate(starGiftLayoutX = (getWidth() - starGiftLayout.getWidth()) / 2.0f, starGiftLayoutY = starGiftLayout.repost ? dp(4) : textY + textHeight + dp(4 + 6 + 6));
-            starGiftLayout.draw(canvas);
-            if (delegate == null || delegate.canDrawOutboundsContent()) {
-                starGiftLayout.drawOutbounds(canvas);
-            }
-            canvas.restore();
-        } else if (birthdayLayout != null) {
+        if (birthdayLayout != null) {
             canvas.save();
             birthdayLayout.draw(canvas);
             canvas.restore();
         } else if (isButtonLayout(messageObject) || (messageObject != null && messageObject.type == MessageObject.TYPE_ACTION_PHOTO)) {
-            if (cardBackground != null && (messageObject.type == MessageObject.TYPE_GIFT_THEME_UPDATE || messageObject.type == MessageObject.TYPE_COMMUNITY_CHANGED || messageObject.type == MessageObject.TYPE_GIFT_OFFER)) {
-                cardBackground.setBounds(
-                    (int) (imageReceiver.getImageX() - dp(10 + GiftSheet.CardBackground.PADDING_HORIZONTAL_DP)),
-                    (int) (imageReceiver.getImageY() - dp(10 + GiftSheet.CardBackground.PADDING_VERTICAL_DP)),
-                    (int) (imageReceiver.getImageX() + imageReceiver.getImageWidth() + dp(10 + GiftSheet.CardBackground.PADDING_HORIZONTAL_DP)),
-                    (int) (imageReceiver.getImageY() + imageReceiver.getImageHeight() + dp(10 + GiftSheet.CardBackground.PADDING_VERTICAL_DP))
-                );
-                cardBackground.draw(canvas);
-            }
-
             if (wallpaperPreviewDrawable != null) {
                 canvas.save();
                 canvas.translate(imageReceiver.getImageX(), imageReceiver.getImageY());
@@ -2926,7 +2471,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
             canvas.restore();
         }
 
-        if (!starGiftLayout.has() && isButtonLayout(messageObject)) {
+        if (isButtonLayout(messageObject)) {
             canvas.save();
             float x = (previousWidth - giftRectSize) / 2f;
             if (messageObject.type != MessageObject.TYPE_ACTION_WALLPAPER) {
@@ -3512,21 +3057,7 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         }
 
         MessageObject messageObject = currentMessageObject;
-        if (starGiftLayout.has()) {
-            float w = starGiftLayout.getWidth() + dp(4 + 4);
-            float x = (getWidth() - w) / 2f;
-            float y = starGiftLayout.repost ? 0 : textY + textHeight + dp(12);
-            AndroidUtilities.rectTmp.set(x, y, x + w, y + starGiftLayout.getHeight() + dp(4 + 4));
-            if (backgroundRect == null) {
-                backgroundRect = new RectF();
-            }
-            backgroundRect.set(AndroidUtilities.rectTmp);
-            canvas.drawRoundRect(backgroundRect, dp(16), dp(16), backgroundPaint);
-
-            if (hasGradientService()) {
-                canvas.drawRoundRect(backgroundRect, dp(16), dp(16), darkenBackgroundPaint);
-            }
-        } else if (birthdayLayout != null) {
+        if (birthdayLayout != null) {
             final float w = birthdayLayout.width();
             final float h = birthdayLayout.height();
             final float x = (getWidth() - w) / 2f;
@@ -3753,27 +3284,15 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
                         replaceTags(formatString(R.string.GiftOfferRejectConfirmText, DialogObject.getShortName(currentMessageObject.getDialogId()))),
                         getString(R.string.GiftOfferRejectConfirmConfirm), true,
                 () -> {
-                    TL_payments.TL_resolveStarGiftOffer req = new TL_payments.TL_resolveStarGiftOffer();
-                    req.offer_msg_id = getMessageObject().getId();
-                    req.decline = true;
+                    
+                    
+                    
 
-                    ConnectionsManager.getInstance(currentAccount).sendRequestTyped(req, (res, err) -> {
-                        if (res != null) {
-                            MessagesController.getInstance(currentAccount).processUpdates(res, false);
-                        }
-                        if (err != null) {
-                            AndroidUtilities.runOnUIThread(() -> {
-                                BulletinFactory.of(fragment).showForError(err);
-                            });
-                        }
-                    });
+                    
                 });
             }
         } else if (button.id == BotInlineKeyboard.ButtonCustom.GIFT_OFFER_ACCEPT) {
-            if (currentMessageObject != null && currentMessageObject.messageOwner != null && currentMessageObject.messageOwner.action instanceof TLRPC.TL_messageActionStarGiftPurchaseOffer) {
-                TLRPC.TL_messageActionStarGiftPurchaseOffer offer = (TLRPC.TL_messageActionStarGiftPurchaseOffer) currentMessageObject.messageOwner.action;
-                GiftOfferSheet.openOfferAcceptAlert(LaunchActivity.getLastFragment(), getContext(), themeDelegate, currentAccount, currentMessageObject.getDialogId(), currentMessageObject.getId(), offer);
-            }
+            
         } else if (button.id == BotInlineKeyboard.ButtonCustom.SHARING_OFFER_DECLINE) {
             final BaseFragment fragment = delegate != null ? delegate.getBaseFragment() : null;
             if (fragment != null && currentMessageObject != null && currentMessageObject.messageOwner != null && currentMessageObject.messageOwner.action instanceof TLRPC.TL_messageActionNoForwardsRequest) {
@@ -3850,13 +3369,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
 
     @Override
     public int getBoundsLeft() {
-        if (starGiftLayout.has()) {
-            final int giftLayoutLeft = (int) (getWidth() - (starGiftLayout.getWidth() + dp(8))) / 2;
-            if (starGiftLayout.repost) {
-                return giftLayoutLeft;
-            }
-            return Math.min(backgroundLeft, giftLayoutLeft);
-        }
         if (isButtonLayout(currentMessageObject)) {
             return sideMenuWidth / 2 + (getWidth() - giftRectSize) / 2;
         }
@@ -3869,13 +3381,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
 
     @Override
     public int getBoundsRight() {
-        if (starGiftLayout.has()) {
-            final int giftLayoutRight = (int) (getWidth() + (starGiftLayout.getWidth() + dp(8))) / 2;
-            if (starGiftLayout.repost) {
-                return giftLayoutRight;
-            }
-            return Math.max(backgroundRight, giftLayoutRight);
-        }
         if (isButtonLayout(currentMessageObject)) {
             return sideMenuWidth / 2 + (getWidth() + giftRectSize) / 2;
         }
@@ -3991,12 +3496,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         AnimatedEmojiSpan.drawAnimatedEmojis(canvas, textLayout, animatedEmojiStack, 0, spoilers, 0, 0, 0, 1f, textLayout != null ? getAdaptiveEmojiColorFilter(textLayout.getPaint().getColor()) : null);
         canvas.restore();
 
-        if (starGiftLayout.has()) {
-            canvas.save();
-            canvas.translate((getWidth() - starGiftLayout.getWidth()) / 2.0f, starGiftLayout.repost ? dp(4) : textY + textHeight + dp(4 + 6 + 6));
-            starGiftLayout.drawOutbounds(canvas);
-            canvas.restore();
-        }
         canvas.restore();
 
         if (topicSeparator != null) {

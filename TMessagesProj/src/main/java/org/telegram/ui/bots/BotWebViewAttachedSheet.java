@@ -89,7 +89,6 @@ import org.telegram.ui.Components.VerticalPositionAutoAnimator;
 import org.telegram.ui.DialogsActivity;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.ReportBottomSheet;
-import org.telegram.ui.Stars.StarsController;
 import org.telegram.ui.Stories.DarkThemeResourceProvider;
 import org.telegram.ui.web.BotWebViewContainer;
 

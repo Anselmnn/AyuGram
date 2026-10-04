@@ -111,7 +111,6 @@ import org.telegram.ui.Components.blur3.capture.IBlur3Capture;
 import org.telegram.ui.Components.blur3.capture.IBlur3Hash;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.PhotoViewer;
-import org.telegram.ui.Stars.StarsIntroActivity;
 import org.telegram.ui.Stories.recorder.AlbumButton;
 import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
 
@@ -3407,10 +3406,7 @@ public class ChatAttachAlertPhotoLayout extends ChatAttachAlert.AttachAlertLayou
         } else if (id == preview) {
             parentAlert.updatePhotoPreview(parentAlert.getCurrentAttachLayout() != parentAlert.getPhotoPreviewLayout());
         } else if (id == stars) {
-            StarsIntroActivity.showMediaPriceSheet(getContext(), getStarsPrice(), true, (price, done) -> {
-                done.run();
-                setStarsPrice(price);
-            }, resourcesProvider);
+            
         } else if (id >= 10) {
             selectedAlbumEntry = dropDownAlbums.get(id - 10);
             if (selectedAlbumEntry == galleryAlbumEntry) {

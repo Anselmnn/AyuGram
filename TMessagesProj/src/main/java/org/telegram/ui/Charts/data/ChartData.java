@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.telegram.messenger.SegmentTree;
 import org.telegram.ui.ActionBar.ThemeColors;
-import org.telegram.ui.Stars.StarsController;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -114,7 +113,7 @@ public class ChartData {
     public int getFormatter(String value) {
         if (TextUtils.isEmpty(value)) return 0;
         if (value.contains("TON")) return FORMATTER_TON;
-        if (value.contains(StarsController.currency)) return FORMATTER_XTR;
+        
         return 0;
     }
 

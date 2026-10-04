@@ -71,7 +71,6 @@ import org.telegram.messenger.browser.Browser;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.tgnet.tl.TL_account;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.BackDrawable;
 import org.telegram.ui.ActionBar.BaseFragment;
@@ -2221,7 +2220,7 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         int type = down ? SelectAnimatedEmojiDialog.TYPE_EMOJI_STATUS_TOP : SelectAnimatedEmojiDialog.TYPE_EMOJI_STATUS;
         SelectAnimatedEmojiDialog popupLayout = new SelectAnimatedEmojiDialog(PremiumPreviewFragment.this, getContext(), true, xoff, type, true, getResourceProvider(), down ? 24 : 16) {
             @Override
-            protected void onEmojiSelected(View emojiView, Long documentId, TLRPC.Document document, TL_stars.TL_starGiftUnique gift, Integer until) {
+            protected void onEmojiSelected(View emojiView, Long documentId, TLRPC.Document document, Integer until) {
                 if (onSet != null) {
                     onSet.run(documentId, until);
                 }

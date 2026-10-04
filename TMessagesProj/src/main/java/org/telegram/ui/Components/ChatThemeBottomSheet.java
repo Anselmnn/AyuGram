@@ -59,7 +59,6 @@ import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.ResultCallback;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.tgnet.tl.TL_account;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.tgnet.tl.TL_stories;
 import org.telegram.ui.ActionBar.AlertDialog;
 import org.telegram.ui.ActionBar.BackDrawable;
@@ -1028,13 +1027,8 @@ public class ChatThemeBottomSheet extends BottomSheet implements NotificationCen
             EmojiThemes chatTheme = selectedItem.chatTheme;
             TLRPC.ChatTheme tlChatTheme = !chatTheme.showAsDefaultStub ? chatTheme.getChatTheme() : null;
             final long isBusyByUserId = chatTheme.getBusyByUserId();
-            final TL_stars.TL_starGiftUnique gift = chatTheme.getThemeGift();
-            if (isBusyByUserId != 0 && gift != null && !ignoreGiftReplace) {
-                AlertsCreator.showGiftThemeApplyConfirm(getContext(), resourcesProvider,
-                    currentAccount, gift, isBusyByUserId,
-                    () -> applySelectedTheme(true));
-                return;
-            }
+            
+            
             ChatThemeController.getInstance(currentAccount).clearWallpaper(chatActivity.getDialogId(), false);
             ChatThemeController.getInstance(currentAccount).setDialogTheme(chatActivity.getDialogId(), tlChatTheme, true);
             TLRPC.WallPaper wallpaper = hasChanges() ? null : themeDelegate.getCurrentWallpaper();

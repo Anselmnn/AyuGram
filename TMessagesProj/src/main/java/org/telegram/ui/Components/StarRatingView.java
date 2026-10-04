@@ -15,7 +15,6 @@ import androidx.core.graphics.ColorUtils;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.MessagesController;
 import org.telegram.messenger.R;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.ui.ActionBar.Theme;
 
 public class StarRatingView extends View {
@@ -54,15 +53,15 @@ public class StarRatingView extends View {
         this.delegate = delegate;
     }
 
-    public void set(TL_stars.Tl_starsRating starsRating) {
-        isVisibleInternal = starsRating != null;
+    public void set(int starsRatingLevel) {
+        isVisibleInternal = starsRatingLevel >= 0;
         checkVisibility();
-        if (starsRating == null) {
+        if (starsRatingLevel < 0) {
             return;
         }
 
-        drawable.setBadgeLevel(starsRating.level, true);
-        setContentDescription(getString(R.string.AccDescrProfileRatingLevel) + " " + starsRating.level);
+        drawable.setBadgeLevel(starsRatingLevel, true);
+        setContentDescription(getString(R.string.AccDescrProfileRatingLevel) + " " + starsRatingLevel);
         invalidate();
     }
 

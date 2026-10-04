@@ -112,7 +112,6 @@ import org.telegram.messenger.FileLog;
 import org.telegram.messenger.FingerprintController;
 import org.telegram.messenger.FlagSecureReason;
 import org.telegram.messenger.GenericProvider;
-import org.telegram.messenger.GiftAuctionController;
 import org.telegram.messenger.LiteMode;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.LocationController;
@@ -155,7 +154,6 @@ import org.telegram.tgnet.Vector;
 import org.telegram.tgnet.tl.TL_account;
 import org.telegram.tgnet.tl.TL_chatlists;
 import org.telegram.tgnet.tl.TL_forum;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.tgnet.tl.TL_stories;
 import org.telegram.ui.ActionBar.ActionBarLayout;
 import org.telegram.ui.ActionBar.AlertDialog;
@@ -213,21 +211,12 @@ import org.telegram.ui.Components.poll.PollAttachedMediaPack;
 import org.telegram.ui.Components.spoilers.SpoilerEffect2;
 import org.telegram.ui.Components.voip.RTMPStreamPipOverlay;
 import org.telegram.ui.Components.voip.VoIPHelper;
-import org.telegram.ui.Gifts.GiftSheet;
-import org.telegram.ui.Stars.ISuperRipple;
-import org.telegram.ui.Gifts.AuctionJoinSheet;
-import org.telegram.ui.Stars.StarGiftPreviewSheet;
-import org.telegram.ui.Stars.StarGiftSheet;
-import org.telegram.ui.Stars.StarsController;
-import org.telegram.ui.Stars.StarsIntroActivity;
-import org.telegram.ui.Stars.SuperRipple;
 import org.telegram.ui.Stories.StoriesController;
 import org.telegram.ui.Stories.StoriesListPlaceProvider;
 import org.telegram.ui.Stories.StoryViewer;
 import org.telegram.ui.Stories.recorder.StoryEntry;
 import org.telegram.ui.Stories.recorder.StoryRecorder;
 import org.telegram.ui.Stories.LiveStoryPipOverlay;
-import org.telegram.ui.TON.TONIntroActivity;
 import org.telegram.ui.bots.BotWebViewAttachedSheet;
 import org.telegram.ui.bots.BotWebViewSheet;
 import org.telegram.ui.bots.WebViewRequestProps;
@@ -2698,18 +2687,18 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                             FileLog.e(e);
                                         }
                                         String purpose = data.getQueryParameter("purpose");
-                                        StarsController.getInstance(intentAccount[0]).showStarsTopup(this, balance, purpose);
+                                        
                                     } else if (url.startsWith("tg:ton") || url.startsWith("tg://ton")) {
                                         if (progress != null) {
                                             progress.end();
                                         }
-                                        presentFragment(new TONIntroActivity());
+                                        
                                         return pushOpened;
                                     } else if (url.startsWith("tg:stars") || url.startsWith("tg://stars")) {
                                         if (progress != null) {
                                             progress.end();
                                         }
-                                        presentFragment(new StarsIntroActivity());
+                                        
                                         return pushOpened;
                                     } else if (url.startsWith("tg:send_gift") || url.startsWith("tg://send_gift")) {
                                         final String to = data.getQueryParameter("to");
@@ -2740,8 +2729,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                                 }
                                                 return pushOpened;
                                             }
-                                            new GiftSheet(this, intentAccount[0], toId, null)
-                                                .show();
+                                            
                                             return pushOpened;
                                         }
 
@@ -2764,8 +2752,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                                 return;
                                             }
 
-                                            new GiftSheet(this, intentAccount[0], peerId, null)
-                                                .show();
+                                            
                                         });
                                         if (progress != null && cancel != null) {
                                             progress.onCancel(cancel);
@@ -4059,83 +4046,10 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     FileLog.e(e);
                 }
             }));
-        } else if (stargiftPreviewSlug != null) {
-            requestId[0] = GiftAuctionController.getInstance(currentAccount).requestGiftAuctionBySlug(stargiftPreviewSlug, (res, err) -> {
-                if (err != null) {
-                    BulletinFactory.of(mainFragmentsStack.get(mainFragmentsStack.size() - 1))
-                            .createSimpleBulletin(R.raw.error, LocaleController.getString(R.string.GiftAuctionNotFound))
-                            .show();
-                } else if (res != null) {
-                    GiftAuctionController.Auction auction = GiftAuctionController.getInstance(currentAccount).getAuction(res.gift.id);
-                    if (auction != null) {
-                        new StarGiftPreviewSheet(LaunchActivity.this, null, currentAccount, auction.gift.title, auction.previewAttributes, false).show();
-                    }
-                }
-
-                try {
-                    dismissLoading.run();
-                } catch (Exception e) {
-                    FileLog.e(e);
-                }
-            });
-        } else if (auctionSlug != null) {
-            requestId[0] = GiftAuctionController.getInstance(currentAccount).requestGiftAuctionBySlug(auctionSlug, (res, err) -> {
-                if (err != null) {
-                    BulletinFactory.of(mainFragmentsStack.get(mainFragmentsStack.size() - 1))
-                            .createSimpleBulletin(R.raw.error, LocaleController.getString(R.string.GiftAuctionNotFound))
-                            .show();
-                } else if (res != null) {
-                    AuctionJoinSheet.show(LaunchActivity.this, null, currentAccount, 0, res.gift.id, null);
-                }
-
-                try {
-                    dismissLoading.run();
-                } catch (Exception e) {
-                    FileLog.e(e);
-                }
-            });
         } else if (uniqueGiftSlug != null) {
-            TL_stars.getUniqueStarGift req = new TL_stars.getUniqueStarGift();
-            req.slug = uniqueGiftSlug;
-            requestId[0] = ConnectionsManager.getInstance(intentAccount).sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
-                if (error != null) {
-                    final BaseFragment lastFragment = getSafeLastFragment();
-                    if (lastFragment == null) return;
-                    if ("STARGIFT_ALREADY_BURNED".equalsIgnoreCase(error.text)) {
-                        BulletinFactory.of(lastFragment)
-                            .createSimpleBulletin(R.raw.fire_on, LocaleController.getString(R.string.UniqueGiftNotFoundBurned))
-                            .show();
-                    } else {
-                        BulletinFactory.of(lastFragment)
-                            .createSimpleBulletin(R.raw.error, LocaleController.getString(R.string.UniqueGiftNotFound))
-                            .show();
-                    }
-                } else if (response instanceof TL_stars.TL_payments_uniqueStarGift) {
-                    final TL_stars.TL_payments_uniqueStarGift r = (TL_stars.TL_payments_uniqueStarGift) response;
-                    MessagesController.getInstance(currentAccount).putUsers(r.users, false);
-                    MessagesController.getInstance(currentAccount).putChats(r.chats, false);
-                    BaseFragment lastFragment = getSafeLastFragment();
-                    if (r.gift instanceof TL_stars.TL_starGiftUnique) {
-                        final TL_stars.TL_starGiftUnique gift = (TL_stars.TL_starGiftUnique) r.gift;
-                        final StarGiftSheet sheet = new StarGiftSheet(this, intentAccount, 0, null).set(uniqueGiftSlug, gift, null);
-                        if (lastFragment != null) {
-                            if (lastFragment.getLastStoryViewer() != null && lastFragment.getLastStoryViewer().isFullyVisible()) {
-                                lastFragment.getLastStoryViewer().showDialog(sheet);
-                            } else {
-                                lastFragment.showDialog(sheet);
-                            }
-                        } else {
-                            sheet.show();
-                        }
-                    }
-                }
-
-                try {
-                    dismissLoading.run();
-                } catch (Exception e) {
-                    FileLog.e(e);
-                }
-            }));
+            
+            
+            
         } else if (inputInvoiceSlug != null) {
             BaseFragment invoiceFragment = getLastFragment();
             if (invoiceFragment != null) {
@@ -4871,23 +4785,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                             } else if (invite.subscription_pricing != null && !invite.can_refulfill_subscription) {
                                 final long stars = invite.subscription_pricing.amount;
                                 MessagesController.getInstance(intentAccount).putChat(invite.chat, false);
-                                StarsController.getInstance(currentAccount).subscribeTo(group, invite, (status, dialogId) -> {
-                                    if ("paid".equals(status) && dialogId != 0) {
-                                        AndroidUtilities.runOnUIThread(() -> {
-                                            BaseFragment lastFragment = getSafeLastFragment();
-                                            if (lastFragment == null) return;
-                                            BaseFragment chatActivity = ChatActivity.of(dialogId);
-                                            lastFragment.presentFragment(chatActivity);
-
-                                            TLRPC.Chat chat = MessagesController.getInstance(currentAccount).getChat(-dialogId);
-                                            if (chat != null) {
-                                                AndroidUtilities.runOnUIThread(() -> {
-                                                    BulletinFactory.of(chatActivity).createSimpleBulletin(R.raw.stars_send, LocaleController.getString(R.string.StarsSubscriptionCompleted), AndroidUtilities.replaceTags(formatPluralString("StarsSubscriptionCompletedText", (int) stars, chat.title))).show(true);
-                                                }, 250);
-                                            }
-                                        });
-                                    }
-                                });
+                                
                             } else {
                                 BaseFragment fragment = mainFragmentsStack.get(mainFragmentsStack.size() - 1);
                                 fragment.showDialog(new JoinGroupAlert(LaunchActivity.this, invite, group, fragment, (fragment instanceof ChatActivity ? ((ChatActivity) fragment).themeDelegate : null)));
@@ -9045,26 +8943,6 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     }
 
     public static void makeRipple(float x, float y, float intensity) {
-        if (instance == null) return;
-        instance.makeRippleInternal(x, y, intensity);
-    }
-
-    private ISuperRipple currentRipple;
-    private void makeRippleInternal(float x, float y, float intensity) {
-        View parent = getWindow().getDecorView();
-        if (parent == null) return;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (currentRipple == null || currentRipple.view != parent) {
-                currentRipple = new SuperRipple(parent);
-            }
-        }/* else if (Build.VERSION.SDK_INT >= 26) {
-            if (currentRipple == null || currentRipple.view != parent) {
-                currentRipple = new SuperRippleFallback(parent);
-            }
-        }*/
-        if (currentRipple != null) {
-            currentRipple.animate(x, y, intensity);
-        }
     }
 
     public int getMainFragmentsStackSize() {

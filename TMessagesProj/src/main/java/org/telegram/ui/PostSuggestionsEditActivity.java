@@ -3,7 +3,6 @@ package org.telegram.ui;
 import static org.telegram.messenger.AndroidUtilities.dp;
 import static org.telegram.messenger.LocaleController.formatString;
 import static org.telegram.messenger.LocaleController.getString;
-import static org.telegram.ui.bots.AffiliateProgramFragment.percents;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
@@ -22,7 +21,6 @@ import org.telegram.messenger.MessagesStorage;
 import org.telegram.messenger.R;
 import org.telegram.messenger.Utilities;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.AlertDialog;
@@ -39,7 +37,6 @@ import org.telegram.ui.Components.LinkActionView;
 import org.telegram.ui.Components.UItem;
 import org.telegram.ui.Components.UniversalAdapter;
 import org.telegram.ui.Components.UniversalRecyclerView;
-import org.telegram.ui.Stars.StarsIntroActivity;
 
 import java.util.ArrayList;
 
@@ -132,7 +129,7 @@ public class PostSuggestionsEditActivity extends BaseFragment {
             final int[] steps = SlideIntChooseView.cut(new int[]{ 0, 10, 50, 100, 200, 250, 400, 500, 1000, 2500, 5000, 7500, 9000, 10_000 }, (int) getMessagesController().starsPaidMessageAmountMax);
             final SlideIntChooseView.Options options = SlideIntChooseView.Options.make(1, steps, 20, (type, val) -> {
                 if (type == 0) {
-                    return StarsIntroActivity.replaceStarsWithPlain(LocaleController.formatPluralStringComma("Stars", val), 0.66f);
+                    return LocaleController.formatPluralStringComma("Stars", val);
                 }
                 return LocaleController.formatNumber(val, ',');
             });
@@ -202,32 +199,12 @@ public class PostSuggestionsEditActivity extends BaseFragment {
         }
 
         doneButtonDrawable.animateToProgress(1f);
-        final TL_stars.updatePaidMessagesPrice req = new TL_stars.updatePaidMessagesPrice();
-        req.channel = getMessagesController().getInputChannel(currentChatId);
-        req.send_paid_messages_stars = isSuggestionsEnabled ? suggestionsStarsCount : 0;
-        req.suggestions_allowed = isSuggestionsEnabled;
+        
+        
+        0;
+        
 
-        getConnectionsManager().sendRequest(req, (response, error) -> {
-            AndroidUtilities.runOnUIThread(() -> {
-                if (error != null) {
-                    doneButtonDrawable.animateToProgress(0f);
-                    // AlertsCreator.processError(currentAccount, error, PostSuggestionsEditActivity.this, req);
-                    BulletinFactory.showError(error);
-                    return;
-                }
-
-                TLRPC.Updates updates = (TLRPC.Updates) response;
-                getMessagesController().putChats(updates.chats, false);
-                getMessagesController().processUpdates(updates, false);
-
-                if (!isFinished && !finishing) {
-                    if (starsCallback != null) {
-                        starsCallback.run(req.suggestions_allowed ? req.send_paid_messages_stars : -1);
-                    }
-                    finishFragment();
-                }
-            });
-        });
+        
 
         final TLRPC.Chat chat = getMessagesController().getChat(currentChatId);
         if (chat != null) {

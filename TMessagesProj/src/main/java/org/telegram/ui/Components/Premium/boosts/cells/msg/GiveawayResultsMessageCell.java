@@ -299,8 +299,8 @@ public class GiveawayResultsMessageCell {
         init();
         createImages();
         setGiftImage();
-        TLRPC.TL_messageMediaGiveawayResults giveaway = (TLRPC.TL_messageMediaGiveawayResults) messageObject.messageOwner.media;
-        checkArraysLimits(giveaway.winners.size());
+        
+        
 
         int giftSize = AndroidUtilities.dp(90);
         int maxWidth = AndroidUtilities.dp(230);
@@ -310,39 +310,33 @@ public class GiveawayResultsMessageCell {
         titleStringBuilder.setSpan(new RelativeSizeSpan(1.05f), 0, winnersSelected.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         topStringBuilder = new SpannableStringBuilder();
-        String subTitleText = getPluralString("BoostingGiveawayResultsMsgWinnersTitle", giveaway.winners_count);
+        
         SpannableStringBuilder subTitleWithLink = AndroidUtilities.replaceSingleTag(
                 subTitleText,
                 Theme.key_chat_messageLinkIn, 0,
                 () -> AndroidUtilities.runOnUIThread(() -> {
-                    if (messageObject.getDialogId() == -giveaway.channel_id) {
-                        parentView.getDelegate().didPressReplyMessage(parentView, giveaway.launch_msg_id, 0, 0, false);
-                    } else {
+                     {
                         Bundle bundle = new Bundle();
-                        bundle.putLong("chat_id", giveaway.channel_id);
-                        bundle.putInt("message_id", giveaway.launch_msg_id);
+                        
+                        
                         LaunchActivity.getLastFragment().presentFragment(new ChatActivity(bundle));
                     }
                 })
         );
-        topStringBuilder.append(AndroidUtilities.replaceCharSequence("%1$d", subTitleWithLink, replaceTags("**" + giveaway.winners_count + "**")));
+        
 
         topStringBuilder.append("\n\n");
         topStringBuilder.setSpan(new RelativeSizeSpan(0.4f), topStringBuilder.length() - 1, topStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        CharSequence winners = replaceTags(getPluralString("BoostingGiveawayResultsMsgWinners", giveaway.winners_count));
+        
         topStringBuilder.append(winners);
         topStringBuilder.setSpan(new RelativeSizeSpan(1.05f), subTitleWithLink.length() + 2, subTitleWithLink.length() + 2 + winners.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         SpannableStringBuilder bottomStringBuilder = new SpannableStringBuilder();
-        if (giveaway.winners_count != giveaway.winners.size()) {
-            bottomStringBuilder.append(replaceTags(formatPluralString("BoostingGiveawayResultsMsgAllAndMoreWinners", giveaway.winners_count - giveaway.winners.size())));
-            bottomStringBuilder.setSpan(new RelativeSizeSpan(1.05f), 0, bottomStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            bottomStringBuilder.append("\n");
-        }
-        isStars = (giveaway.flags & 32) != 0;
+        
+        
         if (isStars) {
-            bottomStringBuilder.append(LocaleController.formatPluralStringSpaced("BoostingStarsGiveawayResultsMsgAllWinnersReceivedLinks", (int) giveaway.stars));
+            
         } else {
             bottomStringBuilder.append(LocaleController.getString(R.string.BoostingGiveawayResultsMsgAllWinnersReceivedLinks));
         }
@@ -372,10 +366,10 @@ public class GiveawayResultsMessageCell {
             if (counterIcon == null) {
                 counterIcon = ApplicationLoader.applicationContext.getResources().getDrawable(R.drawable.filled_giveaway_stars).mutate();
             }
-            counterStr = LocaleController.formatNumber((int) giveaway.stars, ',');
+            
         } else {
             counterIcon = null;
-            counterStr = "x" + giveaway.winners_count;
+            
         }
         counterTextPaint.getTextBounds(counterStr, 0, counterStr.length(), counterTextBounds);
         if (isStars) {
@@ -387,13 +381,8 @@ public class GiveawayResultsMessageCell {
         float oneRowTotalWidth = 0;
         measuredHeight += dp(24 + 6);
 
-        List<Long> visibleChannels = new ArrayList<>(giveaway.winners.size());
-        for (Long uid : giveaway.winners) {
-            TLRPC.User user = MessagesController.getInstance(UserConfig.selectedAccount).getUser(uid);
-            if (user != null) {
-                visibleChannels.add(uid);
-            }
-        }
+        
+        
 
         for (int i = 0; i < visibleChannels.size(); i++) {
             long uid = visibleChannels.get(i);

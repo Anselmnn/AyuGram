@@ -130,7 +130,6 @@ import org.telegram.ui.Components.spoilers.SpoilerEffect;
 import org.telegram.ui.DialogsActivity;
 import org.telegram.ui.FilterCreateActivity;
 import org.telegram.ui.RightSlidingDialogContainer;
-import org.telegram.ui.Stars.StarsIntroActivity;
 import org.telegram.ui.Stories.StoriesListPlaceProvider;
 import org.telegram.ui.Stories.StoriesUtilities;
 import org.telegram.ui.Stories.StoryViewer;
@@ -1913,7 +1912,7 @@ public class DialogCell extends BaseCell implements StoriesListPlaceProvider.Ava
                                     } else {
                                         messageString = count > 1 ? LocaleController.formatPluralString("Photos", count) : getString(R.string.AttachPhoto);
                                     }
-                                    messageString = StarsIntroActivity.replaceStars(LocaleController.formatString(R.string.AttachPaidMedia, messageString));
+                                    messageString = LocaleController.formatString(R.string.AttachPaidMedia, messageString);
                                     currentMessagePaint = Theme.dialogs_messagePrintingPaint[paintIndex];
                                 } else if (thumbsCount > 1) {
                                     if (hasVideoThumb) {
@@ -1923,17 +1922,7 @@ public class DialogCell extends BaseCell implements StoriesListPlaceProvider.Ava
                                     }
                                     currentMessagePaint = Theme.dialogs_messagePrintingPaint[paintIndex];
                                 } else {
-                                    if (message.messageOwner.media instanceof TLRPC.TL_messageMediaGiveaway) {
-                                        boolean isChannel;
-                                        if (message.messageOwner.fwd_from != null && message.messageOwner.fwd_from.from_id instanceof TLRPC.TL_peerChannel) {
-                                            isChannel = ChatObject.isChannelAndNotMegaGroup(message.messageOwner.fwd_from.from_id.channel_id, currentAccount);
-                                        } else {
-                                            isChannel = ChatObject.isChannelAndNotMegaGroup(chat);
-                                        }
-                                        messageString = getString(isChannel ? R.string.BoostingGiveawayChannelStarted : R.string.BoostingGiveawayGroupStarted);
-                                    } else if (message.messageOwner.media instanceof TLRPC.TL_messageMediaGiveawayResults) {
-                                        messageString = getString(R.string.BoostingGiveawayResults);
-                                    } else if (message.messageOwner.media instanceof TLRPC.TL_messageMediaPoll) {
+                                      if (message.messageOwner.media instanceof TLRPC.TL_messageMediaPoll) {
                                         TLRPC.TL_messageMediaPoll mediaPoll = (TLRPC.TL_messageMediaPoll) message.messageOwner.media;
                                         if (mediaPoll.poll.question != null && mediaPoll.poll.question.entities != null) {
                                             SpannableString questionText = new SpannableString(mediaPoll.poll.question.text);
@@ -1955,9 +1944,7 @@ public class DialogCell extends BaseCell implements StoriesListPlaceProvider.Ava
                                         }
                                     } else if (message.messageOwner.media instanceof TLRPC.TL_messageMediaGame) {
                                         messageString = DialogMediaIconsHelper.addDialogMediaSpan(message.messageOwner.media.game.title, R.drawable.dialog_media_game_20, false);
-                                    } else if (message.messageOwner.media instanceof TLRPC.TL_messageMediaInvoice) {
-                                        messageString = message.messageOwner.media.title;
-                                    } else if (message.type == MessageObject.TYPE_MUSIC) {
+                                    } else  if (message.type == MessageObject.TYPE_MUSIC) {
                                         messageString = String.format("\uD83C\uDFA7 %s - %s", message.getMusicAuthor(), message.getMusicTitle());
                                     } else if (message.messageOwner.media instanceof TLRPC.TL_messageMediaStory && message.messageOwner.media.via_mention) {
                                         if (message.isOut()) {
@@ -2059,21 +2046,7 @@ public class DialogCell extends BaseCell implements StoriesListPlaceProvider.Ava
                 }
             }
 
-            if (!drawForwardIcon && !isFolderCell() && !isForumCell() && !isDialogFolder() && draftMessage == null && message != null && message.messageOwner != null && message.messageOwner.action instanceof TLRPC.TL_messageActionStarGift) {
-                drawGiftIcon = true;
-                SpannableStringBuilder builder = new SpannableStringBuilder(messageString);
-                builder.insert(0, "d ");
-                ColoredImageSpan coloredImageSpan = new ColoredImageSpan(ContextCompat.getDrawable(getContext(), R.drawable.mini_gift).mutate());
-                coloredImageSpan.setScale(1.25f, 1.25f);
-                coloredImageSpan.spaceScaleX = 0.9f;
-                coloredImageSpan.setAlpha(0.9f);
-                builder.setSpan(coloredImageSpan, 0, 1, 0);
-                messageString = builder;
-                final TLRPC.TL_messageActionStarGift action = (TLRPC.TL_messageActionStarGift) message.messageOwner.action;
-                if (action.message != null && !TextUtils.isEmpty(action.message.text)) {
-                    currentMessagePaint = Theme.dialogs_messagePaint[paintIndex];
-                }
-            }
+            
 
             if (!TextUtils.isEmpty(customMessage)) {
                 timeString = "";
@@ -5981,9 +5954,7 @@ public class DialogCell extends BaseCell implements StoriesListPlaceProvider.Ava
                 }
             } else if (message.messageOwner.media instanceof TLRPC.TL_messageMediaGame) {
                 innerMessage = DialogMediaIconsHelper.addDialogMediaSpan(message.messageOwner.media.game.title, R.drawable.dialog_media_game_20, true);
-            } else if (message.messageOwner.media instanceof TLRPC.TL_messageMediaInvoice) {
-                innerMessage = message.messageOwner.media.title;
-            } else if (message.type == MessageObject.TYPE_MUSIC) {
+            } else  if (message.type == MessageObject.TYPE_MUSIC) {
                 innerMessage = String.format("\uD83C\uDFA7 \u2068%s - %s\u2069", message.getMusicAuthor(), message.getMusicTitle());
             } else if (message.messageOwner.media instanceof TLRPC.TL_messageMediaPaidMedia) {
                 TLRPC.TL_messageMediaPaidMedia paidMedia = (TLRPC.TL_messageMediaPaidMedia) message.messageOwner.media;
@@ -5993,7 +5964,7 @@ public class DialogCell extends BaseCell implements StoriesListPlaceProvider.Ava
                 } else {
                     innerMessage = count > 1 ? LocaleController.formatPluralString("Photos", count) : getString(R.string.AttachPhoto);
                 }
-                innerMessage = StarsIntroActivity.replaceStars(LocaleController.formatString(R.string.AttachPaidMedia, innerMessage));
+                innerMessage = LocaleController.formatString(R.string.AttachPaidMedia, innerMessage);
                 colorKey = Theme.key_chats_actionMessage;
             } else if (thumbsCount > 1) {
                 if (hasVideoThumb) {

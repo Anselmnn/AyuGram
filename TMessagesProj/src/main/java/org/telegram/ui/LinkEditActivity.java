@@ -47,7 +47,6 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.browser.Browser;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
 import org.telegram.ui.ActionBar.AlertDialog;
@@ -66,7 +65,6 @@ import org.telegram.ui.Components.ScaleStateListAnimator;
 import org.telegram.ui.Components.SectionsScrollView;
 import org.telegram.ui.Components.SizeNotifierFrameLayout;
 import org.telegram.ui.Components.SlideChooseView;
-import org.telegram.ui.Stars.StarsController;
 import org.telegram.ui.Stories.recorder.KeyboardNotifier;
 
 import java.util.ArrayList;
@@ -757,8 +755,8 @@ public class LinkEditActivity extends BaseFragment {
 
             if (stars > 0) {
                 req.flags |= 32;
-                req.subscription_pricing = new TL_stars.TL_starsSubscriptionPricing();
-                req.subscription_pricing.period = getConnectionsManager().isTestBackend() ? StarsController.PERIOD_5MINUTES : StarsController.PERIOD_MONTHLY;
+                
+                req.subscription_pricing.period = getConnectionsManager().isTestBackend() ? 300 : 2592000;
                 req.subscription_pricing.amount = stars;
             }
 

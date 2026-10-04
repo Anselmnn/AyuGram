@@ -64,7 +64,6 @@ import org.telegram.ui.ChatActivity;
 import org.telegram.ui.Components.spoilers.SpoilerEffect2;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.PhotoViewer;
-import org.telegram.ui.Stars.StarsIntroActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -2591,7 +2590,7 @@ public class ChatAttachAlertPhotoLayoutPreview extends ChatAttachAlert.AttachAle
                 if (stars <= 0) return;
 
                 if (buttonText == null || buttonTextPrice != stars) {
-                    buttonText = new Text(StarsIntroActivity.replaceStarsWithPlain(LocaleController.formatPluralStringComma("UnlockPaidContent", (int) (buttonTextPrice = stars)), .7f), 14, AndroidUtilities.bold());
+                    buttonText = new Text(LocaleController.formatPluralStringComma("UnlockPaidContent", (int) (buttonTextPrice = stars)), 14, AndroidUtilities.bold());
                 }
                 final float buttonWidth = dp(14 + 14) + buttonText.getCurrentWidth();
                 final float buttonHeight = dp(32);

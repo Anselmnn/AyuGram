@@ -22,13 +22,11 @@ import org.telegram.messenger.BillingController;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.R;
 import org.telegram.ui.ActionBar.Theme;
-import org.telegram.ui.ChannelMonetizationLayout;
 import org.telegram.ui.Charts.data.ChartData;
 import org.telegram.ui.Components.AnimatedEmojiSpan;
 import org.telegram.ui.Components.CombinedDrawable;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.RadialProgressView;
-import org.telegram.ui.Stars.StarsIntroActivity;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -191,7 +189,7 @@ public class LegendSignatureView extends FrameLayout {
                 if (formatter == ChartData.FORMATTER_TON) {
                     h.signature.setText(LocaleController.formatString(formatterIndex == 0 ? R.string.ChartInTON : R.string.ChartInUSD, l.line.name));
                 } else if (formatter == ChartData.FORMATTER_XTR) {
-                    h.signature.setText(StarsIntroActivity.replaceStarsWithPlain(LocaleController.formatString(formatterIndex == 0 ? R.string.ChartInXTR : R.string.ChartInUSD, l.line.name), .7f));
+                    h.signature.setText(LocaleController.formatString(formatterIndex == 0 ? R.string.ChartInXTR : R.string.ChartInUSD, l.line.name));
                 } else {
                     h.signature.setText(l.line.name);
                 }
@@ -248,13 +246,13 @@ public class LegendSignatureView extends FrameLayout {
                     formatterTON.setGroupingUsed(false);
                 }
                 formatterTON.setMaximumFractionDigits(v > 1_000_000_000 ? 2 : 6);
-                return ChannelMonetizationLayout.replaceTON("TON " + formatterTON.format(v / 1_000_000_000.), textView.getPaint(), .82f, false);
+                return "TON " + formatterTON.format(v / 1_000_000_000.);
             } else {
                 return "≈" + BillingController.getInstance().formatCurrency((long) (v / k), "USD");
             }
         } else if (formatter == ChartData.FORMATTER_XTR) {
             if (formatterIndex == 0) {
-                return StarsIntroActivity.replaceStarsWithPlain("XTR " + LocaleController.formatNumber(v, ' '), .7f);
+                return "XTR " + LocaleController.formatNumber(v, ' ');
             } else {
                 return "≈" + BillingController.getInstance().formatCurrency((long) (v / k), "USD");
             }

@@ -38,8 +38,6 @@ import org.telegram.ui.ChatActivity;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.PhotoViewer;
 import org.telegram.ui.PremiumPreviewFragment;
-import org.telegram.ui.Stars.StarsController;
-import org.telegram.ui.Stars.StarsIntroActivity;
 import org.telegram.ui.Stories.DarkThemeResourceProvider;
 import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
 
@@ -338,14 +336,7 @@ public class PostsSearchContainer extends FrameLayout {
             } else if (err != null && "BALANCE_TOO_LOW".equalsIgnoreCase(err.text)) {
                 updateEmptyView();
                 listView.adapter.update(true);
-                StarsController.getInstance(currentAccount).getBalance(true, () -> {
-                    final Activity activity = AndroidUtilities.getActivity();
-                    final BaseFragment lastFragment = LaunchActivity.getSafeLastFragment();
-                    final Theme.ResourcesProvider resourcesProvider = PhotoViewer.getInstance().isVisible() || lastFragment != null && lastFragment.hasShownSheet() ? new DarkThemeResourceProvider() : (lastFragment != null ? lastFragment.getResourceProvider() : null);
-                    new StarsIntroActivity.StarsNeededSheet(activity, resourcesProvider, paying, StarsIntroActivity.StarsNeededSheet.TYPE_SEARCH, "", () -> {
-                        load(true);
-                    }, 0).show();
-                }, true);
+                
             }
         }), ConnectionsManager.RequestFlagDoNotWaitFloodWait);
 
@@ -435,7 +426,7 @@ public class PostsSearchContainer extends FrameLayout {
                 .putInt("searchpostsnew", MessagesController.getGlobalMainSettings().getInt("searchpostsnew", 0) + 1)
                 .apply();
 
-            StarsController.getInstance(currentAccount).getBalance();
+            
         }
     }
 
@@ -534,7 +525,7 @@ public class PostsSearchContainer extends FrameLayout {
             final int s = S - h * 3600 - m * 60;
 
             emptyButton.setVisibility(View.VISIBLE);
-            emptyButton.setText(StarsIntroActivity.replaceStars(formatPluralStringComma("SearchPostsButtonPay", (int) flood.stars_amount), 1.13f, starSpan), true);
+            emptyButton.setText(formatPluralStringComma("SearchPostsButtonPay", (int) flood.stars_amount), true);
             emptyButton.setSubText(formatString(R.string.SearchPostsFreeSearchUnlocksIn, (h > 0 ? h + ":" : "") + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s)), true);
             emptyButton.subText.setHacks(false, true, true);
             emptyButton.setOnClickListener(v -> {

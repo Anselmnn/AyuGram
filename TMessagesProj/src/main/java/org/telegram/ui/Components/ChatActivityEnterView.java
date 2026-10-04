@@ -188,7 +188,6 @@ import org.telegram.ui.Components.chat.layouts.ChatActivitySideControlsButtonsLa
 import org.telegram.ui.Components.inset.WindowInsetsInAppController;
 import org.telegram.ui.ContentPreviewViewer;
 import org.telegram.ui.DialogsActivity;
-import org.telegram.ui.Gifts.GiftSheet;
 import org.telegram.ui.GroupStickersActivity;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.LinkManager;
@@ -197,8 +196,6 @@ import org.telegram.ui.MultiContactsSelectorBottomSheet;
 import org.telegram.ui.PhotoViewer;
 import org.telegram.ui.PremiumPreviewFragment;
 import org.telegram.ui.ProfileActivity;
-import org.telegram.ui.Stars.StarsController;
-import org.telegram.ui.Stars.StarsIntroActivity;
 import org.telegram.ui.StickersActivity;
 import org.telegram.ui.Stories.HighlightMessageSheet;
 import org.telegram.ui.Stories.recorder.CaptionContainerView;
@@ -3740,20 +3737,6 @@ public class ChatActivityEnterView extends FrameLayout implements
                 AndroidUtilities.updateViewVisibilityAnimated(giftButton, false);
             }
 
-            TLRPC.User user = getParentFragment().getCurrentUser();
-            if (user == null) return;
-            final boolean birthday = getParentFragment().getCurrentUserInfo() != null && BirthdayController.isToday(getParentFragment().getCurrentUserInfo().birthday);
-            final AlertDialog progressDialog = new AlertDialog(getContext(), AlertDialog.ALERT_TYPE_SPINNER);
-            progressDialog.showDelayed(200);
-            final int reqId = BoostRepository.loadGiftOptions(currentAccount, null, loadedOptions -> {
-                progressDialog.dismiss();
-                loadedOptions = BoostRepository.filterGiftOptions(loadedOptions, 1);
-                loadedOptions = BoostRepository.filterGiftOptionsByBilling(loadedOptions);
-                new GiftSheet(getContext(), currentAccount, user.id, loadedOptions, null).setBirthday(birthday).show();
-            });
-            progressDialog.setOnCancelListener(di -> {
-                parentFragment.getConnectionsManager().cancelRequest(reqId, true);
-            });
         });
     }
 
@@ -6801,7 +6784,7 @@ public class ChatActivityEnterView extends FrameLayout implements
             }
         } else if (isPostSuggestions) {
             final CharSequence hint = paidMessagesStarsPrice > 0 ?
-                StarsIntroActivity.replaceStars(LocaleController.formatString(R.string.SuggestPostForStars, LocaleController.formatNumber((int) paidMessagesStarsPrice, ','), spans)):
+                LocaleController.formatString(R.string.SuggestPostForStars, LocaleController.formatNumber((int) paidMessagesStarsPrice, ','), spans):
                 LocaleController.formatString(R.string.SuggestPostForFree);
             messageEditText.setHintText(hint);
             if (spans[0] != null) {
@@ -6814,7 +6797,7 @@ public class ChatActivityEnterView extends FrameLayout implements
         } else if (editingMessageObject != null) {
             messageEditText.setHintText(editingCaption ? getString(R.string.Caption) : getString(R.string.TypeMessage));
         } else if (paidMessagesStarsPrice > 0) {
-            messageEditText.setHintText(StarsIntroActivity.replaceStars(LocaleController.formatString(R.string.TypeMessageForStars, LocaleController.formatNumber((int) paidMessagesStarsPrice, ',')), spans));
+            messageEditText.setHintText(LocaleController.formatString(R.string.TypeMessageForStars, LocaleController.formatNumber((int) paidMessagesStarsPrice, ',')));
             if (spans[0] != null) {
                 spans[0].spaceScaleX = 0.9f;
             }
@@ -7604,18 +7587,6 @@ public class ChatActivityEnterView extends FrameLayout implements
             return;
         }
 
-        if (editingMessageObject.needResendWhenEdit() && !ChatObject.canManageMonoForum(currentAccount, editingMessageObject.getDialogId())) {
-            final MessageSuggestionParams params = parentFragment != null && parentFragment.messageSuggestionParams != null ?
-                parentFragment.messageSuggestionParams : MessageSuggestionParams.of(editingMessageObject.messageOwner.suggested_post);
-
-            if (!StarsController.isEnoughAmount(currentAccount, params.amount)) {
-                if (parentFragment != null) {
-                    parentFragment.showSuggestionOfferForEditMessage(params);
-                }
-
-                return;
-            }
-        }
 
         if (currentLimit - codePointCount < 0) {
             if (captionLimitView != null) {
@@ -14987,7 +14958,7 @@ public class ChatActivityEnterView extends FrameLayout implements
             starsPrice = price;
             messagesCount = count;
             if (price > 0) {
-                priceText.setText(StarsIntroActivity.replaceStars("⭐️" + LocaleController.formatNumber(price * Math.max(1, messagesCount), ','), spans), animated);
+                priceText.setText("⭐️" + LocaleController.formatNumber(price * Math.max(1, messagesCount), ','), animated);
             } else {
                 priceText.setText("", animated);
             }

@@ -75,7 +75,6 @@ import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.tgnet.tl.TL_aicompose;
 import org.telegram.tgnet.tl.TL_iv;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.ui.iv.RichTextStyle;
 import org.telegram.ui.ActionBar.ActionBarMenuSubItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
@@ -89,7 +88,6 @@ import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.PremiumPreviewFragment;
 import org.telegram.ui.ProfileActivity;
 import org.telegram.ui.SelectAnimatedEmojiDialog;
-import org.telegram.ui.Stars.StarsController;
 import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
 import org.telegram.ui.Stories.recorder.HintView2;
 
@@ -2162,16 +2160,12 @@ public class AIEditorAlert extends BottomSheetWithRecyclerListView implements No
             final SelectAnimatedEmojiDialog.SelectAnimatedEmojiDialogWindow[] popup = new SelectAnimatedEmojiDialog.SelectAnimatedEmojiDialogWindow[1];
             SelectAnimatedEmojiDialog popupLayout = new SelectAnimatedEmojiDialog(null, getContext(), true, dp(150), SelectAnimatedEmojiDialog.TYPE_AI_STYLE_ICON, resourcesProvider) {
                 @Override
-                protected boolean willApplyEmoji(View view, Long documentId, TLRPC.Document document, TL_stars.TL_starGiftUnique gift, Integer until) {
-                    if (gift != null) {
-                        final TL_stars.SavedStarGift savedStarGift = StarsController.getInstance(currentAccount).findUserStarGift(gift.id);
-                        return savedStarGift == null || MessagesController.getGlobalMainSettings().getInt("statusgiftpage", 0) >= 2;
-                    }
+                protected boolean willApplyEmoji(View view, Long documentId, TLRPC.Document document, Integer until) {
                     return true;
                 }
 
                 @Override
-                protected void onEmojiSelected(View emojiView, Long documentId, TLRPC.Document document, TL_stars.TL_starGiftUnique gift, Integer until) {
+                protected void onEmojiSelected(View emojiView, Long documentId, TLRPC.Document document, Integer until) {
                     emoji_id = documentId;
                     updateIcon();
                     updateButton();

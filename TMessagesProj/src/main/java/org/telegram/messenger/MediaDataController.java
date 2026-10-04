@@ -88,7 +88,6 @@ import org.telegram.ui.Components.URLSpanReplacement;
 import org.telegram.ui.Components.URLSpanUserMention;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.PremiumPreviewFragment;
-import org.telegram.messenger.utils.tlutils.AmountUtils;
 import org.telegram.ui.Stories.StoriesStorage;
 
 import java.io.File;
@@ -1285,15 +1284,12 @@ public class MediaDataController extends BaseController {
             return "emojiChannelDefaultStatuses";
         if (i instanceof TLRPC.TL_inputStickerSetDice)
             return "dice" + ((TLRPC.TL_inputStickerSetDice) i).emoticon;
-        if (i instanceof TLRPC.TL_inputStickerSetPremiumGifts)
-            return "premiumGifts";
+        
         if (i instanceof TLRPC.TL_inputStickerSetEmojiDefaultTopicIcons)
             return "defaultTopicIcons";
         if (i instanceof TLRPC.TL_inputStickerSetEmojiDefaultStatuses)
             return "emojiDefaultStatuses";
-        if (i instanceof TLRPC.TL_inputStickerSetTonGifts) {
-            return "tonGifts";
-        }
+        
         return "null";
     }
 
@@ -2651,7 +2647,7 @@ public class MediaDataController extends BaseController {
         loadingPremiumGiftStickers = true;
 
         TLRPC.TL_messages_getStickerSet req = new TLRPC.TL_messages_getStickerSet();
-        req.stickerset = new TLRPC.TL_inputStickerSetPremiumGifts();
+        
         getConnectionsManager().sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
             if (response instanceof TLRPC.TL_messages_stickerSet) {
                 TLRPC.TL_messages_stickerSet stickerSet = (TLRPC.TL_messages_stickerSet) response;
@@ -2683,7 +2679,7 @@ public class MediaDataController extends BaseController {
         loadingPremiumTonStickers = true;
 
         TLRPC.TL_messages_getStickerSet req = new TLRPC.TL_messages_getStickerSet();
-        req.stickerset = new TLRPC.TL_inputStickerSetTonGifts();
+        
         getConnectionsManager().sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
             if (response instanceof TLRPC.TL_messages_stickerSet) {
                 TLRPC.TL_messages_stickerSet stickerSet = (TLRPC.TL_messages_stickerSet) response;
@@ -2795,7 +2791,7 @@ public class MediaDataController extends BaseController {
         } else {
             TLRPC.TL_messages_getStickerSet req = new TLRPC.TL_messages_getStickerSet();
             if (Objects.equals(getUserConfig().premiumGiftsStickerPack, name)) {
-                req.stickerset = new TLRPC.TL_inputStickerSetPremiumGifts();
+                
             } else if (isEmoji) {
                 TLRPC.TL_inputStickerSetDice inputStickerSetDice = new TLRPC.TL_inputStickerSetDice();
                 inputStickerSetDice.emoticon = name;
@@ -6320,11 +6316,7 @@ public class MediaDataController extends BaseController {
                                 messageObject.generatePinMessageText(null, null);
                             } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGameScore) {
                                 messageObject.generateGameMessageText(null);
-                            } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionPaymentSent) {
-                                messageObject.generatePaymentSentMessageText(null, false);
-                            } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionPaymentSentMe) {
-                                messageObject.generatePaymentSentMessageText(null, true);
-                            } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionSuggestedPostApproval) {
+                            } else   if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionSuggestedPostApproval) {
                                 messageObject.generateSuggestionApprovalMessageText();
                             }
                             break;
@@ -6811,11 +6803,7 @@ public class MediaDataController extends BaseController {
                             m.generatePinMessageText(null, null);
                         } else if (m.messageOwner.action instanceof TLRPC.TL_messageActionGameScore) {
                             m.generateGameMessageText(null);
-                        } else if (m.messageOwner.action instanceof TLRPC.TL_messageActionPaymentSent) {
-                            m.generatePaymentSentMessageText(null, false);
-                        } else if (m.messageOwner.action instanceof TLRPC.TL_messageActionPaymentSentMe) {
-                            m.generatePaymentSentMessageText(null, true);
-                        }else if (m.messageOwner.action instanceof TLRPC.TL_messageActionSuggestedPostApproval) {
+                        } else   if (m.messageOwner.action instanceof TLRPC.TL_messageActionSuggestedPostApproval) {
                             m.generateSuggestionApprovalMessageText();
                         }
                     }
@@ -7799,7 +7787,7 @@ public class MediaDataController extends BaseController {
         if ((a == null) != (b == null)) {
             return false;
         }
-        if (AmountUtils.Amount.equals(a.price, b.price) || a.schedule_date != b.schedule_date) {
+        if (a.schedule_date != b.schedule_date) {
             return false;
         }
         if (a.accepted != b.accepted || a.rejected != b.rejected) {

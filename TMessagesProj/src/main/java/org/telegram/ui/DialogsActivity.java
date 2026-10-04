@@ -139,7 +139,6 @@ import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.tgnet.tl.TL_account;
 import org.telegram.tgnet.tl.TL_chatlists;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.tgnet.tl.TL_stories;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenu;
@@ -158,7 +157,6 @@ import org.telegram.ui.ActionBar.ThemeDescription;
 import org.telegram.ui.Adapters.DialogsAdapter;
 import org.telegram.ui.Adapters.DialogsSearchAdapter;
 import org.telegram.ui.Adapters.FiltersView;
-import org.telegram.ui.Cells.ActiveGiftAuctionsHintCell;
 import org.telegram.ui.Cells.AnimatedStatusView;
 import org.telegram.ui.Cells.ArchiveHintInnerCell;
 import org.telegram.ui.Cells.DialogCell;
@@ -209,10 +207,6 @@ import org.telegram.ui.Components.chat.ChatInputViewsContainer;
 import org.telegram.ui.Components.chat.ViewPositionWatcher;
 import org.telegram.ui.Components.chat.layouts.ChatActivityFadeView;
 import org.telegram.ui.Components.inset.WindowInsetsStateHolder;
-import org.telegram.ui.Gifts.GiftSheet;
-import org.telegram.ui.Stars.StarGiftSheet;
-import org.telegram.ui.Stars.StarsController;
-import org.telegram.ui.Stars.StarsIntroActivity;
 import org.telegram.ui.Stories.StealthModeAlert;
 import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
 import org.telegram.ui.bots.BotWebViewSheet;
@@ -614,7 +608,6 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
     private FrameLayout fragmentContextViewWrapper;
     private DialogsActivityTopPanelLayout topPanelLayout;
     private DialogsActivityTopBubblesFadeView topBubblesFadeView;
-    private ActiveGiftAuctionsHintCell activeGiftAuctionsHintCell;
     private DialogsHintCell dialogsHintCell;
     private UnconfirmedAuthHintCell authHintCell;
     private Long cacheSize, deviceSize;
@@ -3216,7 +3209,6 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
         AndroidUtilities.runOnUIThread(() -> Theme.createChatResources(context, false));
 
         authHintCell = null;
-        activeGiftAuctionsHintCell = null;
         dialogsHintCell = null;
         communityPendingRequests = null;
         topPanelLayout = null;
@@ -5762,37 +5754,6 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
         }
     }
 
-    public boolean isStarsSubscriptionHintVisible() {
-        if (folderId != 0 || communityId != 0) {
-            return false;
-        }
-
-        if (MessagesController.getInstance(currentAccount).pendingSuggestions.contains("STARS_SUBSCRIPTION_LOW_BALANCE")) {
-            StarsController c = StarsController.getInstance(currentAccount);
-            if (!c.hasInsufficientSubscriptions()) {
-                c.loadInsufficientSubscriptions();
-                return false;
-            } else {
-                long starsNeeded = -c.balance.amount;
-                for (int i = 0; i < c.insufficientSubscriptions.size(); ++i) {
-                    final TL_stars.StarsSubscription sub = c.insufficientSubscriptions.get(i);
-                    final long did = DialogObject.getPeerDialogId(sub.peer);
-                    if (did >= 0) {
-                        TLRPC.User user = getMessagesController().getUser(did);
-                        if (user == null) continue;
-                    } else {
-                        TLRPC.Chat chat = getMessagesController().getChat(-did);
-                        if (chat == null) continue;
-                    }
-                    starsNeeded += sub.pricing.amount;
-                }
-                return starsNeeded > 0;
-            }
-        }
-
-        return false;
-    }
-
     private boolean isCommunityPendingRequestsVisible() {
         return communityId != 0 && communityFull != null && communityFull.requests_pending > 0
             && !animatorSearchVisible.getValue();
@@ -5882,40 +5843,15 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
         }
         SelectAnimatedEmojiDialog popupLayout = new SelectAnimatedEmojiDialog(this, getContext(), true, xoff, SelectAnimatedEmojiDialog.TYPE_EMOJI_STATUS, getResourceProvider()) {
             @Override
-            protected boolean willApplyEmoji(View view, Long documentId, TLRPC.Document document, TL_stars.TL_starGiftUnique gift, Integer until) {
-                if (gift != null) {
-                    final TL_stars.SavedStarGift savedStarGift = StarsController.getInstance(currentAccount).findUserStarGift(gift.id);
-                    return savedStarGift == null || MessagesController.getGlobalMainSettings().getInt("statusgiftpage", 0) >= 2;
-                }
+            protected boolean willApplyEmoji(View view, Long documentId, TLRPC.Document document, Integer until) {
                 return true;
             }
 
             @Override
-            protected void onEmojiSelected(View emojiView, Long documentId, TLRPC.Document document, TL_stars.TL_starGiftUnique gift, Integer until) {
+            protected void onEmojiSelected(View emojiView, Long documentId, TLRPC.Document document, Integer until) {
                 final TLRPC.EmojiStatus emojiStatus;
                 if (documentId == null) {
                     emojiStatus = new TLRPC.TL_emojiStatusEmpty();
-                } else if (gift != null) {
-                    final TL_stars.SavedStarGift savedStarGift = StarsController.getInstance(currentAccount).findUserStarGift(gift.id);
-                    if (savedStarGift != null && MessagesController.getGlobalMainSettings().getInt("statusgiftpage", 0) < 2) {
-                        MessagesController.getGlobalMainSettings().edit().putInt("statusgiftpage", MessagesController.getGlobalMainSettings().getInt("statusgiftpage", 0) + 1).apply();
-                        new StarGiftSheet(getContext(), currentAccount, UserConfig.getInstance(currentAccount).getClientUserId(), resourceProvider)
-                            .set(savedStarGift, null)
-                            .setupWearPage()
-                            .show();
-                        if (popup[0] != null) {
-                            selectAnimatedEmojiDialog = null;
-                            popup[0].dismiss();
-                        }
-                        return;
-                    }
-                    final TLRPC.TL_inputEmojiStatusCollectible status = new TLRPC.TL_inputEmojiStatusCollectible();
-                    status.collectible_id = gift.id;
-                    if (until != null) {
-                        status.flags |= 1;
-                        status.until = until;
-                    }
-                    emojiStatus = status;
                 } else {
                     final TLRPC.TL_emojiStatus status = new TLRPC.TL_emojiStatus();
                     status.document_id = documentId;
@@ -5925,7 +5861,7 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
                     }
                     emojiStatus = status;
                 }
-                getMessagesController().updateEmojiStatus(emojiStatus, gift);
+                getMessagesController().updateEmojiStatus(emojiStatus);
                 if (documentId != null) {
                     animatedStatusView.animateChange(ReactionsLayoutInBubble.VisibleReaction.fromCustomEmoji(documentId));
                 }
@@ -6047,76 +5983,6 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
                 MessagesController.getInstance(currentAccount).removeSuggestion(0, suggestion.suggestion);
                 updateDialogsHint();
             });
-        } else if (isStarsSubscriptionHintVisible()) {
-            StarsController c = StarsController.getInstance(currentAccount);
-            dialogsHintCellVisible = true;
-            StringBuilder s = new StringBuilder();
-            long starsNeeded = 0;
-            long _firstDialogId = 0;
-            if (c.hasInsufficientSubscriptions()) {
-                for (int i = 0; i < c.insufficientSubscriptions.size(); ++i) {
-                    final TL_stars.StarsSubscription sub = c.insufficientSubscriptions.get(i);
-                    final long did = DialogObject.getPeerDialogId(sub.peer);
-                    if (_firstDialogId == 0) _firstDialogId = did;
-                    if (did >= 0) {
-                        TLRPC.User user = getMessagesController().getUser(did);
-                        if (user == null) continue;
-                        if (s.length() > 0) s.append(", ");
-                        s.append(UserObject.getUserName(user));
-                    } else {
-                        TLRPC.Chat chat = getMessagesController().getChat(-did);
-                        if (chat == null) continue;
-                        if (s.length() > 0) s.append(", ");
-                        s.append(chat.title);
-                    }
-                    starsNeeded += sub.pricing.amount;
-                }
-            }
-            final String starsNeededName = s.toString();
-            final long starsNeededFinal = starsNeeded;
-            final long firstDialogId = _firstDialogId;
-            dialogsHintCell.setOnClickListener(v -> {
-                new StarsIntroActivity.StarsNeededSheet(getContext(), getResourceProvider(), starsNeededFinal, StarsIntroActivity.StarsNeededSheet.TYPE_SUBSCRIPTION_KEEP, starsNeededName, () -> {
-                    updateDialogsHint();
-                }, firstDialogId).show();
-            });
-            dialogsHintCell.setText(StarsIntroActivity.replaceStarsWithPlain(formatPluralStringComma("StarsSubscriptionExpiredHintTitle2", (int) (starsNeeded - c.balance.amount <= 0 ? starsNeeded : starsNeeded - c.balance.amount), starsNeededName), .72f), LocaleController.getString(R.string.StarsSubscriptionExpiredHintText));
-            dialogsHintCell.setOnCloseListener(v -> {
-                MessagesController.getInstance(currentAccount).removeSuggestion(0, "STARS_SUBSCRIPTION_LOW_BALANCE");
-                updateDialogsHint();
-            });
-        } else if (folderId == 0 && communityId == 0 && !getMessagesController().premiumPurchaseBlocked() && BirthdayController.getInstance(currentAccount).contains() && !getMessagesController().dismissedSuggestions.contains("BIRTHDAY_CONTACTS_TODAY")) {
-            BirthdayController.BirthdayState state = BirthdayController.getInstance(currentAccount).getState();
-            ArrayList<TLRPC.User> users = state.today;
-            dialogsHintCellVisible = true;
-            dialogsHintCell.setOnClickListener(v -> {
-                if (state != null && state.today.size() == 1) {
-                    showDialog(new GiftSheet(getContext(), currentAccount, state.today.get(0).id, null, null).setBirthday());
-                    return;
-                }
-                UserSelectorBottomSheet.open(0, state);
-            });
-            dialogsHintCell.setAvatars(currentAccount, users);
-            dialogsHintCell.setText(Emoji.replaceWithRestrictedEmoji(AndroidUtilities.replaceSingleTag(
-                users.size() == 1 ?
-                    LocaleController.formatString(R.string.BirthdayTodaySingleTitle, UserObject.getForcedFirstName(users.get(0))) :
-                    LocaleController.formatPluralString("BirthdayTodayMultipleTitle", users.size()),
-                Theme.key_windowBackgroundWhiteValueText,
-                AndroidUtilities.REPLACING_TAG_TYPE_LINKBOLD,
-                null
-            ), dialogsHintCell.titleView, this::updateDialogsHint),
-                LocaleController.formatString(users.size() == 1 ? R.string.BirthdayTodaySingleMessage2 : R.string.BirthdayTodayMultipleMessage2)
-            );
-            dialogsHintCell.setOnCloseListener(v -> {
-                BirthdayController.getInstance(currentAccount).hide();
-                MessagesController.getInstance(currentAccount).removeSuggestion(0, "BIRTHDAY_CONTACTS_TODAY");
-                updateDialogsHint();
-                BulletinFactory.of(this)
-                        .createSimpleBulletin(R.raw.gift, LocaleController.getString(R.string.BoostingPremiumChristmasToast), 4)
-                        .setDuration(Bulletin.DURATION_PROLONG)
-                        .show();
-            });
-            StarsController.getInstance(currentAccount).loadStarGifts();
         } else if (
             folderId == 0 && communityId == 0 &&
             MessagesController.getInstance(currentAccount).pendingSuggestions.contains("BIRTHDAY_SETUP") &&
@@ -6339,7 +6205,6 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
 
         checkCommunityPendingRequestsVisible(true);
         checkUnconfirmedAuthHintCellVisibility();
-        checkActiveGiftAuctionsHintCellVisibility();
     }
 
     private void checkUnconfirmedAuthHintCellVisibility() {
@@ -6362,26 +6227,6 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
         }
         if (authHintCell != null) {
             topPanelLayout.setViewVisible(authHintCell, isVisible);
-        }
-    }
-
-    private void checkActiveGiftAuctionsHintCellVisibility() {
-        if (fragmentView == null || topPanelLayout == null) {
-            return;
-        }
-
-        final boolean isVisible = !isInPreviewMode()
-            && folderId == 0 && communityId == 0 && initialDialogsType == DIALOGS_TYPE_DEFAULT
-            && getGiftAuctionsController().hasActiveAuctions()
-            && (rightSlidingDialogContainer == null || !rightSlidingDialogContainer.hasFragment())
-            && !animatorSearchVisible.getValue();
-
-        if (isVisible && activeGiftAuctionsHintCell == null) {
-            activeGiftAuctionsHintCell = new ActiveGiftAuctionsHintCell(getContext(), currentAccount);
-            topPanelLayout.addView(activeGiftAuctionsHintCell);
-        }
-        if (activeGiftAuctionsHintCell != null) {
-            topPanelLayout.setViewVisible(activeGiftAuctionsHintCell, isVisible);
         }
     }
 
@@ -12522,9 +12367,6 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
         }
         if (authHintCell != null) {
             SimpleThemeDescription.add(arrayList, authHintCell::updateColors, Theme.key_windowBackgroundWhite, Theme.key_windowBackgroundWhiteBlackText, Theme.key_windowBackgroundWhiteGrayText, Theme.key_windowBackgroundWhiteValueText, Theme.key_text_RedBold);
-        }
-        if (activeGiftAuctionsHintCell != null) {
-            SimpleThemeDescription.add(arrayList, activeGiftAuctionsHintCell::updateColors, Theme.key_windowBackgroundWhite, Theme.key_windowBackgroundWhiteBlackText, Theme.key_windowBackgroundWhiteGrayText, Theme.key_windowBackgroundWhiteValueText, Theme.key_text_RedBold);
         }
 
         return arrayList;

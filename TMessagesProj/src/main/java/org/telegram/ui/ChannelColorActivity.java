@@ -63,7 +63,6 @@ import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.ResultCallback;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.tgnet.tl.TL_account;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.tgnet.tl.TL_stories;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
@@ -423,7 +422,7 @@ public class ChannelColorActivity extends BaseFragment implements NotificationCe
                     return;
                 }
                 final EmojiCell cell = (EmojiCell) view;
-                showSelectStatusDialog(cell, selectedEmojiId, position == statusEmojiRow, (documentId, until, gift) -> {
+                showSelectStatusDialog(cell, selectedEmojiId, position == statusEmojiRow, (documentId, until) -> {
                     if (position == replyEmojiRow) {
                         selectedReplyEmoji = documentId;
                         updateMessagesPreview(true);
@@ -433,15 +432,6 @@ public class ChannelColorActivity extends BaseFragment implements NotificationCe
                     } else if (position == statusEmojiRow) {
                         if (documentId == 0) {
                             selectedStatusEmoji = null;
-                        } else if (gift != null) {
-                            final TLRPC.TL_emojiStatusCollectible status = MessagesController.emojiStatusCollectibleFromGift(gift);
-                            if (until != null) {
-                                status.flags |= 1;
-                                status.until = until;
-                            }
-                            selectedStatusEmoji = status;
-                            selectedProfileColor = -1;
-                            selectedProfileEmoji = 0;
                         } else {
                             final TLRPC.TL_emojiStatus status = new TLRPC.TL_emojiStatus();
                             status.document_id = documentId;
@@ -454,7 +444,7 @@ public class ChannelColorActivity extends BaseFragment implements NotificationCe
                         updateProfilePreview(true);
                     }
                     updateButton(true);
-                    ((EmojiCell) view).setEmoji(documentId, gift != null, true);
+                    ((EmojiCell) view).setEmoji(documentId, false, true);
                     updateColors(true);
                 }, selectedStatusEmoji instanceof TLRPC.TL_emojiStatusCollectible ? Theme.getColor(Theme.key_windowBackgroundWhiteBlueIcon, resourceProvider) : cell.getColor());
             } else if (position == removeProfileColorRow) {
@@ -841,7 +831,7 @@ public class ChannelColorActivity extends BaseFragment implements NotificationCe
     }
 
     private SelectAnimatedEmojiDialog.SelectAnimatedEmojiDialogWindow selectAnimatedEmojiDialog;
-    public void showSelectStatusDialog(EmojiCell cell, long documentId, boolean emojiStatus, Utilities.Callback3<Long, Integer, TL_stars.TL_starGiftUnique> onSet, int accentColor) {
+    public void showSelectStatusDialog(EmojiCell cell, long documentId, boolean emojiStatus, Utilities.Callback2<Long, Integer> onSet, int accentColor) {
         if (selectAnimatedEmojiDialog != null || cell == null) {
             return;
         }
@@ -877,9 +867,9 @@ public class ChannelColorActivity extends BaseFragment implements NotificationCe
         }
         SelectAnimatedEmojiDialog popupLayout = new SelectAnimatedEmojiDialog(ChannelColorActivity.this, getContext(), true, xoff, type, true, getResourceProvider(), down ? 24 : 16, accentColor) {
             @Override
-            protected void onEmojiSelected(View emojiView, Long documentId, TLRPC.Document document, TL_stars.TL_starGiftUnique gift, Integer until) {
+            protected void onEmojiSelected(View emojiView, Long documentId, TLRPC.Document document, Integer until) {
                 if (onSet != null) {
-                    onSet.run(documentId == null ? 0 : documentId, until, gift);
+                    onSet.run(documentId == null ? 0 : documentId, until);
                 }
                 if (popup[0] != null) {
                     selectAnimatedEmojiDialog = null;
@@ -1110,8 +1100,8 @@ public class ChannelColorActivity extends BaseFragment implements NotificationCe
                 HeaderCell headerCell = new HeaderCell(getContext(), resourceProvider);
                 view = headerCell;
             } else if (viewType == VIEW_TYPE_GIFT) {
-                PeerColorActivity.GiftCell giftCell = new PeerColorActivity.GiftCell(getContext(), false, resourceProvider);
-                view = giftCell;
+                
+                
             } else if (viewType == VIEW_TYPE_GIFT_FLICKER) {
                 FlickerLoadingView flickerLoadingView = new FlickerLoadingView(getContext(), resourceProvider);
                 flickerLoadingView.setIsSingleCell(true);

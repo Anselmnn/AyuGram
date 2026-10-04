@@ -34,9 +34,9 @@ public class ThemeKey {
             return inputChatTheme;
         }
         if (key != null && !TextUtils.isEmpty(key.giftSlug)) {
-            TLRPC.Tl_inputChatThemeUniqueGift inputChatTheme = new TLRPC.Tl_inputChatThemeUniqueGift();
-            inputChatTheme.slug = key.giftSlug;
-            return inputChatTheme;
+            
+            
+            
         }
 
         return new TLRPC.Tl_inputChatThemeEmpty();
@@ -78,9 +78,7 @@ public class ThemeKey {
     public static ThemeKey of(TLRPC.ChatTheme theme) {
         if (theme instanceof TLRPC.TL_chatTheme) {
             return new ThemeKey(((TLRPC.TL_chatTheme) theme).emoticon, null);
-        } else if (theme instanceof TLRPC.TL_chatThemeUniqueGift) {
-            return new ThemeKey(null, ((TLRPC.TL_chatThemeUniqueGift) theme).gift.slug);
-        }
+        } else 
         return null;
     }
 
@@ -88,9 +86,7 @@ public class ThemeKey {
     public static ThemeKey of(TLRPC.InputChatTheme theme) {
         if (theme instanceof TLRPC.Tl_inputChatTheme) {
             return new ThemeKey(((TLRPC.Tl_inputChatTheme) theme).emoticon, null);
-        } else if (theme instanceof TLRPC.Tl_inputChatThemeUniqueGift) {
-            return new ThemeKey(null, ((TLRPC.Tl_inputChatThemeUniqueGift) theme).slug);
-        }
+        } else 
         return null;
     }
 

@@ -10,11 +10,9 @@ import org.telegram.messenger.LiteMode;
 import org.telegram.messenger.utils.Choreographer60FpsContent;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.TextCell;
-import org.telegram.ui.Stars.StarsReactionsSheet;
 
 public class ProfilePremiumCell extends TextCell {
 
-    private final StarsReactionsSheet.Particles particles = new StarsReactionsSheet.Particles(StarsReactionsSheet.Particles.TYPE_RADIAL, 15);
     private final int colorKey;
 
     private final Runnable invalidateRunnable = this::invalidate;
@@ -27,26 +25,8 @@ public class ProfilePremiumCell extends TextCell {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        float cx = imageView.getX() + imageView.getWidth() / 2f;
-        float cy = imageView.getPaddingTop() + imageView.getY() + imageView.getHeight() / 2f - dp(3);
-        AndroidUtilities.rectTmp.set(
-            cx - dp(16), cy - dp(16),
-            cx + dp(16), cy + dp(16)
-        );
-        particles.setBounds(AndroidUtilities.rectTmp);
     }
 
-    @Override
-    protected void dispatchDraw(Canvas canvas) {
-        if (LiteMode.isEnabled(LiteMode.FLAG_PARTICLES)) {
-            particles.process();
-            particles.draw(canvas, Theme.getColor(colorKey));
-            Choreographer60FpsContent.getInstance().addFrameCallback(invalidateRunnable, 15);
-        } else {
-            Choreographer60FpsContent.getInstance().removeFrameCallback(invalidateRunnable);
-        }
-        super.dispatchDraw(canvas);
-    }
 
     @Override
     protected void onDetachedFromWindow() {

@@ -29,8 +29,6 @@ import org.telegram.ui.Components.ColoredImageSpan;
 import org.telegram.ui.Components.CubicBezierInterpolator;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.TextHelper;
-import org.telegram.ui.Stars.StarsIntroActivity;
-import org.telegram.ui.Stars.StarsReactionsSheet;
 import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
 
 import java.util.ArrayList;
@@ -214,17 +212,10 @@ public class HighlightMessageSheet {
 
         final Utilities.Callback<Integer>[] setStars = new Utilities.Callback[1];
 
-        final StarsReactionsSheet.StarsSlider slider = new StarsReactionsSheet.StarsSlider(context, resourcesProvider) {
-            @Override
-            public void onValueChanged(int value) {
-                setStars[0].run(value);
-            }
-        };
 
-        final boolean[] first = new boolean[] { true };
         setStars[0] = newStars -> {
             stars[0] = newStars;
-            button.setText(StarsIntroActivity.replaceStars(LocaleController.formatString(R.string.StarsAddHighlightedMessage, LocaleController.formatNumber(stars[0], ',')), starRef), true);
+            button.setText(LocaleController.formatString(R.string.StarsAddHighlightedMessage, LocaleController.formatNumber(stars[0], ',')), true);
             message.stars = stars[0];
             commentView.set(message);
 
@@ -236,12 +227,6 @@ public class HighlightMessageSheet {
             tierLength.set(LocaleController.formatNumber(length, ','));
             tierEmoji.set(LocaleController.formatNumber(emojis, ','));
 
-            slider.setColor(
-                getTierOption(currentAccount, newStars, TIER_COLOR1),
-                getTierOption(currentAccount, newStars, TIER_COLOR2),
-                !first[0]
-            );
-            first[0] = false;
         };
 
         commentView.set(message);
@@ -267,9 +252,6 @@ public class HighlightMessageSheet {
         }
         steps_arr = new int[ steps.size() ];
         for (int i = 0; i < steps.size(); ++i) steps_arr[i] = steps.get(i);
-        slider.setSteps(100, steps_arr);
-        slider.setValue((int) stars[0]);
-        container.addView(slider, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, 0, -52, 0, -42));
         setStars[0].run((int) stars[0]);
 
         container.addView(tierLayout, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, 56, 16, 0, 16, 0));

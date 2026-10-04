@@ -84,7 +84,6 @@ import org.telegram.ui.Components.blur3.drawable.BlurredBackgroundDrawable;
 import org.telegram.ui.Components.blur3.drawable.color.BlurredBackgroundProvider;
 import org.telegram.ui.PremiumPreviewFragment;
 import org.telegram.ui.SelectAnimatedEmojiDialog;
-import org.telegram.ui.Stars.StarsReactionsSheet;
 import org.telegram.ui.Stories.recorder.HintView2;
 
 import java.util.ArrayList;
@@ -1819,7 +1818,6 @@ public class ReactionsContainerLayout extends FrameLayout implements Notificatio
         public boolean drawSelected = true;
         public int position;
         public boolean waitingAnimation;
-        public StarsReactionsSheet.Particles particles;
 
         Runnable playRunnable = new Runnable() {
             @Override
@@ -2091,9 +2089,6 @@ public class ReactionsContainerLayout extends FrameLayout implements Notificatio
             if (react != null && react.isStar) {
                 enterImageView.getImageReceiver().setImageBitmap(new RLottieDrawable(R.raw.star_reaction, dp(30), dp(30)));
                 loopImageView.getImageReceiver().setImageBitmap(getContext().getResources().getDrawable(R.drawable.star_reaction));
-                if (particles == null) {
-                    particles = new StarsReactionsSheet.Particles(StarsReactionsSheet.Particles.TYPE_RADIAL, SharedConfig.getDevicePerformanceClass() == SharedConfig.PERFORMANCE_CLASS_HIGH ? 45 : 18);
-                }
             } else if (type == TYPE_STICKER_SET_EMOJI && react != null && react.emojicon != null) {
                 enterImageView.getImageReceiver().setImageBitmap(Emoji.getEmojiDrawable(react.emojicon));
                 loopImageView.getImageReceiver().setImageBitmap(Emoji.getEmojiDrawable(react.emojicon));
@@ -2291,17 +2286,6 @@ public class ReactionsContainerLayout extends FrameLayout implements Notificatio
                 } else {
                     loopImageView.animatedEmojiDrawable.getImageReceiver().setRoundRadius(selected ? dp(6) : 0);
                 }
-            }
-            if (currentReaction != null && currentReaction.isStar && particles != null && LiteMode.isEnabled(LiteMode.FLAG_ANIMATED_EMOJI_REACTIONS) && LiteMode.isEnabled(LiteMode.FLAG_PARTICLES)) {
-                final int sz = (int) (getHeight() * .7f);
-                AndroidUtilities.rectTmp.set(getWidth() / 2f - sz / 2f, getHeight() / 2f - sz / 2f, getWidth() / 2f + sz / 2f, getHeight() / 2f + sz / 2f);
-                RLottieDrawable lottieDrawable = enterImageView.getImageReceiver().getLottieAnimation();
-                final int startframe = 30, dur = 30;
-                particles.setVisible(lottieDrawable != null && lottieDrawable.getCurrentFrame() > startframe ? Utilities.clamp01((float) (lottieDrawable.getCurrentFrame() - startframe) / dur) : 0f);
-                particles.setBounds(AndroidUtilities.rectTmp);
-                particles.process();
-                particles.draw(canvas, 0xFFF5B90E);
-                invalidate();
             }
             super.dispatchDraw(canvas);
         }

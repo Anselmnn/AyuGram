@@ -48,7 +48,6 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.tgnet.Vector;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.SelectAnimatedEmojiDialog;
-import org.telegram.ui.Stars.StarsReactionsSheet;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -1123,7 +1122,6 @@ public class AnimatedEmojiDrawable extends Drawable {
         private int cacheType;
         private final OvershootInterpolator overshootInterpolator = new OvershootInterpolator(2f);
         private final AnimatedFloat changeProgress = new AnimatedFloat((View) null, 300, CubicBezierInterpolator.EASE_OUT);
-        private final AnimatedFloat particlesAlpha = new AnimatedFloat((View) null, 300, CubicBezierInterpolator.EASE_OUT);
         private final Drawable[] drawables = new Drawable[2];
         private View parentView;
         private View secondParent;
@@ -1147,7 +1145,6 @@ public class AnimatedEmojiDrawable extends Drawable {
 
         public SwapAnimatedEmojiDrawable(View parentView, boolean invalidateParent, int size, int cacheType) {
             changeProgress.setParent(this.parentView = parentView);
-            particlesAlpha.setParent(this.parentView = parentView);
             this.size = size;
             this.cacheType = cacheType;
             this.invalidateParent = invalidateParent;
@@ -1160,7 +1157,6 @@ public class AnimatedEmojiDrawable extends Drawable {
 
         public void setParentView(View parentView) {
             changeProgress.setParent(parentView);
-            particlesAlpha.setParent(parentView);
             this.parentView = parentView;
         }
 
@@ -1175,26 +1171,7 @@ public class AnimatedEmojiDrawable extends Drawable {
             }
         }
 
-        private boolean hasParticles;
-        private StarsReactionsSheet.Particles particles;
         public void setParticles(boolean show, boolean animated) {
-            if (hasParticles == show) return;
-            if (animated) {
-                if (particles == null) {
-                    particles = new StarsReactionsSheet.Particles(StarsReactionsSheet.Particles.TYPE_RADIAL, 8);
-                }
-                hasParticles = show;
-                invalidate();
-            } else {
-                hasParticles = show;
-                if (show && particles == null) {
-                    particles = new StarsReactionsSheet.Particles(StarsReactionsSheet.Particles.TYPE_RADIAL, 8);
-                } else if (!show && particles != null) {
-                    particles = null;
-                }
-                particlesAlpha.set(show, true);
-                invalidate();
-            }
         }
 
         private Integer lastColor;
@@ -1227,15 +1204,6 @@ public class AnimatedEmojiDrawable extends Drawable {
             float progress = changeProgress.set(1);
             bounds.set(getBounds());
             bounds.offset(offsetX, offsetY);
-            final float particlesAlpha = this.particlesAlpha.set(hasParticles);
-            if (particlesAlpha > 0) {
-                particles.setBounds(bounds);
-                particles.process();
-                particles.draw(canvas, Theme.multAlpha(lastColor == null ? 0xFFFFFFFF : lastColor, particlesAlpha));
-                Choreographer60FpsContent.getInstance().addFrameCallback(invalidateRunnable, 15);
-            } else {
-                Choreographer60FpsContent.getInstance().removeFrameCallback(invalidateRunnable);
-            }
             if (drawables[1] != null && progress < 1) {
                 drawables[1].setAlpha((int) (alpha * (1f - progress)));
                 int dw = drawables[1].getIntrinsicWidth() < 0 ? getIntrinsicWidth() : drawables[1].getIntrinsicWidth();

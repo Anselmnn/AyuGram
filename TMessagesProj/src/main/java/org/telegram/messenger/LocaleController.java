@@ -40,7 +40,6 @@ import org.telegram.localization.LocalizationUtils;
 import org.telegram.messenger.time.FastDateFormat;
 import org.telegram.tgnet.Vector;
 import org.telegram.ui.Components.TypefaceSpan;
-import org.telegram.ui.Stars.StarsController;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
@@ -1840,11 +1839,6 @@ public class LocaleController {
         amount = Math.abs(amount);
         Currency currency = Currency.getInstance(type);
         switch (type) {
-            case StarsController.currency:
-                customFormat = " %.0f";
-                doubleAmount = amount;
-                break;
-
             case "CLF":
                 customFormat = " %.4f";
                 doubleAmount = amount / 10000.0;

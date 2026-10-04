@@ -1,6 +1,5 @@
 package org.telegram.ui.Components.Premium.boosts.adapters;
 
-import static org.telegram.tgnet.TLRPC.TL_payments_checkedGiftCode.NO_USER_ID;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -46,7 +45,6 @@ public abstract class GiftInfoAdapter extends RecyclerListView.SelectionAdapter 
     private final Theme.ResourcesProvider resourcesProvider;
     private boolean isUnused;
     private BaseFragment baseFragment;
-    private TLRPC.TL_payments_checkedGiftCode giftCode;
     private String slug;
     private FrameLayout container;
 
@@ -54,10 +52,8 @@ public abstract class GiftInfoAdapter extends RecyclerListView.SelectionAdapter 
         this.resourcesProvider = resourcesProvider;
     }
 
-    public void init(BaseFragment baseFragment, TLRPC.TL_payments_checkedGiftCode giftCode, String slug, FrameLayout container) {
-        this.isUnused = giftCode.used_date == 0;
+    public void init(BaseFragment baseFragment, String slug, FrameLayout container) {
         this.baseFragment = baseFragment;
-        this.giftCode = giftCode;
         this.slug = slug;
         this.container = container;
     }
@@ -133,29 +129,14 @@ public abstract class GiftInfoAdapter extends RecyclerListView.SelectionAdapter 
                 } else {
                     cell.setUsedGiftLinkText();
                 }
-                if (giftCode.boost != null) {
-                    cell.setGiftLinkToUserText(giftCode.to_id, this::onObjectClicked);
-                }
-                if (giftCode.to_id == NO_USER_ID) {
-                    cell.setUnclaimedText();
-                }
                 break;
             }
             case HOLDER_TYPE_LINK: {
                 LinkCell cell = (LinkCell) holder.itemView;
                 cell.setSlug(slug);
-                if (giftCode.boost != null && slug == null) {
-                    cell.hideSlug(this::onHiddenLinkClicked);
-                }
-                //unclaimed and slug visible only for giveaway creator
-                if ((slug == null || slug.isEmpty()) && giftCode.to_id == NO_USER_ID) {
-                    cell.hideSlug(this::onHiddenLinkClicked);
-                }
                 break;
             }
             case HOLDER_TYPE_TABLE: {
-                TableCell cell = (TableCell) holder.itemView;
-                cell.setData(giftCode, this::onObjectClicked);
                 break;
             }
             case HOLDER_TYPE_TEXT: {
@@ -165,62 +146,15 @@ public abstract class GiftInfoAdapter extends RecyclerListView.SelectionAdapter 
                 cell.setTopPadding(14);
                 cell.setBottomPadding(15);
 
-                if (giftCode.boost != null) {
-                    if (slug == null || slug.isEmpty()) {
-                        //not activated link
-                        cell.setText(LocaleController.getString(R.string.BoostingLinkNotActivated));
-                    } else {
-                        //activated link
-                        cell.setFixedSize(14);
-                        cell.setText(null);
-                    }
-                    return;
-                }
-
-                if (isUnused) {
-                    SpannableStringBuilder text = AndroidUtilities.replaceSingleTag(
-                            giftCode.to_id == NO_USER_ID ?
-                                    LocaleController.getString(R.string.BoostingSendLinkToAnyone)
-                                    : LocaleController.getString(R.string.BoostingSendLinkToFriends),
-                            Theme.key_chat_messageLinkIn, 0,
-                            this::share,
-                            resourcesProvider
-                    );
-                    cell.setText(text);
-                } else {
-                    Date date = new Date(giftCode.used_date * 1000L);
-                    String monthTxt = LocaleController.getInstance().getFormatterYear().format(date);
-                    String timeTxt = LocaleController.getInstance().getFormatterDay().format(date);
-                    String fullDateStr = LocaleController.formatString("formatDateAtTime", R.string.formatDateAtTime, monthTxt, timeTxt);
-                    cell.setText(LocaleController.formatString("BoostingUsedLinkDate", R.string.BoostingUsedLinkDate, fullDateStr));
-                }
+                cell.setText(LocaleController.getString(R.string.BoostingLinkNotActivated));
                 break;
             }
             case HOLDER_TYPE_BUTTON: {
                 ActionBtnCell cell = (ActionBtnCell) holder.itemView;
                 cell.setOkStyle(isUnused);
                 cell.setOnClickListener(v -> {
-                    if (isUnused) {
-                        if (cell.isLoading()) {
-                            return;
-                        }
-                        cell.updateLoading(true);
-                        BoostRepository.applyGiftCode(slug, result -> {
-                            cell.updateLoading(false);
-                            afterCodeApplied();
-                            dismiss();
-                        }, error -> {
-                            cell.updateLoading(false);
-                            BoostDialogs.processApplyGiftCodeError(error, container, resourcesProvider, this::share);
-                        });
-                    } else {
-                        dismiss();
-                    }
+                    dismiss();
                 });
-                if (giftCode.boost != null || giftCode.flags == -1) {
-                    cell.setCloseStyle();
-                    cell.setOnClickListener(v -> dismiss());
-                }
                 break;
             }
             default: {

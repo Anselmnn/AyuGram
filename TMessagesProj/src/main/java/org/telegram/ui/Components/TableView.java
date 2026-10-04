@@ -2,7 +2,6 @@ package org.telegram.ui.Components;
 
 import static org.telegram.messenger.AndroidUtilities.dp;
 import static org.telegram.messenger.LocaleController.getString;
-import static org.telegram.ui.Stars.StarsIntroActivity.StarsTransactionView.getPlatformDrawable;
 
 import android.content.Context;
 import android.graphics.Canvas;

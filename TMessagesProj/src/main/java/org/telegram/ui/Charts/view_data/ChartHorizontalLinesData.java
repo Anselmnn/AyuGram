@@ -11,10 +11,8 @@ import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.BillingController;
 import org.telegram.messenger.LocaleController;
 import org.telegram.ui.ActionBar.Theme;
-import org.telegram.ui.ChannelMonetizationLayout;
 import org.telegram.ui.Charts.data.ChartData;
 import org.telegram.ui.Components.AnimatedEmojiSpan;
-import org.telegram.ui.Stars.StarsIntroActivity;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -149,12 +147,12 @@ public class ChartHorizontalLinesData {
                 formatterTON.setGroupingUsed(false);
             }
             formatterTON.setMaximumFractionDigits(v > 1_000_000_000 ? 2 : 6);
-            return ChannelMonetizationLayout.replaceTON("TON " + formatterTON.format(v / 1_000_000_000.0), paint, .8f, -dp(.66f), false);
+            return "TON " + formatterTON.format(v / 1_000_000_000.0);
         } else if (formatter == ChartData.FORMATTER_XTR) {
             if (a == 1) {
                 return "≈" + BillingController.getInstance().formatCurrency(v, "USD");
             }
-            return StarsIntroActivity.replaceStarsWithPlain("XTR " + LocaleController.formatNumber(v, ' '), .65f);
+            return "XTR " + LocaleController.formatNumber(v, ' ');
         }
         return AndroidUtilities.formatWholeNumber((int) v, 0);
     }

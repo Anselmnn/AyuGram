@@ -4503,9 +4503,7 @@ public class ImageLoader {
                     }
                 }
             }
-        } else if (message.media instanceof TLRPC.TL_messageMediaInvoice && !message.media.extended_media.isEmpty() && message.media.extended_media.get(0) instanceof TLRPC.TL_messageExtendedMediaPreview) {
-            photoSize = ((TLRPC.TL_messageExtendedMediaPreview) message.media.extended_media.get(0)).thumb;
-        }
+        } else 
         return photoSize;
     }
 
@@ -4539,9 +4537,7 @@ public class ImageLoader {
                     }
                 }
             }
-        } else if (media instanceof TLRPC.TL_messageMediaInvoice && !media.extended_media.isEmpty() && media.extended_media.get(0) instanceof TLRPC.TL_messageExtendedMediaPreview) {
-            photoSize = ((TLRPC.TL_messageExtendedMediaPreview) media.extended_media.get(0)).thumb;
-        }
+        } else 
         return photoSize;
     }
 

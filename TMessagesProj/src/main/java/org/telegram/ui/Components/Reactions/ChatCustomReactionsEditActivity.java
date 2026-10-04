@@ -43,7 +43,6 @@ import org.telegram.messenger.NotificationCenter;
 import org.telegram.messenger.R;
 import org.telegram.messenger.browser.Browser;
 import org.telegram.tgnet.TLRPC;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.tgnet.tl.TL_stories;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.AdjustPanLayoutHelper;
@@ -488,7 +487,7 @@ public class ChatCustomReactionsEditActivity extends BaseFragment implements Not
                 }
             }
 
-            protected void onEmojiSelected(View view, Long documentId, TLRPC.Document document, TL_stars.TL_starGiftUnique gift, Integer until) {
+            protected void onEmojiSelected(View view, Long documentId, TLRPC.Document document, Integer until) {
                 if (selectedEmojisMap.containsKey(documentId)) {
                     selectedEmojisIds.remove(documentId);
                     AnimatedEmojiSpan removedSpan = selectedEmojisMap.remove(documentId);

@@ -16722,10 +16722,7 @@ public class MessagesStorage extends BaseController {
             if (message.action.chat_id != 0 && !chatsToLoad.contains(message.action.chat_id)) {
                 chatsToLoad.add(message.action.chat_id);
             }
-            if (message.action instanceof TLRPC.TL_messageActionGiftCode) {
-                final TLRPC.TL_messageActionGiftCode action = (TLRPC.TL_messageActionGiftCode) message.action;
-                addLoadPeerInfo(action.boost_peer, usersToLoad, chatsToLoad);
-            }
+            
             if (message.action instanceof TLRPC.TL_messageActionGeoProximityReached) {
                 final TLRPC.TL_messageActionGeoProximityReached action = (TLRPC.TL_messageActionGeoProximityReached) message.action;
                 addLoadPeerInfo(action.from_id, usersToLoad, chatsToLoad);
@@ -16762,17 +16759,7 @@ public class MessagesStorage extends BaseController {
                 }
             }
         }
-        if (message.action instanceof TLRPC.TL_messageActionStarGift) {
-            final TLRPC.TL_messageActionStarGift action = (TLRPC.TL_messageActionStarGift) message.action;
-            if (action.gift != null && action.gift.released_by != null) {
-                addLoadPeerInfo(action.gift.released_by, usersToLoad, chatsToLoad);
-            }
-        } else if (message.action instanceof TLRPC.TL_messageActionStarGiftUnique) {
-            final TLRPC.TL_messageActionStarGiftUnique action = (TLRPC.TL_messageActionStarGiftUnique) message.action;
-            if (action.gift != null && action.gift.released_by != null) {
-                addLoadPeerInfo(action.gift.released_by, usersToLoad, chatsToLoad);
-            }
-        } else if (message.action instanceof TLRPC.TL_messageActionRequestedPeer) {
+          if (message.action instanceof TLRPC.TL_messageActionRequestedPeer) {
             final TLRPC.TL_messageActionRequestedPeer action = (TLRPC.TL_messageActionRequestedPeer) message.action;
             for (int i = 0; i < action.peers.size(); ++i) {
                 addLoadPeerInfo(action.peers.get(i), usersToLoad, chatsToLoad);
@@ -16782,22 +16769,8 @@ public class MessagesStorage extends BaseController {
             if (message.media.user_id != 0 && !usersToLoad.contains(message.media.user_id)) {
                 usersToLoad.add(message.media.user_id);
             }
-            if (message.media instanceof TLRPC.TL_messageMediaGiveaway) {
-                TLRPC.TL_messageMediaGiveaway giveaway = (TLRPC.TL_messageMediaGiveaway) message.media;
-                for (Long channelId : giveaway.channels) {
-                    if (!chatsToLoad.contains(channelId)) {
-                        chatsToLoad.add(channelId);
-                    }
-                }
-            }
-            if (message.media instanceof TLRPC.TL_messageMediaGiveawayResults) {
-                TLRPC.TL_messageMediaGiveawayResults giveaway = (TLRPC.TL_messageMediaGiveawayResults) message.media;
-                for (Long uid : giveaway.winners) {
-                    if (!usersToLoad.contains(uid)) {
-                        usersToLoad.add(uid);
-                    }
-                }
-            }
+            
+            
             if (message.media instanceof TLRPC.TL_messageMediaPoll) {
                 TLRPC.TL_messageMediaPoll messageMediaPoll = (TLRPC.TL_messageMediaPoll) message.media;
                 if (!messageMediaPoll.poll.answers.isEmpty()) {
@@ -18815,17 +18788,17 @@ public class MessagesStorage extends BaseController {
             try {
                 state = database.executeFast("REPLACE INTO gift_themes VALUES(?, ?)");
                 for (TLRPC.ChatTheme theme: themes) {
-                    if (!(theme instanceof TLRPC.TL_chatThemeUniqueGift)) {
+                     {
                         continue;
                     }
 
-                    final TLRPC.TL_chatThemeUniqueGift giftTheme = (TLRPC.TL_chatThemeUniqueGift) theme;
+                    
 
                     state.requery();
-                    state.bindString(1, giftTheme.gift.slug);
+                    
 
-                    NativeByteBuffer data = new NativeByteBuffer(giftTheme.getObjectSize());
-                    giftTheme.serializeToStream(data);
+                    
+                    
                     state.bindByteBuffer(2, data);
                     data.reuse();
 
@@ -18841,46 +18814,6 @@ public class MessagesStorage extends BaseController {
                 if (state != null) {
                     state.dispose();
                 }
-            }
-        });
-    }
-
-    public void loadGiftChatTheme(Utilities.Callback<List<TLRPC.TL_chatThemeUniqueGift>> callback) {
-        executeInStorageQueue(() -> {
-            SQLiteCursor cursor = null;
-            boolean success = false;
-            try {
-                List<TLRPC.TL_chatThemeUniqueGift> gifts = new ArrayList<>();
-                cursor = database.queryFinalized("SELECT data FROM gift_themes");
-                while (cursor.next()) {
-                    NativeByteBuffer data = cursor.byteBufferValue(0);
-                    if (data != null) {
-                        TLRPC.ChatTheme chatTheme = TLRPC.ChatTheme.TLdeserialize(data, data.readInt32(false), false);
-                        data.reuse();
-
-                        if (chatTheme instanceof TLRPC.TL_chatThemeUniqueGift) {
-                            gifts.add((TLRPC.TL_chatThemeUniqueGift) chatTheme);
-                        }
-                    }
-                }
-                cursor.dispose();
-                cursor = null;
-
-
-                AndroidUtilities.runOnUIThread(() -> callback.run(gifts));
-                success = true;
-            } catch (SQLiteException e) {
-                checkSQLException(e);
-            } catch (Exception e) {
-                FileLog.e(e);
-            } finally {
-                if (cursor != null) {
-                    cursor.dispose();
-                }
-            }
-
-            if (!success) {
-                AndroidUtilities.runOnUIThread(() -> callback.run(null));
             }
         });
     }
@@ -18996,12 +18929,7 @@ public class MessagesStorage extends BaseController {
     }
 
     private static boolean isMessageActionTypeWithReply(TLRPC.MessageAction action) {
-        return action instanceof TLRPC.TL_messageActionPinMessage
-            || action instanceof TLRPC.TL_messageActionPaymentSent
-            || action instanceof TLRPC.TL_messageActionGameScore
-            || action instanceof TLRPC.TL_messageActionSuggestedPostApproval
-            || action instanceof TLRPC.TL_messageActionPollAppendAnswer
-            || action instanceof TLRPC.TL_messageActionPollDeleteAnswer;
+        return action instanceof TLRPC.TL_messageActionPinMessage || action instanceof TLRPC.TL_messageActionGameScore || action instanceof TLRPC.TL_messageActionSuggestedPostApproval || action instanceof TLRPC.TL_messageActionPollAppendAnswer || action instanceof TLRPC.TL_messageActionPollDeleteAnswer;
     }
 
     public boolean isForum(long dialogId, int type) {

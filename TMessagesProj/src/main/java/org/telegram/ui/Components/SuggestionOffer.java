@@ -17,7 +17,6 @@ import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.DialogObject;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MessageObject;
-import org.telegram.messenger.MessageSuggestionParams;
 import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.tgnet.TLRPC;
@@ -63,8 +62,6 @@ public class SuggestionOffer {
             return;
         }
 
-        MessageSuggestionParams suggestionOffer = MessageSuggestionParams.of(suggestedPost);
-
         final TextPaint paint = (TextPaint) getThemedPaint(Theme.key_paint_chatActionText3);
 
         height = dp(PADDING_V) * 2;
@@ -72,12 +69,6 @@ public class SuggestionOffer {
         float rowsInfoWidth = 0;
         rows.clear();
 
-        if (suggestionOffer.amount != null && !suggestionOffer.amount.isZero()) {
-            rows.add(new Row(
-                new Text(getString(R.string.SuggestionOfferInfoPrice), paint),
-                new Text(LocaleController.bold(suggestionOffer.amount.formatAsDecimalSpaced()), paint)
-            ));
-        }
         if (suggestedPost.schedule_date > 0) {
             rows.add(new Row(
                 new Text(getString(R.string.SuggestionOfferInfoTime), paint),

@@ -591,7 +591,7 @@ public class TextMessageEnterTransition implements MessageEnterTransitionContain
                     } else {
                         float blendPressed = 0;
                         int color = getThemedColor(Theme.key_chat_outReplyMessageText);
-                        if (!currentMessageObject.forceAvatar && !(currentMessageObject.hasValidReplyMessageObject() && (currentMessageObject.replyMessageObject.type == MessageObject.TYPE_TEXT || !TextUtils.isEmpty(currentMessageObject.replyMessageObject.caption)) && !(MessageObject.getMedia(currentMessageObject.replyMessageObject.messageOwner) instanceof TLRPC.TL_messageMediaGame || MessageObject.getMedia(currentMessageObject.replyMessageObject.messageOwner) instanceof TLRPC.TL_messageMediaInvoice) || messageView.isReplyQuote)) {
+                        if (!currentMessageObject.forceAvatar && !(currentMessageObject.hasValidReplyMessageObject() && (currentMessageObject.replyMessageObject.type == MessageObject.TYPE_TEXT || !TextUtils.isEmpty(currentMessageObject.replyMessageObject.caption)) && !(MessageObject.getMedia(currentMessageObject.replyMessageObject.messageOwner) instanceof TLRPC.TL_messageMediaGame) || messageView.isReplyQuote)) {
                             color = getThemedColor(Theme.key_chat_outReplyMediaMessageText);
                             blendPressed = .6f + (blendPressed * .4f);
                         }
@@ -603,7 +603,7 @@ public class TextMessageEnterTransition implements MessageEnterTransitionContain
                     } else {
                         float blendPressed = 0;
                         int color = getThemedColor(Theme.key_chat_inReplyMessageText);
-                        if (!currentMessageObject.forceAvatar && !(currentMessageObject.hasValidReplyMessageObject() && (currentMessageObject.replyMessageObject.type == MessageObject.TYPE_TEXT || !TextUtils.isEmpty(currentMessageObject.replyMessageObject.caption)) && !(MessageObject.getMedia(currentMessageObject.replyMessageObject.messageOwner) instanceof TLRPC.TL_messageMediaGame || MessageObject.getMedia(currentMessageObject.replyMessageObject.messageOwner) instanceof TLRPC.TL_messageMediaInvoice) || messageView.isReplyQuote)) {
+                        if (!currentMessageObject.forceAvatar && !(currentMessageObject.hasValidReplyMessageObject() && (currentMessageObject.replyMessageObject.type == MessageObject.TYPE_TEXT || !TextUtils.isEmpty(currentMessageObject.replyMessageObject.caption)) && !(MessageObject.getMedia(currentMessageObject.replyMessageObject.messageOwner) instanceof TLRPC.TL_messageMediaGame) || messageView.isReplyQuote)) {
                             color = getThemedColor(Theme.key_chat_inReplyMediaMessageText);
                             blendPressed = .6f + (blendPressed * .4f);
                         }
@@ -612,7 +612,7 @@ public class TextMessageEnterTransition implements MessageEnterTransitionContain
                 }
             } else if (messageView.replyLine != null) {
                 replyMessageColor = messageView.replyLine.nameColorAnimated.get();
-            } else if (currentMessageObject.hasValidReplyMessageObject() && (currentMessageObject.replyMessageObject.type == MessageObject.TYPE_TEXT || !TextUtils.isEmpty(currentMessageObject.replyMessageObject.caption)) && !(currentMessageObject.replyMessageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGame || currentMessageObject.replyMessageObject.messageOwner.media instanceof TLRPC.TL_messageMediaInvoice)) {
+            } else if (currentMessageObject.hasValidReplyMessageObject() && (currentMessageObject.replyMessageObject.type == MessageObject.TYPE_TEXT || !TextUtils.isEmpty(currentMessageObject.replyMessageObject.caption)) && !(currentMessageObject.replyMessageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGame)) {
                 replyMessageColor = getThemedColor(Theme.key_chat_outReplyMessageText);
             } else {
                 replyMessageColor = getThemedColor(Theme.key_chat_outReplyMediaMessageText);

@@ -80,8 +80,6 @@ import org.telegram.ui.Components.RecyclerItemsEnterAnimator;
 import org.telegram.ui.Components.RecyclerListView;
 import org.telegram.ui.Components.ShareAlert;
 import org.telegram.ui.Components.TimerParticles;
-import org.telegram.ui.Stars.StarsController;
-import org.telegram.ui.Stars.StarsIntroActivity;
 import org.telegram.ui.Stories.recorder.HintView2;
 
 import java.util.ArrayList;
@@ -1340,14 +1338,8 @@ public class ManageLinksActivity extends BaseFragment implements NotificationCen
                 priceLayout.setVisibility(View.VISIBLE);
                 optionsView.setVisibility(View.GONE);
 
-                priceTitleView.setText(StarsIntroActivity.replaceStarsWithPlain("⭐️ " + LocaleController.formatNumber(invite.subscription_pricing.amount, ','), .75f));
-                if (invite.subscription_pricing.period == StarsController.PERIOD_MONTHLY) {
-                    priceSubitleView.setText(getString(R.string.StarsParticipantSubscriptionPerMonth));
-                } else if (invite.subscription_pricing.period == StarsController.PERIOD_5MINUTES) {
-                    priceSubitleView.setText("per 5 minutes");
-                } else if (invite.subscription_pricing.period == StarsController.PERIOD_MINUTE) {
-                    priceSubitleView.setText("each minute");
-                }
+                priceTitleView.setText("⭐️ " + LocaleController.formatNumber(invite.subscription_pricing.amount, ','));
+                  
                 rightMargin = dp(18 + 10) + (int) Math.max(HintView2.measureCorrectly(priceTitleView.getText(), priceTitleView.getPaint()), HintView2.measureCorrectly(priceSubitleView.getText(), priceSubitleView.getPaint()));
             } else {
                 priceLayout.setVisibility(View.GONE);

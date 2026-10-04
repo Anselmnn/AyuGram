@@ -55,7 +55,6 @@ import org.json.JSONObject;
 import org.telegram.messenger.audioinfo.AudioInfo;
 import org.telegram.messenger.support.SparseLongArray;
 import org.telegram.messenger.utils.EphemeralMessagesHelper;
-import org.telegram.messenger.utils.tlutils.AmountUtils;
 import org.telegram.messenger.utils.tlutils.TLKeyboardHelper;
 import org.telegram.messenger.utils.tlutils.TlUtils;
 import org.telegram.tgnet.ConnectionsManager;
@@ -92,9 +91,6 @@ import org.telegram.ui.Components.poll.attached.PollAttachedMediaSticker;
 import org.telegram.ui.Components.voip.AnimatedFileInfo;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.OAuthSheet;
-import org.telegram.ui.Stars.StarsController;
-import org.telegram.ui.Stars.StarsIntroActivity;
-import org.telegram.ui.TON.TONIntroActivity;
 import org.telegram.ui.bots.BotWebViewSheet;
 import org.telegram.ui.Components.Bulletin;
 import org.telegram.ui.Components.BulletinFactory;
@@ -1591,7 +1587,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
             if (sendingMessage != null) {
                 getConnectionsManager().cancelRequest(sendingMessage.reqId, true);
             }
-            StarsController.getInstance(currentAccount).hidePaidMessageToast(object);
+            
 
             for (HashMap.Entry<String, ArrayList<DelayedMessage>> entry : delayedMessages.entrySet()) {
                 ArrayList<DelayedMessage> messages = entry.getValue();
@@ -1777,7 +1773,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
         if (messageObject == null) {
             return;
         }
-        if (messageObject.messageOwner.media != null && !(messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaEmpty) && !(messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaWebPage) && !(messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGame) && !(messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaInvoice)) {
+        if (messageObject.messageOwner.media != null && !(messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaEmpty) && !(messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaWebPage) && !(messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGame)) {
             HashMap<String, String> params = null;
             if (DialogObject.isEncryptedDialog(did) && messageObject.messageOwner.peer_id != null && (messageObject.messageOwner.media.photo instanceof TLRPC.TL_photo || messageObject.messageOwner.media.document instanceof TLRPC.TL_document)) {
                 params = new HashMap<>();
@@ -2501,7 +2497,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                 newMsgObj.wasJustSent = true;
                 objArr.add(newMsgObj);
                 arr.add(newMsg);
-                StarsController.getInstance(currentAccount).beforeSendingMessage(newMsgObj);
+                
 
                 if (msgObj.replyMessageObject != null) {
                     for (int i = 0; i < messages.size(); i++) {
@@ -2746,7 +2742,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                                 final TLRPC.Message newMsgObj1 = newMsgObjArr.get(a1);
                                 getMessagesStorage().markMessageAsSendError(newMsgObj1, scheduleDate != 0 ? 1 : 0);
                                 if (error != null && error.text != null && error.text.startsWith("ALLOW_PAYMENT_REQUIRED_")) {
-                                    newMsgObj1.errorAllowedPriceStars = StarsController.getInstance(currentAccount).getAllowedPaidStars(req);
+                                    
                                     newMsgObj1.errorNewPriceStars = Long.parseLong(error.text.substring("ALLOW_PAYMENT_REQUIRED_".length())) / req.id.size();
                                     getMessagesStorage().updateMessageCustomParams(MessageObject.getDialogId(newMsgObj1), newMsgObj1);
                                 }
@@ -2759,7 +2755,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                             }
                             if (error != null && error.text != null && error.text.startsWith("ALLOW_PAYMENT_REQUIRED_")) {
                                 AndroidUtilities.runOnUIThread(() -> {
-                                    StarsController.getInstance(currentAccount).showPriceChangedToast(newMsgArr);
+                                    
                                 });
                             }
                         }, ConnectionsManager.RequestFlagCanCompress | ConnectionsManager.RequestFlagInvokeAfter);
@@ -2771,9 +2767,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                         }
                     };
 
-                    if (StarsController.getInstance(currentAccount).beforeSendingFinalRequest(req, newMsgArr, send2)) {
-                        send2.run();
-                    }
+                    
 
                     if (a != messages.size() - 1) {
                         objArr = new ArrayList<>();
@@ -3958,9 +3952,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                         AlertsCreator.showOpenUrlAlert(parentFragment, buttonTypeUrlAuth.url, false, true);
                     }
                 } else if (TLKeyboardHelper.isType(button, TL_keyboard.TL_inlineButtonTypeBuy.class)) {
-                    if (response instanceof TLRPC.TL_payments_paymentReceiptStars) {
-                        StarsIntroActivity.showTransactionSheet(LaunchActivity.instance != null ? LaunchActivity.instance : ApplicationLoader.applicationContext, false, currentAccount, (TLRPC.TL_payments_paymentReceiptStars) response, null);
-                    } else {
+                     {
                         BulletinFactory.of(parentFragment).createErrorBulletin(LocaleController.getString(R.string.PaymentUnavailable)).show();
                     }
                 } else {
@@ -4127,25 +4119,25 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                 getConnectionsManager().sendRequest(req, requestDelegate, ConnectionsManager.RequestFlagFailOnServerErrors);
             } else if (TLKeyboardHelper.isType(button, TL_keyboard.TL_inlineButtonTypeBuy.class)) {
                 if ((messageObject.messageOwner.media.flags & 4) == 0) {
-                    TLRPC.TL_payments_getPaymentForm req = new TLRPC.TL_payments_getPaymentForm();
-                    TLRPC.TL_inputInvoiceMessage inputInvoice = new TLRPC.TL_inputInvoiceMessage();
-                    inputInvoice.msg_id = messageObject.getId();
-                    inputInvoice.peer = getMessagesController().getInputPeer(messageObject.messageOwner.peer_id);
-                    req.invoice = inputInvoice;
+                    
+                    
+                    
+                    
+                    
                     final JSONObject themeParams = BotWebViewSheet.makeThemeParams(null);
                     if (themeParams != null) {
-                        req.theme_params = new TLRPC.TL_dataJSON();
-                        req.theme_params.data = themeParams.toString();
-                        req.flags |= 1;
+                        
+                        
+                        
                     }
-                    request[0] = req;
-                    getConnectionsManager().sendRequest(req, requestDelegate, ConnectionsManager.RequestFlagFailOnServerErrors);
+                    
+                    
                 } else {
-                    TLRPC.TL_payments_getPaymentReceipt req = new TLRPC.TL_payments_getPaymentReceipt();
-                    req.msg_id = messageObject.messageOwner.media.receipt_msg_id;
-                    req.peer = getMessagesController().getInputPeer(messageObject.messageOwner.peer_id);
-                    request[0] = req;
-                    getConnectionsManager().sendRequest(req, requestDelegate, ConnectionsManager.RequestFlagFailOnServerErrors);
+                    
+                    
+                    
+                    
+                    
                 }
             } else {
                 if (messageObject.isEphemeral()) {
@@ -4259,7 +4251,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
         TLRPC.TL_game game = sendMessageParams.game;
         TLRPC.TL_messageMediaPoll poll = sendMessageParams.poll;
         TLRPC.TL_messageMediaToDo todo = sendMessageParams.todo;
-        TLRPC.TL_messageMediaInvoice invoice = sendMessageParams.invoice;
+        
         long peer = sendMessageParams.peer;
         String path = sendMessageParams.path;
         MessageObject replyToMsg = sendMessageParams.replyToMsg;
@@ -4616,13 +4608,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                     if (params != null && params.containsKey("query_id")) {
                         type = 9;
                     }
-                } else if (invoice != null) {
-                    newMsg = new TLRPC.TL_message();
-                    newMsg.media = invoice;
-                    if (params != null && params.containsKey("query_id")) {
-                        type = 9;
-                    }
-                } else if (user != null) {
+                } else  if (user != null) {
                     if (encryptedChat != null) {
                         newMsg = new TLRPC.TL_message_secret();
                     } else {
@@ -5254,7 +5240,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                             reqSend.suggested_post = retryMessageObject.messageOwner.suggested_post;
                         }
                         if (retryMessageObject == null) {
-                            StarsController.getInstance(currentAccount).beforeSendingMessage(newMsgObj);
+                            
                         }
                         performSendMessageRequest(reqSend, newMsgObj, null, null, parentObject, params, scheduleDate != 0);
                         if (retryMessageObject == null) {
@@ -5317,7 +5303,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                         reqSend.invert_media = newMsg.invert_media;
                         applyMonoForumPeerId(reqSend, sendMessageParams.monoForumPeer);
                         if (retryMessageObject == null) {
-                            StarsController.getInstance(currentAccount).beforeSendingMessage(newMsgObj);
+                            
                         }
                         performSendMessageRequest(reqSend, newMsgObj, null, null, parentObject, params, scheduleDate != 0);
                         if (retryMessageObject == null) {
@@ -5401,7 +5387,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                 reqSend.invert_media = newMsg.invert_media;
                 applyMonoForumPeerId(reqSend, sendMessageParams.monoForumPeer);
                 if (retryMessageObject == null) {
-                    StarsController.getInstance(currentAccount).beforeSendingMessage(newMsgObj);
+                    
                 }
                 performSendMessageRequest(reqSend, newMsgObj, null, null, parentObject, params, scheduleDate != 0);
                 if (retryMessageObject == null) {
@@ -5669,15 +5655,15 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                         }
                     } else if (type == MEDIA_TYPE_DICE) {
                         if (sendMessageParams.dice_stake > 0) {
-                            final TLRPC.TL_inputMediaStakeDice inputMediaStakeDice = new TLRPC.TL_inputMediaStakeDice();
-                            inputMediaStakeDice.ton_amount = sendMessageParams.dice_stake;
-                            inputMediaStakeDice.client_seed = Utilities.random.generateSeed(32);
+                            
+                            
+                            
                             final TLRPC.EmojiGameInfo info = getMessagesController().stakeDiceInfo;
                             if (!(info instanceof TLRPC.TL_emojiGameDiceInfo)) {
                                 return;
                             }
-                            inputMediaStakeDice.game_hash = ((TLRPC.TL_emojiGameDiceInfo) info).game_hash;
-                            inputMedia = inputMediaStakeDice;
+                            
+                            
                         } else {
                             TLRPC.TL_inputMediaDice inputMediaDice = new TLRPC.TL_inputMediaDice();
                             inputMediaDice.emoticon = message;
@@ -5954,7 +5940,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                         reqSend = request;
                     }
                     if (retryMessageObject == null) {
-                        StarsController.getInstance(currentAccount).beforeSendingMessage(newMsgObj);
+                        
                     }
                     if (groupId != 0) {
                         performSendDelayedMessage(delayedMessage);
@@ -7521,7 +7507,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
         for (int a = 0, size = msgObjs.size(); a < size; a++) {
             putToSendingMessages(msgObjs.get(a).messageOwner, scheduled);
         }
-        if (!StarsController.getInstance(currentAccount).beforeSendingFinalRequest(request, msgObjs, () -> performSendMessageRequestMulti(request, msgObjs, originalPaths, parentObjects, delayedMessage, scheduled))) {
+         {
             return;
         }
         if (!BotForumHelper.getInstance(currentAccount).beforeSendingFinalRequest(request, msgObjs, () -> performSendMessageRequestMulti(request, msgObjs, originalPaths, parentObjects, delayedMessage, scheduled))) {
@@ -7811,9 +7797,9 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                         getMessagesStorage().markMessageAsSendError(newMsgObj, scheduled ? 1 : 0);
                         newMsgObj.send_state = MessageObject.MESSAGE_SEND_STATE_SEND_ERROR;
                         if (!scheduled && error != null && error.text != null && error.text.startsWith("ALLOW_PAYMENT_REQUIRED_")) {
-                            newMsgObj.errorAllowedPriceStars = StarsController.getInstance(currentAccount).getAllowedPaidStars(request);
+                            
                             newMsgObj.errorNewPriceStars = Long.parseLong(error.text.substring("ALLOW_PAYMENT_REQUIRED_".length()));
-                            StarsController.getInstance(currentAccount).showPriceChangedToast(Arrays.asList(msgObj));
+                            
                             getMessagesStorage().updateMessageCustomParams(MessageObject.getDialogId(newMsgObj), newMsgObj);
                         }
                         getNotificationCenter().postNotificationName(NotificationCenter.messageSendError, newMsgObj.id);
@@ -7912,7 +7898,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
         }
         final TLRPC.Message newMsgObj = msgObj.messageOwner;
         putToSendingMessages(newMsgObj, scheduled);
-        if (!StarsController.getInstance(currentAccount).beforeSendingFinalRequest(req, msgObj, () -> performSendMessageRequest(req, msgObj, originalPath, parentMessage, check, delayedMessage, parentObject, params, scheduled))) {
+         {
             return;
         }
         if (!BotForumHelper.getInstance(currentAccount).beforeSendingFinalRequest(req, msgObj, () -> performSendMessageRequest(req, msgObj, originalPath, parentMessage, check, delayedMessage, parentObject, params, scheduled))) {
@@ -7979,39 +7965,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                     return;
                 }
             }
-            if (error != null && req instanceof TLRPC.TL_messages_sendMedia && ((TLRPC.TL_messages_sendMedia) req).media instanceof TLRPC.TL_inputMediaStakeDice) {
-                if ("GAME_HASH_INVALID".equalsIgnoreCase(error.text)) {
-                    getConnectionsManager().sendRequestTyped(new TLRPC.TL_messages_getEmojiGameInfo(), AndroidUtilities::runOnUIThread, (res, err) -> {
-                        if (res instanceof TLRPC.TL_emojiGameDiceInfo) {
-                            final String game_hash = ((TLRPC.TL_emojiGameDiceInfo) res).game_hash;
-                            final TLRPC.TL_messages_sendMedia r = (TLRPC.TL_messages_sendMedia) req;
-                            if (r.media instanceof TLRPC.TL_inputMediaStakeDice) {
-                                ((TLRPC.TL_inputMediaStakeDice) r.media).game_hash = game_hash;
-                            }
-                            performSendMessageRequest(r, msgObj, originalPath, parentMessage, check, delayedMessage, parentObject, params, scheduled);
-                        }
-                    });
-                    return;
-                } else if ("BALANCE_TOO_LOW".equalsIgnoreCase(error.text)) {
-                    final TLRPC.TL_inputMediaStakeDice media = (TLRPC.TL_inputMediaStakeDice) ((TLRPC.TL_messages_sendMedia) req).media;
-                    final BaseFragment lastFragment = LaunchActivity.getSafeLastFragment();
-                    if (lastFragment != null) {
-                        AndroidUtilities.runOnUIThread(() -> {
-                            new TONIntroActivity.StarsNeededSheet(
-                                lastFragment.getContext(),
-                                lastFragment.getResourceProvider(),
-                                AmountUtils.Amount.fromNano(media.ton_amount, AmountUtils.Currency.TON),
-                                false,
-                                () -> performSendMessageRequest(req, msgObj, originalPath, parentMessage, check, delayedMessage, parentObject, params, scheduled)
-                            ).show();
-                            final ArrayList<MessageObject> arrayList = new ArrayList<>();
-                            arrayList.add(msgObj);
-                            cancelSendingMessage(arrayList);
-                        });
-                        return;
-                    }
-                }
-            }
+            
             if (req instanceof TLRPC.TL_messages_addPollAnswer) {
                 AndroidUtilities.runOnUIThread(() -> {
                     if (error == null) {
@@ -8120,7 +8074,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                                 newMsgObj.flags |= TLRPC.MESSAGE_FLAG_HAS_MEDIA;
                                 ImageLoader.saveMessageThumbs(newMsgObj);
                             }
-                            if ((res.media instanceof TLRPC.TL_messageMediaGame || res.media instanceof TLRPC.TL_messageMediaInvoice) && !TextUtils.isEmpty(res.message)) {
+                            if ((res.media instanceof TLRPC.TL_messageMediaGame) && !TextUtils.isEmpty(res.message)) {
                                 newMsgObj.message = res.message;
                             }
                             if (!newMsgObj.entities.isEmpty()) {
@@ -8350,9 +8304,9 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                         getMessagesStorage().markMessageAsSendError(newMsgObj, scheduled ? 1 : 0);
                         newMsgObj.send_state = MessageObject.MESSAGE_SEND_STATE_SEND_ERROR;
                         if (error != null && error.text != null && error.text.startsWith("ALLOW_PAYMENT_REQUIRED_")) {
-                            newMsgObj.errorAllowedPriceStars = StarsController.getInstance(currentAccount).getAllowedPaidStars(req);
+                            
                             newMsgObj.errorNewPriceStars = Long.parseLong(error.text.substring("ALLOW_PAYMENT_REQUIRED_".length()));
-                            StarsController.getInstance(currentAccount).showPriceChangedToast(Arrays.asList(msgObj));
+                            
                             getMessagesStorage().updateMessageCustomParams(MessageObject.getDialogId(newMsgObj), newMsgObj);
                         }
                         getNotificationCenter().postNotificationName(NotificationCenter.messageSendError, newMsgObj.id);
@@ -8479,7 +8433,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
                 mediaDice.value = mediaDiceNew.value;
                 mediaDice.flags = mediaDiceNew.flags;
                 mediaDice.game_outcome = mediaDiceNew.game_outcome;
-                StarsController.getInstance(currentAccount, true).invalidateBalance();
+                
             } else if (newMsg.media.photo != null) {
                 strippedOld = FileLoader.getClosestPhotoSizeWithSize(newMsg.media.photo.sizes, 40);
                 if (sentMessage != null && sentMessage.media != null && sentMessage.media.photo != null) {
@@ -8908,7 +8862,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
         } else if (sentMessage.media instanceof TLRPC.TL_messageMediaGeo) {
             sentMessage.media.geo.lat = newMsg.media.geo.lat;
             sentMessage.media.geo._long = newMsg.media.geo._long;
-        } else if (sentMessage.media instanceof TLRPC.TL_messageMediaGame || sentMessage.media instanceof TLRPC.TL_messageMediaInvoice) {
+        } else if (sentMessage.media instanceof TLRPC.TL_messageMediaGame) {
             newMsg.media = sentMessage.media;
             if (!TextUtils.isEmpty(sentMessage.message)) {
                 newMsg.entities = sentMessage.entities;
@@ -10419,30 +10373,7 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
             params2.payStars = stars;
             params2.monoForumPeer = monoForumPeerId;
             accountInstance.getSendMessagesHelper().sendMessage(params2);
-        } else if (result.send_message instanceof TLRPC.TL_botInlineMessageMediaInvoice) {
-            if (DialogObject.isEncryptedDialog(dialogId)) {
-                return; //doesn't work in secret chats for now
-            }
-            TLRPC.TL_botInlineMessageMediaInvoice invoice = (TLRPC.TL_botInlineMessageMediaInvoice) result.send_message;
-            TLRPC.TL_messageMediaInvoice messageMediaInvoice = new TLRPC.TL_messageMediaInvoice();
-            messageMediaInvoice.shipping_address_requested = invoice.shipping_address_requested;
-            messageMediaInvoice.test = invoice.test;
-            messageMediaInvoice.title = invoice.title;
-            messageMediaInvoice.description = invoice.description;
-            if (invoice.photo != null) {
-                messageMediaInvoice.webPhoto = invoice.photo;
-                messageMediaInvoice.flags |= 1;
-            }
-            messageMediaInvoice.currency = invoice.currency;
-            messageMediaInvoice.total_amount = invoice.total_amount;
-            messageMediaInvoice.start_param = "";
-            final SendMessagesHelper.SendMessageParams params2 = SendMessagesHelper.SendMessageParams.of(messageMediaInvoice, dialogId, replyToMsg, replyToTopMsg, result.send_message.reply_markup, params, notify, scheduleDate, scheduleRepeatPeriod);
-            params2.sendMessageChatArguments = sendMessageChatArguments;
-            params2.replyQuote = quote;
-            params2.payStars = stars;
-            params2.monoForumPeer = monoForumPeerId;
-            accountInstance.getSendMessagesHelper().sendMessage(params2);
-        } else if (result.send_message instanceof TLRPC.TL_botInlineMessageMediaWebPage) {
+        } else  if (result.send_message instanceof TLRPC.TL_botInlineMessageMediaWebPage) {
             TLRPC.TL_botInlineMessageMediaWebPage request = (TLRPC.TL_botInlineMessageMediaWebPage) result.send_message;
             TLRPC.WebPage webPage = new TLRPC.TL_webPagePending();
             webPage.url = request.url;
@@ -12089,7 +12020,6 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
         public PollSendParams pollSendParams;
         public int pollIndex;
         public TLRPC.TL_messageMediaToDo todo;
-        public TLRPC.TL_messageMediaInvoice invoice;
         public TLRPC.TL_messageMediaWebPage mediaWebPage;
         public TLRPC.PhotoSize cover;
         public long peer;
@@ -12133,18 +12063,18 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
         public ArrayList<TLRPC.InputUser> richMessageInputUsers;
 
         public static SendMessageParams ofRichMessage(TL_iv.RichMessage richMessage, long peer, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod) {
-            SendMessageParams p = of(null, null, null, null, null, null, null, null, null, null, peer, null, replyToMsg, replyToTopMsg, null, true, null, null, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, null, false);
+            SendMessageParams p = of(null, null, null, null, null, null, null, null, null, peer, null, replyToMsg, replyToTopMsg, null, true, null, null, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, null, false);
             p.richMessage = richMessage;
             return p;
         }
 
 
         public static SendMessageParams of(String string, long dialogId) {
-            return of(string, null, null, null, null, null, null, null, null, null, dialogId, null, null, null, null, true, null, null, null, null, false, 0, 0, 0, null, null, false);
+            return of(string, null, null, null, null, null, null, null, null, dialogId, null, null, null, null, true, null, null, null, null, false, 0, 0, 0, null, null, false);
         }
 
         public static SendMessageParams of(MessageObject retryMessageObject) {
-            SendMessageParams params = of(null, null, null, null, null, null, null, null, null, null, retryMessageObject.getDialogId(), retryMessageObject.messageOwner.attachPath, null, null, null, true, retryMessageObject, null, retryMessageObject.messageOwner.reply_markup, retryMessageObject.messageOwner.params, !retryMessageObject.messageOwner.silent, retryMessageObject.scheduled ? retryMessageObject.messageOwner.date : 0, 0, 0, null, null, false);
+            SendMessageParams params = of(null, null, null, null, null, null, null, null, null, retryMessageObject.getDialogId(), retryMessageObject.messageOwner.attachPath, null, null, null, true, retryMessageObject, null, retryMessageObject.messageOwner.reply_markup, retryMessageObject.messageOwner.params, !retryMessageObject.messageOwner.silent, retryMessageObject.scheduled ? retryMessageObject.messageOwner.date : 0, 0, 0, null, null, false);
             if (retryMessageObject.messageOwner != null) {
                 if (retryMessageObject.messageOwner.quick_reply_shortcut instanceof TLRPC.TL_inputQuickReplyShortcut) {
                     params.quick_reply_shortcut = ((TLRPC.TL_inputQuickReplyShortcut) retryMessageObject.messageOwner.quick_reply_shortcut).shortcut;
@@ -12157,50 +12087,46 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
         }
 
         public static SendMessageParams of(TLRPC.User user, long peer, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod) {
-            return of(null, null, null, null, null, user, null, null, null, null, peer, null, replyToMsg, replyToTopMsg, null, true, null, null, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, null, false);
-        }
-
-        public static SendMessageParams of(TLRPC.TL_messageMediaInvoice invoice, long peer, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod) {
-            return of(null, null, null, null, null, null, null, null, null, invoice, peer, null, replyToMsg, replyToTopMsg, null, true, null, null, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, null, false);
+            return of(null, null, null, null, null, user, null, null, null, peer, null, replyToMsg, replyToTopMsg, null, true, null, null, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, null, false);
         }
 
         public static SendMessageParams of(TLRPC.TL_document document, VideoEditedInfo videoEditedInfo, String path, long peer, MessageObject replyToMsg, MessageObject replyToTopMsg, String caption, ArrayList<TLRPC.MessageEntity> entities, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod, int ttl, Object parentObject, MessageObject.SendAnimationData sendAnimationData, boolean updateStickersOrder) {
-            return of(null, caption, null, null, videoEditedInfo, null, document, null, null, null, peer, path, replyToMsg, replyToTopMsg, null, true, null, entities, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, ttl, parentObject, sendAnimationData, updateStickersOrder);
+            return of(null, caption, null, null, videoEditedInfo, null, document, null, null, peer, path, replyToMsg, replyToTopMsg, null, true, null, entities, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, ttl, parentObject, sendAnimationData, updateStickersOrder);
         }
 
         public static SendMessageParams of(TLRPC.TL_document document, VideoEditedInfo videoEditedInfo, String path, long peer, MessageObject replyToMsg, MessageObject replyToTopMsg, String caption, ArrayList<TLRPC.MessageEntity> entities, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod, int ttl, Object parentObject, MessageObject.SendAnimationData sendAnimationData, boolean updateStickersOrder, boolean hasMediaSpoilers) {
-            return of(null, caption, null, null, videoEditedInfo, null, document, null, null, null, peer, path, replyToMsg, replyToTopMsg, null, true, null, entities, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, ttl, parentObject, sendAnimationData, updateStickersOrder, hasMediaSpoilers);
+            return of(null, caption, null, null, videoEditedInfo, null, document, null, null, peer, path, replyToMsg, replyToTopMsg, null, true, null, entities, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, ttl, parentObject, sendAnimationData, updateStickersOrder, hasMediaSpoilers);
         }
 
         public static SendMessageParams of(String message, long peer, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.WebPage webPage, boolean searchLinks, ArrayList<TLRPC.MessageEntity> entities, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod, MessageObject.SendAnimationData sendAnimationData, boolean updateStickersOrder) {
-            return of(message, null, null, null, null, null, null, null, null, null, peer, null, replyToMsg, replyToTopMsg, webPage, searchLinks, null, entities, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, sendAnimationData, updateStickersOrder);
+            return of(message, null, null, null, null, null, null, null, null, peer, null, replyToMsg, replyToTopMsg, webPage, searchLinks, null, entities, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, sendAnimationData, updateStickersOrder);
         }
 
         public static SendMessageParams of(TLRPC.MessageMedia location, long peer, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod) {
-            return of(null, null, location, null, null, null, null, null, null, null, peer, null, replyToMsg, replyToTopMsg, null, true, null, null, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, null, false);
+            return of(null, null, location, null, null, null, null, null, null, peer, null, replyToMsg, replyToTopMsg, null, true, null, null, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, null, false);
         }
 
         public static SendMessageParams of(TLRPC.TL_messageMediaPoll poll, long peer, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod) {
-            return of(null, null, null, null, null, null, null, null, poll, null, peer, null, replyToMsg, replyToTopMsg, null, true, null, null, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, null, false);
+            return of(null, null, null, null, null, null, null, null, poll, peer, null, replyToMsg, replyToTopMsg, null, true, null, null, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, null, false);
         }
 
         public static SendMessageParams of(TLRPC.TL_game game, long peer, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod) {
-            return of(null, null, null, null, null, null, null, game, null, null, peer, null, replyToMsg, replyToTopMsg, null, true, null, null, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, null, false);
+            return of(null, null, null, null, null, null, null, game, null, peer, null, replyToMsg, replyToTopMsg, null, true, null, null, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, 0, null, null, false);
         }
 
         public static SendMessageParams of(TLRPC.TL_photo photo, String path, long peer, MessageObject replyToMsg, MessageObject replyToTopMsg, String caption, ArrayList<TLRPC.MessageEntity> entities, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod, int ttl, Object parentObject, boolean updateStickersOrder, boolean hasMediaSpoilers) {
-            return of(null, caption, null, photo, null, null, null, null, null, null, peer, path, replyToMsg, replyToTopMsg, null, true, null, entities, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, ttl, parentObject, null, updateStickersOrder, hasMediaSpoilers);
+            return of(null, caption, null, photo, null, null, null, null, null, peer, path, replyToMsg, replyToTopMsg, null, true, null, entities, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, ttl, parentObject, null, updateStickersOrder, hasMediaSpoilers);
         }
 
         public static SendMessageParams of(TLRPC.TL_photo photo, String path, long peer, MessageObject replyToMsg, MessageObject replyToTopMsg, String caption, ArrayList<TLRPC.MessageEntity> entities, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod, int ttl, Object parentObject, boolean updateStickersOrder) {
-            return of(null, caption, null, photo, null, null, null, null, null, null, peer, path, replyToMsg, replyToTopMsg, null, true, null, entities, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, ttl, parentObject, null, updateStickersOrder);
+            return of(null, caption, null, photo, null, null, null, null, null, peer, path, replyToMsg, replyToTopMsg, null, true, null, entities, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, ttl, parentObject, null, updateStickersOrder);
         }
 
-        private static SendMessageParams of(String message, String caption, TLRPC.MessageMedia location, TLRPC.TL_photo photo, VideoEditedInfo videoEditedInfo, TLRPC.User user, TLRPC.TL_document document, TLRPC.TL_game game, TLRPC.TL_messageMediaPoll poll, TLRPC.TL_messageMediaInvoice invoice, long peer, String path, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.WebPage webPage, boolean searchLinks, MessageObject retryMessageObject, ArrayList<TLRPC.MessageEntity> entities, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod, int ttl, Object parentObject, MessageObject.SendAnimationData sendAnimationData, boolean updateStickersOrder) {
-            return of(message, caption, location, photo, videoEditedInfo, user, document, game, poll, invoice, peer, path, replyToMsg, replyToTopMsg, webPage, searchLinks, retryMessageObject, entities, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, ttl, parentObject, sendAnimationData, updateStickersOrder, false);
+        private static SendMessageParams of(String message, String caption, TLRPC.MessageMedia location, TLRPC.TL_photo photo, VideoEditedInfo videoEditedInfo, TLRPC.User user, TLRPC.TL_document document, TLRPC.TL_game game, TLRPC.TL_messageMediaPoll poll, long peer, String path, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.WebPage webPage, boolean searchLinks, MessageObject retryMessageObject, ArrayList<TLRPC.MessageEntity> entities, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> params, boolean notify, int scheduleDate, int scheduleRepeatPeriod, int ttl, Object parentObject, MessageObject.SendAnimationData sendAnimationData, boolean updateStickersOrder) {
+            return of(message, caption, location, photo, videoEditedInfo, user, document, game, poll, peer, path, replyToMsg, replyToTopMsg, webPage, searchLinks, retryMessageObject, entities, replyMarkup, params, notify, scheduleDate, scheduleRepeatPeriod, ttl, parentObject, sendAnimationData, updateStickersOrder, false);
         }
 
-        public static SendMessageParams of(String message, String caption, TLRPC.MessageMedia location, TLRPC.TL_photo photo, VideoEditedInfo videoEditedInfo, TLRPC.User user, TLRPC.TL_document document, TLRPC.TL_game game, TLRPC.TL_messageMediaPoll poll, TLRPC.TL_messageMediaInvoice invoice, long peer, String path, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.WebPage webPage, boolean searchLinks, MessageObject retryMessageObject, ArrayList<TLRPC.MessageEntity> entities, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> messageParams, boolean notify, int scheduleDate, int scheduleRepeatPeriod, int ttl, Object parentObject, MessageObject.SendAnimationData sendAnimationData, boolean updateStickersOrder, boolean hasMediaSpoilers) {
+        public static SendMessageParams of(String message, String caption, TLRPC.MessageMedia location, TLRPC.TL_photo photo, VideoEditedInfo videoEditedInfo, TLRPC.User user, TLRPC.TL_document document, TLRPC.TL_game game, TLRPC.TL_messageMediaPoll poll, long peer, String path, MessageObject replyToMsg, MessageObject replyToTopMsg, TLRPC.WebPage webPage, boolean searchLinks, MessageObject retryMessageObject, ArrayList<TLRPC.MessageEntity> entities, TLRPC.ReplyMarkup replyMarkup, HashMap<String, String> messageParams, boolean notify, int scheduleDate, int scheduleRepeatPeriod, int ttl, Object parentObject, MessageObject.SendAnimationData sendAnimationData, boolean updateStickersOrder, boolean hasMediaSpoilers) {
             SendMessageParams params = new SendMessageParams();
             params.message = message;
             params.caption = caption;
@@ -12211,7 +12137,6 @@ public class SendMessagesHelper extends BaseController implements NotificationCe
             params.document = document;
             params.game = game;
             params.poll = poll;
-            params.invoice = invoice;
             params.peer = peer;
             params.path = path;
             params.replyToMsg = replyToMsg;

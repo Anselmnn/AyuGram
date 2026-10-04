@@ -1,7 +1,5 @@
 package org.telegram.ui.Components.Premium.boosts.cells;
 
-import static org.telegram.tgnet.tl.TL_stories.Boost.NO_USER_ID;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -67,7 +65,6 @@ public class TableCell extends FrameLayout {
     private final Paint linePaint = new Paint();
     private final Path roundPath = new Path();
     private final RectF roundRect = new RectF();
-    private TLRPC.TL_payments_checkedGiftCode giftCode;
     private FrameLayout fromFrameLayout;
     private FrameLayout toFrameLayout;
     private TableRow tableRow4;
@@ -197,79 +194,6 @@ public class TableCell extends FrameLayout {
             tableLayout.setClipToOutline(true);
         }
         setPaddingRelative(AndroidUtilities.dp(14), AndroidUtilities.dp(18), AndroidUtilities.dp(14), 0);
-    }
-
-    public void setData(TLRPC.TL_payments_checkedGiftCode giftCode, Utilities.Callback<TLObject> onObjectClicked) {
-        this.giftCode = giftCode;
-        Date date = new Date(giftCode.date * 1000L);
-        String monthTxt = LocaleController.getInstance().getFormatterYear().format(date);
-        String timeTxt = LocaleController.getInstance().getFormatterDay().format(date);
-
-        dateTextView.setText(LocaleController.formatString("formatDateAtTime", R.string.formatDateAtTime, monthTxt, timeTxt));
-        reasonTextView.setTextColor(Theme.getColor(giftCode.via_giveaway ? Theme.key_dialogTextBlue : Theme.key_dialogTextBlack, resourcesProvider));
-        TLRPC.Chat fromChat = MessagesController.getInstance(UserConfig.selectedAccount).getChat(-DialogObject.getPeerDialogId(giftCode.from_id));
-        boolean isChannel = ChatObject.isChannelAndNotMegaGroup(fromChat);
-        if (giftCode.via_giveaway) {
-            SpannableStringBuilder builder = new SpannableStringBuilder();
-            builder.append("**");
-            builder.append(LocaleController.getString(R.string.BoostingGiveaway));
-            builder.append("**");
-            builder = AndroidUtilities.replaceSingleTag(builder.toString(), Theme.key_chat_messageLinkIn, 0, () -> onObjectClicked.run(giftCode), resourcesProvider);
-            reasonTextView.setText(builder);
-            reasonTextView.setOnClickListener(v -> onObjectClicked.run(giftCode));
-        } else {
-            reasonTextView.setText(LocaleController.getString(isChannel ? R.string.BoostingYouWereSelected : R.string.BoostingYouWereSelectedGroup));
-            reasonTextView.setOnClickListener(null);
-        }
-
-        String monthsStr = giftCode.months == 12 ? LocaleController.formatPluralString("Years", 1) : LocaleController.formatPluralString("Months", giftCode.months);
-        giftTextView.setText(LocaleController.formatString("BoostingTelegramPremiumFor", R.string.BoostingTelegramPremiumFor, monthsStr));
-
-        if (fromChat != null) {
-            SpannableStringBuilder builder = new SpannableStringBuilder();
-            builder.append("**");
-            builder.append(fromChat.title);
-            builder.append("**");
-            builder = AndroidUtilities.replaceSingleTag(builder.toString(), Theme.key_chat_messageLinkIn, 0, () -> onObjectClicked.run(fromChat), resourcesProvider);
-            fromTextView.setText(Emoji.replaceEmoji(builder, fromTextView.getPaint().getFontMetricsInt(), false));
-            fromImageView.setForUserOrChat(fromChat, new AvatarDrawable(fromChat));
-            fromFrameLayout.setOnClickListener(v -> onObjectClicked.run(fromChat));
-        } else {
-            TLRPC.User fromUser = MessagesController.getInstance(UserConfig.selectedAccount).getUser(giftCode.from_id.user_id);
-            fromTextView.setText(Emoji.replaceEmoji(UserObject.getFirstName(fromUser), fromTextView.getPaint().getFontMetricsInt(), false));
-            fromImageView.setForUserOrChat(fromUser, new AvatarDrawable(fromUser));
-            fromFrameLayout.setOnClickListener(v -> onObjectClicked.run(fromUser));
-        }
-
-        if (giftCode.to_id == NO_USER_ID && giftCode.via_giveaway) {
-            SpannableStringBuilder builder = new SpannableStringBuilder();
-            builder.append("**");
-            builder.append(LocaleController.getString(R.string.BoostingIncompleteGiveaway));
-            builder.append("**");
-            builder = AndroidUtilities.replaceSingleTag(builder.toString(), Theme.key_chat_messageLinkIn, 0, () -> onObjectClicked.run(giftCode), resourcesProvider);
-            reasonTextView.setText(builder);
-            toTextView.setText(LocaleController.getString(R.string.BoostingNoRecipient));
-            toTextView.setTextColor(Theme.getColor(Theme.key_dialogTextBlack, resourcesProvider));
-            ((MarginLayoutParams) toTextView.getLayoutParams()).leftMargin = 0;
-            ((MarginLayoutParams) toTextView.getLayoutParams()).rightMargin = 0;
-            toImageView.setVisibility(GONE);
-        } else {
-            TLRPC.User toUser = MessagesController.getInstance(UserConfig.selectedAccount).getUser(giftCode.to_id);
-            if (toUser != null) {
-                SpannableStringBuilder builder = new SpannableStringBuilder();
-                builder.append("**");
-                builder.append(UserObject.getFirstName(toUser));
-                builder.append("**");
-                builder = AndroidUtilities.replaceSingleTag(builder.toString(), Theme.key_chat_messageLinkIn, 0, () -> onObjectClicked.run(toUser), resourcesProvider);
-                toTextView.setText(Emoji.replaceEmoji(builder, toTextView.getPaint().getFontMetricsInt(), false));
-                toImageView.setForUserOrChat(toUser, new AvatarDrawable(toUser));
-                toFrameLayout.setOnClickListener(v -> onObjectClicked.run(toUser));
-            }
-        }
-
-        if (giftCode.boost != null) {
-            tableRow4.setVisibility(GONE);
-        }
     }
 
     private TextView createTextView(boolean blueColor) {

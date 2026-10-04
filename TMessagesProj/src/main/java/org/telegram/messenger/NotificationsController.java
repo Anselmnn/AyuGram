@@ -1934,19 +1934,7 @@ public class NotificationsController extends BaseController implements Notificat
                     } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionLoginUnknownLocation) {
                         String date = LocaleController.formatString(R.string.formatDateAtTime, LocaleController.getInstance().getFormatterYear().format(((long) messageObject.messageOwner.date) * 1000), LocaleController.getInstance().getFormatterDay().format(((long) messageObject.messageOwner.date) * 1000));
                         return LocaleController.formatString(R.string.NotificationUnrecognizedDevice, getUserConfig().getCurrentUser().first_name, date, messageObject.messageOwner.action.title, messageObject.messageOwner.action.address);
-                    } else if (TlUtils.isInstance(messageObject.messageOwner.action,
-                            TLRPC.TL_messageActionGameScore.class,
-                            TLRPC.TL_messageActionPaymentSent.class,
-                            TLRPC.TL_messageActionPaymentSentMe.class,
-                            TLRPC.TL_messageActionStarGift.class,
-                            TLRPC.TL_messageActionGiftPremium.class,
-                            TLRPC.TL_messageActionStarGiftUnique.class,
-                            TLRPC.TL_messageActionPaidMessagesPrice.class,
-                            TLRPC.TL_messageActionPaidMessagesRefunded.class,
-                            TLRPC.TL_messageActionGiftTon.class
-                    )) {
-                        return messageObject.messageText.toString();
-                    } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionPhoneCall) {
+                    } else  if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionPhoneCall) {
                         if (messageObject.messageOwner.action.video) {
                             return LocaleController.getString(R.string.CallMessageVideoIncomingMissed);
                         } else {
@@ -2036,9 +2024,7 @@ public class NotificationsController extends BaseController implements Notificat
                             }
                             return LocaleController.formatString(R.string.NotificationGroupInvitedToCall, name, getTitle(chat), names.toString());
                         }
-                    } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftCode) {
-                        return LocaleController.getString(R.string.BoostingReceivedGiftNoName);
-                    } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionChatJoinedByLink) {
+                    } else  if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionChatJoinedByLink) {
                         return LocaleController.formatString(R.string.NotificationInvitedToGroupByLink, name, getTitle(chat));
                     } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionChatEditTitle) {
                         return LocaleController.formatString(R.string.NotificationEditedGroupName, name, messageObject.messageOwner.action.title);
@@ -2078,11 +2064,7 @@ public class NotificationsController extends BaseController implements Notificat
                         return LocaleController.formatString(R.string.ActionMigrateFromGroupNotify, messageObject.messageOwner.action.title);
                     } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionScreenshotTaken) {
                         return messageObject.messageText.toString();
-                    } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiveawayLaunch) {
-                        return messageObject.messageText.toString();
-                    } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiveawayResults) {
-                        return messageObject.messageText.toString();
-                    } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionSuggestBirthday) {
+                    } else   if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionSuggestBirthday) {
                         return messageObject.messageText.toString();
                     } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionPinMessage) {
                         if (chat != null && (!ChatObject.isChannel(chat) || chat.megagroup)) {
@@ -2325,20 +2307,7 @@ public class NotificationsController extends BaseController implements Notificat
                         return msg;
                     } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionChatJoinedByRequest) {
                         return messageObject.messageText.toString();
-                    } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionPrizeStars) {
-                        final TLRPC.TL_messageActionPrizeStars action = (TLRPC.TL_messageActionPrizeStars) messageObject.messageOwner.action;
-                        final long did = DialogObject.getPeerDialogId(action.boost_peer);
-                        final String peername;
-                        if (did >= 0) {
-                            peername = UserObject.getForcedFirstName(getMessagesController().getUser(did));
-                        } else {
-                            TLRPC.Chat peerchat = getMessagesController().getChat(-did);
-                            peername = peerchat == null ? "" : getTitle(peerchat);
-                        }
-                        return LocaleController.formatPluralStringComma("BoostingReceivedStars", (int) action.stars, peername);
-                    } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionPaymentRefunded) {
-                        return messageObject.messageText.toString();
-                    } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionTodoCompletions) {
+                    } else   if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionTodoCompletions) {
                         return messageObject.messageText.toString();
                     } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionTodoAppendTasks) {
                         return messageObject.messageText.toString();
@@ -2403,11 +2372,7 @@ public class NotificationsController extends BaseController implements Notificat
                         }
                     } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaToDo) {
                         return LocaleController.getString(R.string.Todo);
-                    } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGiveaway) {
-                        return LocaleController.getString(R.string.BoostingGiveaway);
-                    } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGiveawayResults) {
-                        return LocaleController.getString(R.string.BoostingGiveawayResults);
-                    } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGeo || messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaVenue) {
+                    } else   if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGeo || messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaVenue) {
                         return LocaleController.getString(R.string.AttachLocation);
                     } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGeoLive) {
                         return LocaleController.getString(R.string.AttachLiveLocation);
@@ -2603,13 +2568,9 @@ public class NotificationsController extends BaseController implements Notificat
                         } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionLoginUnknownLocation) {
                             String date = LocaleController.formatString(R.string.formatDateAtTime, LocaleController.getInstance().getFormatterYear().format(((long) messageObject.messageOwner.date) * 1000), LocaleController.getInstance().getFormatterDay().format(((long) messageObject.messageOwner.date) * 1000));
                             msg = LocaleController.formatString(R.string.NotificationUnrecognizedDevice, getUserConfig().getCurrentUser().first_name, date, messageObject.messageOwner.action.title, messageObject.messageOwner.action.address);
-                        } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGameScore || messageObject.messageOwner.action instanceof TLRPC.TL_messageActionPaymentSent || messageObject.messageOwner.action instanceof TLRPC.TL_messageActionPaymentSentMe) {
+                        } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGameScore) {
                             msg = messageObject.messageText.toString();
-                        } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionStarGift || messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftPremium || messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftTon) {
-                            msg = messageObject.messageText.toString();
-                        } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionStarGiftUnique) {
-                            msg = messageObject.messageText.toString();
-                        } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionSuggestBirthday) {
+                        } else   if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionSuggestBirthday) {
                             msg = messageObject.messageText.toString();
                         } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionPaidMessagesRefunded || messageObject.messageOwner.action instanceof TLRPC.TL_messageActionPaidMessagesPrice) {
                             msg = messageObject.messageText.toString();
@@ -2683,12 +2644,7 @@ public class NotificationsController extends BaseController implements Notificat
                         } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaContact) {
                             TLRPC.TL_messageMediaContact mediaContact = (TLRPC.TL_messageMediaContact) messageObject.messageOwner.media;
                             msg = LocaleController.formatString(R.string.NotificationMessageContact2, name, ContactsController.formatName(mediaContact.first_name, mediaContact.last_name));
-                        } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGiveaway) {
-                            TLRPC.TL_messageMediaGiveaway giveaway = (TLRPC.TL_messageMediaGiveaway) messageObject.messageOwner.media;
-                            msg = LocaleController.formatString(R.string.NotificationMessageChannelGiveaway, name, giveaway.quantity, giveaway.months);
-                        } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGiveawayResults) {
-                            msg = LocaleController.formatString(R.string.BoostingGiveawayResults);
-                        } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaPoll) {
+                        } else   if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaPoll) {
                             TLRPC.TL_messageMediaPoll mediaPoll = (TLRPC.TL_messageMediaPoll) messageObject.messageOwner.media;
                             if (mediaPoll.poll.quiz) {
                                 msg = LocaleController.formatString(R.string.NotificationMessageQuiz2, name, mediaPoll.poll.question.text);
@@ -2822,16 +2778,7 @@ public class NotificationsController extends BaseController implements Notificat
                                 }
                                 msg = LocaleController.formatString(R.string.NotificationGroupInvitedToCall, name, getTitle(chat), names.toString());
                             }
-                        } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionGiftCode) {
-                            TLRPC.TL_messageActionGiftCode giftCode = (TLRPC.TL_messageActionGiftCode) messageObject.messageOwner.action;
-                            TLRPC.Chat fromChat = MessagesController.getInstance(currentAccount).getChat(-DialogObject.getPeerDialogId(giftCode.boost_peer));
-                            String from = fromChat == null ? null : getTitle(fromChat);
-                            if (from == null) {
-                                msg = LocaleController.getString(R.string.BoostingReceivedGiftNoName);
-                            } else {
-                                msg = LocaleController.formatString(R.string.NotificationMessageGiftCode, from, LocaleController.formatPluralString("Months", giftCode.months));
-                            }
-                        } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionChatJoinedByLink) {
+                        } else  if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionChatJoinedByLink) {
                             msg = LocaleController.formatString(R.string.NotificationInvitedToGroupByLink, name, getTitle(chat));
                         } else if (messageObject.messageOwner.action instanceof TLRPC.TL_messageActionChatEditTitle) {
                             msg = LocaleController.formatString(R.string.NotificationEditedGroupName, name, messageObject.messageOwner.action.title);
@@ -3087,10 +3034,7 @@ public class NotificationsController extends BaseController implements Notificat
                         } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaToDo) {
                             TLRPC.TL_messageMediaToDo mediaPoll = (TLRPC.TL_messageMediaToDo) messageObject.messageOwner.media;
                             msg = LocaleController.formatString(R.string.ChannelMessageTodo2, name, mediaPoll.todo.title.text);
-                        } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGiveaway) {
-                            TLRPC.TL_messageMediaGiveaway giveaway = (TLRPC.TL_messageMediaGiveaway) messageObject.messageOwner.media;
-                            msg = LocaleController.formatString(R.string.NotificationMessageChannelGiveaway, getTitle(chat), giveaway.quantity, giveaway.months);
-                        } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGeo || messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaVenue) {
+                        } else  if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGeo || messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaVenue) {
                             msg = LocaleController.formatString(R.string.ChannelMessageMap, name);
                         } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGeoLive) {
                             msg = LocaleController.formatString(R.string.ChannelMessageLiveLocation, name);
@@ -3168,12 +3112,7 @@ public class NotificationsController extends BaseController implements Notificat
                             msg = LocaleController.formatString(R.string.NotificationMessageGroupTodo2, name, getTitle(chat), mediaPoll.todo.title.text);
                         } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGame) {
                             msg = LocaleController.formatString(R.string.NotificationMessageGroupGame, name, getTitle(chat), messageObject.messageOwner.media.game.title);
-                        } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGiveaway) {
-                            TLRPC.TL_messageMediaGiveaway giveaway = (TLRPC.TL_messageMediaGiveaway) messageObject.messageOwner.media;
-                            msg = LocaleController.formatString(R.string.NotificationMessageChannelGiveaway, getTitle(chat), giveaway.quantity, giveaway.months);
-                        } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGiveawayResults) {
-                            msg = LocaleController.formatString(R.string.BoostingGiveawayResults);
-                        } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGeo || messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaVenue) {
+                        } else   if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGeo || messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaVenue) {
                             msg = LocaleController.formatString("NotificationMessageGroupMap", R.string.NotificationMessageGroupMap, name, getTitle(chat));
                         } else if (messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaGeoLive) {
                             msg = LocaleController.formatString(R.string.NotificationMessageGroupLiveLocation, name, getTitle(chat));

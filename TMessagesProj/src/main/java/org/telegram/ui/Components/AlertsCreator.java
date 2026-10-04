@@ -113,7 +113,6 @@ import org.telegram.tgnet.TLRPC;
 import org.telegram.tgnet.tl.TL_account;
 import org.telegram.tgnet.tl.TL_ephemeral;
 import org.telegram.tgnet.tl.TL_phone;
-import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.tgnet.tl.TL_update;
 import org.telegram.ui.ActionBar.ActionBarMenuItem;
 import org.telegram.ui.ActionBar.ActionBarPopupWindow;
@@ -145,9 +144,6 @@ import org.telegram.ui.PrivacyControlActivity;
 import org.telegram.ui.ProfileActivity;
 import org.telegram.ui.ProfileNotificationsActivity;
 import org.telegram.ui.SelectChatUserSheet;
-import org.telegram.ui.Stars.StarGiftSheet;
-import org.telegram.ui.Stars.StarsController;
-import org.telegram.ui.Stars.StarsIntroActivity;
 import org.telegram.ui.Stories.DarkThemeResourceProvider;
 import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
 import org.telegram.ui.Stories.recorder.HintView2;
@@ -289,21 +285,7 @@ public class AlertsCreator {
         if (error == null || error.code == 406 || error.text == null) {
             return null;
         }
-        if ("BALANCE_TOO_LOW".equalsIgnoreCase(error.text)) {
-            final long price = StarsController.getAllowedPaidStars(request);
-            final long dialogId = StarsController.getPeer(request);
-            if (price > 0) {
-                StarsController.getInstance(currentAccount).getBalance(true, () -> {
-                    final Activity activity = AndroidUtilities.getActivity();
-                    final BaseFragment lastFragment = LaunchActivity.getSafeLastFragment();
-                    final Theme.ResourcesProvider resourcesProvider = PhotoViewer.getInstance().isVisible() || lastFragment != null && lastFragment.hasShownSheet() ? new DarkThemeResourceProvider() : (lastFragment != null ? lastFragment.getResourceProvider() : null);
-
-                    new StarsIntroActivity.StarsNeededSheet(activity, resourcesProvider, price, StarsIntroActivity.StarsNeededSheet.TYPE_PRIVATE_MESSAGE, DialogObject.getShortName(currentAccount, dialogId), () -> {
-
-                    }, dialogId).show();
-                }, true);
-            }
-        } else if (error.text.equals("JOIN_GUARD_TIMEOUT")) {
+        if (error.text.equals("JOIN_GUARD_TIMEOUT")) {
             showSimpleAlert(fragment, LocaleController.getString(R.string.GuardBotTimeoutTitle), LocaleController.getString(R.string.GuardBotTimeout));
         } else if (request instanceof TLRPC.TL_messages_sendMessage && error.text.contains("PRIVACY_PREMIUM_REQUIRED")) {
             TLRPC.TL_messages_sendMessage req = (TLRPC.TL_messages_sendMessage) request;
@@ -625,30 +607,7 @@ public class AlertsCreator {
             } else {
                 showSimpleToast(fragment, error.text);
             }
-        } else if (request instanceof TLRPC.TL_payments_sendPaymentForm) {
-            switch (error.text) {
-                case "BOT_PRECHECKOUT_FAILED":
-                    showSimpleToast(fragment, LocaleController.getString(R.string.PaymentPrecheckoutFailed));
-                    break;
-                case "PAYMENT_FAILED":
-                    showSimpleToast(fragment, LocaleController.getString(R.string.PaymentFailed));
-                    break;
-                default:
-                    showSimpleToast(fragment, error.text);
-                    break;
-            }
-        } else if (request instanceof TLRPC.TL_payments_validateRequestedInfo) {
-            switch (error.text) {
-                case "SHIPPING_NOT_AVAILABLE":
-                    showSimpleToast(fragment, LocaleController.getString(R.string.PaymentNoShippingMethod));
-                    break;
-                default:
-                    showSimpleToast(fragment, error.text);
-                    break;
-            }
-        } else if (request instanceof TLRPC.TL_payments_assignPlayMarketTransaction) {
-            showSimpleAlert(fragment, LocaleController.getString(R.string.PaymentConfirmationError) + "\n" + error.text);
-        }
+        } else   
 
         return null;
     }
@@ -2341,7 +2300,7 @@ public class AlertsCreator {
             }
             prices.put(did, price);
             _totalPrice += price;
-            StarsController.getInstance(currentAccount).sendingMessagesCount.put(did, messagesCount);
+            
 
             if (price > 0) {
                 _totalChatsCount++;
@@ -2378,27 +2337,11 @@ public class AlertsCreator {
                         price = DialogObject.getMessagesStarsPrice(MessagesController.getInstance(currentAccount).isUserContactBlocked(dialogId));
                     }
                     e.putLong("ask_paid_message_" + dialogId + "_price", price);
-                    StarsController.getInstance(currentAccount).justAgreedToNotAskDialogs.put(dialogId, System.currentTimeMillis());
+                    
                 }
                 e.apply();
             }
-            final Runnable gotBalance = () -> {
-                final long balance = StarsController.getInstance(currentAccount).getBalance().amount;
-                if (balance < totalPrice) {
-                    if (activity == null) return;
-                    final long dialogId = dialogIds.get(0);
-                    new StarsIntroActivity.StarsNeededSheet(activity, resourcesProvider, totalPrice, StarsIntroActivity.StarsNeededSheet.TYPE_PRIVATE_MESSAGE, DialogObject.getShortName(currentAccount, dialogId), () -> {
-                        confirmed.run(prices);
-                    }, dialogId).show();
-                } else {
-                    confirmed.run(prices);
-                }
-            };
-            if (!StarsController.getInstance(currentAccount).balanceAvailable()) {
-                StarsController.getInstance(currentAccount).invalidateBalance(gotBalance);
-            } else {
-                gotBalance.run();
-            }
+            confirmed.run(prices);
         }, resourcesProvider);
         return true;
     }
@@ -2429,33 +2372,14 @@ public class AlertsCreator {
         final long send_paid_messages_stars = _send_paid_messages_stars;
         final long price = count * send_paid_messages_stars;
 
-        StarsController.getInstance(currentAccount).sendingMessagesCount.put(dialogId, count);
+        
         if (price <= 0 || stars == price) {
             confirmedPrice.run(price);
             return false;
         }
 
         showPayForMessageAlert(currentAccount, dialogId, send_paid_messages_stars, count, () -> {
-            final Runnable gotBalance = () -> {
-                final long balance = StarsController.getInstance(currentAccount).getBalance().amount;
-                if (balance < price) {
-                    final Activity activity = AndroidUtilities.getActivity();
-                    final BaseFragment lastFragment = LaunchActivity.getSafeLastFragment();
-                    final Theme.ResourcesProvider resourcesProvider = PhotoViewer.getInstance().isVisible() || lastFragment != null && lastFragment.hasShownSheet() ? new DarkThemeResourceProvider() : (lastFragment != null ? lastFragment.getResourceProvider() : null);
-
-                    if (activity == null) return;
-                    new StarsIntroActivity.StarsNeededSheet(activity, resourcesProvider, price, StarsIntroActivity.StarsNeededSheet.TYPE_PRIVATE_MESSAGE, DialogObject.getShortName(currentAccount, dialogId), () -> {
-                        confirmedPrice.run(send_paid_messages_stars);
-                    }, dialogId).show();
-                } else {
-                    confirmedPrice.run(send_paid_messages_stars);
-                }
-            };
-            if (!StarsController.getInstance(currentAccount).balanceAvailable()) {
-                StarsController.getInstance(currentAccount).invalidateBalance(gotBalance);
-            } else {
-                gotBalance.run();
-            }
+            confirmedPrice.run(send_paid_messages_stars);
         });
         return true;
     }
@@ -2495,7 +2419,7 @@ public class AlertsCreator {
         showAlertWithCheckboxWithBalance(activity, getString(R.string.MessageLockedStarsConfirmTitle), sb, getString(R.string.MessageLockedStarsConfirmMessageDontAsk), LocaleController.formatPluralStringComma("MessageLockedStarsConfirmMessagePay", messagesCount), dontAsk -> {
             if (dontAsk) {
                 MessagesController.getInstance(currentAccount).getMainSettings().edit().putLong("ask_paid_message_" + dialogId + "_price", stars).apply();
-                StarsController.getInstance(currentAccount).justAgreedToNotAskDialogs.put(dialogId, System.currentTimeMillis());
+                
             }
             AndroidUtilities.runOnUIThread(confirmed);
         }, resourcesProvider);
@@ -8247,8 +8171,8 @@ public class AlertsCreator {
         if (selectedMessage != null) {
             isActiveGiveawayAndOwner = selectedMessage.isGiveaway() && !selectedMessage.isForwarded();
             if (isActiveGiveawayAndOwner) {
-                TLRPC.TL_messageMediaGiveaway giveaway = (TLRPC.TL_messageMediaGiveaway) selectedMessage.messageOwner.media;
-                long untilDate = giveaway.until_date * 1000L;
+                
+                
                 giveawayEndDate = LocaleController.getInstance().getFormatterGiveawayMonthDayYear().format(new Date(untilDate));
                 isActiveGiveawayAndOwner = System.currentTimeMillis() < untilDate;
             }
@@ -8258,8 +8182,8 @@ public class AlertsCreator {
                     MessageObject msg = selectedMessages[a].valueAt(b);
                     isActiveGiveawayAndOwner = msg.isGiveaway() && !msg.isForwarded();
                     if (isActiveGiveawayAndOwner) {
-                        TLRPC.TL_messageMediaGiveaway giveaway = (TLRPC.TL_messageMediaGiveaway) msg.messageOwner.media;
-                        long untilDate = giveaway.until_date * 1000L;
+                        
+                        
                         giveawayEndDate = LocaleController.getInstance().getFormatterGiveawayMonthDayYear().format(new Date(untilDate));
                         isActiveGiveawayAndOwner = System.currentTimeMillis() < untilDate;
                     }
@@ -9194,25 +9118,6 @@ public class AlertsCreator {
 
         sheet.fixNavigationBar();
         sheet.show();
-    }
-
-    public static void showGiftThemeApplyConfirm(Context context, Theme.ResourcesProvider resourcesProvider, int currentAccount, TL_stars.StarGift gift, long dialogId, Runnable onConfirm) {
-        TLObject user = MessagesController.getInstance(currentAccount).getUserOrChat(dialogId);
-        final LinearLayout topView = new LinearLayout(context);
-        topView.setOrientation(LinearLayout.VERTICAL);
-        topView.addView(new StarGiftSheet.GiftThemeReuseTopView(context, gift, user), LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.TOP, 0, -4, 0, 0));
-        final TextView textView = new TextView(context);
-        textView.setTextColor(Theme.getColor(Theme.key_dialogTextBlack, resourcesProvider));
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
-        textView.setText(replaceTags(formatString(R.string.GiftThemesSetInReuseInfo, DialogObject.getDialogTitle(user))));
-        topView.addView(textView, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.TOP, 24, 0, 24, 4));
-        new AlertDialog.Builder(context, resourcesProvider)
-            .setView(topView)
-            .setPositiveButton(getString(R.string.GiftThemesSetInReuseConfirm), (di, w) -> {
-                onConfirm.run();
-            })
-            .setNegativeButton(getString(R.string.Cancel), null)
-            .show();
     }
 
     public static BottomSheet createCustomPicker(Context context, String title, int selected, String[] positions, final Utilities.Callback<Integer> whenPicked) {
