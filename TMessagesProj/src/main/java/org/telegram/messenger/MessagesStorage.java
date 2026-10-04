@@ -18788,21 +18788,6 @@ public class MessagesStorage extends BaseController {
             try {
                 state = database.executeFast("REPLACE INTO gift_themes VALUES(?, ?)");
                 for (TLRPC.ChatTheme theme: themes) {
-                     {
-                        continue;
-                    }
-
-                    
-
-                    state.requery();
-                    
-
-                    
-                    
-                    state.bindByteBuffer(2, data);
-                    data.reuse();
-
-                    state.step();
                 }
                 state.dispose();
                 state = null;

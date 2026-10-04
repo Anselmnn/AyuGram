@@ -17,6 +17,8 @@ import static org.telegram.messenger.LocaleController.formatPluralString;
 import static org.telegram.messenger.LocaleController.formatPluralStringComma;
 import static org.telegram.messenger.LocaleController.formatString;
 import static org.telegram.messenger.LocaleController.getString;
+import static org.telegram.ui.Stars.StarHelpers.percents;
+import static org.telegram.ui.Stars.StarHelpers.replaceUnderstood;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -2415,7 +2417,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     @Override
     public ActionBar createActionBar(Context context) {
         BaseFragment lastFragment = parentLayout.getLastFragment();
-        if (lastFragment instanceof ChatActivity && ((ChatActivity) lastFragment).themeDelegate != null && ((ChatActivity) lastFragment).themeDelegate.getCurrentTheme() != null && !((ChatActivity) lastFragment).themeDelegate.isGiftTheme()) {
+        if (lastFragment instanceof ChatActivity && ((ChatActivity) lastFragment).themeDelegate != null && ((ChatActivity) lastFragment).themeDelegate.getCurrentTheme() != null) {
             resourcesProvider = lastFragment.getResourceProvider();
         }
         ActionBar actionBar = new ActionBar(context, resourcesProvider) {
@@ -2507,7 +2509,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         Theme.createProfileResources(context);
         Theme.createChatResources(context, false);
         BaseFragment lastFragment = parentLayout.getLastFragment();
-        if (lastFragment instanceof ChatActivity && ((ChatActivity) lastFragment).themeDelegate != null && ((ChatActivity) lastFragment).themeDelegate.getCurrentTheme() != null && !((ChatActivity) lastFragment).themeDelegate.isGiftTheme()) {
+        if (lastFragment instanceof ChatActivity && ((ChatActivity) lastFragment).themeDelegate != null && ((ChatActivity) lastFragment).themeDelegate.getCurrentTheme() != null) {
             resourcesProvider = lastFragment.getResourceProvider();
         }
         searchTransitionOffset = 0;
@@ -3647,9 +3649,6 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         int initialTab = -1;
         if (openCommonChats) {
             initialTab = SharedMediaLayout.TAB_COMMON_GROUPS;
-        } else if (openGifts && (userInfo != null && userInfo.stargifts_count > 0 || chatInfo != null && chatInfo.stargifts_count > 0)) {
-            initialTab = SharedMediaLayout.TAB_GIFTS;
-            openedGifts = true;
         } else if (openSimilar) {
             initialTab = SharedMediaLayout.TAB_RECOMMENDED_CHANNELS;
         } else if (users != null) {
@@ -3795,17 +3794,6 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             @Override
             public void updateTabs(boolean animated) {
                 super.updateTabs(animated);
-                if (openGifts && !openedGifts && scrollSlidingTextTabStrip.hasTab(TAB_GIFTS)) {
-                    if (!openedGiftsCollection && openGiftsCollection > 0 && giftsContainer != null) {
-                        openedGiftsCollection = true;
-                        giftsContainer.scrollToCollectionId(openGiftsCollection);
-                    }
-                    openedGifts = true;
-                    scrollToPage(TAB_GIFTS);
-                } else if (openGifts && openedGifts && !openedGiftsCollection && openGiftsCollection > 0 && giftsContainer != null) {
-                    openedGiftsCollection = true;
-                    giftsContainer.scrollToCollectionId(openGiftsCollection);
-                }
             }
         };
         sharedMediaLayout.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT));
@@ -4102,9 +4090,6 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         return false;
                     }
                     if (sharedMediaLayout.canEditStories() && sharedMediaLayout.isActionModeShown() && (sharedMediaLayout.getClosestTab() == SharedMediaLayout.TAB_STORIES || SharedMediaLayout.isStoryAlbumPageType(sharedMediaLayout.getClosestTab()))) {
-                        return false;
-                    }
-                    if (sharedMediaLayout.giftsContainer != null && sharedMediaLayout.giftsContainer.isReordering()) {
                         return false;
                     }
                     if (sharedMediaLayout.storiesContainer != null && sharedMediaLayout.storiesContainer.isReordering()) {
@@ -6704,7 +6689,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         } else {
                             emojiStatusDrawable[a].set((Drawable) null, true);
                         }
-                        emojiStatusDrawable[a].setParticles(gift != null, true);
+                        emojiStatusDrawable[a].setParticles(false, true);
                     }
                 }
                 if (documentId != null) {
@@ -8040,8 +8025,6 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         } else if (id == SharedMediaLayout.TAB_SAVED_MESSAGES) {
             int messagesCount = getMessagesController().getSavedMessagesController().getMessagesCount(getDialogId());
             mediaCounterTextView.setText(LocaleController.formatPluralString("SavedMessagesCount", Math.max(1, messagesCount)));
-        } else if (id == SharedMediaLayout.TAB_GIFTS) {
-            mediaCounterTextView.setText(LocaleController.formatPluralStringComma("ProfileGiftsCount", sharedMediaLayout.giftsContainer == null ? 0 : sharedMediaLayout.giftsContainer.getGiftsCount()));
         } else if (id == SharedMediaLayout.TAB_POLL) {
             if (mediaCount[MediaDataController.MEDIA_POLL] <= 0) {
                 mediaCounterTextView.setText(LocaleController.getString(R.string.SharedPollTab));
@@ -11832,9 +11815,6 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         });
         if (sharedMediaLayout != null && sharedMediaLayout.scrollSlidingTextTabStrip != null) {
             sharedMediaLayout.scrollSlidingTextTabStrip.updateColors();
-        }
-        if (sharedMediaLayout != null && sharedMediaLayout.giftsContainer != null) {
-            sharedMediaLayout.giftsContainer.updateColors();
         }
         writeButtonSetBackground();
         updateEmojiStatusDrawableColor();
@@ -16649,9 +16629,6 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         if (sharedMediaLayout != null) {
             sharedMediaLayout.setPagesPaddingBottom(navigationBarHeight + additionNavigationBarHeight);
 
-            if (sharedMediaLayout.giftsContainer != null) {
-                sharedMediaLayout.giftsContainer.setButtonOffset(navigationBarHeight + additionFloatingButtonOffset);
-            }
         }
 
         // listView.setPadding(0, 0, 0, navigationBarHeight + additionNavigationBarHeight);

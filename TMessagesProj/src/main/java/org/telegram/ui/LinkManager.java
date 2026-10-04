@@ -564,7 +564,6 @@ public class LinkManager {
                 f.whenFullyVisible(() -> {
                     AndroidUtilities.runOnUIThread(() -> {
                         if (f.sharedMediaLayout != null) {
-                            f.sharedMediaLayout.scrollToPage(SharedMediaLayout.TAB_GIFTS);
                             f.scrollToSharedMedia();
                         }
                     }, 200);
@@ -574,7 +573,6 @@ public class LinkManager {
                 f.whenFullyVisible(() -> {
                     AndroidUtilities.runOnUIThread(() -> {
                         if (f.sharedMediaLayout != null) {
-                            f.sharedMediaLayout.scrollToPage(SharedMediaLayout.TAB_GIFTS);
                             f.scrollToSharedMedia();
                         }
                     }, 200);

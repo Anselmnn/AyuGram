@@ -26,6 +26,9 @@ import org.telegram.ui.LaunchActivity;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GiftInfoBottomSheet extends BottomSheetWithRecyclerListView {
+    public GiftInfoBottomSheet(BaseFragment fragment, boolean needFocus, boolean hasFixedSize) {
+        super(fragment, needFocus, hasFixedSize);
+    }
 
     public static void show(BaseFragment fragment, String slug, Browser.Progress progress) {
         if (progress != null) {

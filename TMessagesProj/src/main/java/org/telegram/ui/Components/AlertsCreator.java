@@ -8170,8 +8170,7 @@ public class AlertsCreator {
             if (isActiveGiveawayAndOwner) {
                 
                 
-                giveawayEndDate = LocaleController.getInstance().getFormatterGiveawayMonthDayYear().format(new Date(untilDate));
-                isActiveGiveawayAndOwner = System.currentTimeMillis() < untilDate;
+                isActiveGiveawayAndOwner = false;
             }
         } else if (count == 1) {
             for (int a = 1; a >= 0; a--) {
@@ -8181,8 +8180,7 @@ public class AlertsCreator {
                     if (isActiveGiveawayAndOwner) {
                         
                         
-                        giveawayEndDate = LocaleController.getInstance().getFormatterGiveawayMonthDayYear().format(new Date(untilDate));
-                        isActiveGiveawayAndOwner = System.currentTimeMillis() < untilDate;
+                        isActiveGiveawayAndOwner = false;
                     }
                 }
             }

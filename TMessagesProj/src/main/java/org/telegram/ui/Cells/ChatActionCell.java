@@ -1942,29 +1942,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
                 titleHeight = 0;
                 textY = 0;
                 giftRectEmpty = true;
-            } else if (messageObject.type == MessageObject.TYPE_GIFT_THEME_UPDATE) {
-                final TLRPC.TL_messageActionSetChatTheme action = (TLRPC.TL_messageActionSetChatTheme) messageObject.messageOwner.action;
-                
-                
-                
-
-                final long fromDialogId = messageObject.getFromChatId();
-                final boolean isUserSelf = UserConfig.getInstance(currentAccount).getClientUserId() == fromDialogId;
-
-                final String t = isUserSelf ?
-                    LocaleController.formatString(R.string.GiftThemesSetByYou, giftTitle):
-                    LocaleController.formatString(R.string.GiftThemesSetByOther,
-                        DialogObject.getShortName(currentAccount, fromDialogId), giftTitle);
-
-                createGiftPremiumLayouts(null, null, null,
-                    AndroidUtilities.replaceTags(t), false,
-                    getString(R.string.GiftThemesSetActionView), 11, null,
-                    giftRectSize, true, false);
-                textLayout = null;
-                textHeight = 0;
-                titleLayout = null;
-                titleHeight = 0;
-                textY = 0;
             } else if (messageObject.type == MessageObject.TYPE_COMMUNITY_CHANGED) {
                 final TLRPC.TL_messageActionChangeCommunity action = (TLRPC.TL_messageActionChangeCommunity) messageObject.messageOwner.action;
                 final long peerId = DialogObject.getPeerDialogId(messageObject.messageOwner.peer_id);

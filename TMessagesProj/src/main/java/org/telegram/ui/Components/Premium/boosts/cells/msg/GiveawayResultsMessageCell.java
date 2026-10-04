@@ -311,6 +311,7 @@ public class GiveawayResultsMessageCell {
 
         topStringBuilder = new SpannableStringBuilder();
         
+        String subTitleText = "";
         SpannableStringBuilder subTitleWithLink = AndroidUtilities.replaceSingleTag(
                 subTitleText,
                 Theme.key_chat_messageLinkIn, 0,
@@ -329,6 +330,7 @@ public class GiveawayResultsMessageCell {
         topStringBuilder.setSpan(new RelativeSizeSpan(0.4f), topStringBuilder.length() - 1, topStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         
+        CharSequence winners = "";
         topStringBuilder.append(winners);
         topStringBuilder.setSpan(new RelativeSizeSpan(1.05f), subTitleWithLink.length() + 2, subTitleWithLink.length() + 2 + winners.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -371,6 +373,7 @@ public class GiveawayResultsMessageCell {
             counterIcon = null;
             
         }
+        counterStr = "";
         counterTextPaint.getTextBounds(counterStr, 0, counterStr.length(), counterTextBounds);
         if (isStars) {
             counterTextBounds.right += dp(20);
@@ -384,6 +387,7 @@ public class GiveawayResultsMessageCell {
         
         
 
+        ArrayList<Long> visibleChannels = new ArrayList<>();
         for (int i = 0; i < visibleChannels.size(); i++) {
             long uid = visibleChannels.get(i);
             TLRPC.User user = MessagesController.getInstance(UserConfig.selectedAccount).getUser(uid);

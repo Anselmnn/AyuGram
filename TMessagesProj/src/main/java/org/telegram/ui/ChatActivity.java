@@ -44223,12 +44223,6 @@ public class ChatActivity extends BaseFragment implements
 
 
     public void didLongPressCard(ChatMessageCell cell, CharacterStyle link, String card) {
-        final Browser.Progress progress = makeProgressForLink(cell, link);
-        
-        
-        
-        progress.onCancel(() -> getConnectionsManager().cancelRequest(reqId, true));
-        progress.init();
     }
 
     public void didLongPressUsername(ChatMessageCell cell, CharacterStyle link, String username) {

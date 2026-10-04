@@ -4814,28 +4814,14 @@ public class MessageObject {
                         channelName = DialogObject.getDialogTitle(chat);
                     }
                     final String userName = DialogObject.getName(getUser(users, sUsers, DialogObject.getPeerDialogId(messageOwner.saved_peer_id)));
-                    final MessageSuggestionParams sp = obtainSuggestionOfferFromReply();
-
                     if (messageOwner.action instanceof TLRPC.TL_messageActionSuggestedPostRefund) {
                         final boolean refundByUser = ((TLRPC.TL_messageActionSuggestedPostRefund) messageOwner.action).payer_initiated;
-                        if (sp != null && sp.amount != null) {
-                            final int key = refundByUser ? R.string.SuggestedOfferRefundByUserAmountF : R.string.SuggestedOfferRefundByAdminAmountF;
-                            messageText = 
-                                LocaleController.formatString(key, userName, channelName, sp.amount.asDecimalString());
-                        } else {
-                            final int key = refundByUser ?
-                                R.string.SuggestedOfferRefundByUserAmountUnknown :
-                                R.string.SuggestedOfferRefundByAdminAmountUnknown;
-
-                            messageText = LocaleController.formatString(key, userName, channelName);
-                        }
+                        final int key = refundByUser ?
+                            R.string.SuggestedOfferRefundByUserAmountUnknown :
+                            R.string.SuggestedOfferRefundByAdminAmountUnknown;
+                        messageText = LocaleController.formatString(key, userName, channelName);
                     } else if (messageOwner.action instanceof TLRPC.TL_messageActionSuggestedPostSuccess) {
-                        if (sp != null && sp.amount != null) {
-                            messageText = 
-                                LocaleController.formatString(R.string.SuggestedOfferCompleteAmountF, channelName, sp.amount.asDecimalString());
-                        } else {
-                            messageText = LocaleController.formatString(R.string.SuggestedOfferCompleteAmountUnknown, channelName);
-                        }
+                        messageText = LocaleController.formatString(R.string.SuggestedOfferCompleteAmountUnknown, channelName);
                     }
 
                 } else if (messageOwner.action instanceof TLRPC.TL_messageActionChatAddUser) {
@@ -12862,18 +12848,7 @@ public class MessageObject {
 
                 ssb.append(AndroidUtilities.replaceTags(LocaleController.formatString(key, channelName)));
             }
-            if (suggestionOffer.amount != null && !suggestionOffer.amount.isZero()) {
-                
-
-                {
-                    final String text = isAdmin ?
-                        LocaleController.formatString(R.string.SuggestionAgreementReachedAdmin2, userName, suggestionOffer.amount.asDecimalString()) :
-                        LocaleController.formatString(R.string.SuggestionAgreementReachedUser2, suggestionOffer.amount.asDecimalString());
-
-                    ssb.append("\n\n");
-                    ssb.setSpan(new RelativeSizeSpan(0.6f), ssb.length() - 1, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    ssb.append( AndroidUtilities.replaceTags(text));
-                }
+            {
                 {
                     final int key;
                      {
