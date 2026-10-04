@@ -4503,7 +4503,7 @@ public class ImageLoader {
                     }
                 }
             }
-        } else 
+        }
         return photoSize;
     }
 
@@ -4537,7 +4537,7 @@ public class ImageLoader {
                     }
                 }
             }
-        } else 
+        }
         return photoSize;
     }
 
