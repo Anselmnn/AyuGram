@@ -2565,27 +2565,10 @@ public class MessagesController extends BaseController implements NotificationCe
         lockFiltersInternal();
     }
 
-    public static TLRPC.TL_emojiStatusCollectible emojiStatusCollectibleFromGift(TL_stars.TL_starGiftUnique gift) {
-        final TLRPC.TL_emojiStatusCollectible status = new TLRPC.TL_emojiStatusCollectible();
-        status.collectible_id = gift.id;
-        
-        
-        
-        status.title = gift.title + " #" + gift.num;
-        
-        
-        
-        return status;
-    }
-
     public void updateEmojiStatus(TLRPC.EmojiStatus newStatus) {
-        updateEmojiStatus(newStatus, null);
+        updateEmojiStatus(0, newStatus);
     }
-    public void updateEmojiStatus(TLRPC.EmojiStatus newStatus, TL_stars.StarGift gift) {
-        updateEmojiStatus(0, newStatus, gift);
-    }
-
-    public void updateEmojiStatus(long dialogId, TLRPC.EmojiStatus newStatus, TL_stars.StarGift gift) {
+    public void updateEmojiStatus(long dialogId, TLRPC.EmojiStatus newStatus) {
         final boolean myself = dialogId == 0 || dialogId == getUserConfig().getClientUserId();
         TLRPC.EmojiStatus new_emoji_status = newStatus;
         
