@@ -359,15 +359,6 @@ public class ChatAttachAlert extends BottomSheet implements NotificationCenter.N
                     }
 
                     @Override
-                    public void onWebAppOpenInvoice(TLRPC.InputInvoice inputInvoice, String slug, TLObject response) {
-                        BaseFragment parentFragment = baseFragment;
-                        if (parentFragment != null) {
-                            BulletinFactory.of(parentFragment).createErrorBulletin(LocaleController.getString(R.string.PaymentUnavailable)).show();
-                        }
-                        webViewLayout.getWebViewContainer().onInvoiceStatusUpdate(slug, "canceled");
-                    }
-
-                    @Override
                     public void onWebAppExpand() {
                         if (currentAttachLayout != webViewLayout) {
                             return;

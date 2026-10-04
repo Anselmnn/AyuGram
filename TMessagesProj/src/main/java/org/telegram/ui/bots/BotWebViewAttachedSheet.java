@@ -514,15 +514,6 @@ public class BotWebViewAttachedSheet implements NotificationCenter.NotificationC
             }
 
             @Override
-            public void onWebAppOpenInvoice(TLRPC.InputInvoice inputInvoice, String slug, TLObject response) {
-                if (getContext() == null) {
-                    return;
-                }
-                getBulletinFactory().createErrorBulletin(LocaleController.getString(R.string.PaymentUnavailable)).show();
-                webViewContainer.onInvoiceStatusUpdate(slug, "canceled");
-            }
-
-            @Override
             public void onWebAppExpand() {
                 if (/* System.currentTimeMillis() - lastSwipeTime <= 1000 || */ swipeContainer.isSwipeInProgress()) {
                     return;

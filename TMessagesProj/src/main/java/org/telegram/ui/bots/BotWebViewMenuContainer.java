@@ -401,15 +401,6 @@ public class BotWebViewMenuContainer extends FrameLayout implements Notification
             }
 
             @Override
-            public void onWebAppOpenInvoice(TLRPC.InputInvoice inputInvoice, String slug, TLObject response) {
-                ChatActivity parentFragment = parentEnterView.getParentFragment();
-                if (parentFragment != null) {
-                    BulletinFactory.of(parentFragment).createErrorBulletin(LocaleController.getString(R.string.PaymentUnavailable)).show();
-                }
-                webViewContainer.onInvoiceStatusUpdate(slug, "canceled");
-            }
-
-            @Override
             public void onSetupMainButton(boolean isVisible, boolean isActive, String text, long emojiId, int color, int textColor, boolean isProgressVisible, boolean hasShineEffect) {
                 setMainButton(BotWebViewAttachedSheet.MainButtonSettings.of(isVisible, isActive, text, color, textColor, isProgressVisible));
             }

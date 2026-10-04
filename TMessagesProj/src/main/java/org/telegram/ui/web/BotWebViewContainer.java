@@ -3742,15 +3742,6 @@ public abstract class BotWebViewContainer extends FrameLayout implements Notific
         void onWebAppSwitchInlineQuery(TLRPC.User botUser, String query, List<String> chatTypes);
 
         /**
-         * Called when web app attempts to open invoice
-         *
-         * @param inputInvoice Invoice source
-         * @param slug      Invoice slug for the form
-         * @param response  Payment request response
-         */
-        void onWebAppOpenInvoice(TLRPC.InputInvoice inputInvoice, String slug, TLObject response);
-
-        /**
          * Setups main button
          */
         void onSetupMainButton(boolean isVisible, boolean isActive, String text, long emojiId, int color, int textColor, boolean isProgressVisible, boolean hasShineEffect);

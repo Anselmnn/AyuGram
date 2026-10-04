@@ -13,24 +13,6 @@ public class TL_update {
 
     }
 
-    public static class TL_updateStarsRevenueStatus extends TLRPC.Update {
-        public static final int constructor = 0xa584b019;
-
-        public TLRPC.Peer peer;
-        public TLRPC.TL_starsRevenueStatus status;
-
-        public void readParams(InputSerializedData stream, boolean exception) {
-            peer = TLRPC.Peer.TLdeserialize(stream, stream.readInt32(exception), exception);
-            status = TLRPC.TL_starsRevenueStatus.TLdeserialize(stream, stream.readInt32(exception), exception);
-        }
-
-        public void serializeToStream(OutputSerializedData stream) {
-            stream.writeInt32(constructor);
-            peer.serializeToStream(stream);
-            status.serializeToStream(stream);
-        }
-    }
-
     public static class TL_updateBotPurchasedPaidMedia extends TLRPC.Update {
         public static final int constructor = 0x283bd312;
 
@@ -229,46 +211,6 @@ public class TL_update {
         }
     }
 
-    public static class TL_updateStarGiftAuctionState extends TLRPC.Update {
-        public static final int constructor = 0x48E246C2;
-
-        public long gift_id;
-        public TL_stars.StarGiftAuctionState state;
-
-        @Override
-        public void readParams(InputSerializedData stream, boolean exception) {
-            gift_id = stream.readInt64(exception);
-            state = TL_stars.StarGiftAuctionState.TLdeserialize(stream, stream.readInt32(exception), exception);
-        }
-
-        @Override
-        public void serializeToStream(OutputSerializedData stream) {
-            stream.writeInt32(constructor);
-            stream.writeInt64(gift_id);
-            state.serializeToStream(stream);
-        }
-    }
-
-    public static class TL_updateStarGiftAuctionUserState extends TLRPC.Update {
-        public static final int constructor = 0xDC58F31E;
-
-        public long gift_id;
-        public TL_stars.TL_StarGiftAuctionUserState user_state;
-
-        @Override
-        public void readParams(InputSerializedData stream, boolean exception) {
-            gift_id = stream.readInt64(exception);
-            user_state = TL_stars.TL_StarGiftAuctionUserState.TLdeserialize(stream, stream.readInt32(exception), exception);
-        }
-
-        @Override
-        public void serializeToStream(OutputSerializedData stream) {
-            stream.writeInt32(constructor);
-            stream.writeInt64(gift_id);
-            user_state.serializeToStream(stream);
-        }
-    }
-
     public static class TL_updateEmojiGameInfo extends TLRPC.Update {
         public static final int constructor = 0xfb9c547a;
 
@@ -283,20 +225,6 @@ public class TL_update {
         public void serializeToStream(OutputSerializedData stream) {
             stream.writeInt32(constructor);
             info.serializeToStream(stream);
-        }
-    }
-
-    public static class TL_updateStarGiftCraftFail extends TLRPC.Update {
-        public static final int constructor = 0xac072444;
-
-        @Override
-        public void serializeToStream(OutputSerializedData stream) {
-            stream.writeInt32(constructor);
-        }
-
-        @Override
-        public void readParams(InputSerializedData stream, boolean exception) {
-            super.readParams(stream, exception);
         }
     }
 
