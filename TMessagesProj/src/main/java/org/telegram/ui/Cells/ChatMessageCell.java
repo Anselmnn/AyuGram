@@ -7478,13 +7478,6 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
                         emoji_id = attr != null ? attr.emoji_id : 0;
                     } else if ("telegram_nft".equals(webpageType)) {
                         for (int b = 0, N2 = webpage.attributes.size(); b < N2; b++) {
-                            final TLRPC.WebPageAttribute attribute_ = webpage.attributes.get(b);
-                             {
-                                continue;
-                            }
-                            
-                            
-                            break;
                         }
                     } else if ("telegram_megagroup".equals(webpageType)) {
                         drawInstantView = true;
