@@ -3748,7 +3748,7 @@ public abstract class BotWebViewContainer extends FrameLayout implements Notific
          * @param slug      Invoice slug for the form
          * @param response  Payment request response
          */
-        void false;
+        void onWebAppOpenInvoice(TLRPC.InputInvoice inputInvoice, String slug, TLObject response);
 
         /**
          * Setups main button

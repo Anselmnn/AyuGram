@@ -1886,36 +1886,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
 
             } else if (messageObject.type == MessageObject.TYPE_ACTION_PHOTO) {
                 imageReceiver.setImageCoords((previousWidth - AndroidUtilities.roundMessageSize) / 2f, textHeight + dp(19), AndroidUtilities.roundMessageSize, AndroidUtilities.roundMessageSize);
-            } else if (messageObject.type == MessageObject.TYPE_GIFT_PREMIUM_CHANNEL) {
-                createGiftPremiumChannelLayouts();
-            } else if (messageObject.type == MessageObject.TYPE_GIFT_OFFER) {
-                
-
-                SpannableStringBuilder ssb = new SpannableStringBuilder(text);
-                ssb.append("\n\n");
-                  {
-                    
-                    if (remainingTime == 0) {
-                        ssb.append(replaceTags(getString(R.string.GiftOfferStatusExpired)));
-                    } else {
-                        String fmt = LocaleController.formatShortDuration2(remainingTime);
-                        if (fmt.endsWith(".")) {
-                            fmt = fmt.substring(0, fmt.length() - 1);
-                        }
-                        ssb.append(replaceTags(formatString(R.string.GiftOfferStatusPending, fmt)));
-                    }
-                }
-
-                createGiftPremiumLayouts(null, null, null,
-                        ssb, false,
-                        null, 11, null,
-                        giftRectSize, false, false);
-                textLayout = null;
-                textHeight = 0;
-                titleLayout = null;
-                titleHeight = 0;
-                textY = 0;
-                giftRectEmpty = false;
             } else if (messageObject.type == MessageObject.TYPE_GIFT_OFFER_REJECTED) {
                 createGiftPremiumLayouts(null, null, null,
                     text, false,
@@ -2120,55 +2090,6 @@ public class ChatActionCell extends BaseCell implements DownloadController.FileD
         }
         ssb.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_NORMAL), 0, ssb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return ssb;
-    }
-
-    private void createGiftPremiumChannelLayouts() {
-        int width = giftRectSize;
-        width -= dp(16);
-        giftTitlePaint.setTextSize(dp(14));
-        giftTextPaint.setTextSize(dp(13));
-        
-        
-        
-        String from = chat == null ? null : chat.title;
-        
-        getString(                         , R.string.BoostingCongratulations);
-        SpannableStringBuilder subtitle;
-        CharSequence monthsStr = months == 12 ? LocaleController.formatPluralString("BoldYears", 1) : LocaleController.formatPluralString("BoldMonths", months);
-        if (isPrize) {
-             {
-                subtitle = new SpannableStringBuilder(AndroidUtilities.replaceTags(formatString(R.string.BoostingReceivedPrizeFrom, from)));
-                subtitle.append("\n\n");
-                subtitle.append(AndroidUtilities.replaceTags(formatString(R.string.BoostingReceivedPrizeDuration, monthsStr)));
-            }
-        } else {
-            subtitle = new SpannableStringBuilder(AndroidUtilities.replaceTags(from == null ? getString(R.string.BoostingReceivedGiftNoName) : formatString("BoostingReceivedGiftFrom", R.string.BoostingReceivedGiftFrom, from)));
-            subtitle.append("\n\n");
-            subtitle.append(AndroidUtilities.replaceTags(formatString(R.string.BoostingReceivedGiftDuration, monthsStr)));
-        }
-
-        String btnText = getString("BoostingReceivedGiftOpenBtn", R.string.BoostingReceivedGiftOpenBtn);
-
-        SpannableStringBuilder titleBuilder = SpannableStringBuilder.valueOf(title);
-        titleBuilder.setSpan(new TypefaceSpan(AndroidUtilities.bold()), 0, titleBuilder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        giftPremiumTitleLayout = new StaticLayout(titleBuilder, giftTitlePaint, width, Layout.Alignment.ALIGN_CENTER, 1.1f, 0.0f, false);
-        giftPremiumSubtitleLayout = null;
-        giftPremiumReleasedText = null;
-
-        if (giftPremiumText != null) {
-            giftPremiumText.detach();
-        }
-        giftPremiumText = new TextLayout();
-        giftPremiumText.setText(subtitle, giftTextPaint, width);
-        SpannableStringBuilder buttonBuilder = SpannableStringBuilder.valueOf(btnText);
-        buttonBuilder.setSpan(new TypefaceSpan(AndroidUtilities.bold()), 0, buttonBuilder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        giftPremiumTextCollapsed = false;
-        giftPremiumTextCollapsedHeight = 0;
-        giftPremiumTextMore = null;
-
-        giftPremiumButtonLayout = new StaticLayout(buttonBuilder, (TextPaint) getThemedPaint(Theme.key_paint_chatActionText), width, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
-        buttonClickableAsImage = true;
-        giftPremiumButtonWidth = measureLayoutWidth(giftPremiumButtonLayout);
     }
 
     private void createGiftPremiumLayouts(CharSequence title, CharSequence subtitle, CharSequence releasedBy, CharSequence text, boolean allowCollapsing, CharSequence button, int ribbonTextDp, CharSequence ribbon, int width, boolean buttonClickableAsImage, boolean hideImage) {

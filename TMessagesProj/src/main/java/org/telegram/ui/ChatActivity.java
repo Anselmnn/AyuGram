@@ -43415,7 +43415,7 @@ public class ChatActivity extends BaseFragment implements
                 backgroundDrawable = ((ChatBackgroundDrawable) backgroundDrawable).getDrawable(false);
             }
             drawServiceGradient = (backgroundDrawable instanceof MotionBackgroundDrawable || backgroundDrawable instanceof BitmapDrawable) && SharedConfig.getDevicePerformanceClass() != SharedConfig.PERFORMANCE_CLASS_LOW;
-            final boolean forceRecolorServiceMessages = isGiftTheme() && isDark;
+            final boolean forceRecolorServiceMessages = false;
 
             drawSelectedGradient = drawServiceGradient;
 

@@ -19871,7 +19871,6 @@ public class MessagesController extends BaseController implements NotificationCe
                             getContactsController().setPrivacyRules(update.rules, ContactsController.PRIVACY_RULES_TYPE_BIO);
                         } else if (update.key instanceof TLRPC.TL_privacyKeyBirthday) {
                             getContactsController().setPrivacyRules(update.rules, ContactsController.PRIVACY_RULES_TYPE_BIRTHDAY);
-                        } else 
                     } else    if (baseUpdate instanceof TL_update.TL_updateUserStatus) {
                         TL_update.TL_updateUserStatus update = (TL_update.TL_updateUserStatus) baseUpdate;
                         TLRPC.User currentUser = getUser(update.user_id);
@@ -20537,11 +20536,6 @@ public class MessagesController extends BaseController implements NotificationCe
                     } else if (baseUpdate instanceof TL_update.TL_updateMessageReactions) {
                         TL_update.TL_updateMessageReactions update = (TL_update.TL_updateMessageReactions) baseUpdate;
                         long dialogId = MessageObject.getPeerId(update.peer);
-                        long pendingPaid = StarsController.getInstance(currentAccount).getPendingPaidReactions(dialogId, update.msg_id);
-                        if (pendingPaid != 0) {
-                            
-                            MessageObject.addPaidReactions(currentAccount, update.reactions, (int) pendingPaid, false, true);
-                        }
                         getNotificationCenter().postNotificationName(NotificationCenter.didUpdateReactions, dialogId, update.msg_id, update.reactions);
                     } else if (baseUpdate instanceof TL_update.TL_updateMessageExtendedMedia) {
                         TL_update.TL_updateMessageExtendedMedia extendedMedia = (TL_update.TL_updateMessageExtendedMedia) baseUpdate;
@@ -24649,43 +24643,8 @@ public class MessagesController extends BaseController implements NotificationCe
         getMainSettings().edit().putInt("movecaptionhint", getMainSettings().getInt("movecaptionhint", 0) + 1).apply();
     }
 
-    private final HashSet<StarsController.MessageId> reportedMessageDelivery = new HashSet<>();
-    private final HashSet<Pair<StarsController.MessageId, AtomicBoolean>> pendingReportMessageDelivery = new HashSet<>();
-    private final Runnable sendReportMessageDeliver = () -> {
-        final LongSparseArray<Pair<HashSet<Integer>, AtomicBoolean>> arr = new LongSparseArray<>();
-        for (Pair<StarsController.MessageId, AtomicBoolean> id : pendingReportMessageDelivery) {
-            Pair<HashSet<Integer>, AtomicBoolean> darr = arr.get(id.first.did);
-            if (darr == null) {
-                arr.put(id.first.did, darr = new Pair<>(new HashSet<>(), id.second));
-            }
-            if (!id.second.get()) {
-                darr.second.set(false);
-            }
-            darr.first.add(id.first.mid);
-        }
-        pendingReportMessageDelivery.clear();
-        for (int i = 0; i < arr.size(); ++i) {
-            final Pair<HashSet<Integer>, AtomicBoolean> p = arr.valueAt(i);
-            final long did = arr.keyAt(i);
-            final HashSet<Integer> mids = p.first;
-            final boolean push = p.second.get();
-
-            TLRPC.TL_reportMessagesDelivery req = new TLRPC.TL_reportMessagesDelivery();
-            req.peer = getInputPeer(did);
-            req.id.addAll(mids);
-            req.push = push;
-            getConnectionsManager().sendRequest(req, null);
-        }
-    };
 
     public void reportMessageDelivery(long dialogId, int messageId, boolean push) {
-        
-        
-        
-        
-
-        AndroidUtilities.cancelRunOnUIThread(this.sendReportMessageDeliver);
-        AndroidUtilities.runOnUIThread(this.sendReportMessageDeliver);
     }
 
     public final android.util.LongSparseArray<CommonChatsList> commonChats = new android.util.LongSparseArray<>();

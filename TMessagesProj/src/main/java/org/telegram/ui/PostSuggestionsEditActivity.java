@@ -201,8 +201,6 @@ public class PostSuggestionsEditActivity extends BaseFragment {
         doneButtonDrawable.animateToProgress(1f);
         
         
-        0;
-        
 
         
 

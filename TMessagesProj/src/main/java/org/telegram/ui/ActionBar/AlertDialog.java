@@ -1237,13 +1237,13 @@ public class AlertDialog extends Dialog implements Drawable.Callback, Notificati
         Window window = getWindow();
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
         params.copyFrom(window.getAttributes());
-        } else if (progressViewStyle == ALERT_TYPE_SPINNER) {
+        if (progressViewStyle == ALERT_TYPE_SPINNER) {
             params.width = WindowManager.LayoutParams.MATCH_PARENT;
         } else {
             if (dimEnabled && !dimCustom) {
                 params.dimAmount = dimAlpha;
                 params.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-        if (progressViewStyle == ALERT_TYPE_SPINNER) {
+            } else {
                 params.dimAmount = 0f;
                 params.flags ^= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
             }

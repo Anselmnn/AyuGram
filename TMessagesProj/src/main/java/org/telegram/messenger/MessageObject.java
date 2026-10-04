@@ -7114,7 +7114,7 @@ public class MessageObject {
                 }
             } else if (getMedia(messageOwner) instanceof TLRPC.TL_messageMediaGame && getMedia(messageOwner).game.description != null) {
                 linkDescription = Spannable.Factory.getInstance().newSpannable(getMedia(messageOwner).game.description);
-            } else 
+            }
         }
         if (!TextUtils.isEmpty(linkDescription)) {
             if (containsUrls(linkDescription)) {

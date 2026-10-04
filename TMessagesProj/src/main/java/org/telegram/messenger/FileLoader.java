@@ -1255,7 +1255,6 @@ public class FileLoader extends BaseController {
                         }
                     }
                 }
-            } else 
         }
         return "";
     }
@@ -1305,7 +1304,6 @@ public class FileLoader extends BaseController {
                         }
                     }
                 }
-            } else 
         }
         return new File("");
     }

@@ -4170,20 +4170,6 @@ public class ChatAttachAlert extends BottomSheet implements NotificationCenter.N
     }
 
     private void onWriteButtonPressed() {
-        if (editingMessageObject != null && editingMessageObject.needResendWhenEdit() && !ChatObject.canManageMonoForum(currentAccount, editingMessageObject.getDialogId())) {
-            if (baseFragment instanceof ChatActivity) {
-                final ChatActivity chatActivity = (ChatActivity) baseFragment;
-                final MessageSuggestionParams params = chatActivity.messageSuggestionParams != null ?
-                        chatActivity.messageSuggestionParams :
-                        MessageSuggestionParams.of(editingMessageObject.messageOwner.suggested_post);
-
-                 {
-                    chatActivity.showSuggestionOfferForEditMessage(params);
-                    return;
-                }
-            }
-        }
-
         if (currentLimit - codepointCount < 0) {
             AndroidUtilities.shakeView(captionLimitView);
             AndroidUtilities.shakeView(topCaptionLimitView);

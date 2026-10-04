@@ -2505,9 +2505,6 @@ public class AlertsCreator {
         });
         builder.setNegativeButton(LocaleController.getString(R.string.Cancel), null);
         AlertDialog d = builder.create();
-        if (withBalance) {
-            d.setShowStarsBalance(true);
-        }
         d.show();
         return d;
     }

@@ -2303,8 +2303,6 @@ public class ChatUsersActivity extends BaseFragment implements NotificationCente
             if (enablePrice != initialEnablePrice || enablePrice && initialStarsPrice != starsPrice) {
                 
                 
-                0;
-                
 
                 final TLRPC.Chat chat = getMessagesController().getChat(chatId);
                 if (chat != null) {
