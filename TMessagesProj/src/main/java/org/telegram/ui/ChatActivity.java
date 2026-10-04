@@ -41052,7 +41052,7 @@ public class ChatActivity extends BaseFragment implements
         public void didPressGroupImage(ChatMessageCell cell, ImageReceiver imageReceiver, TLRPC.MessageExtendedMedia media, float x, float y) {
             final MessageObject message = cell.getMessageObject();
             if (media instanceof TLRPC.TL_messageExtendedMediaPreview) {
-                BulletinFactory.of(this).createErrorBulletin(LocaleController.getString(R.string.PaymentUnavailable)).show();
+                BulletinFactory.of(ChatActivity.this).createErrorBulletin(LocaleController.getString(R.string.PaymentUnavailable)).show();
                 return;
             }
             final TLRPC.Message omsg = message.messageOwner;
