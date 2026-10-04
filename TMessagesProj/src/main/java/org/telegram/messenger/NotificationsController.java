@@ -56,7 +56,6 @@ import androidx.collection.LongSparseArray;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.Person;
-import androidx.core.app.RemoteInput;
 import androidx.core.content.FileProvider;
 import androidx.core.content.LocusIdCompat;
 import androidx.core.content.pm.ShortcutInfoCompat;
@@ -101,7 +100,6 @@ import java.util.function.Consumer;
 
 public class NotificationsController extends BaseController implements NotificationCenter.NotificationCenterDelegate {
 
-    public static final String EXTRA_VOICE_REPLY = "extra_voice_reply";
     public static String OTHER_NOTIFICATIONS_CHANNEL = null;
 
     private static final DispatchQueue notificationsQueue = new DispatchQueue("notificationsQueue");
@@ -5132,44 +5130,6 @@ public class NotificationsController extends BaseController implements Notificat
                 personCache.put(-chat.id, personBuilder.build());
             }
 
-            NotificationCompat.Action wearReplyAction = null;
-
-            if ((!isChannel || isSupergroup) && canReply && !SharedConfig.isWaitingForPasscodeEnter && selfUserId != dialogId && !UserObject.isReplyUser(dialogId) && MessagesController.getInstance(currentAccount).getSendPaidMessagesStars(dialogId) <= 0) {
-                Intent replyIntent = new Intent(ApplicationLoader.applicationContext, WearReplyReceiver.class);
-                replyIntent.putExtra("dialog_id", dialogId);
-                replyIntent.putExtra("max_id", maxId);
-                replyIntent.putExtra("topic_id", topicId);
-                replyIntent.putExtra("currentAccount", currentAccount);
-                if (messageObjects != null && !messageObjects.isEmpty()) {
-                    ArrayList<Integer> voiceIdsList = new ArrayList<>();
-                    for (int vi = 0; vi < messageObjects.size(); vi++) {
-                        MessageObject vmo = messageObjects.get(vi);
-                        if (vmo != null && vmo.isVoice() && vmo.isContentUnread() && !vmo.isOut()) {
-                            voiceIdsList.add(vmo.getId());
-                        }
-                    }
-                    if (!voiceIdsList.isEmpty()) {
-                        int[] voiceIds = new int[voiceIdsList.size()];
-                        for (int vi = 0; vi < voiceIds.length; vi++) voiceIds[vi] = voiceIdsList.get(vi);
-                        replyIntent.putExtra("voice_msg_ids", voiceIds);
-                    }
-                }
-                PendingIntent replyPendingIntent = PendingIntent.getBroadcast(ApplicationLoader.applicationContext, internalId, replyIntent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
-                RemoteInput remoteInputWear = new RemoteInput.Builder(EXTRA_VOICE_REPLY).setLabel(LocaleController.getString(R.string.Reply)).build();
-                String replyToString;
-                if (DialogObject.isChatDialog(dialogId)) {
-                    replyToString = LocaleController.formatString(R.string.ReplyToGroup, name);
-                } else {
-                    replyToString = LocaleController.formatString(R.string.ReplyToUser, name);
-                }
-                wearReplyAction = new NotificationCompat.Action.Builder(R.drawable.ic_reply_icon, replyToString, replyPendingIntent)
-                        .setAllowGeneratedReplies(true)
-                        .setSemanticAction(NotificationCompat.Action.SEMANTIC_ACTION_REPLY)
-                        .addRemoteInput(remoteInputWear)
-                        .setShowsUserInterface(false)
-                        .build();
-            }
-
             Integer count = pushDialogs.get(dialogId);
             if (count == null) {
                 count = 0;
@@ -5535,9 +5495,6 @@ public class NotificationsController extends BaseController implements Notificat
             PendingIntent contentIntent = PendingIntent.getActivity(ApplicationLoader.applicationContext, 0, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_ONE_SHOT);
 
             NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender();
-            if (wearReplyAction != null) {
-                wearableExtender.addAction(wearReplyAction);
-            }
             Intent msgHeardIntent = new Intent(ApplicationLoader.applicationContext, AutoMessageHeardReceiver.class);
             msgHeardIntent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
             msgHeardIntent.setAction("org.telegram.messenger.ACTION_MESSAGE_HEARD");
@@ -5646,9 +5603,6 @@ public class NotificationsController extends BaseController implements Notificat
                 builder.addAction(copyAction);
             }
             if (dialogKey.dialogId != UserObject.VERIFY && dialogKey.dialogId != UserObject.OAUTH) {
-                if (wearReplyAction != null) {
-                    builder.addAction(wearReplyAction);
-                }
                 if (!waitingForPasscode && !dialogKey.story && (lastMessageObject == null || !lastMessageObject.isStoryReactionPush)) {
                     builder.addAction(readAction);
                 }
