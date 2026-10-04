@@ -30735,8 +30735,6 @@ public class ChatActivity extends BaseFragment implements
                 getConnectionsManager().sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
                     if (response instanceof TLRPC.TL_payments_paymentReceiptStars) {
                         StarsIntroActivity.showTransactionSheet(getContext(), false, currentAccount, (TLRPC.TL_payments_paymentReceiptStars) response, resourceProvider);
-                    } else if (response instanceof TLRPC.PaymentReceipt) {
-                        presentFragment(new PaymentFormActivity((TLRPC.PaymentReceipt) response));
                     }
                 }), ConnectionsManager.RequestFlagFailOnServerErrors);
                 return true;
@@ -36368,38 +36366,6 @@ public class ChatActivity extends BaseFragment implements
         };
     }
 
-    private Browser.Progress makeProgressForPaidMedia(ChatMessageCell cell) {
-        if (progressDialogCurrent != null) {
-            progressDialogCurrent.cancel(true);
-            progressDialogCurrent = null;
-        }
-        if (cell == null || cell.getMessageObject() == null) {
-            return progressDialogCurrent = null;
-        }
-        final int id = cell.getMessageObject().getId();
-        return progressDialogCurrent = new Browser.Progress() {
-            @Override
-            public void init() {
-                progressDialogAtMessageId = id;
-                progressDialogAtMessageType = PROGRESS_PAID_MEDIA;
-                progressDialogBotButtonUrl = null;
-
-                cell.invalidate();
-            }
-
-            @Override
-            public void end(boolean replaced) {
-                if (!replaced) {
-                    AndroidUtilities.runOnUIThread(() -> {
-                        if (progressDialogAtMessageId == id) {
-                            resetProgressDialogLoading();
-                        }
-                    }, 240);
-                }
-            }
-        };
-    }
-
     private void loadFullRichMessage(ChatMessageCell cell) {
         if (cell == null) return;
         final MessageObject messageObject = cell.getMessageObject();
@@ -41086,12 +41052,7 @@ public class ChatActivity extends BaseFragment implements
         public void didPressGroupImage(ChatMessageCell cell, ImageReceiver imageReceiver, TLRPC.MessageExtendedMedia media, float x, float y) {
             final MessageObject message = cell.getMessageObject();
             if (media instanceof TLRPC.TL_messageExtendedMediaPreview) {
-                final Browser.Progress progress = makeProgressForPaidMedia(cell);
-                Runnable cancel = StarsController.getInstance(currentAccount).pay(message, progress::end);
-                if (cancel != null) {
-                    progress.onCancel(cancel);
-                    progress.init();
-                }
+                BulletinFactory.of(this).createErrorBulletin(LocaleController.getString(R.string.PaymentUnavailable)).show();
                 return;
             }
             final TLRPC.Message omsg = message.messageOwner;

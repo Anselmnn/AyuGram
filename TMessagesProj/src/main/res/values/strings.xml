@@ -122,6 +122,7 @@
     <string name="PaymentTransactionTotal">Total</string>
     <string name="PaymentInvoiceLinkInvalid">Invalid invoice</string>
     <string name="PaymentInvoiceSubscriptionLinkAlreadyPaid">Already subscribed!</string>
+    <string name="PaymentUnavailable">Payments are currently unavailable</string>
     <string name="PaymentInvoice">INVOICE</string>
     <string name="PaymentInvoiceDisabledStarsText">Not enough stars</string>
     <string name="StarsPurchaseUnavailable">Purchasing stars is not available at this time.</string>

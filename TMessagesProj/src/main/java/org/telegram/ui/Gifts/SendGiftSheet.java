@@ -14,8 +14,6 @@ import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -31,15 +29,9 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingFlowParams;
-import com.android.billingclient.api.ProductDetails;
 
-import org.telegram.messenger.AccountInstance;
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.messenger.AnimationNotificationsLocker;
-import org.telegram.messenger.BillingController;
-import org.telegram.messenger.BuildVars;
 import org.telegram.messenger.GiftAuctionController;
 import org.telegram.messenger.LocaleController;
 import org.telegram.messenger.MediaDataController;
@@ -50,18 +42,15 @@ import org.telegram.messenger.R;
 import org.telegram.messenger.UserConfig;
 import org.telegram.messenger.UserObject;
 import org.telegram.messenger.Utilities;
-import org.telegram.messenger.browser.Browser;
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.tgnet.tl.TL_stars;
 import org.telegram.ui.ActionBar.BaseFragment;
-import org.telegram.ui.ActionBar.INavigationLayout;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Cells.ChatActionCell;
 import org.telegram.ui.Cells.EditEmojiTextCell;
 import org.telegram.ui.ChatActivity;
-import org.telegram.ui.Components.AlertsCreator;
 import org.telegram.ui.Components.BottomSheetWithRecyclerListView;
 import org.telegram.ui.Components.BulletinFactory;
 import org.telegram.ui.Components.ColoredImageSpan;
@@ -85,7 +74,6 @@ import org.telegram.ui.Components.blur3.drawable.color.BlurredBackgroundColorPro
 import org.telegram.ui.Components.blur3.source.BlurredBackgroundSourceColor;
 import org.telegram.ui.Components.chat.ViewPositionWatcher;
 import org.telegram.ui.LaunchActivity;
-import org.telegram.ui.ProfileActivity;
 import org.telegram.ui.Stars.StarGiftSheet;
 import org.telegram.ui.Stars.StarsController;
 import org.telegram.ui.Stars.StarsIntroActivity;
@@ -93,9 +81,9 @@ import org.telegram.ui.Stories.recorder.ButtonWithCounterView;
 import org.telegram.ui.Stories.recorder.PreviewView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 public class SendGiftSheet extends BottomSheetWithRecyclerListView implements NotificationCenter.NotificationCenterDelegate, GiftAuctionController.OnAuctionUpdateListener {
@@ -284,9 +272,6 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
             action.flags |= 4;
             action.currency = premiumTier.getCurrency();
             action.amount = premiumTier.getPrice();
-            if (premiumTier.googlePlayProductDetails != null) {
-                action.amount = (long) (action.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(action.currency) - 6));
-            }
             action.flags |= 16;
             action.message = new TLRPC.TL_textWithEntities();
             this.action = action;
@@ -295,9 +280,6 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
             action.months = premiumTier.getMonths();
             action.currency = premiumTier.getCurrency();
             action.amount = premiumTier.getPrice();
-            if (premiumTier.googlePlayProductDetails != null) {
-                action.amount = (long) (action.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(action.currency) - 6));
-            }
             action.flags |= 2;
             action.message = new TLRPC.TL_textWithEntities();
             this.action = action;
@@ -586,9 +568,6 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
                     } else {
                         thisAction.currency = premiumTier.getCurrency();
                         thisAction.amount = premiumTier.getPrice();
-                        if (premiumTier.googlePlayProductDetails != null) {
-                            thisAction.amount = (long) (thisAction.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(thisAction.currency) - 6));
-                        }
                     }
                 } else if (action instanceof TLRPC.TL_messageActionGiftCode) {
                     final TLRPC.TL_messageActionGiftCode thisAction = (TLRPC.TL_messageActionGiftCode) action;
@@ -598,9 +577,6 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
                     } else {
                         thisAction.currency = premiumTier.getCurrency();
                         thisAction.amount = premiumTier.getPrice();
-                        if (premiumTier.googlePlayProductDetails != null) {
-                            thisAction.amount = (long) (thisAction.amount * Math.pow(10, BillingController.getInstance().getCurrencyExp(thisAction.currency) - 6));
-                        }
                     }
                 }
                 messageObject.updateMessageText();
@@ -828,88 +804,13 @@ public class SendGiftSheet extends BottomSheetWithRecyclerListView implements No
                     }
                     button.setLoading(false);
                 });
-            } else if (BuildVars.useInvoiceBilling()) {
-                final LaunchActivity activity = LaunchActivity.instance;
-                if (activity != null) {
-                    Uri uri = Uri.parse(o.bot_url);
-                    if (uri.getHost().equals("t.me")) {
-                        if (!uri.getPath().startsWith("/$") && !uri.getPath().startsWith("/invoice/")) {
-                            activity.setNavigateToPremiumBot(true);
-                        } else {
-                            activity.setNavigateToPremiumGiftCallback(() -> onGiftSuccess(false));
-                        }
-                    }
-                    Browser.openUrl(activity, premiumTier.giftOption.bot_url);
-                    dismiss();
-                }
             } else {
-                if (BillingController.getInstance().isReady() && premiumTier.googlePlayProductDetails != null) {
-                    TLRPC.TL_inputStorePaymentGiftPremium giftPremium = new TLRPC.TL_inputStorePaymentGiftPremium();
-                    giftPremium.user_id = MessagesController.getInstance(currentAccount).getInputUser(user);
-                    ProductDetails.OneTimePurchaseOfferDetails offerDetails = premiumTier.googlePlayProductDetails.getOneTimePurchaseOfferDetails();
-                    giftPremium.currency = offerDetails.getPriceCurrencyCode();
-                    giftPremium.amount = (long) ((offerDetails.getPriceAmountMicros() / Math.pow(10, 6)) * Math.pow(10, BillingController.getInstance().getCurrencyExp(giftPremium.currency)));
-
-                    BillingController.getInstance().addResultListener(premiumTier.giftOption.store_product, billingResult -> {
-                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                            AndroidUtilities.runOnUIThread(() -> onGiftSuccess(true));
-                        }
-                    });
-
-                    TLRPC.TL_payments_canPurchaseStore req = new TLRPC.TL_payments_canPurchaseStore();
-                    req.purpose = giftPremium;
-                    ConnectionsManager.getInstance(currentAccount).sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {
-                        if (response instanceof TLRPC.TL_boolTrue) {
-                            BillingController.getInstance().launchBillingFlow(getBaseFragment().getParentActivity(), AccountInstance.getInstance(currentAccount), giftPremium, Collections.singletonList(BillingFlowParams.ProductDetailsParams.newBuilder()
-                                    .setProductDetails(premiumTier.googlePlayProductDetails)
-                                    .build()));
-                        } else if (error != null) {
-                            AlertsCreator.processError(currentAccount, error, getBaseFragment(), req);
-                        }
-                    }));
-                }
+                BulletinFactory.of(topBulletinContainer, resourcesProvider)
+                    .createErrorBulletin(LocaleController.getString(R.string.PaymentUnavailable))
+                    .show();
+                dismiss();
             }
         }
-    }
-
-    private void onGiftSuccess(boolean fromGooglePlay) {
-        TLRPC.UserFull full = MessagesController.getInstance(currentAccount).getUserFull(dialogId);
-        final TLObject user = MessagesController.getInstance(currentAccount).getUserOrChat(dialogId);
-        if (full != null) {
-            if (user instanceof TLRPC.User) {
-                ((TLRPC.User) user).premium = true;
-                MessagesController.getInstance(currentAccount).putUser((TLRPC.User) user, true);
-                NotificationCenter.getInstance(currentAccount).postNotificationName(NotificationCenter.userInfoDidLoad, ((TLRPC.User) user).id, full);
-            }
-        }
-
-        if (getBaseFragment() != null) {
-            List<BaseFragment> fragments = new ArrayList<>(((LaunchActivity) getBaseFragment().getParentActivity()).getActionBarLayout().getFragmentStack());
-
-            INavigationLayout layout = getBaseFragment().getParentLayout();
-            ChatActivity lastChatActivity = null;
-            for (BaseFragment fragment : fragments) {
-                if (fragment instanceof ChatActivity) {
-                    lastChatActivity = (ChatActivity) fragment;
-                    if (lastChatActivity.getDialogId() != dialogId) {
-                        fragment.removeSelfFromStack();
-                    }
-                } else if (fragment instanceof ProfileActivity) {
-                    if (fromGooglePlay && layout.getLastFragment() == fragment) {
-                        fragment.finishFragment();
-                    } else {
-                        fragment.removeSelfFromStack();
-                    }
-                }
-            }
-            if (lastChatActivity == null || lastChatActivity.getDialogId() != dialogId) {
-                Bundle args = new Bundle();
-                args.putLong("user_id", dialogId);
-                layout.presentFragment(new ChatActivity(args), true);
-            }
-        }
-
-        dismiss();
     }
 
     @Override
