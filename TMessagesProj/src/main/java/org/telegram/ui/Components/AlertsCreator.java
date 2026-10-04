@@ -607,7 +607,7 @@ public class AlertsCreator {
             } else {
                 showSimpleToast(fragment, error.text);
             }
-        } else   
+        }
 
         return null;
     }
