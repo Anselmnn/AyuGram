@@ -13002,7 +13002,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     break;
                 }
                 case VIEW_TYPE_COLORFUL_TEXT: {
-                    
+                    view = new TextInfoPrivacyCell(mContext, resourcesProvider);
                     break;
                 }
                 case VIEW_TYPE_USER: {

@@ -1099,9 +1099,6 @@ public class ChannelColorActivity extends BaseFragment implements NotificationCe
             } else if (viewType == VIEW_TYPE_HEADER) {
                 HeaderCell headerCell = new HeaderCell(getContext(), resourceProvider);
                 view = headerCell;
-            } else if (viewType == VIEW_TYPE_GIFT) {
-                
-                
             } else if (viewType == VIEW_TYPE_GIFT_FLICKER) {
                 FlickerLoadingView flickerLoadingView = new FlickerLoadingView(getContext(), resourceProvider);
                 flickerLoadingView.setIsSingleCell(true);
